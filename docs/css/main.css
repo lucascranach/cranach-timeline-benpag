@@ -97,26 +97,31 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+.main {
+  margin-left: 128px;
+}
+
 .custom-nav {
-  width: 200px;
+  width: 150px;
   flex-wrap: wrap;
   position: fixed;
-  margin-left: 20%;
   height: 100%;
 }
 
 .navbar-nav-custom {
-  width: 80px;
+  width: 120px;
 }
 div[id*="page"]{
   width: 100%;
-  height: 500px;
+  min-height: 400px;
 }
 
+.fa-stack-2x {
+  font-size: inherit;
+}
 /* ==========================================================================
    Helper classes
    ========================================================================== */
-
 /*
  * Hide visually and from screen readers
  */

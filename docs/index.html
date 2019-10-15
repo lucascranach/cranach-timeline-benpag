@@ -12,6 +12,7 @@
   <!-- Place favicon.ico in the root directory -->
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc=" crossorigin="anonymous" />
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
 
@@ -22,10 +23,9 @@
   <!--[if IE]>
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
   <![endif]-->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center align-items-start custom-nav">
-    <a class="navbar-brand" href="#">
-      <img src="https://getbootstrap.com/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-      <span class="navbar-brand mb-0 h1">Bootstrap</span>
+  <nav class="navbar navbar-expand-lg navbar-light justify-content-center align-items-start custom-nav">
+    <a class="navbar-brand mx-auto" href="#cover">
+      <img src="https://getbootstrap.com/docs/4.3/assets/brand/bootstrap-solid.svg" width="48" height="48" alt="Logo">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -33,47 +33,130 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav m-auto flex-wrap navbar-nav-custom">
         <li class="nav-item active">
-          <a class="nav-link" href="#page1">Page1</a>
+          <a class="nav-link" href="#cover">Cover</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#page2">Page2</a>
+          <a class="nav-link" href="#page1">Our Offerings</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#page3">Page3</a>
+          <a class="nav-link" href="#page2">Benefits at glance</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#page4">Page4</a>
+          <a class="nav-link" href="#page3">Our solution process</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#page5">Page5</a>
+          <a class="nav-link" href="#page4">Testimonials</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#page6">Page6</a>
+          <a class="nav-link" href="#page5">Our team / our partners</a>
         </li>
       </ul>
     </div>
   </nav>
-  <div class="main container-fluid">
-    <div id="page0">
-      <h3>Page 0</h3>
+  <div class="main px-4">
+    <div id="cover" class="jumbotron">
+      <span class="h1 display-4">Cover</span>
+      <p class="lead">
+        What is the name of our company, product or service?<br>
+        What is our slogan?
+      </p>
+      <hr>
     </div>
-    <div id="page1" class="bg-secondary">
-      <h3>Page 1</h3>
+    <div id="page1" class="jumbotron bg-secondary">
+      <span class="display-4">Our Offerings</span>
+      <hr>
+      <p class="h1 font-italic p-4">Für eine übersichtliche Darstellung von allen Cranach Werken mit genau den Informationen, die Sie brauchen.</p>
     </div>
-    <div id="page2">
-      <h3>Page 2</h3>
+    <div id="page2" class="jumbotron">
+      <span class="display-4">Benefits at glance</span>
+      <p class="lead">What is our proposition in particular?</p>
+      <hr>
+      <div class="d-flex justify-content-around">
+        <div class="card text-center" style="width: 18rem;">
+          <div class="mt-3">
+            <span class="fa-stack fa-2x" style="vertical-align: top;">
+              <i class="fas fa-circle fa-stack-2x" style="color: #6c757d"></i>
+              <i class="fas fa-drafting-compass fa-stack-1x fa-inverse"></i>
+            </span>
+          </div>
+          <div class="card-body">
+            <p class="card-text">Geführte Navigation anhand eines Zeitstrahls</p>
+          </div>
+        </div>
+        <div class="card text-center" style="width: 18rem;">
+          <div class="mt-3">
+            <span class="fa-stack fa-2x" style="vertical-align: top;">
+              <i class="fas fa-circle fa-stack-2x" style="color: #6c757d"></i>
+              <i class="fas fa-map-marker-alt fa-stack-1x fa-inverse"></i>
+            </span>
+          </div>
+          <div class="card-body">
+            <p class="card-text">Alle Werke von Cranach auf einer Platform</p>
+          </div>
+        </div>
+        <div class="card text-center" style="width: 18rem;">
+          <div class="mt-3">
+            <span class="fa-stack fa-2x" style="vertical-align: top;">
+              <i class="fas fa-circle fa-stack-2x" style="color: #6c757d"></i>
+              <i class="fas fa-history fa-stack-1x fa-inverse"></i>
+            </span>
+          </div>
+          <div class="card-body">
+            <p class="card-text">Einordnung in den historischen Kontext</p>
+          </div>
+        </div>
+        <div class="card text-center" style="width: 18rem;">
+          <div class="mt-3">
+            <span class="fa-stack fa-2x" style="vertical-align: top;">
+              <i class="fas fa-circle fa-stack-2x" style="color: #6c757d"></i>
+              <i class="far fa-smile fa-stack-1x fa-inverse"></i>
+            </span>
+          </div>
+          <div class="card-body">
+            <p class="card-text">Bequemer Zugriff auf alle Informationen</p>
+          </div>
+        </div>
+      </div>
     </div>
-    <div id="page3" class="bg-secondary">
-      <h3>Page 3</h3>
+    <div id="page3" class="jumbotron bg-secondary">
+      <span class="display-4">Our solution process</span>
+      <p class="lead">
+        How does our solution work?<br>
+      </p>
+      <hr>
     </div>
-    <div id="page4">
-      <h3>Page 4</h3>
+    <div id="page4" class="jumbotron">
+      <span class="display-4">Testimonials</span>
+      <hr>
+      <div class="d-flex justify-content-around">
+        <div class="card text-center" style="width: 36rem;">
+          <div class="mt-3">
+            <span class="fa-stack fa-2x" style="vertical-align: top;">
+              <i class="fas fa-user-circle fa-stack-2x" style="color: #6c757d"></i>
+            </span>
+          </div>
+          <div class="card-body text-right">
+            <p class="card-text h2 font-italic text-center font-weight-light">Diese Website bietet alles, was ich für meine Recherchen brauche.</p>
+            <span class="h4 font-italic mr-4 font-weight-light">John Snow</span>
+          </div>
+        </div>
+        <div class="card text-center" style="width: 36rem;">
+          <div class="mt-3">
+            <span class="fa-stack fa-2x" style="vertical-align: top;">
+              <i class="fas fa-user-circle fa-stack-2x" style="color: #6c757d"></i>
+            </span>
+          </div>
+          <div class="card-body text-right">
+            <p class="card-text h2 font-italic text-center font-weight-light">Diese Website bietet alles, was ich für meine Recherchen brauche.</p>
+            <span class="h4 font-italic mr-4 font-weight-light">John Snow</span>
+          </div>
+        </div>
+      </div>
     </div>
-    <div id="page5" class="bg-secondary">
-      <h3>Page 5</h3>
-    </div>
-    <div id="page6">
-      <h3>Page 6</h3>
+    <div id="page5" class="jumbotron bg-secondary">
+      <span class="display-4">Our team or partners</span>
+      <p class="lead">Who is our team / Who are our partners?</p>
+      <hr>
     </div>
   </div>
   <!-- Add your site or application content here -->
@@ -82,6 +165,7 @@
   <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.4.1.min.js"><\/script>')</script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" integrity="sha256-qM7QTJSlvtPSxVRjVWNM2OfTAz/3k5ovHOKmKXuYMO4=" crossorigin="anonymous"></script>
   <script src="js/plugins.js"></script>
   <script src="js/main.js"></script>
 </body>

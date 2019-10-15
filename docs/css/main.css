@@ -97,6 +97,21 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+.custom-nav {
+  width: 200px;
+  flex-wrap: wrap;
+  position: fixed;
+  margin-left: 20%;
+  height: 100%;
+}
+
+.navbar-nav-custom {
+  width: 80px;
+}
+div[id*="page"]{
+  width: 100%;
+  height: 500px;
+}
 
 /* ==========================================================================
    Helper classes

@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html class="no-js" lang="de">
 
 <head>
   <meta charset="utf-8">
@@ -11,6 +11,7 @@
   <link rel="apple-touch-icon" href="icon.png">
   <!-- Place favicon.ico in the root directory -->
 
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
 
@@ -21,21 +22,68 @@
   <!--[if IE]>
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
   <![endif]-->
-
+  <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center align-items-start custom-nav">
+    <a class="navbar-brand" href="#">
+      <img src="https://getbootstrap.com/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+      <span class="navbar-brand mb-0 h1">Bootstrap</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav m-auto flex-wrap navbar-nav-custom">
+        <li class="nav-item active">
+          <a class="nav-link" href="#page1">Page1</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#page2">Page2</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#page3">Page3</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#page4">Page4</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#page5">Page5</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#page6">Page6</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="main container-fluid">
+    <div id="page0">
+      <h3>Page 0</h3>
+    </div>
+    <div id="page1" class="bg-secondary">
+      <h3>Page 1</h3>
+    </div>
+    <div id="page2">
+      <h3>Page 2</h3>
+    </div>
+    <div id="page3" class="bg-secondary">
+      <h3>Page 3</h3>
+    </div>
+    <div id="page4">
+      <h3>Page 4</h3>
+    </div>
+    <div id="page5" class="bg-secondary">
+      <h3>Page 5</h3>
+    </div>
+    <div id="page6">
+      <h3>Page 6</h3>
+    </div>
+  </div>
   <!-- Add your site or application content here -->
-  <p>Hello world! This is HTML5 Boilerplate.</p>
   <script src="js/vendor/modernizr-3.7.1.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.4.1.min.js"><\/script>')</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="js/plugins.js"></script>
   <script src="js/main.js"></script>
-
-  <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
-  <script>
-    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
-    ga('create', 'UA-XXXXX-Y', 'auto'); ga('set','transport','beacon'); ga('send', 'pageview')
-  </script>
-  <script src="https://www.google-analytics.com/analytics.js" async></script>
 </body>
 
 </html>

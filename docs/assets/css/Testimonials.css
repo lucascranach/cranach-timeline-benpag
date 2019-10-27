@@ -36,10 +36,6 @@
   padding: 50px 0 20px;
 }
 
-.testimonials-clean .item {
-  margin-bottom: 32px;
-}
-
 @media (min-width:768px) {
   .testimonials-clean .item {
     height: 220px;

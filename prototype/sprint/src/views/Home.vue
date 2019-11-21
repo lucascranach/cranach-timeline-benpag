@@ -112,6 +112,7 @@ export default {
     },
     createProduction(data) {
       return {
+        primaryImageUrl: data.primaryImage,
         imageUrl: data.primaryImageSmall,
         startDate: data.objectBeginDate, // `${data.objectBeginDate}-01-01T00:00:00`,
         endDate: data.objectEndDate, // `${data.objectEndDate}-12-31T23:59:59`,

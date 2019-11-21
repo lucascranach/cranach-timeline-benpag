@@ -66,6 +66,7 @@ export default {
     filteredCategories: {
       get() {
         if (this.filters.length > 0) {
+          console.log(this.filters);
           return this.categories.reduce((acc, current) => {
             const filteredData = current.data.reduce((dataAcc, currentData) => {
               if (this.matchesAllFilters(currentData)) return [...dataAcc, currentData];

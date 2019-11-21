@@ -88,6 +88,7 @@ export default {
   name: 'Gallery',
   data: () => ({
     categoryStates: [false, false, false, false],
+    timeout: null,
   }),
   props: {
     categories: {
@@ -122,7 +123,6 @@ export default {
   computed: {
     mutatedCategories: {
       get() {
-        console.log(this.categories);
         return this.categories.map((c, i) => {
           const newCat = { ...c };
           if (!this.categoryStates[i]) newCat.data = newCat.data.slice(0, 4);

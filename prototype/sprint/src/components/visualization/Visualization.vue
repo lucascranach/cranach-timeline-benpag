@@ -18,15 +18,13 @@
           </v-col>
 
           <v-col cols="4">
-            <v-row justify="center">
-              <v-btn icon x-large>
-                <v-icon>fa-info</v-icon>
-              </v-btn>
-            </v-row>
           </v-col>
 
           <v-col cols="4">
             <v-row justify="end">
+              <v-btn icon x-large>
+                <v-icon>fa-info</v-icon>
+              </v-btn>
             </v-row>
           </v-col>
         </v-row>
@@ -90,29 +88,6 @@ export default {
 
   props: {
     categories: {
-      /*
-        [
-          {
-            type: "Gemälde",
-            data: [
-              {
-                imageUrl,
-                startDate,
-                endDate,
-                title,
-                location,
-                customer,
-                artist,
-                medium,
-                dimensions,
-                date,
-                link,
-                type,
-              }
-            ],
-          }
-        ]
-      */
       type: Array,
       required: true,
     },
@@ -163,15 +138,12 @@ export default {
       get() {
         return {
           chart: {
-            // type: 'scatter',
             zoomType: 'x',
             backgroundColor: 'rgb(250,250,250)',
             events: {
               load: function outer() {
                 console.log('loaded');
               },
-            // click: () => {
-            // },
             },
           },
           title: {
@@ -185,6 +157,27 @@ export default {
             events: {
               afterSetExtremes: event => this.setRange(event),
             },
+          },
+          tooltip: {
+            useHTML: true,
+            // formatter: function tool() {
+            //   console.log(this);
+            // },
+            headerFormat: '<span style="font-size: 15px"><b>{series.name}</b></span><table>',
+            pointFormat: `
+              <tr>
+                <td><img src="{point.image}" alt="" border=3 height=150 width=150></img></td>
+                <td>
+                  <span style="font-size: 13px"><b>Titel: </b>{point.title}</span> <br>
+                  <br>
+                  <span style="font-size: 13px"><b>Medium: </b>{point.medium}</span> <br>
+                  <br>
+                  <span style="font-size: 13px"><b>Ort: </b> {point.location}</span> <br>
+                  <br>
+                  <span style="font-size: 13px"><b>Auftraggeber: </b>{point.customer}</span>
+                </td>
+              </tr>`,
+            footerFormat: '</table>',
           },
           plotOptions: {
             scatter: {
@@ -205,10 +198,6 @@ export default {
                     enabled: false,
                   },
                 },
-              },
-              tooltip: {
-                headerFormat: '<b>{series.name}</b><br>',
-                pointFormat: '{point.x} cm, {point.y} kg',
               },
             },
             series: {
@@ -241,6 +230,10 @@ export default {
         type: 'line',
         color: 'rgba(0,0,0,0.5)',
         name: 'Cranach der Ältere',
+        tooltip: {
+          headerFormat: '<span style="font-size: 15px"><b>{point.key:%Y-%m-%d}</b></span><br/>',
+          pointFormat: '<span style="font-size: 15px"><b>{series.name}</b>: </span>{point.title}<br/>',
+        },
         marker: {
           enabled: true,
           radius: 5,
@@ -298,6 +291,7 @@ export default {
     setRange(event) {
       const newStart = new Date(event.min);
       const newEnd = new Date(event.max);
+
       if (this.min !== newStart && this.max !== newEnd) {
         this.min = newStart;
         this.max = newEnd;
@@ -317,13 +311,6 @@ export default {
 
         const productStart = data.startDate;
         const productEnd = data.endDate;
-        console.log(`productStart: ${productStart}`);
-        console.log(`fromDateTime: ${fromDateTime}`);
-        console.log(productStart >= fromDateTime);
-
-        console.log(`productEnd: ${productEnd}`);
-        console.log(`toDateTime: ${toDateTime}`);
-        console.log(productEnd <= toDateTime);
 
         return (fromDateTime <= productStart && productStart <= toDateTime)
           || (toDateTime >= productEnd && productEnd >= fromDateTime);

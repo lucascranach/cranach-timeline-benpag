@@ -168,11 +168,13 @@ export default {
               <tr>
                 <td><img src="{point.image}" alt="" border=3 height=150 width=150></img></td>
                 <td>
-                  <span style="font-size: 12px"><b>Titel: </b>{point.title}</span> <br>
+                  <span style="font-size: 13px"><b>Titel: </b>{point.title}</span> <br>
                   <br>
-                  <span style="font-size: 12px"><b>Medium: </b>{point.medium}</span> <br>
+                  <span style="font-size: 13px"><b>Medium: </b>{point.medium}</span> <br>
                   <br>
-                  <span style="font-size: 12px"><b>Ort: </b> {point.location}</span>
+                  <span style="font-size: 13px"><b>Ort: </b> {point.location}</span> <br>
+                  <br>
+                  <span style="font-size: 13px"><b>Auftraggeber: </b>{point.customer}</span>
                 </td>
               </tr>`,
             footerFormat: '</table>',

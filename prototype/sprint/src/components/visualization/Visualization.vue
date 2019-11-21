@@ -45,6 +45,17 @@
         </v-row>
 
         <v-row ref="timeRow">
+          <v-col cols="1">
+            <v-row justify="start">
+              <v-text-field outlined ref="left" v-model="textFieldValueMin"></v-text-field>
+            </v-row>
+          </v-col>
+          <v-col cols="10"></v-col>
+          <v-col cols="1">
+            <v-row justify="end">
+              <v-text-field outlined ref="right" v-model="textFieldValueMax"></v-text-field>
+            </v-row>
+          </v-col>
         </v-row>
       </v-col>
     </v-row>
@@ -99,6 +110,30 @@ export default {
   },
 
   computed: {
+    textFieldValueMin: {
+      get() {
+        return 1900 + this.min.getYear();
+      },
+      set(value) {
+        const date = new Date(value);
+        const dateTime = date.getTime();
+        const xMin = new Date('1471-01-01').getTime();
+        const xMax = new Date(this.max).getTime();
+        if (dateTime >= xMin && dateTime <= xMax) this.setZoom(date, this.max);
+      },
+    },
+    textFieldValueMax: {
+      get() {
+        return 1900 + this.max.getYear();
+      },
+      set(value) {
+        const date = new Date(value);
+        const dateTime = date.getTime();
+        const xMin = new Date(this.min).getTime();
+        const xMax = new Date('1554-01-01').getTime();
+        if (dateTime >= xMin && dateTime <= xMax) this.setZoom(this.min, date);
+      },
+    },
     series: {
       get() {
         const newSeries = this.categories.map(category => ({
@@ -128,12 +163,8 @@ export default {
             //       self.chart = this;
             //     };
             //   })(this),
-              click: () => {
-                console.log(new Date('1500-01-01').getTime());
-                // this.$refs.chart.chart.xAxis[0]
-                // .update({ min: new Date('1500-01-01').getTime(),
-                // max: new Date('1510-01-01').getTime() });
-              },
+            // click: () => {
+            // },
             },
           },
           title: {
@@ -179,6 +210,7 @@ export default {
                   this.addCategorieFilter(event.target.name);
                 },
               },
+              stickyTracking: false,
             },
             // legend: {
             //   visible: false,
@@ -251,6 +283,22 @@ export default {
         };
       });
     },
+    setRange(event) {
+      const newStart = new Date(event.min);
+      const newEnd = new Date(event.max);
+      if (this.min !== newStart && this.max !== newEnd) {
+        this.min = newStart;
+        this.max = newEnd;
+        this.$emit('removeFilter', this.filterDateRange(newStart, newEnd));
+        this.$emit('addFilter', this.filterDateRange(newStart, newEnd));
+      }
+    },
+    setZoom(min, max) {
+      this.$refs.chart.chart.xAxis[0]
+        .setExtremes(min.getTime(), max.getTime());
+      this.$refs.chart.chart.redraw();
+      this.$refs.chart.chart.showResetZoom();
+    },
     filterDateRange(from, to) {
       return function dateRange(data) {
         const fromDateTime = new Date(from).getTime();
@@ -261,11 +309,6 @@ export default {
 
         return fromDateTime <= productStart || toDateTime >= productEnd;
       };
-    },
-    setRange(event) {
-      console.log(event);
-      this.min = new Date(event.min);
-      this.max = new Date(event.max);
     },
   },
 };

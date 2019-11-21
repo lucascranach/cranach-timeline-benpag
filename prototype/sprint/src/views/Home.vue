@@ -24,22 +24,26 @@ export default {
     categories: [
       {
         type: 'Gemälde',
-        color: 'rgba(119, 152, 191, .5)',
+        color: 'rgba(8, 82, 153, .8)',
+        // color: 'rgba(119, 152, 191, .5)',
         data: [],
       },
       {
-        type: 'Zeichnung',
-        color: 'rgba(223, 83, 83, .5)',
+        type: 'Zeichnungen',
+        color: 'rgba(166,32,25,0.8)',
+        // color: 'rgba(223, 83, 83, .5)',
         data: [],
       },
       {
         type: 'Drucke',
-        color: 'rgba(83, 223, 83, .5)',
+        color: 'rgba(9, 110, 0, 0.8)',
+        // color: 'rgba(83, 223, 83, .5)',
         data: [],
       },
       {
         type: 'Archivalien',
-        color: 'rgba(223, 83, 250, .5)',
+        color: 'rgba(219,140,0,0.8)',
+        // color: 'rgba(223, 83, 250, .5)',
         data: [],
       },
     ],

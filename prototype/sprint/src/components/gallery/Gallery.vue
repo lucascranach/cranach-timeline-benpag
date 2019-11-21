@@ -70,7 +70,10 @@
                 </v-list-item>
               </v-list>
               <v-card-text class="text-right pt-1">
-                <a :href="item.link" :style="`color: ${category.color}`">Weiterlesen...</a>
+                <v-btn dark class="text-right" :color="category.color"
+                       :href="item.link" target="_blank">
+                  Weiterlesen...
+                </v-btn>
               </v-card-text>
             </v-card>
           </v-hover>

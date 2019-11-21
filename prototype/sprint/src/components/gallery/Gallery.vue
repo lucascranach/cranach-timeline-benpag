@@ -30,7 +30,7 @@
                :key="`span-${index}-${itemIndex}`" cols="3" >
           <v-hover v-slot:default="{ hover }" open-delay="200">
             <v-card :elevation="hover ? 10 : 2">
-              <v-img :src="item.imageUrl" max-height="200px" position="center top" />
+              <v-img :src="item.imageUrl" height="200px" position="center top" />
               <v-list>
                 <v-list-item two-line >
                   <v-list-item-content>

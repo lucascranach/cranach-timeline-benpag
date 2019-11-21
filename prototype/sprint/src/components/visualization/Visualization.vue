@@ -163,18 +163,15 @@ export default {
             // formatter: function tool() {
             //   console.log(this);
             // },
-            headerFormat: '<span style="font-size: 15px"><b>{series.name}</b></span><table>',
+            headerFormat: '<span class="title d-block">{series.name}</span><table>',
             pointFormat: `
               <tr>
-                <td><img src="{point.image}" alt="" border=3 height=150 width=150></img></td>
+                <td><img src="{point.image}" alt="Bild: {point.title}" height=125 width=125 /></td>
                 <td>
-                  <span style="font-size: 13px"><b>Titel: </b>{point.title}</span> <br>
-                  <br>
-                  <span style="font-size: 13px"><b>Medium: </b>{point.medium}</span> <br>
-                  <br>
-                  <span style="font-size: 13px"><b>Ort: </b> {point.location}</span> <br>
-                  <br>
-                  <span style="font-size: 13px"><b>Auftraggeber: </b>{point.customer}</span>
+                  <span class="body-1 py-1 d-block"><b>Titel: </b>{point.title}</span>
+                  <span class="body-1 py-1 d-block"><b>Medium: </b>{point.medium}</span>
+                  <span class="body-1 py-1 d-block"><b>Ort: </b> {point.location}</span>
+                  <span class="body-1 py-1 d-block"><b>Auftraggeber: </b>{point.customer}</span>
                 </td>
               </tr>`,
             footerFormat: '</table>',
@@ -231,8 +228,8 @@ export default {
         color: 'rgba(0,0,0,0.5)',
         name: 'Cranach der Ältere',
         tooltip: {
-          headerFormat: '<span style="font-size: 15px"><b>{point.key:%Y-%m-%d}</b></span><br/>',
-          pointFormat: '<span style="font-size: 15px"><b>{series.name}</b>: </span>{point.title}<br/>',
+          headerFormat: '<span class="body-1"><b>{series.name}</b> {point.key:%d.%m.%Y}</span><br/>',
+          pointFormat: '<span class="body-2">{point.title}</span>',
         },
         marker: {
           enabled: true,

@@ -12,6 +12,12 @@ export default {
   getYearAmountFor(year) {
     return yearAmounts[year] || step;
   },
+  getHighestValue() {
+    return Object.keys(yearAmounts).reduce((acc, current) => {
+      if (yearAmounts[current] > acc) return yearAmounts[current];
+      return acc;
+    }, 0);
+  },
   resetYearAmount() {
     yearAmounts = {};
   },

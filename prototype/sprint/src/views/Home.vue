@@ -68,10 +68,20 @@ export default {
               return dataAcc;
             }, []);
 
-            if (filteredData.length) return [...acc, { type: current.type, data: filteredData }];
+            if (filteredData.length) {
+              return [
+                ...acc,
+                {
+                  type: current.type,
+                  color: current.color,
+                  data: filteredData,
+                },
+              ];
+            }
             return acc;
           }, []);
         }
+
         return this.categories;
       },
     },
@@ -93,18 +103,22 @@ export default {
     addProduction(production) {
       switch (production.type) {
         case 'painting': {
+          production.type = this.categories[0].type;
           this.categories[0].data.push(production);
           break;
         }
         case 'drawing': {
+          production.type = this.categories[1].type;
           this.categories[1].data.push(production);
           break;
         }
         case 'print': {
+          production.type = this.categories[2].type;
           this.categories[2].data.push(production);
           break;
         }
         default: {
+          production.type = this.categories[3].type;
           this.categories[3].data.push(production);
           break;
         }
@@ -114,8 +128,8 @@ export default {
       return {
         primaryImageUrl: data.primaryImage,
         imageUrl: data.primaryImageSmall,
-        startDate: data.objectBeginDate, // `${data.objectBeginDate}-01-01T00:00:00`,
-        endDate: data.objectEndDate, // `${data.objectEndDate}-12-31T23:59:59`,
+        startDate: data.objectBeginDate,
+        endDate: data.objectEndDate,
         title: data.title,
         location: this.location,
         customer: this.customer,
@@ -134,8 +148,8 @@ export default {
       if (objectName.includes('drawing')) return 'drawing';
       return 'archive';
     },
-    addFilter(filter) {
-      // if (this.filters.length > 0) this.removeFilter(filter);
+    addFilter(filter, remove) {
+      if (remove && this.filters.length > 0) this.removeFilter(filter);
       this.filters.push(filter);
     },
     removeFilter(filter) {

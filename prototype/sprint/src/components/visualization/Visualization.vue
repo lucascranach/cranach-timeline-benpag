@@ -27,13 +27,6 @@
 
           <v-col cols="4">
             <v-row justify="end">
-              <v-btn icon x-large>
-                <v-icon>fa-search-plus</v-icon>
-              </v-btn>
-
-              <v-btn icon x-large>
-                <v-icon>fa-search-minus</v-icon>
-              </v-btn>
             </v-row>
           </v-col>
         </v-row>
@@ -45,15 +38,31 @@
         </v-row>
 
         <v-row ref="timeRow">
-          <v-col cols="1">
+          <v-col cols="2">
             <v-row justify="start">
+              <v-btn icon x-large>
+                <v-icon>fa-angle-left</v-icon>
+              </v-btn>
               <v-text-field outlined ref="left" v-model="textFieldValueMin"></v-text-field>
             </v-row>
           </v-col>
-          <v-col cols="10"></v-col>
-          <v-col cols="1">
+          <v-col cols="8">
+            <v-row justify="center">
+              <v-btn icon x-large>
+                <v-icon>fa-search-plus</v-icon>
+              </v-btn>
+
+              <v-btn icon x-large>
+                <v-icon>fa-search-minus</v-icon>
+              </v-btn>
+            </v-row>
+          </v-col>
+          <v-col cols="2">
             <v-row justify="end">
               <v-text-field outlined ref="right" v-model="textFieldValueMax"></v-text-field>
+              <v-btn icon x-large>
+                <v-icon>fa-angle-right</v-icon>
+              </v-btn>
             </v-row>
           </v-col>
         </v-row>
@@ -158,11 +167,9 @@ export default {
             zoomType: 'x',
             backgroundColor: 'rgb(250,250,250)',
             events: {
-            //   load: (function outer(self) {
-            //     return function inner() {
-            //       self.chart = this;
-            //     };
-            //   })(this),
+              load: function outer() {
+                console.log('loaded');
+              },
             // click: () => {
             // },
             },
@@ -249,6 +256,11 @@ export default {
       const index = this.filteredCategories.indexOf(name);
       if (index > -1) this.filteredCategories.splice(index, 1);
       else this.filteredCategories.push(name);
+      if (this.filteredCategories.length > 0) {
+        this.$emit('addFilter', this.filterCategory(this.filteredCategories));
+      } else {
+        this.$emit('removeFilter', this.filterCategory(this.filteredCategories));
+      }
     },
     createAllSeriesItemsFrom(category) {
       if (this.filteredCategories.includes(category.type)) return [];
@@ -289,8 +301,7 @@ export default {
       if (this.min !== newStart && this.max !== newEnd) {
         this.min = newStart;
         this.max = newEnd;
-        this.$emit('removeFilter', this.filterDateRange(newStart, newEnd));
-        this.$emit('addFilter', this.filterDateRange(newStart, newEnd));
+        this.$emit('addFilter', this.filterDateRange(newStart, newEnd), true);
       }
     },
     setZoom(min, max) {
@@ -301,13 +312,26 @@ export default {
     },
     filterDateRange(from, to) {
       return function dateRange(data) {
-        const fromDateTime = new Date(from).getTime();
-        const toDateTime = new Date(to).getTime();
+        const fromDateTime = 1900 + new Date(from).getYear();
+        const toDateTime = 1900 + new Date(to).getYear();
 
-        const productStart = new Date(data.startDate).getTime();
-        const productEnd = new Date(data.endDate).getTime();
+        const productStart = data.startDate;
+        const productEnd = data.endDate;
+        console.log(`productStart: ${productStart}`);
+        console.log(`fromDateTime: ${fromDateTime}`);
+        console.log(productStart >= fromDateTime);
 
-        return fromDateTime <= productStart || toDateTime >= productEnd;
+        console.log(`productEnd: ${productEnd}`);
+        console.log(`toDateTime: ${toDateTime}`);
+        console.log(productEnd <= toDateTime);
+
+        return (fromDateTime <= productStart && productStart <= toDateTime)
+          || (toDateTime >= productEnd && productEnd >= fromDateTime);
+      };
+    },
+    filterCategory(names) {
+      return function dateRange(data) {
+        return !names.includes(data.type);
       };
     },
   },

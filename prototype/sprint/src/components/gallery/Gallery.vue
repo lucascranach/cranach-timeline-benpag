@@ -119,6 +119,7 @@ export default {
   computed: {
     mutatedCategories: {
       get() {
+        console.log(this.categories);
         return this.categories.map((c, i) => {
           const newCat = { ...c };
           if (!this.categoryStates[i]) newCat.data = newCat.data.slice(0, 4);
@@ -136,7 +137,7 @@ export default {
     },
   },
   watch: {
-    categories: (val) => {
+    categories: function watch(val) {
       this.$set(this.categoryStates, val.map(() => false));
     },
   },

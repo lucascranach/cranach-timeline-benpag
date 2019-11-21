@@ -5,19 +5,19 @@
         <v-col cols="12" class="py-0"
                :style="`background-color: ${category.color}; border-radius: 5px`">
           <v-row align="center">
-            <v-col cols="6" class="pl-10 py-0">
+            <v-col cols="6" class="pl-10 py-2">
               <v-row justify="start">
                 <strong class="display-1" style="color: white">
                   {{ category.type }}
                 </strong>
               </v-row>
             </v-col>
-            <v-col cols="6" class="pr-10 py.0">
+            <v-col cols="6" class="pr-10 py-2">
               <v-row justify="end" align="center">
-                <v-chip color="transparent" class="mr-3" x-large text-color="white">
+                <v-chip color="transparent" class="mr-3" large text-color="white">
                   <span class="headline">{{ categories[index].data.length }}</span>
                 </v-chip>
-                <v-btn icon x-large @click="changeCategoryState(index)"
+                <v-btn icon large @click="changeCategoryState(index)"
                        :style="`color: ${category.color}`" style="background-color: white">
                   <v-icon v-if="categoryStates[index]">fa-chevron-up</v-icon>
                   <v-icon v-else>fa-chevron-down</v-icon>

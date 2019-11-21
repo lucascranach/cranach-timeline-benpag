@@ -12,9 +12,12 @@ export default {
   getYearAmountFor(year) {
     return yearAmounts[year] || step;
   },
-  getHighestValue() {
+  getHighestValue(from, to) {
     return Object.keys(yearAmounts).reduce((acc, current) => {
-      if (yearAmounts[current] > acc) return yearAmounts[current];
+      const year = new Date(`${current}-01-01`);
+      const isBetween = from.getTime() <= year.getTime() && to.getTime() >= year.getTime();
+
+      if (isBetween && yearAmounts[current] > acc) return yearAmounts[current];
       return acc;
     }, 0);
   },

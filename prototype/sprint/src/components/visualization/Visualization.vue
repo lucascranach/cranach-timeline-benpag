@@ -53,6 +53,7 @@
 <script>
 import { Chart } from 'highcharts-vue';
 import yearUtils from '@/utils/year.utils';
+import eventUtils from '@/utils/event.utils';
 
 export default {
   name: 'Visualization',
@@ -63,6 +64,8 @@ export default {
 
   data: () => ({
     filteredCategories: [],
+    min: new Date('1472-01-01'),
+    max: new Date('1553-01-01'),
   }),
 
   props: {
@@ -120,15 +123,16 @@ export default {
             zoomType: 'x',
             backgroundColor: 'rgb(250,250,250)',
             events: {
-              load: (function outer(self) {
-                return function inner() {
-                  self.chart = this;
-                };
-              })(this),
+            //   load: (function outer(self) {
+            //     return function inner() {
+            //       self.chart = this;
+            //     };
+            //   })(this),
               click: () => {
-                console.log('penis');
-                // this.$refs.chart.chart.xAxis[0].setExtremes
-                // (new Date('1500-01-01'), new Date('1510-01-01'));
+                console.log(new Date('1500-01-01').getTime());
+                // this.$refs.chart.chart.xAxis[0]
+                // .update({ min: new Date('1500-01-01').getTime(),
+                // max: new Date('1510-01-01').getTime() });
               },
             },
           },
@@ -140,6 +144,9 @@ export default {
           },
           xAxis: {
             type: 'datetime',
+            events: {
+              afterSetExtremes: event => this.setRange(event),
+            },
           },
           plotOptions: {
             scatter: {
@@ -188,24 +195,22 @@ export default {
 
   methods: {
     getEvents() {
-      const y = yearUtils.getHighestValue() + 2;
+      const y = yearUtils.getHighestValue(this.min, this.max) + 2;
+      const events = eventUtils.getEvents();
 
       return {
         type: 'line',
         color: 'rgba(0,0,0,0.5)',
         name: 'Cranach der Ältere',
-        data: [
-          {
-            x: new Date('1472-10-04'),
-            title: 'Birth',
-            y,
-          },
-          {
-            x: new Date('1553-10-16'),
-            title: 'Death',
-            y,
-          },
-        ],
+        marker: {
+          enabled: true,
+          radius: 5,
+        },
+        data: events.map(e => ({
+          x: new Date(e.x),
+          title: e.title,
+          y,
+        })),
       };
     },
     addCategorieFilter(name) {
@@ -256,6 +261,11 @@ export default {
 
         return fromDateTime <= productStart || toDateTime >= productEnd;
       };
+    },
+    setRange(event) {
+      console.log(event);
+      this.min = new Date(event.min);
+      this.max = new Date(event.max);
     },
   },
 };

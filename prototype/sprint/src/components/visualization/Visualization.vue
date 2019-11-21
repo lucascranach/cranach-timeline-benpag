@@ -160,9 +160,6 @@ export default {
           },
           tooltip: {
             useHTML: true,
-            // formatter: function tool() {
-            //   console.log(this);
-            // },
             headerFormat: '<span style="font-size: 15px"><b>{series.name}</b></span><table>',
             pointFormat: `
               <tr>

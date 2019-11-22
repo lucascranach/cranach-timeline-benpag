@@ -4,16 +4,56 @@
         <v-row ref="navigation">
           <v-col cols="4">
             <v-row ref="navigation">
-              <v-text-field clearable></v-text-field>
-              <v-btn icon x-large>
+              <v-text-field
+                clearable
+                @click:clear="removeSearch"
+                @keydown="searchKeyTest"
+                v-model="searchText"
+              ></v-text-field>
+              <v-btn icon x-large @click="addSearch">
                 <v-icon>fa-search</v-icon>
               </v-btn>
 
               <v-spacer></v-spacer>
 
-              <v-btn icon x-large>
-                <v-icon>fa-filter</v-icon>
-              </v-btn>
+              <v-menu
+                v-model="menu"
+                :close-on-content-click="false"
+                :nudge-width="200"
+                offset-x
+              >
+                <template v-slot:activator="{ on }">
+                  <v-btn
+                    icon
+                    x-large
+                    v-on="on"
+                  >
+                    <v-icon>fa-filter</v-icon>
+                  </v-btn>
+                </template>
+
+                <v-card>
+                  <v-list>
+                    <v-list-item
+                      v-for="(category, index) in categories"
+                      :key="`category-slider-${index}`"
+                    >
+                      <v-list-item-action>
+                        <v-switch
+                          v-model="switches[index]"
+                          :color="category.color">
+                        </v-switch>
+                      </v-list-item-action>
+                      <v-list-item-title>{{category.type}}</v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn text @click="menu = false">Close</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-menu>
             </v-row>
           </v-col>
 
@@ -22,9 +62,49 @@
 
           <v-col cols="4">
             <v-row justify="end">
-              <v-btn icon x-large>
-                <v-icon>fa-info</v-icon>
-              </v-btn>
+              <v-dialog
+                v-model="info"
+                width="1000"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-btn
+                    icon
+                    x-large
+                    v-on="on"
+                  >
+                    <v-icon>fa-info</v-icon>
+                  </v-btn>
+                </template>
+
+                <v-card>
+                  <v-card-title
+                    class="headline grey lighten-2"
+                    primary-title
+                  >
+                    Information:
+                  </v-card-title>
+
+                  <v-card-text>
+                    <v-row><v-card-subtitle>{{infoSub}}</v-card-subtitle></v-row>
+                    <v-row v-for="(tip, index) in tips" :key="`tip-${index}`">
+                      <v-col>
+                        <v-row>
+                          <span><b>{{tip.title}}</b></span>
+                        </v-row>
+
+                        <v-row>
+                          <span>{{tip.text}}</span>
+                        </v-row>
+                      </v-col>
+                    </v-row>
+                  </v-card-text>
+
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn text @click="info = false">Close</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
             </v-row>
           </v-col>
         </v-row>
@@ -38,7 +118,7 @@
         <v-row ref="timeRow">
           <v-col cols="2">
             <v-row justify="start">
-              <v-btn icon x-large>
+              <v-btn icon x-large @click="scrollLeft">
                 <v-icon>fa-angle-left</v-icon>
               </v-btn>
               <v-text-field outlined ref="left" v-model="textFieldValueMin"></v-text-field>
@@ -46,11 +126,15 @@
           </v-col>
           <v-col cols="8">
             <v-row justify="center">
-              <v-btn icon x-large>
+              <v-btn icon x-large @click="zoomIn">
                 <v-icon>fa-search-plus</v-icon>
               </v-btn>
 
-              <v-btn icon x-large>
+              <v-btn icon x-large @click="resetZoom">
+                Reset <br> Zoom
+              </v-btn>
+
+              <v-btn icon x-large @click="zoomOut">
                 <v-icon>fa-search-minus</v-icon>
               </v-btn>
             </v-row>
@@ -58,7 +142,7 @@
           <v-col cols="2">
             <v-row justify="end">
               <v-text-field outlined ref="right" v-model="textFieldValueMax"></v-text-field>
-              <v-btn icon x-large>
+              <v-btn icon x-large @click="scrollRight">
                 <v-icon>fa-angle-right</v-icon>
               </v-btn>
             </v-row>
@@ -81,9 +165,47 @@ export default {
   },
 
   data: () => ({
+    searchFilter: () => true,
+    searchText: '',
+    menu: false,
+    info: false,
+    switches: [true, true, true, true],
     filteredCategories: [],
     min: new Date('1472-01-01'),
     max: new Date('1553-01-01'),
+    infoSub: `
+      Hier ein paar Hinweise, damit du so schnell wie möglich an die Informationen deiner Begierde gelangst:
+    `,
+    tips: [
+      {
+        title: 'Überblick',
+        text: `Der obere Abschnitt dieser Webseite beschreibt einen Zeitstrahl. 
+          Hier befinden sich alle entstandenen Werke im Zeitraum von 1472 bis 1553, 
+          sowie die wichtigsten Ereignisse aus Cranachs Leben. Nutze diesen für einen ersten Überblick. 
+          Die Gallerie im unteren Abschnitt bietet weitere Informationen zu den einzelnen Werken und ist 
+          nach der Art dieser Werke kategorisiert. Um deine Suche zu vereinfachen bieten wir dir einige 
+          Navigations- und Filtermöglichkeiten.`,
+      },
+      {
+        title: 'Navigation',
+        text: `Der Zeitstrahl kann mithilfe der darunter gelegenen Elemente navigiert werden. 
+          Hierzu zählen die Angabe einer gewünschten Zeitspanne, das horizontale Scrollen mittels 
+          dafür vorgesehener Buttons und das Vergrößern des Sichtfeldes, um die Ansicht der Werke zu oprimieren. 
+          Zusätzlich kann über eine Ziehbewegung der Maus mit gedrückter linker Taste ein Bereich des 
+          Zeitstrahls gezielt ausgewählt werden.`,
+      },
+      {
+        title: 'Filter',
+        text: `Werke sind über Suchbegriffe eingrenzbar. Zusätzlich können die einzelnen Kategorien dynamisch 
+          entfernt, aber auch wieder hinzugefügt werden. Dies kann über den Filter-Button oder die Legende geschehen.`,
+      },
+      {
+        title: 'Weitere Informationen',
+        text: `Benötigst du tiefgreifenderes Wissen bezüglich eines Kunstwerks, 
+          so gelangst du über die Gallerie-Karten zu unseren Partnern, welche weitere spannende 
+          Informationen für dich bereit halten.`,
+      },
+    ],
   }),
 
   props: {
@@ -96,7 +218,7 @@ export default {
   computed: {
     textFieldValueMin: {
       get() {
-        return 1900 + this.min.getYear();
+        return this.min.getFullYear();
       },
       set(value) {
         const date = new Date(value);
@@ -108,7 +230,7 @@ export default {
     },
     textFieldValueMax: {
       get() {
-        return 1900 + this.max.getYear();
+        return this.max.getFullYear();
       },
       set(value) {
         const date = new Date(value);
@@ -140,9 +262,9 @@ export default {
           chart: {
             zoomType: 'x',
             backgroundColor: 'rgb(250,250,250)',
-            events: {
-              load: function outer() {
-                console.log('loaded');
+            resetZoomButton: {
+              theme: {
+                display: 'none',
               },
             },
           },
@@ -160,18 +282,15 @@ export default {
           },
           tooltip: {
             useHTML: true,
-            headerFormat: '<span style="font-size: 15px"><b>{series.name}</b></span><table>',
+            headerFormat: '<span class="title d-block">{series.name}</span><table>',
             pointFormat: `
               <tr>
-                <td><img src="{point.image}" alt="" border=3 height=150 width=150></img></td>
-                <td>
-                  <span style="font-size: 13px"><b>Titel: </b>{point.title}</span> <br>
-                  <br>
-                  <span style="font-size: 13px"><b>Medium: </b>{point.medium}</span> <br>
-                  <br>
-                  <span style="font-size: 13px"><b>Ort: </b> {point.location}</span> <br>
-                  <br>
-                  <span style="font-size: 13px"><b>Auftraggeber: </b>{point.customer}</span>
+                <td><img src="{point.image}" alt="Bild: {point.title}" height=125 width=125 /></td>
+                <td class="spacing-left">
+                  <span class="body-1 py-1 d-block"><b>Titel: </b>{point.title}</span>
+                  <span class="body-1 py-1 d-block"><b>Medium: </b>{point.medium}</span>
+                  <span class="body-1 py-1 d-block"><b>Ort: </b> {point.location}</span>
+                  <span class="body-1 py-1 d-block"><b>Auftraggeber: </b>{point.customer}</span>
                 </td>
               </tr>`,
             footerFormat: '</table>',
@@ -200,19 +319,13 @@ export default {
             series: {
               events: {
                 legendItemClick: (event) => {
-                  this.addCategorieFilter(event.target.name);
+                  this.changeSwitchFor(event.target.name);
                 },
               },
               stickyTracking: false,
             },
-            // legend: {
-            //   visible: false,
-            // },
           },
           series: this.series,
-          // legend: {
-          //   enabled: false,
-          // },
         };
       },
     },
@@ -225,11 +338,11 @@ export default {
 
       return {
         type: 'line',
-        color: 'rgba(0,0,0,0.5)',
+        color: 'rgba(0,0,0,1)',
         name: 'Cranach der Ältere',
         tooltip: {
-          headerFormat: '<span style="font-size: 15px"><b>{point.key:%Y-%m-%d}</b></span><br/>',
-          pointFormat: '<span style="font-size: 15px"><b>{series.name}</b>: </span>{point.title}<br/>',
+          headerFormat: '<span class="body-1"><b>{series.name}</b> {point.key:%d.%m.%Y}</span><br/>',
+          pointFormat: '<span class="body-2">{point.title}</span>',
         },
         marker: {
           enabled: true,
@@ -244,8 +357,21 @@ export default {
     },
     addCategorieFilter(name) {
       const index = this.filteredCategories.indexOf(name);
-      if (index > -1) this.filteredCategories.splice(index, 1);
-      else this.filteredCategories.push(name);
+
+      if (index <= -1) {
+        this.filteredCategories.push(name);
+        this.notifyCategorieFilter();
+      }
+    },
+    removeCategorieFilter(name) {
+      const index = this.filteredCategories.indexOf(name);
+
+      if (index > -1) {
+        this.filteredCategories.splice(index, 1);
+        this.notifyCategorieFilter();
+      }
+    },
+    notifyCategorieFilter() {
       if (this.filteredCategories.length > 0) {
         this.$emit('addFilter', this.filterCategory(this.filteredCategories));
       } else {
@@ -263,6 +389,8 @@ export default {
       return seriesItems.sort((a, b) => a.x.getTime() - b.x.getTime());
     },
     createItemsFrom(data, type) {
+      if (!this.searchFilter(data)) return [];
+
       const range = data.endDate - data.startDate + 1;
 
       return Array(range).fill().map((_, i) => {
@@ -280,6 +408,8 @@ export default {
           medium: data.medium,
           dimensions: data.dimensions,
           date: data.date,
+          start: data.startDate,
+          end: data.endDate,
           artist: data.artist,
           type,
         };
@@ -295,16 +425,111 @@ export default {
         this.$emit('addFilter', this.filterDateRange(newStart, newEnd), true);
       }
     },
+    scrollLeft() {
+      let step = 10;
+      const spaceRight = this.min.getFullYear() - 1471;
+      if (spaceRight < step) step = spaceRight;
+
+      if (step !== 0) {
+        const minYear = this.min.getFullYear();
+        const minMonth = this.min.getMonth();
+        const minDay = this.min.getDate();
+        const newMin = new Date(minYear - step, minMonth, minDay);
+
+        const maxYear = this.max.getFullYear();
+        const maxMonth = this.max.getMonth();
+        const maxDay = this.max.getDate();
+        const newMax = new Date(maxYear - step, maxMonth, maxDay);
+
+        this.setZoom(newMin, newMax);
+      }
+    },
+    scrollRight() {
+      let step = 10;
+      const spaceRight = 1554 - this.max.getFullYear();
+      if (spaceRight < step) step = spaceRight;
+
+      if (step !== 0) {
+        const minYear = this.min.getFullYear();
+        const minMonth = this.min.getMonth();
+        const minDay = this.min.getDate();
+        const newMin = new Date(minYear + step, minMonth, minDay);
+
+        const maxYear = this.max.getFullYear();
+        const maxMonth = this.max.getMonth();
+        const maxDay = this.max.getDate();
+        const newMax = new Date(maxYear + step, maxMonth, maxDay);
+
+        this.setZoom(newMin, newMax);
+      }
+    },
+    zoomIn() {
+      const minYear = this.min.getFullYear();
+      const minMonth = this.min.getMonth();
+      const minDay = this.min.getDate();
+      const newMin = new Date(minYear + 5, minMonth, minDay);
+
+      const maxYear = this.max.getFullYear();
+      const maxMonth = this.max.getMonth();
+      const maxDay = this.max.getDate();
+      const newMax = new Date(maxYear - 5, maxMonth, maxDay);
+
+      if (newMin.getTime() < newMax.getTime()) {
+        this.setZoom(newMin, newMax);
+      }
+    },
+    zoomOut() {
+      const minYear = this.min.getFullYear();
+      const minMonth = this.min.getMonth();
+      const minDay = this.min.getDate();
+      const newMin = new Date(minYear - 5, minMonth, minDay);
+
+      const maxYear = this.max.getFullYear();
+      const maxMonth = this.max.getMonth();
+      const maxDay = this.max.getDate();
+      const newMax = new Date(maxYear + 5, maxMonth, maxDay);
+
+      if (newMin.getTime() >= new Date('1471-01-01').getTime()
+        && newMax.getTime() <= new Date('1554-01-01').getTime()) {
+        this.setZoom(newMin, newMax);
+      } else {
+        this.setZoom(new Date('1471-01-01'), new Date('1554-01-01'));
+      }
+    },
     setZoom(min, max) {
       this.$refs.chart.chart.xAxis[0]
         .setExtremes(min.getTime(), max.getTime());
       this.$refs.chart.chart.redraw();
       this.$refs.chart.chart.showResetZoom();
     },
+    resetZoom() {
+      this.$refs.chart.chart.zoomOut();
+    },
+    changeSwitchFor(categoryName) {
+      this.categories.forEach((el, i) => {
+        if (el.type === categoryName) {
+          this.$set(this.switches, i, !this.switches[i]);
+        }
+      });
+    },
+    searchKeyTest(e) {
+      if (e.key === 'Enter') this.addSearch();
+    },
+    addSearch() {
+      if (!this.searchText) this.removeSearch();
+      else {
+        this.searchFilter = this.searchFor(this.searchText);
+        this.$emit('addFilter', this.searchFor(this.searchText), true);
+      }
+    },
+    removeSearch() {
+      this.searchFilter = () => true;
+      this.$emit('removeFilter', this.searchFor(''));
+    },
     filterDateRange(from, to) {
       return function dateRange(data) {
-        const fromDateTime = 1900 + new Date(from).getYear();
-        const toDateTime = 1900 + new Date(to).getYear();
+        const fromDateTime = new Date(from).getFullYear();
+        const toDateTime = new Date(to).getFullYear();
 
         const productStart = data.startDate;
         const productEnd = data.endDate;
@@ -318,6 +543,33 @@ export default {
         return !names.includes(data.type);
       };
     },
+    searchFor(keyword) {
+      return function search(data) {
+        return data.title.toLowerCase().includes(keyword.toLowerCase())
+          || data.location.toLowerCase().includes(keyword.toLowerCase())
+          || data.customer.toLowerCase().includes(keyword.toLowerCase())
+          || data.artist.toLowerCase().includes(keyword.toLowerCase())
+          || data.medium.toLowerCase().includes(keyword.toLowerCase())
+          || data.dimensions.toLowerCase().includes(keyword.toLowerCase())
+          || data.type.toLowerCase().includes(keyword.toLowerCase());
+      };
+    },
+  },
+
+  watch: {
+    switches: function watch(vals) {
+      this.categories.forEach((c, i) => {
+        if (vals[i]) this.removeCategorieFilter(c.type);
+        else this.addCategorieFilter(c.type);
+        this.$refs.chart.chart.series[i].setVisible(vals[i]);
+      });
+    },
   },
 };
 </script>
+
+<style>
+  .spacing-left {
+    padding-left: 10px;
+  }
+</style>

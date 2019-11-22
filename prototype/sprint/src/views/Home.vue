@@ -89,21 +89,17 @@ export default {
         return this.categories;
       },
     },
-    location: {
-      get() {
-        const randomIndex = Math.floor(Math.random() * (this.locations.length + 1));
-        return this.locations[randomIndex];
-      },
-    },
-    customer: {
-      get() {
-        const randomIndex = Math.floor(Math.random() * (this.customers.length + 1));
-        return this.customers[randomIndex];
-      },
-    },
   },
 
   methods: {
+    getRandomLocation() {
+      const randomIndex = Math.floor(Math.random() * (this.locations.length));
+      return this.locations[randomIndex];
+    },
+    getRandomCustomer() {
+      const randomIndex = Math.floor(Math.random() * (this.customers.length));
+      return this.customers[randomIndex];
+    },
     addProduction(production) {
       switch (production.type) {
         case 'painting': {
@@ -135,8 +131,8 @@ export default {
         startDate: data.objectBeginDate,
         endDate: data.objectEndDate,
         title: data.title,
-        location: this.location,
-        customer: this.customer,
+        location: this.getRandomLocation(),
+        customer: this.getRandomCustomer(),
         artist: data.artistDisplayName,
         medium: data.medium,
         dimensions: data.dimensions,

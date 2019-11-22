@@ -130,12 +130,12 @@
             </v-row>
           </v-col>
           <v-col cols="8">
-            <v-row justify="center">
+            <v-row class="pa-3" justify="center" align="center">
               <v-btn icon x-large @click="zoomIn">
                 <v-icon>fa-search-plus</v-icon>
               </v-btn>
 
-              <v-btn icon x-large @click="resetZoom">
+              <v-btn icon x-large @click="resetZoom" class="ml-5 mr-4">
                 Reset <br> Zoom
               </v-btn>
 
@@ -406,7 +406,7 @@ export default {
 
       const range = data.endDate - data.startDate + 1;
 
-      return Array(range).fill().map((_, i) => {
+      return Array(range).fill(0).map((_, i) => {
         const year = data.startDate + i;
 
         yearUtils.increaseYearAmountFor(year);
@@ -435,11 +435,12 @@ export default {
       if (this.min !== newStart && this.max !== newEnd) {
         this.min = newStart;
         this.max = newEnd;
+
         if (this.zoomTimeout) clearTimeout(this.zoomTimeout);
+
         this.zoomTimeout = setTimeout(() => {
-          console.log('zooooooom');
           this.$emit('addFilter', this.filterDateRange(newStart, newEnd), true);
-        }, 500);
+        }, 1000);
       }
     },
     scrollLeft() {
@@ -544,14 +545,15 @@ export default {
     },
     filterDateRange(from, to) {
       return function dateRange(data) {
-        const fromDateTime = new Date(from).getFullYear();
+        const fromDateTime = new Date(from).getFullYear() + 1;
         const toDateTime = new Date(to).getFullYear();
 
         const productStart = data.startDate;
         const productEnd = data.endDate;
 
-        return (fromDateTime <= productStart && productStart <= toDateTime)
-          || (toDateTime >= productEnd && productEnd >= fromDateTime);
+        return (productStart >= fromDateTime && productStart <= toDateTime)
+          || (productEnd >= fromDateTime && productEnd <= toDateTime)
+          || (productStart <= fromDateTime && productEnd >= toDateTime);
       };
     },
     filterCategory(names) {

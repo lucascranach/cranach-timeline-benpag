@@ -118,10 +118,15 @@
         <v-row ref="timeRow">
           <v-col cols="2">
             <v-row justify="start">
-              <v-btn icon x-large @click="scrollLeft">
-                <v-icon>fa-angle-left</v-icon>
-              </v-btn>
-              <v-text-field outlined ref="left" v-model="textFieldValueMin"></v-text-field>
+              <v-col cols="2">
+                <v-btn icon x-large @click="scrollLeft">
+                  <v-icon>fa-angle-left</v-icon>
+                </v-btn>
+              </v-col>
+
+              <v-col cols="10">
+                <v-text-field outlined ref="left" v-model="textFieldValueMin"></v-text-field>
+              </v-col>
             </v-row>
           </v-col>
           <v-col cols="8">
@@ -141,10 +146,17 @@
           </v-col>
           <v-col cols="2">
             <v-row justify="end">
-              <v-text-field outlined ref="right" v-model="textFieldValueMax"></v-text-field>
-              <v-btn icon x-large @click="scrollRight">
-                <v-icon>fa-angle-right</v-icon>
-              </v-btn>
+              <v-col cols="10">
+                <v-text-field outlined ref="right" v-model="textFieldValueMax"></v-text-field>
+              </v-col>
+
+              <v-col cols="2">
+                <v-row justify="end">
+                  <v-btn icon x-large @click="scrollRight">
+                    <v-icon>fa-angle-right</v-icon>
+                  </v-btn>
+                </v-row>
+              </v-col>
             </v-row>
           </v-col>
         </v-row>
@@ -165,6 +177,7 @@ export default {
   },
 
   data: () => ({
+    zoomTimeout: null,
     searchFilter: () => true,
     searchText: '',
     menu: false,
@@ -422,7 +435,11 @@ export default {
       if (this.min !== newStart && this.max !== newEnd) {
         this.min = newStart;
         this.max = newEnd;
-        this.$emit('addFilter', this.filterDateRange(newStart, newEnd), true);
+        if (this.zoomTimeout) clearTimeout(this.zoomTimeout);
+        this.zoomTimeout = setTimeout(() => {
+          console.log('zooooooom');
+          this.$emit('addFilter', this.filterDateRange(newStart, newEnd), true);
+        }, 500);
       }
     },
     scrollLeft() {
@@ -500,7 +517,6 @@ export default {
       this.$refs.chart.chart.xAxis[0]
         .setExtremes(min.getTime(), max.getTime());
       this.$refs.chart.chart.redraw();
-      this.$refs.chart.chart.showResetZoom();
     },
     resetZoom() {
       this.$refs.chart.chart.zoomOut();

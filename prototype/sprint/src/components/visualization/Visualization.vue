@@ -119,7 +119,7 @@
           <v-col cols="2">
             <v-row justify="start">
               <v-col cols="2">
-                <v-btn icon x-large @click="scrollLeft">
+                <v-btn icon x-large @click="scrollLeft" :disabled="scrollLeftDisabled">
                   <v-icon>fa-angle-left</v-icon>
                 </v-btn>
               </v-col>
@@ -135,8 +135,14 @@
                 <v-icon>fa-search-plus</v-icon>
               </v-btn>
 
-              <v-btn icon x-large @click="resetZoom" class="ml-5 mr-4">
-                Reset <br> Zoom
+              <v-btn
+                icon
+                x-large
+                @click="resetZoom"
+                :disabled="resetZoomDisabled"
+                class="ml-5 mr-4"
+              >
+                <v-icon>fa-undo-alt</v-icon>
               </v-btn>
 
               <v-btn icon x-large @click="zoomOut">
@@ -152,7 +158,7 @@
 
               <v-col cols="2">
                 <v-row justify="end">
-                  <v-btn icon x-large @click="scrollRight">
+                  <v-btn icon x-large @click="scrollRight" :disabled="scrollRightDisabled">
                     <v-icon>fa-angle-right</v-icon>
                   </v-btn>
                 </v-row>
@@ -229,6 +235,21 @@ export default {
   },
 
   computed: {
+    scrollLeftDisabled: {
+      get() {
+        return this.min.getTime() <= new Date('1472-01-01').getTime();
+      },
+    },
+    scrollRightDisabled: {
+      get() {
+        return this.max.getTime() >= new Date('1553-01-01').getTime();
+      },
+    },
+    resetZoomDisabled: {
+      get() {
+        return this.scrollLeftDisabled && this.scrollRightDisabled;
+      },
+    },
     textFieldValueMin: {
       get() {
         return this.min.getFullYear();
@@ -521,6 +542,8 @@ export default {
     },
     resetZoom() {
       this.$refs.chart.chart.zoomOut();
+
+      this.setZoom(new Date('1471-01-01'), new Date('1554-01-01'));
     },
     changeSwitchFor(categoryName) {
       this.categories.forEach((el, i) => {

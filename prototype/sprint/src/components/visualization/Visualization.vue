@@ -1,173 +1,184 @@
 <template>
-    <v-row>
-      <v-col>
-        <v-row ref="navigation">
-          <v-col cols="4">
-            <v-row ref="navigation">
-              <v-text-field
-                clearable
-                @click:clear="removeSearch"
-                @keydown="searchKeyTest"
-                v-model="searchText"
-              ></v-text-field>
-              <v-btn icon x-large @click="addSearch">
-                <v-icon>fa-search</v-icon>
-              </v-btn>
+  <v-row>
+    <v-col class="pa-0">
+      <v-row ref="navigation">
+        <v-col cols="4" class="pa-0">
+          <v-row ref="navigation">
+            <v-text-field
+              hide-details
+              clearable
+              @click:clear="removeSearch"
+              @keydown="searchKeyTest"
+              v-model="searchText"
+            ></v-text-field>
+            <v-btn icon x-large @click="addSearch">
+              <v-icon>fa-search</v-icon>
+            </v-btn>
 
-              <v-spacer></v-spacer>
+            <v-spacer></v-spacer>
 
-              <v-menu
-                v-model="menu"
-                :close-on-content-click="false"
-                :nudge-width="200"
-                offset-x
-              >
-                <template v-slot:activator="{ on }">
-                  <v-btn
-                    icon
-                    x-large
-                    v-on="on"
-                  >
-                    <v-icon>fa-filter</v-icon>
-                  </v-btn>
-                </template>
-
-                <v-card>
-                  <v-list>
-                    <v-list-item
-                      v-for="(category, index) in categories"
-                      :key="`category-slider-${index}`"
-                    >
-                      <v-list-item-action>
-                        <v-switch
-                          v-model="switches[index]"
-                          :color="category.color">
-                        </v-switch>
-                      </v-list-item-action>
-                      <v-list-item-title>{{category.type}}</v-list-item-title>
-                    </v-list-item>
-                  </v-list>
-
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn text @click="menu = false">Close</v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-menu>
-            </v-row>
-          </v-col>
-
-          <v-col cols="4">
-          </v-col>
-
-          <v-col cols="4">
-            <v-row justify="end">
-              <v-dialog
-                v-model="info"
-                width="1000"
-              >
-                <template v-slot:activator="{ on }">
-                  <v-btn
-                    icon
-                    x-large
-                    v-on="on"
-                  >
-                    <v-icon>fa-info</v-icon>
-                  </v-btn>
-                </template>
-
-                <v-card>
-                  <v-card-title
-                    class="headline grey lighten-2"
-                    primary-title
-                  >
-                    Information:
-                  </v-card-title>
-
-                  <v-card-text>
-                    <v-row><v-card-subtitle>{{infoSub}}</v-card-subtitle></v-row>
-                    <v-row v-for="(tip, index) in tips" :key="`tip-${index}`">
-                      <v-col>
-                        <v-row>
-                          <span><b>{{tip.title}}</b></span>
-                        </v-row>
-
-                        <v-row>
-                          <span>{{tip.text}}</span>
-                        </v-row>
-                      </v-col>
-                    </v-row>
-                  </v-card-text>
-
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn text @click="info = false">Close</v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-            </v-row>
-          </v-col>
-        </v-row>
-
-        <v-row ref="graph">
-          <v-col>
-            <highcharts :options="chartOptions" ref="chart"></highcharts>
-          </v-col>
-        </v-row>
-
-        <v-row ref="timeRow">
-          <v-col cols="2">
-            <v-row justify="start">
-              <v-col cols="2">
-                <v-btn icon x-large @click="scrollLeft" :disabled="scrollLeftDisabled">
-                  <v-icon>fa-angle-left</v-icon>
+            <v-menu
+              v-model="menu"
+              :close-on-content-click="false"
+              :nudge-width="200"
+              offset-x
+            >
+              <template v-slot:activator="{ on }">
+                <v-btn
+                  icon
+                  x-large
+                  v-on="on"
+                >
+                  <v-icon>fa-filter</v-icon>
                 </v-btn>
-              </v-col>
+              </template>
 
-              <v-col cols="10">
-                <v-text-field outlined ref="left" v-model="textFieldValueMin"></v-text-field>
-              </v-col>
-            </v-row>
-          </v-col>
-          <v-col cols="8">
-            <v-row class="pa-3" justify="center" align="center">
-              <v-btn icon x-large @click="zoomIn">
-                <v-icon>fa-search-plus</v-icon>
+              <v-card>
+                <v-list>
+                  <v-list-item
+                    v-for="(category, index) in categories"
+                    :key="`category-slider-${index}`"
+                  >
+                    <v-list-item-action>
+                      <v-switch
+                        v-model="switches[index]"
+                        :color="category.color">
+                      </v-switch>
+                    </v-list-item-action>
+                    <v-list-item-title>{{category.type}}</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn text @click="menu = false">Close</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-menu>
+          </v-row>
+        </v-col>
+
+        <v-col cols="4" class="pa-0">
+        </v-col>
+
+        <v-col cols="4" class="pa-0">
+          <v-row justify="end">
+            <v-dialog
+              v-model="info"
+              width="1000"
+            >
+              <template v-slot:activator="{ on }">
+                <v-btn
+                  icon
+                  x-large
+                  v-on="on"
+                >
+                  <v-icon>fa-info</v-icon>
+                </v-btn>
+              </template>
+
+              <v-card>
+                <v-card-title
+                  class="headline grey lighten-2"
+                  primary-title
+                >
+                  Information:
+                </v-card-title>
+
+                <v-card-text>
+                  <v-row><v-card-subtitle>{{infoSub}}</v-card-subtitle></v-row>
+                  <v-row v-for="(tip, index) in tips" :key="`tip-${index}`">
+                    <v-col>
+                      <v-row>
+                        <span><b>{{tip.title}}</b></span>
+                      </v-row>
+
+                      <v-row>
+                        <span>{{tip.text}}</span>
+                      </v-row>
+                    </v-col>
+                  </v-row>
+                </v-card-text>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn text @click="info = false">Close</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </v-row>
+        </v-col>
+      </v-row>
+
+      <v-row ref="graph">
+        <v-col>
+          <highcharts :options="chartOptions" ref="chart"></highcharts>
+        </v-col>
+      </v-row>
+
+      <v-row ref="timeRow" class="pa-0">
+        <v-col cols="2" class="pa-0">
+          <v-row justify="start">
+            <v-col cols="2">
+              <v-btn icon x-large @click="scrollLeft" :disabled="scrollLeftDisabled">
+                <v-icon>fa-angle-left</v-icon>
               </v-btn>
+            </v-col>
 
-              <v-btn
-                icon
-                x-large
-                @click="resetZoom"
-                :disabled="resetZoomDisabled"
-                class="ml-5 mr-4"
-              >
-                <v-icon>fa-undo-alt</v-icon>
-              </v-btn>
+            <v-col cols="10">
+              <v-text-field
+                hide-details
+                outlined
+                ref="left"
+                v-model="textFieldValueMin"
+              ></v-text-field>
+            </v-col>
+          </v-row>
+        </v-col>
+        <v-col cols="8" class="pa-0">
+          <v-row class="pa-3" justify="center" align="center">
+            <v-btn icon x-large @click="zoomIn">
+              <v-icon>fa-search-plus</v-icon>
+            </v-btn>
 
-              <v-btn icon x-large @click="zoomOut">
-                <v-icon>fa-search-minus</v-icon>
-              </v-btn>
-            </v-row>
-          </v-col>
-          <v-col cols="2">
-            <v-row justify="end">
-              <v-col cols="10">
-                <v-text-field outlined ref="right" v-model="textFieldValueMax"></v-text-field>
-              </v-col>
+            <v-btn
+              icon
+              x-large
+              @click="resetZoom"
+              :disabled="resetZoomDisabled"
+              class="ml-5 mr-4"
+            >
+              <v-icon>fa-undo-alt</v-icon>
+            </v-btn>
 
-              <v-col cols="2">
-                <v-row justify="end">
-                  <v-btn icon x-large @click="scrollRight" :disabled="scrollRightDisabled">
-                    <v-icon>fa-angle-right</v-icon>
-                  </v-btn>
-                </v-row>
-              </v-col>
-            </v-row>
-          </v-col>
-        </v-row>
-      </v-col>
-    </v-row>
+            <v-btn icon x-large @click="zoomOut">
+              <v-icon>fa-search-minus</v-icon>
+            </v-btn>
+          </v-row>
+        </v-col>
+        <v-col cols="2" class="pa-0">
+          <v-row justify="end">
+            <v-col cols="10">
+              <v-text-field
+                hide-details
+                outlined
+                ref="right"
+                v-model="textFieldValueMax"
+              ></v-text-field>
+            </v-col>
+
+            <v-col cols="2">
+              <v-row justify="end">
+                <v-btn icon x-large @click="scrollRight" :disabled="scrollRightDisabled">
+                  <v-icon>fa-angle-right</v-icon>
+                </v-btn>
+              </v-row>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -294,6 +305,7 @@ export default {
       get() {
         return {
           chart: {
+            height: '35%',
             zoomType: 'x',
             backgroundColor: 'rgb(250,250,250)',
             resetZoomButton: {
@@ -321,10 +333,19 @@ export default {
               <tr>
                 <td><img src="{point.image}" alt="Bild: {point.title}" height=125 width=125 /></td>
                 <td class="spacing-left">
-                  <span class="body-1 py-1 d-block"><b>Titel: </b>{point.title}</span>
-                  <span class="body-1 py-1 d-block"><b>Medium: </b>{point.medium}</span>
-                  <span class="body-1 py-1 d-block"><b>Ort: </b> {point.location}</span>
-                  <span class="body-1 py-1 d-block"><b>Auftraggeber: </b>{point.customer}</span>
+                  <span class="body-1 py-1 d-block"><b>{point.title}</b></span>
+                  <span class="body-1 py-1 d-block">
+                    <i aria-hidden="true" class="v-icon notranslate fa fa-mortar-pestle theme--light" style="color: {series.color}; caret-color: {series.color};">
+                    </i> {point.medium}
+                  </span>
+                  <span class="body-1 py-1 d-block">
+                    <i aria-hidden="true" class="v-icon notranslate fa fa-globe-europe theme--light" style="color: {series.color}; caret-color: {series.color};">
+                    </i> {point.location}
+                  </span>
+                  <span class="body-1 py-1 d-block">
+                    <i aria-hidden="true" class="v-icon notranslate fa fa-hand-holding-usd theme--light" style="color: {series.color}; caret-color: {series.color};">
+                    </i> {point.customer}
+                  </span>
                 </td>
               </tr>`,
             footerFormat: '</table>',

@@ -30,42 +30,166 @@
                :key="`span-${index}-${itemIndex}`" cols="3" >
           <v-hover v-slot:default="{ hover }" open-delay="200">
             <v-card :elevation="hover ? 10 : 2">
-              <v-img :src="item.imageUrl" height="200px" position="center top" />
+              <v-img :src="item.imageUrl" height="250px" position="center top" />
               <v-list>
                 <v-list-item two-line >
                   <v-list-item-content>
-                    <v-list-item-title>Titel</v-list-item-title>
-                    <v-list-item-subtitle>{{ item.title }}</v-list-item-subtitle>
+                    <v-tooltip top>
+                      <template v-slot:activator="{ on }">
+                        <v-list-item-title v-on="on">{{ item.title }}</v-list-item-title>
+                      </template>
+                      <span>{{ item.title }}</span>
+                    </v-tooltip>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item two-line >
                   <v-list-item-content>
-                    <v-list-item-title>Ort</v-list-item-title>
-                    <v-list-item-subtitle>{{ item.location }}</v-list-item-subtitle>
+                    <v-list-item-title>
+                      <v-tooltip top>
+                        <template v-slot:activator="{ on }">
+                          <v-icon
+                            :color="category.color"
+                            alt="Künstler"
+                            v-on="on"
+                          >
+                            fa-globe-europe
+                          </v-icon>
+                        </template>
+                        <span>Aufbewahrungsort</span>
+                      </v-tooltip>
+                    </v-list-item-title>
+                    <v-list-item-subtitle>
+                      <v-tooltip top>
+                        <template v-slot:activator="{ on }">
+                          <v-list-item-title v-on="on">{{ item.location }}</v-list-item-title>
+                        </template>
+                        <span>{{ item.location }}</span>
+                      </v-tooltip>
+                    </v-list-item-subtitle>
                   </v-list-item-content>
                   <v-list-item-content>
-                    <v-list-item-title>Auftraggeber</v-list-item-title>
-                    <v-list-item-subtitle>{{ item.customer }}</v-list-item-subtitle>
+                    <v-list-item-title>
+                      <v-tooltip top>
+                        <template v-slot:activator="{ on }">
+                          <v-icon
+                            :color="category.color"
+                            alt="Künstler"
+                            v-on="on"
+                          >
+                            fa-hand-holding-usd
+                          </v-icon>
+                        </template>
+                        <span>Auftraggeber</span>
+                      </v-tooltip>
+                    </v-list-item-title>
+                    <v-list-item-subtitle>
+                      <v-tooltip top>
+                        <template v-slot:activator="{ on }">
+                          <v-list-item-title v-on="on">{{ item.customer }}</v-list-item-title>
+                        </template>
+                        <span>{{ item.customer }}</span>
+                      </v-tooltip>
+                    </v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item three-line >
                   <v-list-item-content>
-                    <v-list-item-title>Medium</v-list-item-title>
-                    <v-list-item-subtitle>{{ item.medium }}</v-list-item-subtitle>
+                    <v-list-item-title>
+                      <v-tooltip top>
+                        <template v-slot:activator="{ on }">
+                          <v-icon
+                            :color="category.color"
+                            alt="Künstler"
+                            v-on="on"
+                          >
+                            fa-mortar-pestle
+                          </v-icon>
+                        </template>
+                        <span>Medium</span>
+                      </v-tooltip>
+                    </v-list-item-title>
+                    <v-list-item-subtitle>
+                      <v-tooltip top>
+                        <template v-slot:activator="{ on }">
+                          <v-list-item-title v-on="on">{{ item.medium }}</v-list-item-title>
+                        </template>
+                        <span>{{ item.medium }}</span>
+                      </v-tooltip>
+                    </v-list-item-subtitle>
                   </v-list-item-content>
                   <v-list-item-content>
-                    <v-list-item-title>Größe</v-list-item-title>
-                    <v-list-item-subtitle>{{ item.dimensions }}</v-list-item-subtitle>
+                    <v-list-item-title>
+                      <v-tooltip top>
+                        <template v-slot:activator="{ on }">
+                          <v-icon
+                            :color="category.color"
+                            alt="Künstler"
+                            v-on="on"
+                          >
+                            fa-ruler-combined
+                          </v-icon>
+                        </template>
+                        <span>Größe</span>
+                      </v-tooltip>
+                    </v-list-item-title>
+                    <v-list-item-subtitle>
+                      <v-tooltip top>
+                        <template v-slot:activator="{ on }">
+                          <v-list-item-title v-on="on">{{ item.dimensions }}</v-list-item-title>
+                        </template>
+                        <span>{{ item.dimensions }}</span>
+                      </v-tooltip>
+                    </v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item two-line >
                   <v-list-item-content>
-                    <v-list-item-title>Datum</v-list-item-title>
-                    <v-list-item-subtitle>{{ item.date }}</v-list-item-subtitle>
+                    <v-list-item-title>
+                      <v-tooltip top>
+                        <template v-slot:activator="{ on }">
+                          <v-icon
+                            :color="category.color"
+                            alt="Künstler"
+                            v-on="on"
+                          >
+                            fa-calendar-alt
+                          </v-icon>
+                        </template>
+                        <span>Entstehungszeit</span>
+                      </v-tooltip>
+                    </v-list-item-title>
+                    <v-list-item-subtitle>
+                      <v-tooltip top>
+                        <template v-slot:activator="{ on }">
+                          <v-list-item-title v-on="on">{{ item.date }}</v-list-item-title>
+                        </template>
+                        <span>{{ item.date }}</span>
+                      </v-tooltip>
+                    </v-list-item-subtitle>
                   </v-list-item-content>
                   <v-list-item-content>
-                    <v-list-item-title>Künstler</v-list-item-title>
-                    <v-list-item-subtitle>{{ item.artist }}</v-list-item-subtitle>
+                    <v-list-item-title>
+                      <v-tooltip top>
+                        <template v-slot:activator="{ on }">
+                          <v-icon
+                            :color="category.color"
+                            alt="Künstler"
+                            v-on="on"
+                          >
+                            fa-fingerprint
+                          </v-icon>
+                        </template>
+                        <span>Künstler</span>
+                      </v-tooltip>
+                    </v-list-item-title>
+                    <v-list-item-subtitle>
+                      <v-tooltip top>
+                        <template v-slot:activator="{ on }">
+                          <v-list-item-title v-on="on">{{ item.artist }}</v-list-item-title>
+                        </template>
+                        <span>{{ item.artist }}</span>
+                      </v-tooltip>
+                    </v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
               </v-list>

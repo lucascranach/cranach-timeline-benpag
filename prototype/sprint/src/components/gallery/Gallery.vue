@@ -32,7 +32,7 @@
             <v-card :elevation="hover ? 10 : 2">
               <v-img :src="item.imageUrl" height="250px" position="center top" />
               <v-list>
-                <v-list-item two-line >
+                <v-list-item two-line>
                   <v-list-item-content>
                     <v-tooltip top>
                       <template v-slot:activator="{ on }">

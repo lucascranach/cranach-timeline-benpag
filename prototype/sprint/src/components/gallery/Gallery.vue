@@ -219,7 +219,7 @@ export default {
       /*
         [
           {
-            type: "Gemälde",
+            type: "KategorieName",
             color,
             data: [
               {

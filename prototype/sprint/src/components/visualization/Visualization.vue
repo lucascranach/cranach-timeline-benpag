@@ -1,13 +1,9 @@
 <template>
   <v-row>
     <v-col class="pa-0">
-      <v-row
-        ref="navigation"
-        :class="`side-spacing nav py-2 ma-0 elevation-${ (navSpacerActive) ? 5 : 0 }`"
-        :style="`${ (navSpacerActive) ? 'top: 0; position: fixed;' : '' }`"
-      >
-        <v-col cols="3" class="pa-0" ref="search">
-          <v-row justify="start">
+      <v-row ref="navigation">
+        <v-col cols="4" class="pa-0">
+          <v-row ref="navigation">
             <v-text-field
               hide-details
               clearable
@@ -15,111 +11,57 @@
               @keydown="searchKeyTest"
               v-model="searchText"
             ></v-text-field>
-
             <v-btn icon x-large @click="addSearch">
               <v-icon>fa-search</v-icon>
             </v-btn>
-          </v-row>
-        </v-col>
 
-        <v-spacer></v-spacer>
+            <v-spacer></v-spacer>
 
-        <v-col cols="6" class="pa-0" ref="filter">
-          <v-row justify="start">
-            <v-col cols="2" class="pa-0">
-              <v-menu
-                v-model="menu"
-                :close-on-content-click="false"
-                :nudge-width="200"
-                offset-x
-              >
-                <template v-slot:activator="{ on }">
-                  <v-btn
-                    icon
-                    x-large
-                    v-on="on"
+            <v-menu
+              v-model="menu"
+              :close-on-content-click="false"
+              :nudge-width="200"
+              offset-x
+            >
+              <template v-slot:activator="{ on }">
+                <v-btn
+                  icon
+                  x-large
+                  v-on="on"
+                >
+                  <v-icon>fa-filter</v-icon>
+                </v-btn>
+              </template>
+
+              <v-card>
+                <v-list>
+                  <v-list-item
+                    v-for="(category, index) in categories"
+                    :key="`category-slider-${index}`"
                   >
-                    <v-icon>fa-filter</v-icon>
-                  </v-btn>
-                </template>
+                    <v-list-item-action>
+                      <v-switch
+                        v-model="switches[index]"
+                        :color="category.color">
+                      </v-switch>
+                    </v-list-item-action>
+                    <v-list-item-title>{{category.type}}</v-list-item-title>
+                  </v-list-item>
+                </v-list>
 
-                <v-card>
-                  <v-list>
-                    <v-list-item
-                      v-for="(category, index) in categories"
-                      :key="`category-slider-${index}`"
-                    >
-                      <v-list-item-action>
-                        <v-switch
-                          v-model="switches[index]"
-                          :color="category.color">
-                        </v-switch>
-                      </v-list-item-action>
-                      <v-list-item-title>{{category.type}}</v-list-item-title>
-                    </v-list-item>
-                  </v-list>
-
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn text @click="menu = false">Close</v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-menu>
-            </v-col>
-
-            <v-col cols="2" class="pa-0 pr-1">
-              <v-text-field
-                hide-details
-                outlined
-                ref="left"
-                label="Von:"
-                v-model="textFieldValueMin"
-              ></v-text-field>
-            </v-col>
-
-            <v-col cols="2" class="pa-0 pl-1">
-              <v-text-field
-                hide-details
-                outlined
-                ref="right"
-                label="Bis:"
-                v-model="textFieldValueMax"
-              ></v-text-field>
-            </v-col>
-
-            <v-col cols="5" class="pa-0">
-              <v-row justify="center" align="center">
-                <v-btn icon x-large @click="zoomIn">
-                  <v-icon>fa-search-plus</v-icon>
-                </v-btn>
-
-                <v-btn
-                  icon
-                  x-large
-                  @click="resetZoom"
-                  :disabled="resetZoomDisabled"
-                  class="ml-5 mr-4"
-                >
-                  <v-icon>fa-undo-alt</v-icon>
-                </v-btn>
-
-                <v-btn
-                  icon
-                  x-large
-                  @click="zoomOut"
-                  :disabled="resetZoomDisabled"
-                >
-                  <v-icon>fa-search-minus</v-icon>
-                </v-btn>
-              </v-row>
-            </v-col>
-
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn text @click="menu = false">Close</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-menu>
           </v-row>
         </v-col>
 
-        <v-spacer></v-spacer>
+        <v-col cols="4" class="pa-0">
+        </v-col>
 
-        <v-col cols="1" class="pa-0">
+        <v-col cols="4" class="pa-0">
           <v-row justify="end">
             <v-dialog
               v-model="info"
@@ -144,7 +86,7 @@
                 </v-card-title>
 
                 <v-card-text>
-                  <v-row><span class="py-5"><b>{{infoSub}}</b></span></v-row>
+                  <v-row><v-card-subtitle>{{infoSub}}</v-card-subtitle></v-row>
                   <v-row v-for="(tip, index) in tips" :key="`tip-${index}`">
                     <v-col>
                       <v-row>
@@ -168,30 +110,70 @@
         </v-col>
       </v-row>
 
-      <v-row
-        ref="nav_spacer"
-        :style="navSpacerStyle"
-      >
+      <v-row ref="graph">
+        <v-col>
+          <highcharts :options="chartOptions" ref="chart"></highcharts>
+        </v-col>
       </v-row>
 
-      <v-row ref="graph" align="center">
-        <v-col cols="1" class="pa-0">
-          <v-row justify="center">
-            <v-btn icon x-large @click="scrollLeft" :disabled="scrollLeftDisabled">
-              <v-icon>fa-angle-left</v-icon>
+      <v-row ref="timeRow" class="pa-0">
+        <v-col cols="2" class="pa-0">
+          <v-row justify="start">
+            <v-col cols="2">
+              <v-btn icon x-large @click="scrollLeft" :disabled="scrollLeftDisabled">
+                <v-icon>fa-angle-left</v-icon>
+              </v-btn>
+            </v-col>
+
+            <v-col cols="10">
+              <v-text-field
+                hide-details
+                outlined
+                ref="left"
+                v-model="textFieldValueMin"
+              ></v-text-field>
+            </v-col>
+          </v-row>
+        </v-col>
+        <v-col cols="8" class="pa-0">
+          <v-row class="pa-3" justify="center" align="center">
+            <v-btn icon x-large @click="zoomIn">
+              <v-icon>fa-search-plus</v-icon>
+            </v-btn>
+
+            <v-btn
+              icon
+              x-large
+              @click="resetZoom"
+              :disabled="resetZoomDisabled"
+              class="ml-5 mr-4"
+            >
+              <v-icon>fa-undo-alt</v-icon>
+            </v-btn>
+
+            <v-btn icon x-large @click="zoomOut">
+              <v-icon>fa-search-minus</v-icon>
             </v-btn>
           </v-row>
         </v-col>
+        <v-col cols="2" class="pa-0">
+          <v-row justify="end">
+            <v-col cols="10">
+              <v-text-field
+                hide-details
+                outlined
+                ref="right"
+                v-model="textFieldValueMax"
+              ></v-text-field>
+            </v-col>
 
-        <v-col cols="10" class="pa-0">
-          <highcharts :options="chartOptions" ref="chart" style="cursor: crosshair"></highcharts>
-        </v-col>
-
-        <v-col cols="1" class="pa-0">
-          <v-row justify="center">
-            <v-btn icon x-large @click="scrollRight" :disabled="scrollRightDisabled">
-              <v-icon>fa-angle-right</v-icon>
-            </v-btn>
+            <v-col cols="2">
+              <v-row justify="end">
+                <v-btn icon x-large @click="scrollRight" :disabled="scrollRightDisabled">
+                  <v-icon>fa-angle-right</v-icon>
+                </v-btn>
+              </v-row>
+            </v-col>
           </v-row>
         </v-col>
       </v-row>
@@ -212,7 +194,6 @@ export default {
   },
 
   data: () => ({
-    navSpacerActive: false,
     zoomTimeout: null,
     searchFilter: () => true,
     searchText: '',
@@ -237,9 +218,9 @@ export default {
       },
       {
         title: 'Navigation',
-        text: `Der Zeitstrahl kann mithilfe der darüber und daneben gelegenen Elemente navigiert werden. 
+        text: `Der Zeitstrahl kann mithilfe der darunter gelegenen Elemente navigiert werden. 
           Hierzu zählen die Angabe einer gewünschten Zeitspanne, das horizontale Scrollen mittels 
-          dafür vorgesehener Buttons und das Vergrößern des Sichtfeldes, um die Ansicht der Werke zu optimieren. 
+          dafür vorgesehener Buttons und das Vergrößern des Sichtfeldes, um die Ansicht der Werke zu oprimieren. 
           Zusätzlich kann über eine Ziehbewegung der Maus mit gedrückter linker Taste ein Bereich des 
           Zeitstrahls gezielt ausgewählt werden.`,
       },
@@ -251,8 +232,8 @@ export default {
       {
         title: 'Weitere Informationen',
         text: `Benötigst du tiefgreifenderes Wissen bezüglich eines Kunstwerks, 
-          so gelangst du über einen Klick auf den Datenpunkt zu der entsprechenden Gallerie-Karte. Hier wird dir zudem 
-          eine Weiterleitung zu unseren Partnern angeboten, welche weitere spannende Informationen für dich bereit halten.`,
+          so gelangst du über die Gallerie-Karten zu unseren Partnern, welche weitere spannende 
+          Informationen für dich bereit halten.`,
       },
     ],
   }),
@@ -265,15 +246,6 @@ export default {
   },
 
   computed: {
-    navSpacerStyle: {
-      get() {
-        const height = (this.$refs.navigation) ? this.$refs.navigation.clientHeight : 0;
-
-        return (this.navSpacerActive)
-          ? `visibility: visible; height: ${height}px`
-          : 'visibility: hidden';
-      },
-    },
     scrollLeftDisabled: {
       get() {
         return this.min.getTime() <= new Date('1472-01-01').getTime();
@@ -333,7 +305,7 @@ export default {
       get() {
         return {
           chart: {
-            height: '50%',
+            height: '35%',
             zoomType: 'x',
             backgroundColor: 'rgb(250,250,250)',
             resetZoomButton: {
@@ -398,21 +370,14 @@ export default {
                   },
                 },
               },
-              events: {
-                click: (event) => {
-                  this.$emit('itemClicked', event.point);
-                },
-              },
             },
             series: {
-              turboThreshold: 0,
               events: {
                 legendItemClick: (event) => {
                   this.changeSwitchFor(event.target.name);
                 },
               },
               stickyTracking: false,
-              cursor: 'pointer',
             },
           },
           series: this.series,
@@ -423,8 +388,7 @@ export default {
 
   methods: {
     getEvents() {
-      const currentMax = yearUtils.getHighestValue(this.min, this.max);
-      const y = currentMax * 1.05;
+      const y = yearUtils.getHighestValue(this.min, this.max) + 2;
       const events = eventUtils.getEvents();
 
       return {
@@ -502,7 +466,6 @@ export default {
           start: data.startDate,
           end: data.endDate,
           artist: data.artist,
-          unique: data.unique,
           type,
         };
       });
@@ -600,6 +563,8 @@ export default {
     },
     resetZoom() {
       this.$refs.chart.chart.zoomOut();
+
+      this.setZoom(new Date('1471-01-01'), new Date('1554-01-01'));
     },
     changeSwitchFor(categoryName) {
       this.categories.forEach((el, i) => {
@@ -651,19 +616,6 @@ export default {
           || data.type.toLowerCase().includes(keyword.toLowerCase());
       };
     },
-
-    handleScroll() {
-      console.log(this.navSpacerActive);
-      if (this.navSpacerActive) {
-        if (this.$refs.nav_spacer
-          && this.$refs.nav_spacer.getBoundingClientRect().top >= 0) {
-          this.navSpacerActive = false;
-        }
-      } else if (this.$refs.navigation
-        && this.$refs.navigation.getBoundingClientRect().top <= 0) {
-        this.navSpacerActive = true;
-      }
-    },
   },
 
   watch: {
@@ -675,25 +627,11 @@ export default {
       });
     },
   },
-
-  created() {
-    window.addEventListener('scroll', this.handleScroll);
-  },
-
-  destroyed() {
-    window.removeEventListener('scroll', this.handleScroll);
-  },
 };
 </script>
 
 <style>
   .spacing-left {
     padding-left: 10px;
-  }
-
-  .nav {
-    z-index: 100;
-    background-color: rgb(250,250,250);
-    width: 100%;
   }
 </style>

@@ -1,17 +1,10 @@
 <template>
-  <v-container fluid>
-    <Visualization
-      :categories="categories"
-      @addFilter="addFilter"
-      @removeFilter="removeFilter"
-      @itemClicked="itemClicked"
-    />
+  <v-container fluid class="side-spacing">
+    <Visualization :categories="categories" @addFilter="addFilter" @removeFilter="removeFilter" />
 
-    <v-row class="side-spacing">
-      <v-divider></v-divider>
-    </v-row>
+    <v-divider></v-divider>
 
-    <Gallery ref="gallery" :categories="filteredCategories" class="side-spacing" />
+    <Gallery :categories="filteredCategories" />
   </v-container>
 </template>
 
@@ -19,7 +12,6 @@
 // @ is an alias to /src
 import Visualization from '@/components/visualization/Visualization.vue';
 import Gallery from '@/components/gallery/Gallery.vue';
-import works from '@/works.json';
 
 export default {
   name: 'home',
@@ -29,7 +21,6 @@ export default {
   },
 
   data: () => ({
-    setProductionTimeout: null,
     categories: [
       {
         type: 'Gemälde',
@@ -81,17 +72,17 @@ export default {
               return dataAcc;
             }, []);
 
-            // if (filteredData.length > 0) {
-            return [
-              ...acc,
-              {
-                type: current.type,
-                color: current.color,
-                data: filteredData,
-              },
-            ];
-            // }
-            // return acc;
+            if (filteredData.length > 0) {
+              return [
+                ...acc,
+                {
+                  type: current.type,
+                  color: current.color,
+                  data: filteredData,
+                },
+              ];
+            }
+            return acc;
           }, []);
         }
 
@@ -132,64 +123,6 @@ export default {
           break;
         }
       }
-    },
-    addProductions(prods) {
-      if (this.setProductionTimeout) clearTimeout(this.setProductionTimeout);
-
-      this.setProductionTimeout = setTimeout(() => {
-        const productions = prods.map(p => this.createProduction(p));
-        const newCategories = this.categories.map((c) => {
-          const cat = { ...c };
-          cat.data = [];
-          return cat;
-        });
-
-        let counter = 0;
-        productions.forEach((production) => {
-          const multi = 1;
-          switch (production.type) {
-            case 'painting': {
-              production.type = this.categories[0].type;
-              for (let i = 0; i < multi; i += 1) {
-                const pro = { ...production, unique: counter };
-                counter += 1;
-                newCategories[0].data.push(pro);
-              }
-
-              break;
-            }
-            case 'drawing': {
-              production.type = this.categories[1].type;
-              for (let i = 0; i < multi; i += 1) {
-                const pro = { ...production, unique: counter };
-                counter += 1;
-                newCategories[1].data.push(pro);
-              }
-              break;
-            }
-            case 'print': {
-              production.type = this.categories[2].type;
-              for (let i = 0; i < multi; i += 1) {
-                const pro = { ...production, unique: counter };
-                counter += 1;
-                newCategories[2].data.push(pro);
-              }
-              break;
-            }
-            default: {
-              production.type = this.categories[3].type;
-              for (let i = 0; i < multi; i += 1) {
-                const pro = { ...production, unique: counter };
-                counter += 1;
-                newCategories[3].data.push(pro);
-              }
-              break;
-            }
-          }
-        });
-
-        this.categories = newCategories;
-      }, 1000);
     },
     createProduction(data) {
       return {
@@ -232,22 +165,20 @@ export default {
     matchesAllFilters(data) {
       return this.filters.every(f => f(data));
     },
-    itemClicked(production) {
-      this.$refs.gallery.scrollTo(production);
-    },
   },
 
   mounted() {
-    this.addProductions(works);
+    this.$store.state.productions.forEach((data) => {
+      this.addProduction(this.createProduction(data));
+    });
 
-    // this.$store.watch(
-    //   state => state.productions,
-    //   (/* newProductions */) => {
-    //     this.addProductions(this.$store.state.productions);
-    //     // this.addProduction(this.createProduction(newProductions[newProductions.length - 1]));
-    //   },
-    //   { deep: true },
-    // );
+    this.$store.watch(
+      state => state.productions,
+      (newProductions) => {
+        this.addProduction(this.createProduction(newProductions[newProductions.length - 1]));
+      },
+      { deep: true },
+    );
   },
 
 };

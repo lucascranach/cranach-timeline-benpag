@@ -48,6 +48,7 @@
           <v-row
             class="ma-0"
             :style="`
+              min-height: 100%;
               border-bottom: 4px solid ${category.color};
               border-left: 1px solid rgb(250, 250, 250);
             `"

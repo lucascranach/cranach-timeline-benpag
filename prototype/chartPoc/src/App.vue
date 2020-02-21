@@ -29,7 +29,7 @@ export default {
     ],
   }),
   created() {
-     this.items = [...works/*, ...works, ...works*/].map(w => this.createProduction(w))
+     this.items = [...works, ...works, ...works, ...works, ...works, ...works, ...works, ...works, ...works, ...works, ...works, ...works, ...works].map(w => this.createProduction(w))
       .sort((a, b) => (a.type > b.type) ? 1 : -1);
   },
   methods: {

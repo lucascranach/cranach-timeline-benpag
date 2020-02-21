@@ -937,7 +937,7 @@ export default {
     top: 2%;
     width: 95%;
     height: 95%;
-    transition: all 0.2s linear;
+    transition: all 0.5s linear;
     z-index: 200;
   }
 

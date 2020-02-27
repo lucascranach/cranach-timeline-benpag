@@ -152,12 +152,12 @@ export default {
         start: new Date(-14412902400000),
         end: new Date(-14021666956800),
         focus: {
-          x: 200,
-          y: 100,
+          x: 100,
+          y: 50,
         },
         size: {
-          x: 487,
-          y: 169,
+          x: 243.5,
+          y: 84.5,
         },
       },
       {

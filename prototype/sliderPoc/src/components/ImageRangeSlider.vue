@@ -57,21 +57,23 @@
                   v-for="(image, index) in images"
                   :key="`gray${index}`"
                   :style="`
-                    margin-left: ${getImageOffset(index)}px !important;
+                    margin-left: ${getImageContainerOffset(index)}px !important;
                     opacity: 0.5;
                   `"
                 >
+                  <!-- eslint-disable -->
                   <div
-                    :class="`${getClass(index)} filtered`"
+                    :class="`${getImageContainerClass(index)} filtered`"
                     :style="`
                       background-image: url('${image.src}');
                       background-repeat: no-repeat;
-                      background-position: ${getX(image)}px ${getY(image)}px;
-                      background-size: ${getWidth(image)}px ${getHeight(image)}px;
+                      background-position: ${getImageXPosition(image)}px ${getImageYPosition(image)}px;
+                      background-size: ${getImageWidth(image)}px ${getImageHeight(image)}px;
                       height: ${imageRowHeight}px;
-                      width: ${getImageWidth()}px;
+                      width: ${getImageContainerWidth()}px;
                     `"
                   ></div>
+                  <!-- eslint-enable -->
                 </v-col>
                </v-row>
 
@@ -85,20 +87,22 @@
                   v-for="(image, index) in images"
                   :key="`real${index}`"
                   :style="`
-                    margin-left: ${getImageOffset(index)}px !important;
+                    margin-left: ${getImageContainerOffset(index)}px !important;
                   `"
                 >
+                  <!-- eslint-disable -->
                   <div
-                    :class="`${getClass(index)}`"
+                    :class="`${getImageContainerClass(index)}`"
                     :style="`
                       background-image: url('${image.src}');
                       background-repeat: no-repeat;
-                      background-position: ${getX(image)}px ${getY(image)}px;
-                      background-size: ${getWidth(image)}px ${getHeight(image)}px;
+                      background-position: ${getImageXPosition(image)}px ${getImageYPosition(image)}px;
+                      background-size: ${getImageWidth(image)}px ${getImageHeight(image)}px;
                       height: ${imageRowHeight}px;
-                      width: ${getImageWidth()}px;
+                      width: ${getImageContainerWidth()}px;
                     `"
                   ></div>
+                  <!-- eslint-enable -->
                 </v-col>
                </v-row>
 
@@ -375,7 +379,7 @@ export default {
       return new Date(ts).getFullYear();
     },
 
-    getClass(index) {
+    getImageContainerClass(index) {
       if (index === 0) return 'first';
       if (index === this.images.length - 1) {
         return 'last';
@@ -405,12 +409,12 @@ export default {
       if (!this.edited) this.$refs.histo.update({ from: from.valueOf(), to: to.valueOf() });
     },
 
-    getImageWidth() {
+    getImageContainerWidth() {
       return (this.imageRowWidth + ((this.distance * this.gapFactor) * (this.images.length - 1)))
         / this.images.length;
     },
 
-    getImageOffset(index) {
+    getImageContainerOffset(index) {
       return (index > 0) ? -(this.distance * this.gapFactor) : 0;
     },
 
@@ -427,43 +431,51 @@ export default {
       this.svgHeight = this.$refs.imageRow.clientHeight;
     },
 
-    getX(image) {
-      const width = this.getWidth(image);
-      const resizeRatio = width / image.size.x;
+    getImageXPosition(image) {
+      const resizeRatio = this.getImageResizeRatio(image);
 
-      const containerMidX = this.getImageWidth() / 2;
+      const containerMidX = this.getImageContainerWidth() / 2;
       const distX = (image.focus.x * resizeRatio) - containerMidX;
       if (distX < 0) return 0;
 
-      const diffSize = width - this.getImageWidth();
+      const diffSize = image.size.x * this.getImageResizeRatio(image)
+        - this.getImageContainerWidth();
 
       if (diffSize <= 0) return 0;
       return distX <= diffSize ? -distX : -diffSize;
     },
 
-    getY(image) {
-      const width = this.getWidth(image);
-      const resizeRatio = width / image.size.x;
-
+    getImageYPosition(image) {
+      const resizeRatio = this.getImageResizeRatio(image);
       const containerMidY = this.imageRowHeight / 2;
       const distY = (image.focus.y * resizeRatio) - containerMidY;
       if (distY < 0) return 0;
 
-      const diffSize = this.getHeight(image) - this.imageRowHeight;
+      const diffSize = image.size.y * this.getImageResizeRatio(image) - this.imageRowHeight;
 
       if (diffSize <= 0) return 0;
       return distY <= diffSize ? -distY : -diffSize;
     },
 
-    getWidth(image) {
-      const imageWidth = this.getImageWidth();
-      return (image.size.x < imageWidth) ? imageWidth : image.size.x;
+    getImageWidth(image) {
+      return image.size.x * this.getImageResizeRatio(image);
     },
 
-    getHeight(image) {
-      const width = this.getWidth(image);
-      const resizeRatio = width / image.size.x;
-      return image.size.y * resizeRatio;
+    getImageHeight(image) {
+      return image.size.y * this.getImageResizeRatio(image);
+    },
+
+    getImageResizeRatio(image) {
+      const containerWidth = this.getImageContainerWidth();
+      const containerHeight = this.imageRowHeight;
+
+      let resizeRatio = (containerWidth > image.size.x) ? containerWidth / image.size.x : 1;
+
+      while (image.size.y * resizeRatio < containerHeight) {
+        resizeRatio += 0.01;
+      }
+
+      return resizeRatio;
     },
   },
 

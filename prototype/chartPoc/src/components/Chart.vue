@@ -52,7 +52,7 @@
             <text v-for="(year, i) in getYears()" :key="i" :x="getXValueOfItem(year)" :y="windowHeight">{{ year }}</text>
           </g>
           <line x1="0" :y1="windowHeight-20" :x2="windowWidth+10" :y2="windowHeight-20" stroke="black" />
-          <g v-for="(position, i) in coordinates" :key="(i+1)" v-show="position.tooltipVisible">
+          <g v-for="(position, i) in coordinates" :key="(i+1)" v-show="position.tooltipVisible" style="z-index: 1000">
             <image height="150" width="150" :x="position.x" :y="position.y" :xlink:href="items[position.index].imageUrl" :alt="'Bild:' + items[position.index].title" />
           </g>
         </g>

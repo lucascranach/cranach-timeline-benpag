@@ -17,7 +17,7 @@
 
           <ImageRangeSlider
             ref="breadcrumb"
-            :height="`${windowHeight * 0.15}px`"
+            :height="windowHeight * 0.15"
             :images="breadcrumbItems"
             :minDate="absoluteMin"
             :maxDate="absoluteMax"
@@ -52,6 +52,8 @@ export default {
   },
 
   data: () => ({
+    scatterMarkerRadius: 5,
+    lineMarkerRadius: 7,
     rangeUpdateTimeout: null,
     frequencies: [],
     scatterActive: false,
@@ -312,7 +314,7 @@ export default {
           plotOptions: {
             scatter: {
               marker: {
-                radius: 5,
+                radius: this.scatterMarkerRadius,
                 states: {
                   hover: {
                     enabled: true,
@@ -418,7 +420,7 @@ export default {
               animation: false,
               marker: {
                 lineWidth: 1,
-                radius: 5,
+                radius: this.lineMarkerRadius,
               },
               lineWidth: 2,
               connectNulls: true,

@@ -45,7 +45,7 @@
 
       <v-row class="ma-0 mt-1">
         <v-col cols="12" class="pa-0">
-          <v-row class="ma-0" :style="`height: ${imageRowHeight};`">
+          <v-row class="ma-0" :style="`height: ${imageRowHeight}px;`">
             <v-col cols="12" class="px-2 py-0">
               <v-row
                 class="ma-0 flex-nowrap"
@@ -56,18 +56,22 @@
                   class="pa-0"
                   v-for="(image, index) in images"
                   :key="`gray${index}`"
+                  :style="`
+                    margin-left: ${getImageOffset(index)}px !important;
+                    opacity: 0.5;
+                  `"
                 >
-                  <v-img
+                  <div
                     :class="`${getClass(index)} filtered`"
-                    :src="image.src"
-                    aspect-ratio="10"
-                    :width="getImageWidth(index)"
                     :style="`
-                      left: ${getImageOffset(index)}px;
-                      opacity: 0.5;
+                      background-image: url('${image.src}');
+                      background-repeat: no-repeat;
+                      background-position: ${getX(image)}px ${getY(image)}px;
+                      background-size: ${getWidth(image)}px ${getHeight(image)}px;
                       height: ${imageRowHeight}px;
+                      width: ${getImageWidth()}px;
                     `"
-                  ></v-img>
+                  ></div>
                 </v-col>
                </v-row>
 
@@ -80,17 +84,21 @@
                   class="pa-0"
                   v-for="(image, index) in images"
                   :key="`real${index}`"
+                  :style="`
+                    margin-left: ${getImageOffset(index)}px !important;
+                  `"
                 >
-                  <v-img
-                    :class="getClass(index)"
-                    :src="image.src"
-                    aspect-ratio="10"
-                    :width="getImageWidth(index)"
+                  <div
+                    :class="`${getClass(index)}`"
                     :style="`
-                      left: ${getImageOffset(index)}px;
+                      background-image: url('${image.src}');
+                      background-repeat: no-repeat;
+                      background-position: ${getX(image)}px ${getY(image)}px;
+                      background-size: ${getWidth(image)}px ${getHeight(image)}px;
                       height: ${imageRowHeight}px;
+                      width: ${getImageWidth()}px;
                     `"
-                  ></v-img>
+                  ></div>
                 </v-col>
                </v-row>
 
@@ -230,14 +238,28 @@ export default {
   },
 
   props: {
+
     images: {
       type: Array,
       required: true,
+      // [{
+      //   src: String,
+      //   start: Date,
+      //   end: Date,
+      //   focus: {
+      //     x: Number,
+      //     y: Number,
+      //   },
+      //   size: {
+      //     x: Number,
+      //     y: Number,
+      //   },
+      // }]
     },
     height: {
-      type: String,
+      type: Number,
       required: false,
-      default: '80px',
+      default: 80,
     },
     minDate: {
       type: Date,
@@ -262,10 +284,6 @@ export default {
     backgroundColor: {
       type: String,
       default: '#ffffff',
-    },
-    equalWidth: {
-      type: Boolean,
-      default: true,
     },
     frequencies: {
       type: Array,
@@ -312,7 +330,7 @@ export default {
 
     imageRowHeight: {
       get() {
-        return `calc(${this.height} - ${this.sliderHeight}px - ${this.chipHeight}px - 2px);`;
+        return this.height - this.sliderHeight - this.chipHeight - 2;
       },
     },
 
@@ -321,7 +339,7 @@ export default {
         return `
           position: absolute;
           width: calc(100% - 16px);
-          height: ${this.imageRowHeight}
+          height: ${this.imageRowHeight}px
           top: ${this.chipHight}px;
         `;
       },
@@ -360,11 +378,9 @@ export default {
     getClass(index) {
       if (index === 0) return 'first';
       if (index === this.images.length - 1) {
-        if (index % 2 === 0) return 'last-down';
-        return 'last-up';
+        return 'last';
       }
-      if (index % 2 === 0) return 'down';
-      return 'up';
+      return 'middle';
     },
 
     change(e) {
@@ -389,22 +405,13 @@ export default {
       if (!this.edited) this.$refs.histo.update({ from: from.valueOf(), to: to.valueOf() });
     },
 
-    getImageWidth(index) {
-      if (this.equalWidth) {
-        return (this.imageRowWidth + (this.distance * this.gapFactor) * (this.images.length - 1))
-          / this.images.length;
-      }
-
-      const maxTime = this.maxDate.valueOf() - this.minDate.valueOf();
-      const time = this.images[index].end.valueOf() - this.images[index].start.valueOf();
-      const part = time / maxTime;
-
-      return (this.imageRowWidth + (this.distance * this.gapFactor) * (this.images.length - 1))
-        * part;
+    getImageWidth() {
+      return (this.imageRowWidth + ((this.distance * this.gapFactor) * (this.images.length - 1)))
+        / this.images.length;
     },
 
     getImageOffset(index) {
-      return -(index * (this.distance * this.gapFactor));
+      return (index > 0) ? -(this.distance * this.gapFactor) : 0;
     },
 
     reRender() {
@@ -418,6 +425,45 @@ export default {
       this.imageRowWidth = this.$refs.imageRow.clientWidth;
       this.chipHight = this.$refs.chip.clientHeight;
       this.svgHeight = this.$refs.imageRow.clientHeight;
+    },
+
+    getX(image) {
+      const width = this.getWidth(image);
+      const resizeRatio = width / image.size.x;
+
+      const containerMidX = this.getImageWidth() / 2;
+      const distX = (image.focus.x * resizeRatio) - containerMidX;
+      if (distX < 0) return 0;
+
+      const diffSize = width - this.getImageWidth();
+
+      if (diffSize <= 0) return 0;
+      return distX <= diffSize ? -distX : -diffSize;
+    },
+
+    getY(image) {
+      const width = this.getWidth(image);
+      const resizeRatio = width / image.size.x;
+
+      const containerMidY = this.imageRowHeight / 2;
+      const distY = (image.focus.y * resizeRatio) - containerMidY;
+      if (distY < 0) return 0;
+
+      const diffSize = this.getHeight(image) - this.imageRowHeight;
+
+      if (diffSize <= 0) return 0;
+      return distY <= diffSize ? -distY : -diffSize;
+    },
+
+    getWidth(image) {
+      const imageWidth = this.getImageWidth();
+      return (image.size.x < imageWidth) ? imageWidth : image.size.x;
+    },
+
+    getHeight(image) {
+      const width = this.getWidth(image);
+      const resizeRatio = width / image.size.x;
+      return image.size.y * resizeRatio;
     },
   },
 
@@ -458,7 +504,7 @@ export default {
     );
   }
 
-  .up {
+  .middle {
     //  clip-path: polygon(#{$distance} 0, calc(100% - #{$distance}) 0, 100% 100%, 0 100%);
     clip-path: polygon(
       0 0,
@@ -470,31 +516,8 @@ export default {
     );
   }
 
-  .down {
-    //  clip-path: polygon(0 0, 100% 0, calc(100% - #{$distance}) 100%, #{$distance} 100%);
-    clip-path: polygon(
-      0 0,
-      calc(100% - #{$distance}) 0,
-      100% 50%,
-      calc(100% - #{$distance}) 100%,
-      0 100%,
-      #{$distance} 50%
-    );
-  }
-
-  .last-down {
+  .last {
   //  clip-path: polygon(0 0, 100% 0, 100% 100%, #{$distance} 100%);
-    clip-path: polygon(
-      0 0,
-      100% 0,
-      100% 100%,
-      0 100%,
-      #{$distance} 50%
-    );
-  }
-
-  .last-up {
-    //  clip-path: polygon(#{$distance} 0, 100% 0, 100% 100%, 0 100%);
     clip-path: polygon(
       0 0,
       100% 0,

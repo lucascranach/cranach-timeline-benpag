@@ -155,7 +155,9 @@
                       width="100%"
                       height="100%"
                       fill="rgba(0,0,0,0)"
-                      @click="clickedImageRow"
+                      @mousedown="enableDrag"
+                      @mousemove="dragRange"
+                      @mouseup="stopDrag"
                     ></rect>
                   </svg>
                 </v-col>
@@ -189,6 +191,7 @@
             :min="minDate.valueOf()"
             :max="maxDate.valueOf()"
             @change="change"
+            @update="update"
           />
         </v-col>
       </v-row>
@@ -223,7 +226,10 @@ export default {
 
   data: function getData() {
     return {
-      edited: false,
+      distMinMax: 0,
+      dragging: false,
+      currentDragPosition: 0,
+      movedSlider: false,
       rangeTimeout: null,
       chipHeight: 30,
       distance: 10,
@@ -357,12 +363,30 @@ export default {
   },
 
   methods: {
+    enableDrag(e) {
+      this.dragging = true;
+      this.movedSlider = false;
+      document.getElementsByClassName('irs-bar')[0].dispatchEvent(new MouseEvent(e.type, e));
+    },
+
+    dragRange(e) {
+      if (this.dragging) {
+        this.movedSlider = true;
+        document.getElementsByClassName('irs-bar')[0].dispatchEvent(new MouseEvent(e.type, e));
+      }
+    },
+
+    stopDrag(e) {
+      this.dragging = false;
+      if (!this.movedSlider) this.clickedImageRow(e);
+      document.getElementsByClassName('irs-bar')[0].dispatchEvent(new MouseEvent(e.type, e));
+    },
+
     clickedImageRow(e) {
       const percent = e.layerX / this.imageRowWidth * 100;
       const distMin = Math.abs(percent - this.range[0]);
       const distMax = Math.abs(percent - this.range[1]);
-      const dist = this.maxDate.valueOf() - this.minDate.valueOf();
-      const date = new Date(this.minDate.valueOf() + dist * (percent / 100));
+      const date = new Date(this.minDate.valueOf() + this.distMinMax * (percent / 100));
 
       if (percent < this.range[0] || distMin <= distMax) this.setRange(date, this.to);
       else this.setRange(this.from, date);
@@ -388,25 +412,22 @@ export default {
     },
 
     change(e) {
-      this.edited = true;
-      this.setRange(new Date(e.from), new Date(e.to));
+      this.movedSlider = true;
+      this.update(e);
 
       this.$emit('rangeChanged', { from: this.from, to: this.to });
-      this.edited = false;
+    },
+
+    update(e) {
+      this.from = new Date(e.from);
+      this.to = new Date(e.to);
+
+      this.$set(this.range, 0, e.from_percent);
+      this.$set(this.range, 1, e.to_percent);
     },
 
     setRange(from, to) {
-      const dist = this.maxDate.valueOf() - this.minDate.valueOf();
-      const minPercent = Math.max((from.valueOf() - this.minDate.valueOf()) * 100 / dist, 0);
-      const maxPercent = Math.min((to.valueOf() - this.minDate.valueOf()) * 100 / dist, 100);
-
-      this.from = from;
-      this.to = to;
-
-      this.$set(this.range, 0, minPercent);
-      this.$set(this.range, 1, maxPercent);
-
-      if (!this.edited) this.$refs.histo.update({ from: from.valueOf(), to: to.valueOf() });
+      this.$refs.histo.update({ from: from.valueOf(), to: to.valueOf() });
     },
 
     getImageContainerWidth() {
@@ -424,6 +445,7 @@ export default {
     },
 
     setSizes() {
+      this.distMinMax = this.maxDate.valueOf() - this.minDate.valueOf();
       this.sliderHeight = this.$refs.sliderRow.clientHeight;
       this.sliderWidth = this.$refs.sliderRow.clientWidth;
       this.imageRowWidth = this.$refs.imageRow.clientWidth;
@@ -548,3 +570,4 @@ export default {
     z-index: 4;
   }
 </style>
+ 

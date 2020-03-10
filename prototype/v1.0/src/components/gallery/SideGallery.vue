@@ -43,6 +43,18 @@
                 </strong>
               </v-row>
             </v-col>
+
+            <v-col class="pr-10 py-2">
+              <v-row justify="end">
+                <v-icon
+                  dark
+                  large
+                  @click="activateCategory(index)"
+                >
+                  fa-times
+                </v-icon>
+              </v-row>
+            </v-col>
           </v-row>
 
           <v-row
@@ -74,9 +86,10 @@
               >
                 <v-hover v-slot:default="{ hover }" open-delay="100">
                   <v-card
-                    style="border: 1px solid rgb(250, 250, 250);"
+                    :style="getCardBorder(`production-${item.unique}`, category)"
                     :elevation="hover ? 20 : 5"
                     class="pa-0"
+                    @click="activeProduction = `production-${item.unique}`"
                   >
                     <v-img
                       :src="item.imageUrl"
@@ -680,6 +693,7 @@ import VueScrollTo from 'vue-scrollto';
 export default {
   name: 'SideGallery',
   data: () => ({
+    activeProduction: null,
     searchTimeout: null,
     updatedOutside: false,
     switches: [true, true, true, true],
@@ -880,6 +894,7 @@ export default {
     activateCategory(index) {
       if (this.activeCategory === index) this.activeCategory = null;
       else this.activeCategory = index;
+      this.activeProduction = null;
     },
     galleryVisible(index) {
       return typeof this.activeCategory === 'number' && this.activeCategory === index;
@@ -898,6 +913,7 @@ export default {
       await this.$nextTick();
 
       setTimeout(() => {
+        this.activeProduction = `production-${production.unique}`;
         VueScrollTo.scrollTo(`#production-${production.unique}`, 1, this.getScrollOptions());
       }, wait ? 200 : 0);
     },
@@ -916,6 +932,11 @@ export default {
     },
     changedSwitch() {
       this.$emit('categoriesChanged', this.switches);
+    },
+    getCardBorder(id, category) {
+      return (this.activeProduction === id)
+        ? `border: 3px solid ${category.color}`
+        : 'border: 3px solid rgb(250, 250, 250)';
     },
   },
   watch: {},

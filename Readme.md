@@ -18,9 +18,9 @@ Die Issues mit dem Label `backlog` sind nach dem [User Story Template](https://g
 
 # Projects
 
-Der Backlog ist in die Projects `Projekt 2: Entwicklung` und `Cranach Backlog` aufgeteilt. Dies liegt einer Priorisierung zugrunde: Zunächst sollen die Milestones innerhalb des Projects `Projekt 2: Entwicklung`abgearbeitet werden, danach können die verbleibenden Issues aus dem Project `Cranach Backlog`in Betracht gezogen werden.
+Der Backlog ist in die [Projects](https://github.com/BenPag/cranach/projects) `Projekt 2: Entwicklung` und `Cranach Backlog` aufgeteilt, was einer Priorisierung zugrunde liegt. Zudem sind die Issues des Backlogs auch [Milestones](https://github.com/BenPag/cranach/milestones) zugeordnet, welche diese einerseits strukturieren aber auch weiter priorisieren. Dazu ist die Nummerierung und Benennung der jeweiligen Milestones zu beachten. 
 
-Innerhalb der Projects sind die Issues Milestones zugeordnet, die diese einerseits strukturieren aber auch weiter priorisieren. Dazu ist die Nummerierung und Benennung der jeweiligen Milestones zu beachten.
+Zunächst sollen die Milestones 1, 2 und 3 abgearbeitet werden, welche die Issues des Projects `Projekt 2: Entwicklung` wiederspiegeln. Danach können die verbleibenden Issues aus dem Project `Cranach Backlog`in Betracht gezogen werden, welche auch in Meilenstein 4 auftauchen.
 
 # Wiki
 

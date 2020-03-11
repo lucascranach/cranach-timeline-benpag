@@ -35,3 +35,5 @@ Das Wiki setzt sich aus zwei Teilen zusammen. Zum einen aus dem eigentlichen Kon
 * Für eine Erläuterung der Architektur (Backend und Frontend) sowie den zugehörigen Technologie Stack: *[Architektur & Technologie Stack](https://github.com/BenPag/cranach/wiki/Architektur-&-Technologie-Stack)*
 
 * Für die zu verwendenden Datenstrukturen der API: *[Datenstrukturen](https://github.com/BenPag/cranach/wiki/Datenstrukturen-der-CDA-API)*
+
+Vor einer Implementierung sollten **mindestens** diese Kapitel gelesen werden!

@@ -2,7 +2,7 @@
 
 * Auf der ersten Ebene der Ordnerstruktur sind die Ordner `docs`, `presentations`, `prototype` und `wiki` zu finden.
 
-* Im Ordner `docs` ist hierbei die Landing Page zu finden, die im Rahmen des Business Design Workshops entstanden ist. Diese ist außerdem [hier](link) zu finden.
+* Im Ordner `docs` ist hierbei die Landing Page zu finden, die im Rahmen des Business Design Workshops entstanden ist. Diese ist außerdem [hier](https://benpag.github.io/cranach/) zu finden.
 
 * Der Ordner `presentations` beinhaltet die Präsentation der Ergebnisse des Design Sprints.
 

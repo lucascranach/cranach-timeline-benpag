@@ -10,7 +10,6 @@
           width: calc(100% - ${galleryWidth}px);
           background-color: rgb(250, 250, 250);
           right: ${galleryVisible(index) ? `${galleryWidth}px` : '-100%'};
-          top: 0;
         `"
       >
         <v-col
@@ -340,19 +339,17 @@
         </v-card>
       </v-dialog>
 
-      <v-row class="ma-0">
-        <v-col
-          class="pa-0"
-          :style="`
+      <v-row
+        class="ma-0 side-options"
+        :style="`
             height: 100%;
             width: 300px;
-            top: 0;
-            position: absolute;
-            right: ${showSearch ? `${galleryWidth}px` : '-225px'};
-            z-index: 400;
+            right: ${showSearch ? `${galleryWidth}px` : `-${300 - galleryWidth}px`};
             border-left: 1px solid rgb(250, 250, 250);
-            transition: all 0.2s linear;
           `"
+        >
+        <v-col
+          class="pa-0"
         >
           <v-list
             dark
@@ -449,19 +446,19 @@
             </v-list-item>
           </v-list>
         </v-col>
+      </v-row>
 
+      <v-row
+        class="ma-0 side-options"
+        :style="`
+          height: 100%;
+          width: 300px;
+          right: ${showFilter ? `${galleryWidth}px` : `-${300 - galleryWidth}px`};
+          border-left: 1px solid rgb(250, 250, 250);
+        `"
+      >
         <v-col
           class="pa-0"
-          :style="`
-            height: 100%;
-            width: 300px;
-            top: 0;
-            position: absolute;
-            right: ${showFilter ? '75px' : '-225px'};
-            z-index: 400;
-            border-left: 1px solid rgb(250, 250, 250);
-            transition: all 0.2s linear;
-          `"
         >
 
           <v-list
@@ -537,7 +534,9 @@
             </v-list-item>
           </v-list>
         </v-col>
+      </v-row>
 
+      <v-row class="ma-0">
         <v-navigation-drawer
           v-model="drawer"
           :expand-on-hover="false"
@@ -839,7 +838,6 @@ export default {
       this.showSearch = !this.showSearch;
       if (this.showSearch) {
         this.showFilter = false;
-        this.$refs.textSearch.focus();
       }
     },
     toggleFilter() {
@@ -955,11 +953,16 @@ export default {
 
   .side-gallery {
     position: absolute;
-    top: 2%;
-    width: 95%;
-    height: 95%;
     transition: all 0.5s linear;
     z-index: 200;
+    top: 0;
+  }
+
+  .side-options {
+    position: absolute;
+    transition: all 0.2s linear;
+    z-index: 400;
+    top: 0;
   }
 
   .v-navigation-drawer__border {

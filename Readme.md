@@ -10,7 +10,7 @@
 
 ## Prototype
 
-Die verschiedenen Versionen des Prototyps sind im Ordner `prototype` zu finden. Hierbei ist die finale Version des Konzepts innerhalb des Ordners `v1.0`. Zum Aufsetzen dieses Prototyps ist innerhalb des Ordners eine `README.md` Datei vorhanden. Der Prototyp ist außerdem [hier](http://avc.ddnss.eu/) zu finden.
+Die verschiedenen Versionen des Prototyps sind im Ordner `prototype` zu finden. Hierbei ist die finale Version des Konzepts innerhalb des Ordners `v1.0`. Zum Aufsetzen dieses Prototyps ist innerhalb des Ordners eine `README.md` Datei vorhanden. Der Prototyp ist außerdem [hier](http://cranach.pagelsdorf.de/) zu finden.
 
 # Issues
 

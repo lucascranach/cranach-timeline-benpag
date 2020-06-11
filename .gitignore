@@ -176,3 +176,5 @@ local.properties
 .scala_dependencies
 .worksheet
 /.idea/
+
+node_modules

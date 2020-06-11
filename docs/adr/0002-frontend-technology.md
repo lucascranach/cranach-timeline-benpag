@@ -5,7 +5,7 @@
 
 ## Context and Problem Statement
 
-We have to a specify framework/technology for frontend development, which should be independent from the backend technology.
+We have to specify a framework/technology for frontend development, which should be independent from the backend technology.
 
 ## Considered Options
 
@@ -51,8 +51,8 @@ Angular is a TypeScript-based front-end web application framework. It is develop
 
 * Good, because it provides a complete solution
 * Good, because it's a mature framework with good backing in terms of contributors
-* Bad, because it requires learning TypeScript and MVC first
 * Bad, because it's unknown to the team
+* Bad, because it requires learning TypeScript and MVC first
 
 ### React
 
@@ -60,6 +60,7 @@ React is a JavaScript software library that provides a basic framework for the o
 
 * Good, because the documentation is thorough and complete
 * Good, because it provides data bindings, events and states
+* Bad, because it's unknown to the team
 * Bad, because it can't split markup and logic
 * Bad, because it's not a complete framework and advanced features require the use of third-party libraries
 
@@ -89,3 +90,4 @@ JavaScript itself provides developers with all funtionalities to write a fronten
 * [React](https://reactjs.org/)
 * [Framework Comparison](https://www.codeinwp.com/blog/angular-vs-vue-vs-react/)
 * [Flutter](https://flutter.dev/)
+* [JavaScript](https://developer.mozilla.org/de/docs/Web/JavaScript/Reference)

@@ -14,5 +14,5 @@ This log lists the architectural decisions for Cranach.
 <!-- adrlogstop -->
 
 For new ADRs, please use [template.md](template.md) as basis.
-More information on MADR is available at <https://adr.github.io/madr/>.
-General information about architectural decision records is available at <https://adr.github.io/>.
+More information on MADR is available at [MADR](https://adr.github.io/madr/).
+General information about architectural decision records is available at [ADR](https://adr.github.io/madr/).

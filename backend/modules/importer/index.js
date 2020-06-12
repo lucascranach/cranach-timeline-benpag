@@ -17,5 +17,5 @@ async function importData() {
         console.error(err);
         return "Data import failed";
     }
-    return "Data import succeded";
+    return "Data import succeded, JSONs are stored at " + path.join(__dirname + '../../../data/');
 }

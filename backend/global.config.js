@@ -8,6 +8,6 @@ module.exports = {
     'cda-graphics-v2.virtual.en.json',
     'cda-literaturereferences-v2.json',
     'cda-paintings-v2.de.json',
-    'cda-paintings-v2.en.json'
-  ]
-}
+    'cda-paintings-v2.en.json',
+  ],
+};

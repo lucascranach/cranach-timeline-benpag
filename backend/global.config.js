@@ -10,4 +10,5 @@ module.exports = {
     'cda-paintings-v2.de.json',
     'cda-paintings-v2.en.json',
   ],
+  port: 3000,
 };

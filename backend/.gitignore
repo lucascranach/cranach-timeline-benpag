@@ -1,3 +1,6 @@
+# Image data
+/data/
+
 # Logs
 logs
 *.log

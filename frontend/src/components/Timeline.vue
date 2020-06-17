@@ -465,7 +465,9 @@ export default {
     },
   },
   mounted() {
-    this.reRender();
+    setTimeout(() => {
+      this.reRender();
+    }, 1);
   },
   created() {
     window.addEventListener('resize', this.reRender);

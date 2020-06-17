@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "import": "node modules/importer/index.js"
+    "import": "mkdir -p data && node modules/importer/index.js"
   },
   "dependencies": {
     "axios": "^0.19.2",

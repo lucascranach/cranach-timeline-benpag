@@ -1,60 +1,84 @@
 <template>
-  <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
-    <v-content>
-      <HelloWorld/>
-    </v-content>
-  </v-app>
+  <div id="app" style="margin-top: 1rem">
+    <Chart :items="items"/>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import Chart from './components/Chart.vue';
+import works from './assets/works.json';
 
 export default {
   name: 'App',
-
   components: {
-    HelloWorld,
+    Chart,
   },
-
   data: () => ({
-    //
+    items: [],
+    locations: [
+      'Deutschland',
+      'Großbritannien',
+      'Finnland',
+      'Schweiz',
+    ],
+    customers: [
+      'Martin Luther',
+      'Friedrich der Weise',
+      'Gunnar Heydenreich',
+      'Christian Noss',
+    ],
   }),
+  created() {
+    this.items = [
+      ...works, ...works, ...works, ...works, ...works, ...works,
+      ...works, ...works, ...works, ...works, ...works, ...works, ...works,
+    ].map((w) => this.createProduction(w))
+      .sort((a, b) => ((a.type > b.type) ? 1 : -1));
+  },
+  methods: {
+    createProduction(data) {
+      return {
+        primaryImageUrl: data.primaryImage,
+        imageUrl: data.primaryImageSmall,
+        startDate: data.objectBeginDate,
+        endDate: data.objectEndDate,
+        title: data.title,
+        location: this.getRandomLocation(),
+        customer: this.getRandomCustomer(),
+        artist: data.artistDisplayName,
+        medium: data.medium,
+        dimensions: data.dimensions,
+        date: data.objectDate,
+        link: data.objectURL,
+        type: this.getType(data),
+      };
+    },
+    getRandomLocation() {
+      const randomIndex = Math.floor(Math.random() * (this.locations.length));
+      return this.locations[randomIndex];
+    },
+    getRandomCustomer() {
+      const randomIndex = Math.floor(Math.random() * (this.customers.length));
+      return this.customers[randomIndex];
+    },
+    getType(data) {
+      const objectName = data.objectName.toLowerCase();
+      if (objectName.includes('painting')) return 'painting';
+      if (objectName.includes('print')) return 'print';
+      if (objectName.includes('drawing')) return 'drawing';
+      return 'archive';
+    },
+  },
 };
 </script>
+
+<style>
+  #app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 60px;
+  }
+</style>

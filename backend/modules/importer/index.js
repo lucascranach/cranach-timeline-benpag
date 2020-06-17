@@ -13,6 +13,7 @@ async function importData() {
       if (url === 'cda-paintings-v2.de.json') {
         parser.parsePaintingsDe();
       }
+    });
   } catch (err) {
     console.error(err);
     return 'Data import failed';

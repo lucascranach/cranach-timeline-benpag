@@ -18,8 +18,10 @@ async function importData() {
     console.error(err);
     return 'Data import failed';
   }
-  return `Data import succeded, JSONs are stored at ${path.join(`${__dirname}../../../data/`)}`;
+  return `Data import succeeded, JSONs are stored at ${path.join(`${__dirname}../../../data/`)}`;
 }
+
+if (!fs.existsSync(path.join(`${__dirname}../../../data/`))) fs.mkdirSync(path.join(`${__dirname}../../../data/`));
 
 importData().then((result) => {
   console.log(result);

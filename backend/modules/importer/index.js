@@ -9,7 +9,7 @@ async function importData() {
   try {
     config.jsonTitles.forEach(async (url) => {
       const jsonData = await axios.get(config.dataBaseUrl + url);
-      fs.writeFileSync(path.join(`${__dirname}../../../data/${url}`), JSON.stringify(jsonData.data));
+      fs.writeFileSync(path.join(`${__dirname}../../../data/${url}`), JSON.stringify(jsonData.data), null, 2);
       if (url === 'cda-paintings-v2.de.json') {
         parser.parsePaintingsDe();
       }

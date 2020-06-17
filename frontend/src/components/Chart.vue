@@ -16,10 +16,6 @@ export default {
       type: Array,
       default: null,
     },
-    search: {
-      type: String,
-      default: null,
-    },
     chartDivId: {
       type: String,
       default: 'umf-d3-chart',
@@ -30,11 +26,11 @@ export default {
     },
     height: {
       type: Number,
-      default: 800,
+      default: 460,
     },
     width: {
       type: Number,
-      default: 1800,
+      default: 1400,
     },
     minHeight: {
       type: Number,
@@ -188,8 +184,12 @@ export default {
       });
       const yMinMax = d3.extent(Object.values(yStack), (d) => d.count);
 
-      this.x = d3.scaleTime().range([0, this.displayWidth]).nice();
-      this.x.domain([new Date(xMinMax[0], 1, 1), new Date(xMinMax[1], 1, 1)]).nice();
+      console.log(xMinMax);
+      this.x = d3.scaleTime()
+        .domain([new Date(xMinMax[0], 1, 1), new Date(xMinMax[1], 1, 1)])
+        .range([0, this.displayWidth]);
+      // this.x = d3.scaleTime().range([0, this.displayWidth]).nice();
+      // this.x.domain([new Date(xMinMax[0], 1, 1), new Date(xMinMax[1], 1, 1)]).nice();
       this.y = d3.scaleLinear().range([this.displayHeight, 0]);
       this.y.domain(yMinMax).nice();
 

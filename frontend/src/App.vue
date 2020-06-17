@@ -6,7 +6,7 @@
 
 <script>
 import Chart from './components/Chart.vue';
-import works from './assets/works.json';
+import works from '../../backend/data/cda-paintings-v2.de.json';
 
 export default {
   name: 'App',
@@ -29,29 +29,30 @@ export default {
     ],
   }),
   created() {
-    this.items = [
-      ...works, ...works, ...works, ...works, ...works, ...works,
-      ...works, ...works, ...works, ...works, ...works, ...works, ...works,
-    ].map((w) => this.createProduction(w))
+    this.items = works.items.filter((w) => w.dating.begin > 1000)
+      .map((w) => this.createProduction(w))
       .sort((a, b) => ((a.type > b.type) ? 1 : -1));
   },
   methods: {
     createProduction(data) {
       return {
-        primaryImageUrl: data.primaryImage,
-        imageUrl: data.primaryImageSmall,
-        startDate: data.objectBeginDate,
-        endDate: data.objectEndDate,
-        title: data.title,
+        primaryImageUrl: '',
+        imageUrl: '',
+        startDate: data.dating.begin,
+        endDate: data.dating.end,
+        title: data.titles[0].title,
         location: this.getRandomLocation(),
         customer: this.getRandomCustomer(),
-        artist: data.artistDisplayName,
-        medium: data.medium,
-        dimensions: data.dimensions,
-        date: data.objectDate,
-        link: data.objectURL,
+        artist: this.getArtist(data.involvedPersons),
+        medium: '',
+        dimensions: '',
+        date: data.dating.dated,
+        link: 'http://cranach.pagelsdorf.de',
         type: this.getType(data),
       };
+    },
+    getArtist(persons) {
+      return persons.find((p) => p.role === 'Künstler')?.name;
     },
     getRandomLocation() {
       const randomIndex = Math.floor(Math.random() * (this.locations.length));

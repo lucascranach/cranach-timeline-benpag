@@ -183,22 +183,20 @@ export default {
         return d.startDate;
       });
       const yMinMax = d3.extent(Object.values(yStack), (d) => d.count);
-
-      console.log(xMinMax);
+      yMinMax[1] += 1;
       this.x = d3.scaleTime()
-        .domain([new Date(xMinMax[0], 1, 1), new Date(xMinMax[1], 1, 1)])
+        .domain([new Date(xMinMax[0], 1, 1), new Date(xMinMax[1], 1, 1)]).nice()
         .range([0, this.displayWidth]);
-      // this.x = d3.scaleTime().range([0, this.displayWidth]).nice();
-      // this.x.domain([new Date(xMinMax[0], 1, 1), new Date(xMinMax[1], 1, 1)]).nice();
-      this.y = d3.scaleLinear().range([this.displayHeight, 0]);
-      this.y.domain(yMinMax).nice();
+      this.y = d3.scaleLinear()
+        .domain(yMinMax).nice()
+        .range([this.displayHeight, 0]);
 
       /** ***********************************
          * X Axis
          * ********************************** */
       this.xAxis = d3.axisBottom(this.x)
         .tickSizeOuter(-this.displayHeight)
-        .ticks((xMinMax[1] - xMinMax[0]) / 5);
+        .ticks((xMinMax[1] - xMinMax[0]) / 20);
 
       this.gX = this.svg.append('g')
         .classed('axis xaxis axis--x', true)
@@ -210,7 +208,7 @@ export default {
          * ********************************** */
       this.yAxis = d3.axisLeft(this.y)
         .tickSizeOuter(-this.displayWidth)
-        .ticks((20 * this.displayHeight) / this.displayWidth);
+        .ticks((10 * this.displayHeight) / this.displayWidth);
 
       this.gY = this.svg.append('g')
         .classed('axis yaxis axis--y', true)
@@ -220,19 +218,21 @@ export default {
         .attr('id', 'scatterplot2')
         .attr('clip-path', 'url(#clip)');
 
+      const myThis = this;
+      const size = 100;
+      const recipeSymbol = d3.symbol().type(d3.symbolSquare).size(size);
+
       const node = this.scatter2.selectAll('.dot')
         .data(this.items)
         .enter()
         .append('g')
         .attr('class', 'dot')
-        .attr('transform', (d) => `translate(${this.x(new Date(d.startDate, 1, 1))},${this.y(d.y)})`);
+        .attr('transform', (d) => `translate(${this.x(new Date(d.startDate, 1, 1))},${this.y(d.y) - size / 4})`);
 
-      const myThis = this;
-      const recipeSymbol = d3.symbol().size(100);
       node.append('path')
-        .attr('d', recipeSymbol.type(d3.symbolSquare))
+        .attr('d', recipeSymbol)
         .attr('opacity', 1)
-        .style('fill', (d) => d.color)
+        .style('fill', 'rgba(0,255,0,0.5)')
         .attr('stroke-width', 1)
         .attr('stroke', 'rgba(0, 0, 0, 0.75)')
         .on('mouseover', (d) => {

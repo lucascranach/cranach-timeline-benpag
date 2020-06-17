@@ -29,7 +29,7 @@ export default {
     ],
   }),
   created() {
-    this.items = works.items.filter((w) => w.dating.begin > 1000)
+    this.items = works.items.filter((w) => w.dating.begin > 1000 && w.isBestOf === true)
       .map((w) => this.createProduction(w))
       .sort((a, b) => ((a.type > b.type) ? 1 : -1));
   },

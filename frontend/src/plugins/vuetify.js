@@ -18,6 +18,6 @@ export default new Vuetify({
         dark: '#000321',
       },
     },
-    dark: true,
+    dark: false,
   },
 });

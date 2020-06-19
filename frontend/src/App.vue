@@ -1,8 +1,8 @@
 <template>
   <v-app>
     <v-content>
-        <Chart :items="items"/>
-       <Timeline
+      <Chart :items="items" />
+      <Timeline
         ref="breadcrumb"
         :images="images"
         :height="windowHeight * 0.15"
@@ -15,8 +15,7 @@
         :equalWidth="true"
         :frequencies="frequencies"
         frequencyColor="rgb(250, 250, 250)"
-      >
-      </Timeline>
+      ></Timeline>
     </v-content>
   </v-app>
 </template>
@@ -34,12 +33,7 @@ export default {
   },
   data: () => ({
     items: [],
-    locations: [
-      'Deutschland',
-      'Großbritannien',
-      'Finnland',
-      'Schweiz',
-    ],
+    locations: ['Deutschland', 'Großbritannien', 'Finnland', 'Schweiz'],
     customers: [
       'Martin Luther',
       'Friedrich der Weise',
@@ -51,7 +45,8 @@ export default {
     max: new Date('1608-12-31'),
     images: [
       {
-        src: 'https://upload.wikimedia.org/wikipedia/commons/a/ad/Lucas_Cranach_d._%C3%84._-_David_and_Bathsheba_-_WGA05718.jpg',
+        src:
+          'https://upload.wikimedia.org/wikipedia/commons/a/ad/Lucas_Cranach_d._%C3%84._-_David_and_Bathsheba_-_WGA05718.jpg',
         start: new Date('1472-10-04'),
         end: new Date(-15456196915200),
         focus: {
@@ -64,7 +59,8 @@ export default {
         },
       },
       {
-        src: 'https://thomas-michel-contemporary-art.de/wp-content/uploads/2015/12/cranach-agnes-von-hayn-1543-1.jpg',
+        src:
+          'https://thomas-michel-contemporary-art.de/wp-content/uploads/2015/12/cranach-agnes-von-hayn-1543-1.jpg',
         start: new Date(-15456196915200),
         end: new Date(-15325785100800),
         focus: {
@@ -77,7 +73,8 @@ export default {
         },
       },
       {
-        src: 'https://mobil.rundschau-online.de/image/26678446/4x3/620/465/a1f24253b27bac367b259947cee465f8/lZ/cranach-madonna.jpg',
+        src:
+          'https://mobil.rundschau-online.de/image/26678446/4x3/620/465/a1f24253b27bac367b259947cee465f8/lZ/cranach-madonna.jpg',
         start: new Date(-15325785100800),
         end: new Date(-15195373286400),
         focus: {
@@ -103,7 +100,8 @@ export default {
         },
       },
       {
-        src: 'https://upload.wikimedia.org/wikipedia/commons/7/7d/The_Procuress_by_Lucas_Cranach_the_Elder%2C_Tbilisi_Museum_of_Fine_Arts.jpg',
+        src:
+          'https://upload.wikimedia.org/wikipedia/commons/7/7d/The_Procuress_by_Lucas_Cranach_the_Elder%2C_Tbilisi_Museum_of_Fine_Arts.jpg',
         start: new Date(-14673726028800),
         end: new Date(-14595478940160),
         focus: {
@@ -116,7 +114,8 @@ export default {
         },
       },
       {
-        src: 'https://www.christies.com/img/LotImages/2018/NYR/2018_NYR_15654_0007_000(lucas_cranach_i_portrait_of_john_frederick_i_elector_of_saxony_half-le).jpg',
+        src:
+          'https://www.christies.com/img/LotImages/2018/NYR/2018_NYR_15654_0007_000(lucas_cranach_i_portrait_of_john_frederick_i_elector_of_saxony_half-le).jpg',
         start: new Date(-14595478940160),
         end: new Date(-14412902400000),
         focus: {
@@ -129,7 +128,8 @@ export default {
         },
       },
       {
-        src: 'https://www.spsg.de/fileadmin/user_upload/Bilder_Veranstaltungen_Header/Cranach_Eva_Detail.jpg',
+        src:
+          'https://www.spsg.de/fileadmin/user_upload/Bilder_Veranstaltungen_Header/Cranach_Eva_Detail.jpg',
         start: new Date(-14412902400000),
         end: new Date(-14021666956800),
         focus: {
@@ -142,7 +142,8 @@ export default {
         },
       },
       {
-        src: 'https://media.wsimag.com/attachments/f1c5ddf8834dbc7fcc2f7426d779b0973380da7f/store/fill/1090/613/1b2cc39b17d2de04ada5d303fec80fe0023e55b7a0e2346e1e60e658d44d/Lucas-Cranach-the-Elder-Law-and-Grace-1529-Narodni-galerie-v-Praze-slash-Nationalgalerie-Prag.jpg',
+        src:
+          'https://media.wsimag.com/attachments/f1c5ddf8834dbc7fcc2f7426d779b0973380da7f/store/fill/1090/613/1b2cc39b17d2de04ada5d303fec80fe0023e55b7a0e2346e1e60e658d44d/Lucas-Cranach-the-Elder-Law-and-Grace-1529-Narodni-galerie-v-Praze-slash-Nationalgalerie-Prag.jpg',
         start: new Date(-14021666956800),
         end: new Date(-13369607884800),
         focus: {
@@ -155,7 +156,8 @@ export default {
         },
       },
       {
-        src: 'https://www.lempertz.com/uploads/tx_lempertzproject/Lempertz-977-1016-Old-Masters-Lucas-Cranach-the-Elder-follower-of-MARTYRDOM-OF-SAINT-CATHER.jpg',
+        src:
+          'https://www.lempertz.com/uploads/tx_lempertzproject/Lempertz-977-1016-Old-Masters-Lucas-Cranach-the-Elder-follower-of-MARTYRDOM-OF-SAINT-CATHER.jpg',
         start: new Date(-13369607884800),
         end: new Date(-13304401977600),
         focus: {
@@ -168,7 +170,8 @@ export default {
         },
       },
       {
-        src: 'https://www.lempertz.com/uploads/tx_lempertzproject/Lempertz-1132-1210-Old-Masters-and-19th-Century-Art-Lucas-Cranach-the-Elder-studio-of-Saint-Anne-in-a-Mountain-.jpg',
+        src:
+          'https://www.lempertz.com/uploads/tx_lempertzproject/Lempertz-1132-1210-Old-Masters-and-19th-Century-Art-Lucas-Cranach-the-Elder-studio-of-Saint-Anne-in-a-Mountain-.jpg',
         start: new Date(-13304401977600),
         end: new Date('1553-10-16'),
         focus: {
@@ -183,9 +186,10 @@ export default {
     ],
   }),
   created() {
-    this.items = works.items.filter((w) => w.dating.begin > 1000 && w.isBestOf === true)
+    this.items = works.items
+      .filter((w) => w.dating.begin > 1000 && w.isBestOf === true)
       .map((w) => this.createProduction(w))
-      .sort((a, b) => ((a.type > b.type) ? 1 : -1));
+      .sort((a, b) => (a.type > b.type ? 1 : -1));
   },
   methods: {
     createProduction(data) {
@@ -209,11 +213,11 @@ export default {
       return persons.find((p) => p.role === 'Künstler')?.name;
     },
     getRandomLocation() {
-      const randomIndex = Math.floor(Math.random() * (this.locations.length));
+      const randomIndex = Math.floor(Math.random() * this.locations.length);
       return this.locations[randomIndex];
     },
     getRandomCustomer() {
-      const randomIndex = Math.floor(Math.random() * (this.customers.length));
+      const randomIndex = Math.floor(Math.random() * this.customers.length);
       return this.customers[randomIndex];
     },
     getType(data) {
@@ -221,15 +225,15 @@ export default {
       if (objectName.includes('painting')) return 'painting';
       if (objectName.includes('print')) return 'print';
       if (objectName.includes('drawing')) return 'drawing';
-      return 'archive'; 
-     },
-      updateRange({ from, to }) {
+      return 'archive';
+    },
+    updateRange({ from, to }) {
       clearTimeout(this.rangeUpdateTimeout);
       this.rangeUpdateTimeout = setTimeout(() => {
         this.setZoom(from, to);
       }, 500);
     },
-   },
+  },
   computed: {
     frequencies: {
       get() {
@@ -250,12 +254,12 @@ export default {
 </script>
 
 <style>
-  #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
-  }
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
 </style>

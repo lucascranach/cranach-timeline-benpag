@@ -39,7 +39,6 @@ module.exports = {
 
         paintingsJson.items.forEach((painting) => {
           const newPainting = {};
-          // console.log(painting);
           newPainting.id = painting.objectId;
           newPainting.imageUrl = '';
           newPainting.startDate = painting.dating.begin;

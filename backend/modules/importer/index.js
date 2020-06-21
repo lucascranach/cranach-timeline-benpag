@@ -13,8 +13,7 @@ async function importData() {
       fs.writeFileSync(path.join(`${__dirname}../../../data/${url}`), JSON.stringify(jsonData.data), null, 2);
       if (url === 'cda-paintings-v2.de.json') {
         parserPaintings.parsePaintingsDe();
-      }
-      if (url === 'cda-graphics-v2.virtual.de.json') {
+      } else if (url === 'cda-graphics-v2.virtual.de.json') {
         parserGraphics.parseGraphicsDe();
       }
     });

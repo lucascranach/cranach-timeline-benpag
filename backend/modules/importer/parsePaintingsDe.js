@@ -4,51 +4,37 @@ const path = require('path');
 module.exports = {
   parsePaintingsDe: () => {
     function getArtists(involvedPersons) {
-      const artists = [];
-
-      involvedPersons.forEach((it) => {
-        if (it.role === 'Künstler') {
-          artists.push(it.name);
-        }
-      });
+      const artists = involvedPersons.filter((it) => it.role === 'Künstler');
       return artists;
     }
 
     function getTitles(titlesArray) {
-      const titles = [];
-      titlesArray.forEach((it) => {
-        titles.push(it.title);
-      });
+      const titles = titlesArray.filter((it) => it.title);
       return titles;
     }
 
     function getLocations(locationArray) {
-      const locations = [];
-      locationArray.forEach((it) => {
-        locations.push(it.term);
-      });
+      const locations = locationArray.filter((it) => it.term);
       return locations;
     }
 
-    async function parseData() {
+    function parseData() {
       const mainAttributes = {
         paintings: [],
       };
       try {
-        const paintingsJson = JSON.parse(fs.readFileSync(path.join(`${__dirname}../../../data/cda-paintings-v2.de.json`)));
+        // eslint-disable-next-line global-require
+        const paintingsJson = require('../../data/cda-graphics-v2.virtual.de.json');
 
-        paintingsJson.items.forEach((painting) => {
-          const newPainting = {};
-          newPainting.id = painting.objectId;
-          newPainting.imageUrl = '';
-          newPainting.startDate = painting.dating.begin;
-          newPainting.endDate = painting.dating.end;
-          newPainting.title = getTitles(painting.titles);
-          newPainting.location = getLocations(painting.locations);
-          newPainting.artists = getArtists(painting.involvedPersons);
-
-          mainAttributes.paintings.push(newPainting);
-        });
+        mainAttributes.paintings = paintingsJson.items.map((painting) => ({
+          id: painting.objectId,
+          imageUrl: '',
+          startDate: painting.dating.begin,
+          endDate: painting.dating.end,
+          title: getTitles(painting.titles),
+          location: getLocations(painting.locations),
+          artists: getArtists(painting.involvedPersons),
+        }));
         fs.writeFileSync(path.join(`${__dirname}../../../data/paintings.json`), JSON.stringify(mainAttributes, null, 2));
       } catch (err) {
         console.error(err);
@@ -58,9 +44,7 @@ module.exports = {
     }
 
     if (fs.existsSync(path.join(`${__dirname}../../../data/cda-paintings-v2.de.json`))) {
-      parseData().then((result) => {
-        console.log(result);
-      });
+      console.log(parseData());
     } else console.log('cda-paintings-v2.de.json is missing');
   },
 };

@@ -24,7 +24,7 @@
 <script>
 import Timeline from './components/Timeline.vue';
 import Chart from './components/Chart.vue';
-import works from '../../backend/data/cda-paintings-v2.de.json';
+import Store from './store/index';
 
 export default {
   name: 'App',
@@ -33,7 +33,7 @@ export default {
     Timeline,
   },
   data: () => ({
-    items: [],
+    items: Store.items,
     locations: [
       'Deutschland',
       'Großbritannien',
@@ -182,11 +182,6 @@ export default {
       },
     ],
   }),
-  created() {
-    this.items = works.items.filter((w) => w.dating.begin > 1000 && w.isBestOf === true)
-      .map((w) => this.createProduction(w))
-      .sort((a, b) => ((a.type > b.type) ? 1 : -1));
-  },
   methods: {
     createProduction(data) {
       return {
@@ -221,15 +216,15 @@ export default {
       if (objectName.includes('painting')) return 'painting';
       if (objectName.includes('print')) return 'print';
       if (objectName.includes('drawing')) return 'drawing';
-      return 'archive'; 
-     },
-      updateRange({ from, to }) {
+      return 'archive';
+    },
+    updateRange({ from, to }) {
       clearTimeout(this.rangeUpdateTimeout);
       this.rangeUpdateTimeout = setTimeout(() => {
         this.setZoom(from, to);
       }, 500);
     },
-   },
+  },
   computed: {
     frequencies: {
       get() {

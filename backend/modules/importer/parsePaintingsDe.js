@@ -4,18 +4,15 @@ const path = require('path');
 module.exports = {
   parsePaintingsDe: () => {
     function getArtists(involvedPersons) {
-      const artists = involvedPersons.filter((it) => it.role === 'Künstler');
-      return artists;
+      return involvedPersons.filter((it) => it.role === 'Künstler');
     }
 
     function getTitles(titlesArray) {
-      const titles = titlesArray.filter((it) => it.title);
-      return titles;
+      return titlesArray.map((it) => it.title);
     }
 
     function getLocations(locationArray) {
-      const locations = locationArray.filter((it) => it.term);
-      return locations;
+      return locationArray.map((it) => it.term);
     }
 
     function parseData() {

@@ -34,18 +34,6 @@ export default {
     Timeline,
   },
   data: () => ({
-    locations: [
-      'Deutschland',
-      'Großbritannien',
-      'Finnland',
-      'Schweiz',
-    ],
-    customers: [
-      'Martin Luther',
-      'Friedrich der Weise',
-      'Gunnar Heydenreich',
-      'Christian Noss',
-    ],
     windowHeight: 10,
     min: new Date('1472-10-04'),
     max: new Date('1608-12-31'),
@@ -182,47 +170,7 @@ export default {
       },
     ],
   }),
-  created() {
-    this.items = works.items.filter((w) => w.dating.begin > 1000 && w.isBestOf === true)
-      .map((w) => this.createProduction(w))
-      .sort((a, b) => ((a.type > b.type) ? 1 : -1));
-  },
   methods: {
-    createProduction(data) {
-      return {
-        primaryImageUrl: '',
-        imageUrl: '',
-        startDate: data.dating.begin,
-        endDate: data.dating.end,
-        title: data.titles[0].title,
-        location: this.getRandomLocation(),
-        customer: this.getRandomCustomer(),
-        artist: this.getArtist(data.involvedPersons),
-        medium: '',
-        dimensions: '',
-        date: data.dating.dated,
-        link: 'http://cranach.pagelsdorf.de',
-        type: this.getType(data),
-      };
-    },
-    getArtist(persons) {
-      return persons.find((p) => p.role === 'Künstler')?.name;
-    },
-    getRandomLocation() {
-      const randomIndex = Math.floor(Math.random() * (this.locations.length));
-      return this.locations[randomIndex];
-    },
-    getRandomCustomer() {
-      const randomIndex = Math.floor(Math.random() * (this.customers.length));
-      return this.customers[randomIndex];
-    },
-    getType(data) {
-      const objectName = data.objectName.toLowerCase();
-      if (objectName.includes('painting')) return 'painting';
-      if (objectName.includes('print')) return 'print';
-      if (objectName.includes('drawing')) return 'drawing';
-      return 'archive';
-    },
     ...mapActions(['loadData', 'applyYearFilter']),
   },
   computed: {
@@ -245,14 +193,3 @@ export default {
   },
 };
 </script>
-
-<style>
-  #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
-  }
-</style>

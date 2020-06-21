@@ -119,6 +119,9 @@ export default {
     isZoomable() {
       this.reset();
     },
+    items() {
+      this.reset();
+    },
   },
   computed: {
     ...mapState({

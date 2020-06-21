@@ -1,22 +1,44 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import works from '../../../backend/data/cda-paintings-v2.de.json';
+import works from '../../../backend/data/paintings.json';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     items: [],
+    allItems: [],
   },
   mutations: {
+    setItems(state, items) {
+      state.items = items;
+    },
+    setAllItems(state, items) {
+      state.allItems = items;
+    },
   },
   actions: {
+    applyYearFilter({ commit, state }, { from, to }) {
+      const filteredItems = state.allItems.filter(
+        (i) => i.startDate >= from && i.endDate <= to,
+      );
+      console.log(state.allItems.length);
+      commit('setItems', filteredItems);
+    },
+    loadData({ commit }) {
+      const allItems = works.paintings.filter((w) => w.startDate > 1000);
+      commit('setItems', allItems);
+      commit('setAllItems', allItems);
+    },
   },
   modules: {
   },
-  created() {
-    this.items = works.items.filter((w) => w.dating.begin > 1000 && w.isBestOf === true)
-      .map((w) => this.createProduction(w))
-      .sort((a, b) => ((a.type > b.type) ? 1 : -1));
+  getters: {
+    getItems(state) {
+      return state.items;
+    },
+    getAllItems(state) {
+      return state.allItems;
+    },
   },
 });

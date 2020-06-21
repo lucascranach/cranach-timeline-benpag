@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { event as currentEvent } from 'd3-selection';
 import d3 from '../plugins/d3-importer';
 
@@ -12,10 +13,6 @@ export default {
   name: 'Chart',
   components: { },
   props: {
-    items: {
-      type: Array,
-      default: null,
-    },
     chartDivId: {
       type: String,
       default: 'umf-d3-chart',
@@ -124,6 +121,9 @@ export default {
     },
   },
   computed: {
+    ...mapState({
+      items: (state) => state.items,
+    }),
     hasData() {
       return this.items && this.items.length > 0;
     },

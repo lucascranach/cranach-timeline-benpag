@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-content>
-        <Chart :items="items"/>
+        <Chart />
        <Timeline
         ref="breadcrumb"
         :images="images"
@@ -15,6 +15,7 @@
         :equalWidth="true"
         :frequencies="frequencies"
         frequencyColor="rgb(250, 250, 250)"
+        @rangeChanged="applyYearFilter"
       >
       </Timeline>
     </v-content>
@@ -22,9 +23,9 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
 import Timeline from './components/Timeline.vue';
 import Chart from './components/Chart.vue';
-import Store from './store/index';
 
 export default {
   name: 'App',
@@ -33,7 +34,6 @@ export default {
     Timeline,
   },
   data: () => ({
-    items: Store.items,
     locations: [
       'Deutschland',
       'Großbritannien',
@@ -218,12 +218,7 @@ export default {
       if (objectName.includes('drawing')) return 'drawing';
       return 'archive';
     },
-    updateRange({ from, to }) {
-      clearTimeout(this.rangeUpdateTimeout);
-      this.rangeUpdateTimeout = setTimeout(() => {
-        this.setZoom(from, to);
-      }, 500);
-    },
+    ...mapActions(['loadData', 'applyYearFilter']),
   },
   computed: {
     frequencies: {
@@ -237,9 +232,11 @@ export default {
         return freq;
       },
     },
+    ...mapState({ items: (state) => state.items }),
   },
   mounted() {
     this.windowHeight = window.innerHeight;
+    this.loadData();
   },
 };
 </script>

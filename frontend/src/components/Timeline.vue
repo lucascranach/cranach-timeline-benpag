@@ -380,7 +380,7 @@ export default {
       const date = new Date(this.minDate.valueOf() + this.distMinMax * (percent / 100));
       if (percent < this.range[0] || distMin <= distMax) this.setRange(date, this.to);
       else this.setRange(this.from, date);
-      this.$emit('rangeChanged', { from: this.from, to: this.to });
+      this.$emit('rangeChanged', { from: this.from.getFullYear(), to: this.to.getFullYear() });
     },
     getXPositionForChart(frequency) {
       const dist = this.maxDate.getFullYear() - this.minDate.getFullYear();
@@ -399,7 +399,7 @@ export default {
     change(e) {
       this.movedSlider = true;
       this.update(e);
-      this.$emit('rangeChanged', { from: this.from, to: this.to });
+      this.$emit('rangeChanged', { from: this.from.getFullYear(), to: this.to.getFullYear() });
     },
     update(e) {
       this.from = new Date(e.from);

@@ -42,6 +42,8 @@ module.exports = {
 
     if (fs.existsSync(path.join(`${__dirname}../../../data/cda-paintings-v2.de.json`))) {
       console.log(parseData());
-    } else console.log('cda-paintings-v2.de.json is missing');
+    } else {
+      console.log('cda-paintings-v2.de.json is missing');
+    }
   },
 };

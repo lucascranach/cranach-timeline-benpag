@@ -1,3 +1,4 @@
+<!--suppress CommaExpressionJS -->
 <template>
   <div>
     <div id="umf-d3-chart"></div>
@@ -23,11 +24,11 @@ export default {
     },
     height: {
       type: Number,
-      default: 460,
+      default: 700,
     },
     width: {
       type: Number,
-      default: 1400,
+      default: 1780,
     },
     minHeight: {
       type: Number,
@@ -70,7 +71,7 @@ export default {
       type: String,
       default: 's',
     },
-    isZoomable: {
+    isZoomActive: {
       type: Boolean,
       default: true,
     },
@@ -91,45 +92,24 @@ export default {
     };
   },
   mounted() {
-    this.setupSvg();
-    this.setupDimensions();
-    this.updateChart();
-  },
-  watch: {
-    search() {
-      this.reset();
-    },
-    width() {
-      d3.select(`#${this.chartDivId}`).selectAll('*').remove();
-      d3.select(`#${this.tooltipDivId}`).remove();
-      this.setupSvg();
-      this.setupDimensions();
-      this.updateChart();
-    },
-    height() {
-      d3.select(`#${this.chartDivId}`).selectAll('*').remove();
-      d3.select(`#${this.tooltipDivId}`).remove();
-      this.setupSvg();
-      this.setupDimensions();
-      this.updateChart();
-    },
-    currentRecipeId() {
-      this.reset();
-    },
-    isZoomable() {
-      this.reset();
-    },
-    items() {
-      this.reset();
-    },
+    this.$watch(
+      () => ((this.width, this.height, Date.now())), () => {
+        d3.select(`#${this.chartDivId}`).selectAll('*').remove();
+        d3.select(`#${this.tooltipDivId}`).remove();
+        this.setUpChart();
+      },
+    );
+    this.$watch(
+      () => ((this.search, this.isZoomActive, this.items, Date.now())), () => {
+        this.reset();
+      },
+    );
+    this.setUpChart();
   },
   computed: {
     ...mapState({
       items: (state) => state.items,
     }),
-    hasData() {
-      return this.items && this.items.length > 0;
-    },
     actualWidth() {
       if (this.width) {
         return this.width;
@@ -153,20 +133,42 @@ export default {
     },
   },
   methods: {
-    reset() {
-      d3.selectAll('.regions').remove();
-      d3.selectAll('.contour').remove();
-      d3.selectAll('.dot').remove();
-      d3.selectAll('#scatterplot2').remove();
-      d3.selectAll('.xaxis').remove();
-      d3.selectAll('.yaxis').remove();
+    setUpChart() {
+      this.setupSvg();
+      this.setupDimensions();
       this.updateChart();
     },
+    setupSvg() {
+      // Our svg size includes the margins
+      this.svg = d3.select(`#${this.chartDivId}`).append('svg')
+        .attr('width', this.displayWidth + this.margin.left + this.margin.right)
+        .attr('height', this.displayHeight + this.margin.top + this.margin.bottom)
+        .append('g')
+        .attr('transform', `translate(${this.margin.left},${this.margin.top})`);
+
+      // Define the div for the tooltip
+      this.tooltipDiv = d3.select(`#${this.tooltipDivId}`).style('visibility', 'hidden');
+    },
+    setupDimensions() {
+      // This transparent background rectangle gives user something to click & drag.
+      this.svg.append('rect')
+        .attr('width', this.displayWidth)
+        .attr('height', this.displayHeight)
+        .style('fill', 'transparent');
+      this.svg.append('defs').append('svg:clipPath')
+        .attr('id', 'clip')
+        .append('svg:rect')
+        .attr('width', this.displayWidth)
+        .attr('height', this.displayHeight)
+        .attr('x', 0)
+        .attr('y', 0);
+    },
     updateChart() {
-      if (!this.actualWidth || !this.height || !this.hasData) {
+      if (!this.actualWidth || !this.height || this.items.length < 1) {
         return;
       }
-      if (this.isZoomable) {
+
+      if (this.isZoomActive) {
         this.zoom = d3.zoom()
           .scaleExtent([1, 40])
           .translateExtent([[-100, -100], [this.displayWidth + 90, this.displayHeight + 100]])
@@ -185,6 +187,7 @@ export default {
         d.y = yStack[d.startDate].count;
         return d.startDate;
       });
+
       const yMinMax = d3.extent(Object.values(yStack), (d) => d.count);
       yMinMax[1] += 1;
       this.x = d3.scaleTime()
@@ -265,22 +268,14 @@ export default {
           myThis.tooltipDiv.style('visibility', 'hidden');
         });
     },
-    setupSvg() {
-      // Our svg size includes the margins
-      this.svg = d3.select(`#${this.chartDivId}`).append('svg')
-        .attr('width', this.displayWidth + this.margin.left + this.margin.right)
-        .attr('height', this.displayHeight + this.margin.top + this.margin.bottom)
-        .append('g')
-        .attr('transform', `translate(${this.margin.left},${this.margin.top})`);
-
-      // Define the div for the tooltip
-      this.tooltipDiv = d3.select(`#${this.tooltipDivId}`).style('visibility', 'hidden');
-    },
-    transition(zoomLevel) {
-      this.svg.transition()
-        .delay(100)
-        .duration(750)
-        .call(this.zoom.scaleBy, zoomLevel);
+    reset() {
+      d3.selectAll('.regions').remove();
+      d3.selectAll('.contour').remove();
+      d3.selectAll('.dot').remove();
+      d3.selectAll('#scatterplot2').remove();
+      d3.selectAll('.xaxis').remove();
+      d3.selectAll('.yaxis').remove();
+      this.updateChart();
     },
     zoomed() {
       const { transform } = currentEvent;
@@ -288,20 +283,6 @@ export default {
         .attr('transform', (d) => `translate(${transform.applyX(this.x(new Date(d.startDate, 1, 1)))},${transform.applyY(this.y(d.y))})`);
       this.gX.call(this.xAxis.scale(transform.rescaleX(this.x)));
       this.gY.call(this.yAxis.scale(transform.rescaleY(this.y)));
-    },
-    setupDimensions() {
-      // This transparent background rectangle gives user something to click & drag.
-      this.svg.append('rect')
-        .attr('width', this.displayWidth)
-        .attr('height', this.displayHeight)
-        .style('fill', 'transparent');
-      this.svg.append('defs').append('svg:clipPath')
-        .attr('id', 'clip')
-        .append('svg:rect')
-        .attr('width', this.displayWidth)
-        .attr('height', this.displayHeight)
-        .attr('x', 0)
-        .attr('y', 0);
     },
   },
 };

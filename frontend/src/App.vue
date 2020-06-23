@@ -1,24 +1,30 @@
 <template>
   <v-app>
-    <v-content>
-        <Chart />
-       <Timeline
-        ref="breadcrumb"
-        :images="images"
-        :height="windowHeight * 0.15"
-        :minDate="min"
-        :maxDate="max"
-        handleColor="#999999"
-        holderColor="#dee4ec"
-        primaryColor="#424242"
-        backgroundColor="rgb(250, 250, 250)"
-        :equalWidth="true"
-        :frequencies="frequencies"
-        frequencyColor="rgb(250, 250, 250)"
-        @rangeChanged="applyYearFilter"
-      >
-      </Timeline>
-    </v-content>
+    <v-app-bar app>
+      <v-spacer />
+      <h1>Cranach Timeline</h1>
+      <v-spacer />
+    </v-app-bar>
+    <v-main>
+      <v-container>
+        <Chart/>
+        <Timeline
+          ref="breadcrumb"
+          :images="images"
+          :height="windowHeight * 0.15"
+          :minDate="min"
+          :maxDate="max"
+          handleColor="#999999"
+          holderColor="#dee4ec"
+          primaryColor="#424242"
+          backgroundColor="rgb(250, 250, 250)"
+          :equalWidth="true"
+          :frequencies="frequencies"
+          frequencyColor="rgb(250, 250, 250)"
+          @rangeChanged="applyYearFilter"
+        />
+      </v-container>
+    </v-main>
   </v-app>
 </template>
 
@@ -35,8 +41,9 @@ export default {
   },
   data: () => ({
     windowHeight: 10,
+    factor: 1,
     min: new Date('1472-10-04'),
-    max: new Date('1608-12-31'),
+    max: new Date('2000-01-01'),
     images: [
       {
         src: 'https://upload.wikimedia.org/wikipedia/commons/a/ad/Lucas_Cranach_d._%C3%84._-_David_and_Bathsheba_-_WGA05718.jpg',
@@ -140,32 +147,6 @@ export default {
         size: {
           x: 545,
           y: 307,
-        },
-      },
-      {
-        src: 'https://www.lempertz.com/uploads/tx_lempertzproject/Lempertz-977-1016-Old-Masters-Lucas-Cranach-the-Elder-follower-of-MARTYRDOM-OF-SAINT-CATHER.jpg',
-        start: new Date(-13369607884800),
-        end: new Date(-13304401977600),
-        focus: {
-          x: 100,
-          y: 25,
-        },
-        size: {
-          x: 297,
-          y: 375,
-        },
-      },
-      {
-        src: 'https://www.lempertz.com/uploads/tx_lempertzproject/Lempertz-1132-1210-Old-Masters-and-19th-Century-Art-Lucas-Cranach-the-Elder-studio-of-Saint-Anne-in-a-Mountain-.jpg',
-        start: new Date(-13304401977600),
-        end: new Date('1553-10-16'),
-        focus: {
-          x: 140,
-          y: 150,
-        },
-        size: {
-          x: 296,
-          y: 375,
         },
       },
     ],

@@ -411,8 +411,7 @@ export default {
       this.$refs.histo.update({ from: from.valueOf(), to: to.valueOf() });
     },
     getImageContainerWidth() {
-      return (this.imageRowWidth + ((this.distance * this.gapFactor) * (this.images.length - 1)))
-        / this.images.length;
+      return 1800 / this.images.length;
     },
     getImageContainerOffset(index) {
       return (index > 0) ? -(this.distance * this.gapFactor) : 0;

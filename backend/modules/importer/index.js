@@ -1,7 +1,8 @@
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
-const parser = require('./parsePaintingsDe');
+const parserPaintings = require('./parsePaintingsDe');
+const parserGraphics = require('./parseGraphicsDe');
 
 const config = require('../../global.config');
 
@@ -11,7 +12,9 @@ async function importData() {
       const jsonData = await axios.get(config.dataBaseUrl + url);
       fs.writeFileSync(path.join(`${__dirname}../../../data/${url}`), JSON.stringify(jsonData.data), null, 2);
       if (url === 'cda-paintings-v2.de.json') {
-        parser.parsePaintingsDe();
+        parserPaintings.parsePaintingsDe();
+      } else if (url === 'cda-graphics-v2.virtual.de.json') {
+        parserGraphics.parseGraphicsDe();
       }
     });
   } catch (err) {

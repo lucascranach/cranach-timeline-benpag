@@ -19,5 +19,5 @@ app.use('/', indexRouter);
 app.use('/paintings', paintingsRouter);
 
 app.listen(config.port, () => {
-  console.log(`Server listen on port ${config.port}`);
+	console.log(`Server listen on port ${config.port}`);
 });

@@ -39,12 +39,12 @@ Variablen und Funktionen müssen so aussagekräftig benannt werden, dass ihre Fu
 
 **Richtig**
 ```javascript
-let isEmpty: true;
+let isEmpty =  true;
 function getData(){};
 ```
 **Falsch**
 ```javascript
-let x: true;
+let x =  true;
 function data(){};
 ```
 
@@ -53,12 +53,12 @@ Soweit möglich sollen [Prototype Functions](https://developer.mozilla.org/de/do
 
 **Richtig**
 ```javascript
-let array1: [1,2,3];
+let array1 =  [1,2,3];
 let array2: array1.map(x => x * 2);
 ```
 **Falsch**
 ```javascript
-let array1: [1,2,3];
+let array1 = [1,2,3];
 let array2: [];
 
 for(let i = 0; i < array1.length; i++){
@@ -89,12 +89,12 @@ Um Variablen innerhalb eines Strings zu verwenden, sollten String Templates verw
 
 **Richtig**
 ```javascript
-const number: 3;
+const number = 3;
 console.log(`Number: ${number}`);
 ```
 **Falsch**
 ```javascript
-const number: 3;
+const number = 3;
 console.log('Number: ' + number);
 ```
 
@@ -104,7 +104,7 @@ Kommata, die zum Trennen von mehrerer Elemente verwendet werden, sollten immer a
 
 **Richtig**
 ```javascript
-const object: {
+const object = {
     element1: 1,
     element2: 2,
     element3: 3,
@@ -112,7 +112,7 @@ const object: {
 ```
 **Falsch**
 ```javascript
-const object: {
+const object = {
     element1: 1
     ,element2: 2
     ,element3: 3
@@ -125,7 +125,7 @@ Strings und Numbers sollten nicht im Code hinterlegt, sondern in eine Konfigurat
 **Richtig**
 ```json
 {
-    hostUrl: 'http://localhost:3000'
+    "hostUrl" : 'http://localhost:3000'
 }
 ```
 
@@ -143,12 +143,12 @@ Bei der Benenung von Variablen oder Funktionen wird der erste Buchstabe klein ge
 
 **Richtig**
 ```javascript
-const someObject: {}
+const someObject = {}
 ```
 **Falsch**
 ```javascript
-const someobject: {}
-const SoMeObJeCt: {}
+const someobject = {}
+const SoMeObJeCt = {}
 ```
 
 ### Async / Await
@@ -180,11 +180,11 @@ Variablen und Funktionsnamen sollten immer auf Englisch verfasst sein.
 
 **Richtig**
 ```javascript
-const number: 3
+const number = 3
 function getData(){}
 ```
 **Falsch**
 ```javascript
-const zahl: 3
+const zahl = 3
 function kriegeDaten(){}
 ```

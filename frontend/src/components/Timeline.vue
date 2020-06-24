@@ -234,8 +234,8 @@ export default {
       rangeTimeout: null,
       chipHeight: 30,
       distance: 10,
-      gapFactor: 0.75,
-      barWidth: 2,
+      gapFactor: 0.8,
+      barWidth: 5,
       svgHeight: 100,
       imageRowWidth: 100,
       sliderWidth: 1000,
@@ -380,7 +380,7 @@ export default {
       const date = new Date(this.minDate.valueOf() + this.distMinMax * (percent / 100));
       if (percent < this.range[0] || distMin <= distMax) this.setRange(date, this.to);
       else this.setRange(this.from, date);
-      this.$emit('rangeChanged', { from: this.from, to: this.to });
+      this.$emit('rangeChanged', { from: this.from.getFullYear(), to: this.to.getFullYear() });
     },
     getXPositionForChart(frequency) {
       const dist = this.maxDate.getFullYear() - this.minDate.getFullYear();
@@ -399,7 +399,7 @@ export default {
     change(e) {
       this.movedSlider = true;
       this.update(e);
-      this.$emit('rangeChanged', { from: this.from, to: this.to });
+      this.$emit('rangeChanged', { from: this.from.getFullYear(), to: this.to.getFullYear() });
     },
     update(e) {
       this.from = new Date(e.from);
@@ -411,8 +411,7 @@ export default {
       this.$refs.histo.update({ from: from.valueOf(), to: to.valueOf() });
     },
     getImageContainerWidth() {
-      return (this.imageRowWidth + ((this.distance * this.gapFactor) * (this.images.length - 1)))
-        / this.images.length;
+      return 1800 / this.images.length;
     },
     getImageContainerOffset(index) {
       return (index > 0) ? -(this.distance * this.gapFactor) : 0;

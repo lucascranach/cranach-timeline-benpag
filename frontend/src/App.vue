@@ -139,7 +139,7 @@ export default {
       {
         src: 'https://media.wsimag.com/attachments/f1c5ddf8834dbc7fcc2f7426d779b0973380da7f/store/fill/1090/613/1b2cc39b17d2de04ada5d303fec80fe0023e55b7a0e2346e1e60e658d44d/Lucas-Cranach-the-Elder-Law-and-Grace-1529-Narodni-galerie-v-Praze-slash-Nationalgalerie-Prag.jpg',
         start: new Date(-14021666956800),
-        end: new Date(-13369607884800),
+        end: new Date('2000-01-01'),
         focus: {
           x: 250,
           y: 225,

@@ -7,19 +7,16 @@
     </v-app-bar>
     <v-main>
       <v-container>
-        <Chart/>
+        <Chart />
         <Timeline
           ref="breadcrumb"
           :images="images"
           :height="windowHeight * 0.15"
-          :minDate="min"
-          :maxDate="max"
           handleColor="#999999"
           holderColor="#dee4ec"
           primaryColor="#424242"
           backgroundColor="rgb(250, 250, 250)"
           :equalWidth="true"
-          :frequencies="frequencies"
           frequencyColor="rgb(250, 250, 250)"
           @rangeChanged="applyYearFilter"
         />
@@ -30,7 +27,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import Timeline from './components/TimelineV2.vue';
+import Timeline from './components/TimelineV3.vue';
 import Chart from './components/Chart.vue';
 
 export default {
@@ -155,17 +152,6 @@ export default {
     ...mapActions(['loadData', 'applyYearFilter']),
   },
   computed: {
-    frequencies: {
-      get() {
-        const minYear = this.min.getFullYear();
-        const maxYear = this.max.getFullYear();
-        const freq = [];
-        for (let i = minYear; i <= maxYear; i += 1) {
-          freq.push({ x: i, y: Math.random() });
-        }
-        return freq;
-      },
-    },
     ...mapState({ items: (state) => state.items }),
   },
   mounted() {

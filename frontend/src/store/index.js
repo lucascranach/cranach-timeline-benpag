@@ -5,9 +5,12 @@ import works from '../../../backend/data/paintings.json';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+  strict: true,
+  devtools: true,
   state: {
     items: [],
     allItems: [],
+    histogram: [],
   },
   mutations: {
     setItems(state, items) {
@@ -15,6 +18,14 @@ export default new Vuex.Store({
     },
     setAllItems(state, items) {
       state.allItems = items;
+    },
+    calculateHistogram(state) {
+      state.histogram = state.allItems.reduce((histogram, item) => {
+        // reason: https://github.com/eslint/eslint/issues/8581
+        // eslint-disable-next-line no-param-reassign
+        histogram[item.startDate] = (histogram[item.startDate] || 0) + 1;
+        return histogram;
+      }, {});
     },
   },
   actions: {
@@ -28,6 +39,7 @@ export default new Vuex.Store({
       const allItems = works.paintings.filter((w) => w.startDate > 1000);
       commit('setItems', allItems);
       commit('setAllItems', allItems);
+      commit('calculateHistogram', allItems);
     },
   },
   modules: {
@@ -39,8 +51,8 @@ export default new Vuex.Store({
     getAllItems(state) {
       return state.allItems;
     },
+    /*
     getHistogramData(state) {
-      console.log('getHisto');
       const histogram = {};
       state.allItems.forEach((i) => {
         if (histogram[i.startDate] !== undefined) {
@@ -52,5 +64,6 @@ export default new Vuex.Store({
       console.log(histogram);
       return histogram;
     },
+    // */
   },
 });

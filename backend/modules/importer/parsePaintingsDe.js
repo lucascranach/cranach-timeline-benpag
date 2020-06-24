@@ -21,7 +21,7 @@ module.exports = {
       };
       try {
         // eslint-disable-next-line global-require
-        const paintingsJson = require('../../data/cda-graphics-v2.virtual.de.json');
+        const paintingsJson = require('../../data/cda-paintings-v2.de.json');
 
         mainAttributes.paintings = paintingsJson.items.map((painting) => ({
           id: painting.objectId,

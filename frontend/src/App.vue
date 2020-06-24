@@ -30,7 +30,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import Timeline from './components/Timeline.vue';
+import Timeline from './components/TimelineV2.vue';
 import Chart from './components/Chart.vue';
 
 export default {

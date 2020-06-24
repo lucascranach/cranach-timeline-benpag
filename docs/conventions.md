@@ -23,7 +23,14 @@ Es existiert ein vorgefertigtes [Issue Template](https://github.com/BenPag/crana
 
 ## Dokumentation
 
-tbd
+### ADR
+
+Alle Architektur- und Designentscheidungen müssen mittels ADR dokumentiert werden. 
+Jede Dokumentationsdatei verwendet das [ADR Template](https://github.com/BenPag/cranach/blob/master/docs/adr/template.md) als Vorlage und wird anschließend in den [ADR Index](https://github.com/BenPag/cranach/blob/master/docs/adr/index.md) integriert.
+Die ADR-Dokumentation wird in Markdown geschrieben. Es ist wichtig, jede Entscheidung zu dokumentieren, sodass die Evaluation und die untersuchten Optionen nachvollzogen werden können.
+
+Die Benennung der einzelnen Dateien sollte diesem Muster folgen: "0001-general-topic.md"
+
 
 ## Coding
 

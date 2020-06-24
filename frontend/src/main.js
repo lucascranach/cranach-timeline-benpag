@@ -11,7 +11,7 @@ Vue.config.productionTip = false;
 Vue.component(HistogramSlider.name, HistogramSlider);
 
 new Vue({
-  store,
-  vuetify,
-  render: (h) => h(App),
+	store,
+	vuetify,
+	render: (h) => h(App),
 }).$mount('#app');

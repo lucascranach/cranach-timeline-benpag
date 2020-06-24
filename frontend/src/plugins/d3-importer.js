@@ -1,9 +1,9 @@
-import { extent } from 'd3-array';
+import { extent, mean } from 'd3-array';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { scaleLinear, scaleTime } from 'd3-scale';
 import { select, selectAll } from 'd3-selection';
 import {
-  line, curveLinear, symbol, symbolCircle, symbolStar, symbolDiamond, symbolSquare,
+  line, curveBasis, symbol, symbolCircle, symbolStar, symbolDiamond, symbolSquare,
 } from 'd3-shape';
 import { zoom } from 'd3-zoom';
 
@@ -16,7 +16,8 @@ const d3 = {
   select,
   selectAll,
   line,
-  curveLinear,
+  mean,
+  curveBasis,
   symbol,
   symbolCircle,
   symbolStar,

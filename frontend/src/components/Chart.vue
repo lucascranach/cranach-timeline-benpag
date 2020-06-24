@@ -164,7 +164,7 @@ export default {
         .attr('y', 0);
     },
     updateChart() {
-      if (!this.actualWidth || !this.height || this.items.length < 1) {
+      if (!this.actualWidth || !this.height) {
         return;
       }
 

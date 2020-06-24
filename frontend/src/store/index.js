@@ -22,7 +22,6 @@ export default new Vuex.Store({
       const filteredItems = state.allItems.filter(
         (i) => i.startDate >= from && i.endDate <= to,
       );
-      console.log(state.allItems.length);
       commit('setItems', filteredItems);
     },
     loadData({ commit }) {
@@ -39,6 +38,19 @@ export default new Vuex.Store({
     },
     getAllItems(state) {
       return state.allItems;
+    },
+    getHistogramData(state) {
+      console.log('getHisto');
+      const histogram = {};
+      state.allItems.forEach((i) => {
+        if (histogram[i.startDate] !== undefined) {
+          histogram[i.startDate] += 1;
+        } else {
+          histogram[i.startDate] = 1;
+        }
+      });
+      console.log(histogram);
+      return histogram;
     },
   },
 });

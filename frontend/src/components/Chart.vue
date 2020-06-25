@@ -146,27 +146,27 @@ export default {
 				.append('g')
 				.attr('transform', `translate(${this.margin.left},${this.margin.top})`);
 
-			// Define the div for the tooltip
-			this.tooltipDiv = d3.select(`#${this.tooltipDivId}`).style('visibility', 'hidden');
-		},
-		setupDimensions() {
-		// This transparent background rectangle gives user something to click & drag.
-			this.svg.append('rect')
-				.attr('width', this.displayWidth)
-				.attr('height', this.displayHeight)
-				.style('fill', 'transparent');
-			this.svg.append('defs').append('svg:clipPath')
-				.attr('id', 'clip')
-				.append('svg:rect')
-				.attr('width', this.displayWidth)
-				.attr('height', this.displayHeight)
-				.attr('x', 0)
-				.attr('y', 0);
-		},
-		updateChart() {
-			if (!this.actualWidth || !this.height || this.items.length < 1) {
-				return;
-			}
+      // Define the div for the tooltip
+      this.tooltipDiv = d3.select(`#${this.tooltipDivId}`).style('visibility', 'hidden');
+    },
+    setupDimensions() {
+      // This transparent background rectangle gives user something to click & drag.
+      this.svg.append('rect')
+        .attr('width', this.displayWidth)
+        .attr('height', this.displayHeight)
+        .style('fill', 'transparent');
+      this.svg.append('defs').append('svg:clipPath')
+        .attr('id', 'clip')
+        .append('svg:rect')
+        .attr('width', this.displayWidth)
+        .attr('height', this.displayHeight)
+        .attr('x', 0)
+        .attr('y', 0);
+    },
+    updateChart() {
+      if (!this.actualWidth || !this.height) {
+        return;
+      }
 
 			if (this.isZoomActive) {
 				this.zoom = d3.zoom()

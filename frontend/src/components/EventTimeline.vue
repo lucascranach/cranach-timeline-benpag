@@ -28,8 +28,9 @@ export default {
 
 			svg.append('g')
 				.attr('transform', 'translate(0,50)') // This controls the vertical position of the Axis
-				.call(d3.axisBottom(x));
-
+				.call(d3.axisBottom(x)
+					.tickFormat('')
+					.tickSize(0));
 			lutherEvents.forEach((it) => {
 				const eventYear = new Date(it.x).getFullYear();
 				svg.append('circle')

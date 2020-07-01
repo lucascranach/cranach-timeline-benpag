@@ -1,7 +1,7 @@
 <template>
 	<v-row>
 		<v-col cols="12">
-			<svg :height="height" :width="width">
+			<svg :height="height" :width="width" @>
 				<g :transform="`translate(${this.margin.left},0)`">
 					<g :transform="`translate(0, ${this.gap - this.strokeWidth})`">
 						<g v-for="(img, index) in this.getHistogramImages()" :key="index">
@@ -17,34 +17,67 @@
 							</defs>
 							<path :d="getPath(index)" :fill="`url(#img-${index})`"/>
 						</g>
-						<defs>
-							<linearGradient id="toTransparency" x2="0%" y1="100%" y2="0%">
-								<stop offset="0" :stop-color="color" stop-opacity="0.4"></stop>
-								<stop offset="1" :stop-color="color" stop-opacity="0.8"></stop>
-							</linearGradient>
-						</defs>
-						<polyline
-							:points="this.getPolylinePoints()"
-							:style="`fill:url(#toTransparency); stroke:${color}`"
-						/>
+						<g>
+                        <defs>
+                            <linearGradient id="toTransparency" x2="0%" y1="100%" y2="0%">
+                                <stop offset="0" :stop-color="histogramColor" stop-opacity="0.4"></stop>
+                                <stop offset="1" :stop-color="histogramColor" stop-opacity="0.8"></stop>
+                            </linearGradient>
+                        </defs>
+                        <polyline
+                            :points="this.getPolylinePoints()"
+                            :style="`fill:url(#toTransparency); stroke:${histogramColor}`"
+                        />
+                        </g>
 					</g>
 					<g>
-						<line id="leftSlider"
-                              x1="0" :y1="0"
-                              :x2="0" :y2="timelineWidth" draggble="true"
-                              stroke="#f00" :stroke-width="strokeWidth" @drag="enableDrag" @dragover="dragRange" @dragend="stopDrag"
-						/>
-						<line
-							x1="0" :y1="height"
-							:x2="timelineWidth" :y2="height"
-							stroke="#f00" :stroke-width="strokeWidth * 2"
-						/>
-						<line
-							id="rightSlider"
-							:x1="timelineWidth" :y1="height"
-							:x2="timelineWidth" :y2="0"
-							stroke="#f00" :stroke-width="strokeWidth" @mousedown="enableDrag" @mousemove="dragRange" @mouseup="stopDrag"
-						/>
+                        <line
+                            x1="0" :y1="height"
+                            :x2="timelineWidth" :y2="height"
+                            :stroke="sliderColor" :stroke-width="strokeWidth * 4"
+                        />
+						<g id="sliderLeft" class="slider">
+                            <line
+                                x1="0" :y1="0"
+                                :x2="0" :y2="timelineWidth"
+                                :stroke="sliderColor" :stroke-width="strokeWidth"
+                            />
+                            <rect
+                                :x="-(pillWidth / 2)" y="1"
+                                :ry="pillWidth / 4" rx="10"
+                                :fill="histogramColor"
+                                :width="pillWidth" height="20"
+                                :stroke="sliderColor" :stroke-width="strokeWidth"
+                            />
+                            <text
+                                x="0" :y="pillFontSize"
+                                :font-size="pillFontSize"
+                                dominant-baseline="middle" text-anchor="middle"
+                            >
+                                FROM
+                            </text>
+                        </g>
+                        <g id="sliderRight" class="slider">
+                            <line
+                                :x1="timelineWidth" :y1="height"
+                                :x2="timelineWidth" :y2="0"
+                                :stroke="sliderColor" :stroke-width="strokeWidth"
+                            />
+                            <rect
+                                :x="timelineWidth - (pillWidth / 2)" y="1"
+                                :ry="pillWidth / 4" rx="10"
+                                :fill="histogramColor"
+                                :width="pillWidth" height="20"
+                                :stroke="sliderColor" :stroke-width="strokeWidth"
+                            />
+                            <text
+                                :x="timelineWidth" :y="pillFontSize"
+                                dominant-baseline="middle" text-anchor="middle"
+                                :font-size="pillFontSize"
+                            >
+                                TO
+                            </text>
+                        </g>
 					</g>
 				</g>
 			</svg>
@@ -53,11 +86,13 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 import { scaleLinear } from 'd3-scale';
+import { select, event } from 'd3-selection';
+import { drag } from 'd3-drag';
 
 export default {
-	name: 'ImageRangeSlider',
+	name: 'Timeline',
 	props: {
 		width: {
 			type: Number,
@@ -78,11 +113,16 @@ export default {
 		},
 	},
 	data: () => ({
+		xAxis: null,
 		arrowSize: 20,
-		strokeWidth: 3,
-		color: 'rgb(250, 250, 250)',
-		dragging: false,
-		movedSlider: false,
+		strokeWidth: 2,
+		histogramColor: 'rgb(250, 250, 250)',
+		sliderColor: 'rgb(200, 20, 20)',
+		pillHeight: 20,
+		fillerRange: {
+			from: 0,
+			to: 100,
+		},
 	}),
 	computed: {
 		...mapState({
@@ -95,7 +135,7 @@ export default {
 			return this.timelineWidth / this.getHistogramImages().length;
 		},
 		gap() {
-			return this.strokeWidth * 4;
+			return this.strokeWidth * 3;
 		},
 		imageHeight() {
 			return this.height - this.gap;
@@ -103,15 +143,24 @@ export default {
 		years() {
 			return Object.keys(this.data) || [];
 		},
+		pillWidth() {
+			return (this.margin.left * 2) - 2;
+		},
+		pillFontSize() {
+			return Math.floor(this.pillHeight * 0.6);
+		},
 	},
 	methods: {
 		...mapGetters([
 			'getHistogramImages',
 		]),
+		...mapActions([
+			'applyYearFilter',
+		]),
 		getPolylinePoints() {
 			const countsPerYear = Object.values(this.data) || [];
 
-			const xAxis = scaleLinear()
+			this.xAxis = scaleLinear()
 				.domain([this.years[0], this.years[this.years.length - 1]]).nice()
 				.range([0, this.timelineWidth]);
 
@@ -121,7 +170,7 @@ export default {
 
 			const start = `0,${this.imageHeight}`;
 			const end = `${this.timelineWidth},${this.imageHeight}`;
-			return `${start} ${this.years.map((year) => `${xAxis(year)},${yAxis(this.data[year])}`).join()} ${end}`;
+			return `${start} ${this.years.map((year) => `${this.xAxis(year)},${yAxis(this.data[year])}`).join()} ${end}`;
 		},
 		getPath(index) {
 			const xPos = index * this.imageWidth;
@@ -131,32 +180,56 @@ export default {
 			if (index === 0) {
 				return `m ${xPos} 0 l ${w} 0 l ${this.arrowSize} ${h} l -${this.arrowSize} ${h} l -${w} 0 z`;
 			}
-
 			if (index === this.getHistogramImages().length - 1) {
 				return `m ${xPos} 0 l ${w} 0 l 0 ${h} l 0 ${h} l -${w} 0 l ${this.arrowSize} -${h} z`;
 			}
 
 			return `m ${xPos} 0 l ${w} 0 l ${this.arrowSize} ${h} l -${this.arrowSize} ${h} l -${w} 0 l ${this.arrowSize} -${h} z`;
 		},
-		enableDrag(e) {
-			this.dragging = true;
-			this.movedSlider = false;
-			console.log(e);
+		setupSliders() {
+			const sliderLeft = select('#sliderLeft');
+			const sliderLeftDragHandler = drag()
+				.on('start', () => { })
+				.on('drag', () => {
+					if (event.x < event.subject.x) {
+						sliderLeft.attr('transform', 'translate(0, 0)');
+					} else {
+						sliderLeft.attr('transform', `translate(${event.x - event.subject.x}, 0)`);
+					}
+				})
+				.on('end', () => {
+					this.fillerRange.from = Math.floor(this.xAxis.invert(event.x));
+					this.applyYearFilter(this.fillerRange);
+				});
+			select('#sliderLeft').call(sliderLeftDragHandler);
+
+			const sliderRight = select('#sliderRight');
+			const sliderRightDragHandler = drag()
+				.on('start', () => { })
+				.on('drag', () => {
+					if (event.x > event.subject.x) {
+						sliderRight.attr('transform', 'translate(0, 0)');
+					} else {
+						sliderRight.attr('transform', `translate(${event.x - event.subject.x}, 0)`);
+					}
+				})
+				.on('end', () => {
+					this.fillerRange.to = Math.floor(this.xAxis.invert(event.x));
+					this.applyYearFilter(this.fillerRange);
+				});
+			select('#sliderRight').call(sliderRightDragHandler);
 		},
-		dragRange(e) {
-			if (this.dragging) {
-				this.movedSlider = true;
-				console.log(e);
-			}
-		},
-		stopDrag(e) {
-			this.dragging = false;
-			// if (!this.movedSlider) this.clickedImageRow(e);
-			console.log(e);
-		},
+	},
+	mounted() {
+		this.setupSliders();
+		this.fillerRange.from = parseInt(this.years[0], 10);
+		this.fillerRange.to = parseInt(this.years[this.years.length - 1], 10);
 	},
 };
 </script>
 
 <style lang="scss">
+    .slider {
+        cursor: pointer;
+    }
 </style>

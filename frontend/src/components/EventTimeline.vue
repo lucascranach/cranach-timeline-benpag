@@ -1,5 +1,10 @@
 <template>
-	<div id="timeline"></div>
+	<div>
+		<div id="timeline"></div>
+		<div id="toolTip">
+			<h1>{{toolTipData.title}}</h1>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -11,6 +16,7 @@ export default {
 	data: () => ({
 		width: 1500,
 		height: 200,
+		toolTipData: {},
 	}),
 	mounted() {
 		this.createEventTimeline();
@@ -30,12 +36,35 @@ export default {
 				.attr('transform', 'translate(0,50)') // This controls the vertical position of the Axis
 				.call(d3.axisBottom(x));
 
+			const toolTip = d3.select('#tooltip')
+				.append('div')
+				.style('opacity', 0)
+				.attr('class', 'tooltip')
+				.style('background-color', 'white')
+				.style('border', 'solid')
+				.style('border-width', '2px')
+				.style('border-radius', '5px')
+				.style('padding', '5px')
+				.style('position', 'absolute')
+				.style('overflow', 'hidden')
+				.style('z-index', 999999);
+
 			lutherEvents.forEach((it) => {
 				const eventYear = new Date(it.x).getFullYear();
 				svg.append('circle')
 					.attr('cx', x(eventYear))
 					.attr('cy', 50)
-					.attr('r', 4);
+					.attr('r', 4)
+					.on('mouseover', () => {
+						this.toolTipData = it;
+						toolTip.style('opacity', 1);
+						toolTip.style('visibility', 'visible');
+					})
+					.on('mouseout', () => {
+						this.toolTipData = '';
+						toolTip.style('opacity', 0);
+						toolTip.style('visibility', 'hidden');
+					});
 			});
 		},
 	},

@@ -4,16 +4,19 @@
 					:elevation="hover ? 10 : 0"
 					:id="`production-${item.id}`"
 					:style="`border: 2px solid ${color}`"
-					class="pa-0"
-					max-width="350px"
-					max-height="250px"
+					class="pa-0 ma-0"
+					max-width="450px"
+					max-height="300px"
 				>
+				<v-row class="ma-0">
+					<h3>Gemälde</h3>
+				</v-row>
 				<v-row :style="`background-color: white`">
-					<v-col cols="4" class="pa-0">
-						<v-img
-								:src="item.imageUrl && item.imageUrl !== '' ? item.imageUrl : 'https://via.placeholder.com/350'"
-								position="center"
-							/>
+					<v-col cols="4">
+							<v-img
+									:src="item.imageUrl && item.imageUrl !== '' ? item.imageUrl : 'https://via.placeholder.com/350'"
+									position="center"
+								/>
 					</v-col>
 					<v-col cols="8" class="pa-0">
 						<v-card-text class="pa-0">

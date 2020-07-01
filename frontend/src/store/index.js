@@ -51,19 +51,8 @@ export default new Vuex.Store({
 		getAllItems(state) {
 			return state.allItems;
 		},
-		/*
-    getHistogramData(state) {
-      const histogram = {};
-      state.allItems.forEach((i) => {
-        if (histogram[i.startDate] !== undefined) {
-          histogram[i.startDate] += 1;
-        } else {
-          histogram[i.startDate] = 1;
-        }
-      });
-      console.log(histogram);
-      return histogram;
-    },
-    // */
+		getHistogramImages(state) {
+			return state.allItems.slice(0, 10);
+		},
 	},
 });

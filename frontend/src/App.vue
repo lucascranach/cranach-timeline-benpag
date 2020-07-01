@@ -8,6 +8,7 @@
 		<v-main>
 			<v-container>
 				<Chart/>
+				<EventTimeline></EventTimeline>
 				<Timeline
 					ref="breadcrumb"
 					:images="images"
@@ -32,11 +33,13 @@
 import { mapState, mapActions } from 'vuex';
 import Timeline from './components/Timeline.vue';
 import Chart from './components/Chart.vue';
+import EventTimeline from './components/EventTimeline.vue';
 
 export default {
 	name: 'App',
 	components: {
 		Chart,
+		EventTimeline,
 		Timeline,
 	},
 	data: () => ({

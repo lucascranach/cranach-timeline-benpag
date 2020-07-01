@@ -3,17 +3,19 @@
 			<v-card
 					:elevation="hover ? 10 : 0"
 					:id="`production-${item.id}`"
-					:style="`border: 2px solid rgba(0,255,0,0.5);`"
+					:style="`border: 2px solid ${color}`"
 					class="pa-0"
+					max-width="350px"
+					max-height="250px"
 				>
 				<v-row :style="`background-color: white`">
-					<v-col cols="3">
+					<v-col cols="4" class="pa-0">
 						<v-img
 								:src="item.imageUrl && item.imageUrl !== '' ? item.imageUrl : 'https://via.placeholder.com/350'"
-								position="left"
+								position="center"
 							/>
 					</v-col>
-					<v-col cols="9">
+					<v-col cols="8" class="pa-0">
 						<v-card-text class="pa-0">
 							<v-list>
 								<v-list-item two-line>
@@ -30,11 +32,27 @@
 									</v-list-item-content>
 								</v-list-item>
 								<v-list-item>
-									<v-list-item-icon>
-										<v-icon v-text="item.icon">brush</v-icon>
+									<v-list-item-icon class="ma-0" >
+										<v-icon :color="`${color}`">brush</v-icon>
 									</v-list-item-icon>
-									<v-list-item-content>
-										<v-list-item-title v-text="item.id"></v-list-item-title>
+									<v-list-item-content class="pa-0" style="position: absolute; top: 0; left:50%">
+										<v-list-item-title v-text="item.artists && item.artists[0] ? item.artists[0] : 'k.A.'"></v-list-item-title>
+									</v-list-item-content>
+								</v-list-item>
+								<v-list-item>
+									<v-list-item-icon class="ma-0" >
+										<v-icon :color="`${color}`">public</v-icon>
+									</v-list-item-icon>
+									<v-list-item-content class="pa-0" style="position: absolute; top: 0; left:50%">
+										<v-list-item-title v-text="item.location && item.location[0] ? item.location[0] : 'k.A.'"></v-list-item-title>
+									</v-list-item-content>
+								</v-list-item>
+								<v-list-item>
+									<v-list-item-icon class="ma-0" >
+										<v-icon :color="`${color}`">shopping_basket</v-icon>
+									</v-list-item-icon>
+									<v-list-item-content class="pa-0" style="position: absolute; top: 0; left:50%">
+										<v-list-item-title v-text="item.customer && item.customer[0] ? item.customer[0] : 'k.A.'"></v-list-item-title>
 									</v-list-item-content>
 								</v-list-item>
 							</v-list>
@@ -207,18 +225,10 @@ export default {
 		item: {
 			type: Object,
 			required: true,
-			default: () => ({
-				imageUrl: 'URL',
-				id: 'UNIQUE',
-				title: ['TITLE'],
-				location: 'LOCATION',
-				customer: 'CUSTOMER',
-				medium: 'MEDIUM',
-				dimensions: 'DIMENSIONS',
-				color: 'rgba(0,255,0,0.5)',
-				startDate: 'DATE',
-				artists: 'ARTIST',
-			}),
+		},
+		color: {
+			type: String,
+			default: 'rgba(66, 125, 173, 1)',
 		},
 	},
 };

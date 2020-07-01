@@ -2,6 +2,7 @@
 <template>
   <div>
 	<div id="umf-d3-chart"></div>
+	<ToolTipItem :id="tooltipDivId" class="d3-tooltip" :item="toolTipData" />
   </div>
 </template>
 
@@ -9,10 +10,11 @@
 import { mapState } from 'vuex';
 import { event as currentEvent } from 'd3-selection';
 import d3 from '../plugins/d3-importer';
+import ToolTipItem from './ToolTipItem.vue';
 
 export default {
 	name: 'Chart',
-	components: { },
+	components: { ToolTipItem },
 	props: {
 		chartDivId: {
 			type: String,
@@ -244,11 +246,9 @@ export default {
 				.on('mouseover', (d) => {
 					d3.select(`.d3r-${d.id}`).classed('active', true);
 					myThis.toolTipData = d;
-
 					const tooltipHeight = myThis.tooltipDiv.node().getBoundingClientRect().height;
 					const sumHeight = tooltipHeight + currentEvent.y;
 					let top;
-
 					if (sumHeight < window.screen.height * 0.85) {
 						top = currentEvent.y;
 					} else if (currentEvent.y - tooltipHeight > 0) {
@@ -256,7 +256,6 @@ export default {
 					} else {
 						top = currentEvent.y - tooltipHeight / 2;
 					}
-
 					myThis.tooltipDiv
 						.style('left', `${currentEvent.x}px`)
 						.style('top', `${top}px`)
@@ -354,10 +353,8 @@ export default {
 	left: 0;
 	overflow: hidden;
 	text-align: center;
-	font: 12px sans-serif;
 	pointer-events: none;
 	z-index: 999999;
-	max-width: 20vw;
   }
   .d3r.active {
 	stroke: rgba(0, 0, 0, 1) !important;

@@ -30,7 +30,6 @@ export default new Vuex.Store({
 	},
 	actions: {
 		applyYearFilter({ commit, state }, { from, to }) {
-			console.log(from, to);
 			const filteredItems = state.allItems.filter(
 				(i) => i.startDate >= from && i.endDate <= to,
 			);

@@ -1,7 +1,7 @@
 <template>
 	<v-row>
 		<v-col cols="12">
-			<svg :height="height" :width="width" @>
+			<svg :height="height" :width="width">
 				<g :transform="`translate(${this.margin.left},0)`">
 					<g :transform="`translate(0, ${this.gap - this.strokeWidth})`">
 						<g v-for="(img, index) in this.getHistogramImages()" :key="index">
@@ -30,12 +30,17 @@
                         />
                         </g>
 					</g>
-					<g>
-                        <line
-                            x1="0" :y1="height"
-                            :x2="timelineWidth" :y2="height"
-                            :stroke="sliderColor" :stroke-width="strokeWidth * 4"
-                        />
+                    <line
+                        x1="0" :y1="height"
+                        :x2="timelineWidth" :y2="height"
+                        :stroke="sliderColor" :stroke-width="strokeWidth * 2"
+                    />
+                    <rect
+                        id="areaSlider" class="slider"
+                        x="0" y="0"
+                        fill="rgba(255,255,255,0.01)"
+                    />
+					<g id="area">
 						<g id="sliderLeft" class="slider">
                             <line
                                 x1="0" :y1="0"
@@ -50,12 +55,11 @@
                                 :stroke="sliderColor" :stroke-width="strokeWidth"
                             />
                             <text
+                                id="sliderLeftText"
                                 x="0" :y="pillFontSize"
                                 :font-size="pillFontSize"
                                 dominant-baseline="middle" text-anchor="middle"
-                            >
-                                FROM
-                            </text>
+                            />
                         </g>
                         <g id="sliderRight" class="slider">
                             <line
@@ -71,12 +75,11 @@
                                 :stroke="sliderColor" :stroke-width="strokeWidth"
                             />
                             <text
+                                id="sliderRightText"
                                 :x="timelineWidth" :y="pillFontSize"
                                 dominant-baseline="middle" text-anchor="middle"
                                 :font-size="pillFontSize"
-                            >
-                                TO
-                            </text>
+                            />
                         </g>
 					</g>
 				</g>
@@ -132,10 +135,10 @@ export default {
 			return this.width - this.margin.left - this.margin.right;
 		},
 		imageWidth() {
-			return this.timelineWidth / this.getHistogramImages().length;
+			return Math.round(this.timelineWidth / this.getHistogramImages().length);
 		},
 		gap() {
-			return this.strokeWidth * 3;
+			return this.strokeWidth * 12;
 		},
 		imageHeight() {
 			return this.height - this.gap;
@@ -186,44 +189,108 @@ export default {
 
 			return `m ${xPos} 0 l ${w} 0 l ${this.arrowSize} ${h} l -${this.arrowSize} ${h} l -${w} 0 l ${this.arrowSize} -${h} z`;
 		},
-		setupSliders() {
+		setupSliderLeft() {
 			const sliderLeft = select('#sliderLeft');
-			const sliderLeftDragHandler = drag()
-				.on('start', () => { })
-				.on('drag', () => {
-					if (event.x < event.subject.x) {
-						sliderLeft.attr('transform', 'translate(0, 0)');
-					} else {
-						sliderLeft.attr('transform', `translate(${event.x - event.subject.x}, 0)`);
-					}
-				})
-				.on('end', () => {
-					this.fillerRange.from = Math.floor(this.xAxis.invert(event.x));
-					this.applyYearFilter(this.fillerRange);
-				});
-			select('#sliderLeft').call(sliderLeftDragHandler);
+			const sliderLeftText = select('#sliderLeftText');
+			const areaSlider = select('#areaSlider');
+			const area = select('#area');
+			const [min] = this.xAxis.domain();
 
-			const sliderRight = select('#sliderRight');
-			const sliderRightDragHandler = drag()
-				.on('start', () => { })
+			const sliderLeftDragHandler = drag()
 				.on('drag', () => {
-					if (event.x > event.subject.x) {
-						sliderRight.attr('transform', 'translate(0, 0)');
+					const current = Math.floor(this.xAxis.invert(event.x));
+					if (min > current) {
+						sliderLeft.attr('transform', 'translate(0, 0)');
+						this.fillerRange.from = min;
+					} else if (this.fillerRange.to <= current) {
+						this.fillerRange.from = this.fillerRange.to;
 					} else {
-						sliderRight.attr('transform', `translate(${event.x - event.subject.x}, 0)`);
+						sliderLeft.attr('transform', `translate(${event.x}, 0)`);
+						this.fillerRange.from = current;
+					}
+					sliderLeftText.text(this.fillerRange.from);
+
+					const bounding = area.node().getBBox();
+					areaSlider.attr('width', bounding.width - this.pillWidth);
+					areaSlider.attr('height', bounding.height);
+					areaSlider.attr('transform', `translate(${event.x}, 0)`);
+				})
+				.on('end', () => {
+					this.applyYearFilter(this.fillerRange);
+				});
+			sliderLeft.call(sliderLeftDragHandler);
+			sliderLeftText.text(this.fillerRange.from);
+		},
+		setupSliderRight() {
+			const sliderRight = select('#sliderRight');
+			const sliderRightText = select('#sliderRightText');
+			const max = this.xAxis.domain()[1];
+			const maxPx = Math.floor(this.xAxis(max));
+			const areaSlider = select('#areaSlider');
+			const area = select('#area');
+
+			const sliderRightDragHandler = drag()
+				.on('drag', () => {
+					const current = Math.floor(this.xAxis.invert(event.x));
+					if (max < current) {
+						sliderRight.attr('transform', 'translate(0, 0)');
+						this.fillerRange.to = max;
+					} else if (this.fillerRange.from >= current) {
+						this.fillerRange.to = this.fillerRange.from;
+					} else {
+						sliderRight.attr('transform', `translate(${event.x - maxPx}, 0)`);
+						this.fillerRange.to = current;
+					}
+					sliderRightText.text(this.fillerRange.to);
+
+					const bounding = area.node().getBBox();
+					areaSlider.attr('width', bounding.width - this.pillWidth);
+					areaSlider.attr('height', bounding.height);
+				})
+				.on('end', () => {
+					this.applyYearFilter(this.fillerRange);
+				});
+			sliderRight.call(sliderRightDragHandler);
+			sliderRightText.text(this.fillerRange.to);
+		},
+		setupAreaSlider() {
+			const sliderLeft = select('#sliderLeft');
+			const sliderLeftText = select('#sliderLeftText');
+			const sliderRight = select('#sliderRight');
+			const sliderRightText = select('#sliderRightText');
+			const [min, max] = this.xAxis.domain();
+			const maxPx = Math.floor(this.xAxis(max));
+			const areaSlider = select('#areaSlider');
+
+			const areaSliderDragHandler = drag()
+				.on('drag', () => {
+					const currentLeft = Math.floor(this.xAxis.invert(event.x));
+					const currentRight = Math.floor(this.xAxis.invert(event.x + areaSlider.node().getBBox().width));
+					if (min > currentLeft) {
+						this.fillerRange.from = min;
+					} else if (max < currentRight) {
+						this.fillerRange.to = max;
+					} else {
+						sliderLeft.attr('transform', `translate(${event.x}, 0)`);
+						areaSlider.attr('transform', `translate(${event.x}, 0)`);
+						sliderRight.attr('transform', `translate(${(event.x - maxPx) + areaSlider.node().getBBox().width}, 0)`);
+						this.fillerRange.from = currentLeft;
+						this.fillerRange.to = currentRight;
+						sliderLeftText.text(this.fillerRange.from);
+						sliderRightText.text(this.fillerRange.to);
 					}
 				})
 				.on('end', () => {
-					this.fillerRange.to = Math.floor(this.xAxis.invert(event.x));
 					this.applyYearFilter(this.fillerRange);
 				});
-			select('#sliderRight').call(sliderRightDragHandler);
+			areaSlider.call(areaSliderDragHandler);
 		},
 	},
 	mounted() {
-		this.setupSliders();
-		this.fillerRange.from = parseInt(this.years[0], 10);
-		this.fillerRange.to = parseInt(this.years[this.years.length - 1], 10);
+		[this.fillerRange.from, this.fillerRange.to] = this.xAxis.domain();
+		this.setupSliderLeft();
+		this.setupSliderRight();
+		this.setupAreaSlider();
 	},
 };
 </script>

@@ -2,7 +2,7 @@
 	<div>
 		<div id="timeline"></div>
 		<v-card id="toolTip" class="d3-tooltip">
-			<v-card-title>{{toolTipData.title}}</v-card-title>
+			<v-card-title>{{toolTipData.description}}</v-card-title>
 		</v-card>
 	</div>
 </template>
@@ -42,7 +42,7 @@ export default {
 					.tickFormat('')
 					.tickSize(0));
 			lutherEvents.forEach((it) => {
-				const eventYear = new Date(it.x).getFullYear();
+				const eventYear = new Date(it.date).getFullYear();
 				svg.append('circle')
 					.attr('cx', x(eventYear))
 					.attr('cy', 50)

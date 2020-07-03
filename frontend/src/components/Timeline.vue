@@ -29,6 +29,18 @@
                             :style="`fill:url(#toTransparency); stroke:${histogramColor}`"
                         />
                         </g>
+                        <rect
+                            id="areaInactiveLeft"
+                            x="0" y="0"
+                            :height="imageHeight"
+                            :fill="inactiveColor"
+                        />
+                        <rect
+                            id="areaInactiveRight"
+                            :x="timelineWidth" y="0"
+                            :height="imageHeight"
+                            :fill="inactiveColor"
+                        />
 					</g>
                     <line
                         x1="0" :y1="height"
@@ -38,7 +50,7 @@
                     <rect
                         id="areaSlider" class="slider"
                         x="0" y="0"
-                        fill="rgba(255,255,255,0.01)"
+                        fill="transparent"
                     />
 					<g id="area">
 						<g id="sliderLeft" class="slider">
@@ -121,6 +133,7 @@ export default {
 		strokeWidth: 2,
 		histogramColor: 'rgb(250, 250, 250)',
 		sliderColor: 'rgb(200, 20, 20)',
+		inactiveColor: 'rgba(180,180,180,0.5)',
 		pillHeight: 20,
 		fillerRange: {
 			from: 0,
@@ -192,6 +205,7 @@ export default {
 		setupSliderLeft() {
 			const sliderLeft = select('#sliderLeft');
 			const sliderLeftText = select('#sliderLeftText');
+			const areaInactiveLeft = select('#areaInactiveLeft');
 			const areaSlider = select('#areaSlider');
 			const area = select('#area');
 			const [min] = this.xAxis.domain();
@@ -201,11 +215,13 @@ export default {
 					const current = Math.floor(this.xAxis.invert(event.x));
 					if (min > current) {
 						sliderLeft.attr('transform', 'translate(0, 0)');
+						areaInactiveLeft.attr('width', 0);
 						this.fillerRange.from = min;
 					} else if (this.fillerRange.to <= current) {
 						this.fillerRange.from = this.fillerRange.to;
 					} else {
 						sliderLeft.attr('transform', `translate(${event.x}, 0)`);
+						areaInactiveLeft.attr('width', event.x);
 						this.fillerRange.from = current;
 					}
 					sliderLeftText.text(this.fillerRange.from);
@@ -224,6 +240,7 @@ export default {
 		setupSliderRight() {
 			const sliderRight = select('#sliderRight');
 			const sliderRightText = select('#sliderRightText');
+			const areaInactiveRight = select('#areaInactiveRight');
 			const max = this.xAxis.domain()[1];
 			const maxPx = Math.floor(this.xAxis(max));
 			const areaSlider = select('#areaSlider');
@@ -234,11 +251,16 @@ export default {
 					const current = Math.floor(this.xAxis.invert(event.x));
 					if (max < current) {
 						sliderRight.attr('transform', 'translate(0, 0)');
+						areaInactiveRight.attr('width', 0);
 						this.fillerRange.to = max;
 					} else if (this.fillerRange.from >= current) {
 						this.fillerRange.to = this.fillerRange.from;
 					} else {
-						sliderRight.attr('transform', `translate(${event.x - maxPx}, 0)`);
+						const xOffset = event.x - maxPx;
+						sliderRight.attr('transform', `translate(${xOffset}, 0)`);
+						areaInactiveRight
+							.attr('width', Math.abs(xOffset))
+							.attr('transform', `translate(${xOffset}, 0)`);
 						this.fillerRange.to = current;
 					}
 					sliderRightText.text(this.fillerRange.to);
@@ -256,8 +278,10 @@ export default {
 		setupAreaSlider() {
 			const sliderLeft = select('#sliderLeft');
 			const sliderLeftText = select('#sliderLeftText');
+			const areaInactiveLeft = select('#areaInactiveLeft');
 			const sliderRight = select('#sliderRight');
 			const sliderRightText = select('#sliderRightText');
+			const areaInactiveRight = select('#areaInactiveRight');
 			const [min, max] = this.xAxis.domain();
 			const maxPx = Math.floor(this.xAxis(max));
 			const areaSlider = select('#areaSlider');
@@ -271,9 +295,16 @@ export default {
 					} else if (max < currentRight) {
 						this.fillerRange.to = max;
 					} else {
-						sliderLeft.attr('transform', `translate(${event.x}, 0)`);
 						areaSlider.attr('transform', `translate(${event.x}, 0)`);
-						sliderRight.attr('transform', `translate(${(event.x - maxPx) + areaSlider.node().getBBox().width}, 0)`);
+						sliderLeft.attr('transform', `translate(${event.x}, 0)`);
+						areaInactiveLeft.attr('width', event.x);
+
+						const xTranslateOffset = (event.x - maxPx) + areaSlider.node().getBBox().width;
+						sliderRight.attr('transform', `translate(${xTranslateOffset}, 0)`);
+						areaInactiveRight
+							.attr('width', Math.abs(xTranslateOffset))
+							.attr('transform', `translate(${xTranslateOffset}, 0)`);
+
 						this.fillerRange.from = currentLeft;
 						this.fillerRange.to = currentRight;
 						sliderLeftText.text(this.fillerRange.from);

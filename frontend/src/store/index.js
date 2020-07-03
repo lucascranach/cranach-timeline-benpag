@@ -33,10 +33,12 @@ export default new Vuex.Store({
 			const filteredItems = state.allItems.filter(
 				(i) => i.startDate >= from && i.endDate <= to,
 			);
+			Object.freeze(filteredItems);
 			commit('setItems', filteredItems);
 		},
 		loadData({ commit }) {
 			const allItems = works.paintings.filter((w) => w.startDate > 1000);
+			Object.freeze(allItems);
 			commit('setItems', allItems);
 			commit('setAllItems', allItems);
 			commit('calculateHistogram', allItems);

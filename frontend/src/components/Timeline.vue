@@ -6,7 +6,10 @@
 					<g :transform="`translate(0, ${this.gap - this.strokeWidth})`">
 						<g v-for="(img, index) in this.getHistogramImages()" :key="index">
 							<defs>
-								<pattern :id="`img-${index}`" patternUnits="userSpaceOnUse" :width="imageWidth" :height="imageHeight">
+								<pattern
+                                    :id="`img-${index}`" patternUnits="userSpaceOnUse"
+                                    :width="imageWidth" :height="imageHeight"
+                                >
 									<image
 										preserveAspectRatio="xMidYMin slice"
 										:width="imageWidth"
@@ -19,14 +22,15 @@
 						</g>
 						<g>
                         <defs>
-                            <linearGradient id="toTransparency" x2="0%" y1="100%" y2="0%">
+                            <linearGradient id="toTransparency" y1="100%" y2="0%">
                                 <stop offset="0" :stop-color="histogramColor" stop-opacity="0.4"></stop>
                                 <stop offset="1" :stop-color="histogramColor" stop-opacity="0.8"></stop>
                             </linearGradient>
                         </defs>
                         <polyline
-                            :points="this.getPolylinePoints()"
-                            :style="`fill:url(#toTransparency); stroke:${histogramColor}`"
+                            :points="getPolylinePoints()"
+                            :stroke="histogramColor"
+                            fill="url(#toTransparency)"
                         />
                         </g>
                         <rect
@@ -55,8 +59,8 @@
 					<g id="area">
 						<g id="sliderLeft" class="slider">
                             <line
-                                x1="0" :y1="0"
-                                :x2="0" :y2="timelineWidth"
+                                x1="0" y1="0"
+                                x2="0" :y2="timelineWidth"
                                 :stroke="sliderColor" :stroke-width="strokeWidth"
                             />
                             <rect
@@ -173,6 +177,37 @@ export default {
 		...mapActions([
 			'applyYearFilter',
 		]),
+		getPath(index) {
+			const xPos = index * this.imageWidth;
+			const h = this.imageHeight / 2;
+			const w = this.imageWidth - (this.arrowSize / 4);
+
+			if (index === 0) {
+				return `m ${xPos} 0
+				l ${w} 0
+				l ${this.arrowSize} ${h}
+				l -${this.arrowSize} ${h}
+				l -${w} 0
+				z`;
+			}
+			if (index === this.getHistogramImages().length - 1) {
+				return `m ${xPos} 0
+				l ${w} 0
+				l 0 ${h}
+				l 0 ${h}
+				l -${w} 0
+				l ${this.arrowSize} -${h}
+				z`;
+			}
+
+			return `m ${xPos} 0
+			l ${w} 0
+			l ${this.arrowSize} ${h}
+			l -${this.arrowSize} ${h}
+			l -${w} 0
+			l ${this.arrowSize} -${h}
+			z`;
+		},
 		getPolylinePoints() {
 			const countsPerYear = Object.values(this.data) || [];
 
@@ -186,21 +221,11 @@ export default {
 
 			const start = `0,${this.imageHeight}`;
 			const end = `${this.timelineWidth},${this.imageHeight}`;
-			return `${start} ${this.years.map((year) => `${this.xAxis(year)},${yAxis(this.data[year])}`).join()} ${end}`;
-		},
-		getPath(index) {
-			const xPos = index * this.imageWidth;
-			const h = this.imageHeight / 2;
-			const w = this.imageWidth - (this.arrowSize / 4);
+			const result = this.years.map(
+				(year) => `${this.xAxis(year)},${yAxis(this.data[year])}`,
+			).join();
 
-			if (index === 0) {
-				return `m ${xPos} 0 l ${w} 0 l ${this.arrowSize} ${h} l -${this.arrowSize} ${h} l -${w} 0 z`;
-			}
-			if (index === this.getHistogramImages().length - 1) {
-				return `m ${xPos} 0 l ${w} 0 l 0 ${h} l 0 ${h} l -${w} 0 l ${this.arrowSize} -${h} z`;
-			}
-
-			return `m ${xPos} 0 l ${w} 0 l ${this.arrowSize} ${h} l -${this.arrowSize} ${h} l -${w} 0 l ${this.arrowSize} -${h} z`;
+			return `${start} ${result} ${end}`;
 		},
 		setupSliderLeft() {
 			const sliderLeft = select('#sliderLeft');
@@ -319,6 +344,7 @@ export default {
 	},
 	mounted() {
 		[this.fillerRange.from, this.fillerRange.to] = this.xAxis.domain();
+
 		this.setupSliderLeft();
 		this.setupSliderRight();
 		this.setupAreaSlider();

@@ -31,9 +31,6 @@ export default {
 		Chart,
 		Timeline,
 	},
-	methods: {
-		...mapActions(['loadData', 'applyYearFilter']),
-	},
 	computed: {
 		...mapState({ items: (state) => state.items }),
 		chartWidth() {
@@ -45,6 +42,9 @@ export default {
 	},
 	created() {
 		this.loadData();
+	},
+	methods: {
+		...mapActions(['loadData', 'applyYearFilter']),
 	},
 };
 </script>

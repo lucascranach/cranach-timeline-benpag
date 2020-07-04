@@ -165,6 +165,21 @@ export default {
 				.attr('x', 0)
 				.attr('y', 0);
 		},
+		calculateToolTipX(mouseX, toolTipWidth, margin = 10) {
+			if (mouseX - (toolTipWidth / 2) - margin < 0) {
+				return margin;
+			}
+			if (mouseX + (toolTipWidth / 2) + margin > window.innerWidth) {
+				return window.innerWidth - 5 * margin - toolTipWidth;
+			}
+			return mouseX - (toolTipWidth / 2);
+		},
+		calculateToolTipY(mouseY, toolTipHeight, margin = 10) {
+			if (mouseY - toolTipHeight - margin < 0) {
+				return mouseY + 10;
+			}
+			return mouseY - toolTipHeight - margin;
+		},
 		updateChart() {
 			if (!this.actualWidth || !this.height || this.items.length < 1) {
 				return;
@@ -246,19 +261,12 @@ export default {
 				.on('mouseover', (d) => {
 					d3.select(`.d3r-${d.id}`).classed('active', true);
 					myThis.toolTipData = d;
-					const tooltipHeight = myThis.tooltipDiv.node().getBoundingClientRect().height;
-					const sumHeight = tooltipHeight + currentEvent.y;
-					let top;
-					if (sumHeight < window.screen.height * 0.85) {
-						top = currentEvent.y;
-					} else if (currentEvent.y - tooltipHeight > 0) {
-						top = currentEvent.y - tooltipHeight;
-					} else {
-						top = currentEvent.y - tooltipHeight / 2;
-					}
+					const headerElement = document.getElementsByTagName('header')[0];
+					const mouseX = currentEvent.pageX;
+					const mouseY = currentEvent.pageY - headerElement.getBoundingClientRect().height;
 					myThis.tooltipDiv
-						.style('left', `${currentEvent.x}px`)
-						.style('top', `${top}px`)
+						.style('left', `${this.calculateToolTipX(mouseX, myThis.tooltipDiv.node().getBoundingClientRect().width)}px`)
+						.style('top', `${this.calculateToolTipY(mouseY, myThis.tooltipDiv.node().getBoundingClientRect().height)}px`)
 						.style('visibility', 'visible');
 				})
 				.on('mouseout', (d) => {

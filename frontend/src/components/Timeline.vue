@@ -2,8 +2,8 @@
 	<v-row>
 		<v-col cols="12">
 			<svg :height="height" :width="width">
-				<g :transform="`translate(${this.margin.left},0)`">
-					<g :transform="`translate(0, ${this.gap - this.strokeWidth})`">
+				<g :transform="`translate(${margin.left},0)`">
+					<g :transform="`translate(0, ${gap - strokeWidth})`">
 						<g v-for="(img, index) in this.getHistogramImages()" :key="index">
 							<defs>
 								<pattern

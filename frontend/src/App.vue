@@ -8,10 +8,10 @@
 		<v-main>
 			<v-container>
 				<Chart/>
-				<SpecialEventTimeline :event-list="cranachElderEvents" :color="'black'"></SpecialEventTimeline>
-				<SpecialEventTimeline :event-list="cranachYoungerEvents" :color="'black'"></SpecialEventTimeline>
-				<SpecialEventTimeline :event-list="lutherEvents" :color="'grey'"></SpecialEventTimeline>
-				<SpecialEventTimeline :event-list="historyEvents"></SpecialEventTimeline>
+				<SpecialEventTimeline :event-list="events.cranachElder" :color="'black'"></SpecialEventTimeline>
+				<SpecialEventTimeline :event-list="events.cranachYounger" :color="'black'"></SpecialEventTimeline>
+				<SpecialEventTimeline :event-list="events.luther" :color="'grey'"></SpecialEventTimeline>
+				<SpecialEventTimeline :event-list="events.history"></SpecialEventTimeline>
 				<Timeline
 					ref="breadcrumb"
 					:images="images"
@@ -37,11 +37,6 @@ import { mapState, mapActions } from 'vuex';
 import Timeline from './components/Timeline.vue';
 import Chart from './components/Chart.vue';
 import SpecialEventTimeline from './components/SpecialEventTimeline.vue';
-
-import cranachElderEvents from './assets/cranachElderEvents.json';
-import cranachYoungerEvents from './assets/cranachYoungerEvents.json';
-import lutherEvents from './assets/lutherEvents.json';
-import historyEvents from './assets/historyEvents.json';
 
 export default {
 	name: 'App',
@@ -167,10 +162,6 @@ export default {
 				},
 			},
 		],
-		cranachElderEvents,
-		cranachYoungerEvents,
-		lutherEvents,
-		historyEvents,
 	}),
 	methods: {
 		...mapActions(['loadData', 'applyYearFilter']),
@@ -187,7 +178,10 @@ export default {
 				return freq;
 			},
 		},
-		...mapState({ items: (state) => state.items }),
+		...mapState({
+			items: (state) => state.items,
+			events: (state) => state.events,
+		}),
 	},
 	mounted() {
 		this.windowHeight = window.innerHeight;

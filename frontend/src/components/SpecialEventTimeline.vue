@@ -99,8 +99,7 @@ export default {
 			this.toolTipData = item;
 			this.toolTip
 				.style('left', `${event.x}px`)
-				.style('top', `${this.calculateToolTipY(event.layerY, this.toolTip.node().getBoundingClientRect().height)}px`)
-				.style('transform', 'translate(-50% , 0)')
+				.style('top', `${event.layerY}px`)
 				.style('visibility', 'visible');
 			this.show = true;
 		},
@@ -108,12 +107,6 @@ export default {
 			this.toolTip
 				.style('visibility', 'hidden');
 			this.show = false;
-		},
-		calculateToolTipY(mouseY, toolTipHeight = 10, margin = 10) {
-			if (mouseY - toolTipHeight - margin < 0) {
-				return mouseY + 10;
-			}
-			return mouseY - toolTipHeight - margin;
 		},
 	},
 };
@@ -128,5 +121,7 @@ export default {
 		text-align: center;
 		pointer-events: none;
 		z-index: 999999;
+		visibility: hidden;
+		transform: translate(-50% , -105%);
 	}
 </style>

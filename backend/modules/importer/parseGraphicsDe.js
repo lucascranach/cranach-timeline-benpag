@@ -25,7 +25,7 @@ module.exports = {
 
 				mainAttributes.graphics = graphicsJson.items.map((graphic) => ({
 					id: graphic.objectId,
-					imageUrl: '',
+					imageUrl: 'http://lucascranach.org/imageserver/G_AT_A_DG1929-75/01_Overall/G_AT_A_DG1929-75_Overall-002-s.jpg',
 					startDate: graphic.dating.begin,
 					endDate: graphic.dating.end,
 					title: getTitles(graphic.titles),

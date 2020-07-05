@@ -150,7 +150,7 @@ export default {
 			this.tooltipDiv = d3.select(`#${this.tooltipDivId}`).style('visibility', 'hidden');
 		},
 		setupDimensions() {
-		// This transparent background rectangle gives user something to click & drag.
+			// This transparent background rectangle gives user something to click & drag.
 			this.svg.append('rect')
 				.attr('width', this.displayWidth)
 				.attr('height', this.displayHeight)
@@ -164,7 +164,7 @@ export default {
 				.attr('y', 0);
 		},
 		updateChart() {
-			if (!this.actualWidth || !this.height || this.items.length < 1) {
+			if (!this.actualWidth || !this.height) {
 				return;
 			}
 

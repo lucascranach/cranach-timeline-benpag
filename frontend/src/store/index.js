@@ -1,6 +1,10 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import works from '../../../backend/data/paintings.json';
+import cranachElderEvents from '../assets/cranachElderEvents.json';
+import cranachYoungerEvents from '../assets/cranachYoungerEvents.json';
+import lutherEvents from '../assets/lutherEvents.json';
+import historyEvents from '../assets/historyEvents.json';
 
 Vue.use(Vuex);
 
@@ -11,6 +15,12 @@ export default new Vuex.Store({
 		items: [],
 		allItems: [],
 		histogram: [],
+		events: {
+			cranachElder: cranachElderEvents,
+			cranachYounger: cranachYoungerEvents,
+			luther: lutherEvents,
+			history: historyEvents,
+		},
 	},
 	mutations: {
 		setItems(state, items) {

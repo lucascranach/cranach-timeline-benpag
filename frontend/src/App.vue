@@ -8,6 +8,10 @@
 		<v-main>
 			<v-container>
 				<Chart/>
+				<SpecialEventTimeline :event-list="events.cranachElder" :color="'black'"></SpecialEventTimeline>
+				<SpecialEventTimeline :event-list="events.cranachYounger" :color="'black'"></SpecialEventTimeline>
+				<SpecialEventTimeline :event-list="events.luther" :color="'grey'"></SpecialEventTimeline>
+				<SpecialEventTimeline :event-list="events.history"></SpecialEventTimeline>
 				<Timeline
 					ref="breadcrumb"
 					:images="images"
@@ -32,11 +36,13 @@
 import { mapState, mapActions } from 'vuex';
 import Timeline from './components/Timeline.vue';
 import Chart from './components/Chart.vue';
+import SpecialEventTimeline from './components/SpecialEventTimeline.vue';
 
 export default {
 	name: 'App',
 	components: {
 		Chart,
+		SpecialEventTimeline,
 		Timeline,
 	},
 	data: () => ({
@@ -172,7 +178,10 @@ export default {
 				return freq;
 			},
 		},
-		...mapState({ items: (state) => state.items }),
+		...mapState({
+			items: (state) => state.items,
+			events: (state) => state.events,
+		}),
 	},
 	mounted() {
 		this.windowHeight = window.innerHeight;

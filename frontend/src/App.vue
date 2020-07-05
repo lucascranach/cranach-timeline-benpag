@@ -8,7 +8,10 @@
 		<v-main>
 			<v-container>
 				<Chart/>
-				<EventTimeline></EventTimeline>
+				<SpecialEventTimeline :event-list="cranachElderEvents" :color="'black'"></SpecialEventTimeline>
+				<SpecialEventTimeline :event-list="cranachYoungerEvents" :color="'black'"></SpecialEventTimeline>
+				<SpecialEventTimeline :event-list="lutherEvents" :color="'grey'"></SpecialEventTimeline>
+				<SpecialEventTimeline :event-list="historyEvents"></SpecialEventTimeline>
 				<Timeline
 					ref="breadcrumb"
 					:images="images"
@@ -33,13 +36,18 @@
 import { mapState, mapActions } from 'vuex';
 import Timeline from './components/Timeline.vue';
 import Chart from './components/Chart.vue';
-import EventTimeline from './components/EventTimeline.vue';
+import SpecialEventTimeline from './components/SpecialEventTimeline.vue';
+
+import cranachElderEvents from './assets/cranachElderEvents.json';
+import cranachYoungerEvents from './assets/cranachYoungerEvents.json';
+import lutherEvents from './assets/lutherEvents.json';
+import historyEvents from './assets/historyEvents.json';
 
 export default {
 	name: 'App',
 	components: {
 		Chart,
-		EventTimeline,
+		SpecialEventTimeline,
 		Timeline,
 	},
 	data: () => ({
@@ -159,6 +167,10 @@ export default {
 				},
 			},
 		],
+		cranachElderEvents,
+		cranachYoungerEvents,
+		lutherEvents,
+		historyEvents,
 	}),
 	methods: {
 		...mapActions(['loadData', 'applyYearFilter']),

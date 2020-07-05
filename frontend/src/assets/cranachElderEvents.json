@@ -1,90 +1,90 @@
 [
   {
-    "date": "1472-10-04",
+    "startDate": "1472-10-04",
     "description": "Geboren in Kronach als Sohn eines Malers."
   },
   {
-    "date": "1502-01-01",
+    "startDate": "1502-01-01",
     "description": "Arbeit in Wien."
   },
   {
-    "date": "1505-01-01",
+    "startDate": "1505-01-01",
     "description": "Berufung zum Hofmaler nach Wittenberg durch den sächsischen Kurfürsten Friedrich III., den Weisen."
   },
   {
-    "date": "1508-01-01",
+    "startDate": "1508-01-01",
     "description": "Verleihung eines Wappenbriefes in Nürnberg: geflügelte Schlange mit Rubinring im Maul."
   },
   {
-    "date": "1508-06-01",
+    "startDate": "1508-06-01",
     "description": "Aufenthalt am Hofe der Margarete von Österreich, Statthalterin der Niederlande, in Mechelen."
   },
   {
-    "date": "1512-01-01",
+    "startDate": "1512-01-01",
     "description": "Erwerb zweier benachbarter Häuser am Wittenberger Markt."
   },
   {
-    "date": "1513-01-01",
+    "startDate": "1513-01-01",
     "description": "Hochzeit mit Barbara Brengbier und Geburt des Sohnes Hans."
   },
   {
-    "date": "1515-01-01",
+    "startDate": "1515-01-01",
     "description": "Geburt des Sohnes Lucas Cranach der Jüngere."
   },
   {
-    "date": "1517-01-01",
+    "startDate": "1517-01-01",
     "description": "Geburt der Töchter Ursula, Barbara und Anna Cranach."
   },
   {
-    "date": "1518-01-01",
+    "startDate": "1518-01-01",
     "description": "Erwerb des \"Cranachhofes\", Schlossstraße Nr. 1 in Wittenberg."
   },
   {
-    "date": "1519-01-01",
+    "startDate": "1519-01-01",
     "description": "Aufnahme des Amtes als Ratsmitglied in Wittenberg."
   },
   {
-    "date": "1520-01-01",
+    "startDate": "1520-01-01",
     "description": "Erhalt des Apothekerprivilegs."
   },
   {
-    "date": "1523-01-01",
+    "startDate": "1523-01-01",
     "description": "Empfang von König Christian II. von Dänemark als Gast in seinem Haus."
   },
   {
-    "date": "1523-06-01",
+    "startDate": "1523-06-01",
     "description": "Betreibung einer Buchdruckerei mit Christian Döring."
   },
   {
-    "date": "1524-01-01",
+    "startDate": "1524-01-01",
     "description": "Begleitung Friedrichs III., des Weisen, zum Reichstag nach Nürnberg."
   },
   {
-    "date": "1525-01-01",
+    "startDate": "1525-01-01",
     "description": "Trauzeuge bei der Heirat von Martin Luther und Katharina von Bora."
   },
   {
-    "date": "1525-10-01",
+    "startDate": "1525-10-01",
     "description": "Arbeit für den neuen Kurfürsten Johann, den Beständigen."
   },
   {
-    "date": "1537-01-01",
+    "startDate": "1537-01-01",
     "description": "Aufnahme des Amtes als Bürgermeister von Wittenberg."
   },
   {
-    "date": "1547-01-01",
+    "startDate": "1547-01-01",
     "description": "Zeitweiser Verlust seiner Anstellung als Hofmaler."
   },
   {
-    "date": "1550-01-01",
-    "description": "Aufenthalt in Augsburg und Innsbruck als Hofmaler des im Edateil lebenden Johann Friedrich I."
+    "startDate": "1550-01-01",
+    "description": "Aufenthalt in Augsburg und Innsbruck als Hofmaler des im EstartDateil lebenden Johann Friedrich I."
   },
   {
-    "date": "1552-01-01",
+    "startDate": "1552-01-01",
     "description": "Aufnahme seiner Arbeit in Weimar."
   },
   {
-    "date": "1553-10-16",
+    "startDate": "1553-10-16",
     "description": "Lucas Cranach der Ältere stirbt am 16. Oktober in Weimar."
   }
 ]

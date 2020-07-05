@@ -44,7 +44,7 @@ export default {
 		this.loadData();
 	},
 	methods: {
-		...mapActions(['loadData', 'applyYearFilter']),
+		...mapActions(['loadData']),
 	},
 };
 </script>

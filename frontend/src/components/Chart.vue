@@ -245,7 +245,7 @@ export default {
 					d3.select(`.d3r-${d.id}`).classed('active', true);
 					myThis.toolTipData = d;
 
-					const tooltipHeight = 0; // myThis.tooltipDiv.node().getBoundingClientRect().height;
+					const tooltipHeight = myThis.tooltipDiv.node().getBoundingClientRect().height;
 					const sumHeight = tooltipHeight + currentEvent.y;
 					let top;
 

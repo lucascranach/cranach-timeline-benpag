@@ -1,27 +1,27 @@
 <template>
-  <v-app>
-    <v-app-bar app>
-      <v-spacer />
-      <h1>Cranach Timeline</h1>
-      <v-spacer />
-    </v-app-bar>
-    <v-main>
-      <v-container>
-        <Chart
-			:width="chartWidth"
-			:height="windowHeight * 0.7"
-		/>
-    	<SpecialEventTimeline :event-list="events.cranachElder" :color="'black'" />
-		<SpecialEventTimeline :event-list="events.cranachYounger" :color="'black'" />
-		<SpecialEventTimeline :event-list="events.luther" :color="'grey'" />
-		<SpecialEventTimeline :event-list="events.history" />
-        <Timeline
-			:width="chartWidth"
-			:height="windowHeight * 0.1"
-        />
-      </v-container>
-    </v-main>
-  </v-app>
+    <v-app>
+        <v-app-bar app>
+            <v-spacer/>
+            <h1>Cranach Timeline</h1>
+            <v-spacer/>
+        </v-app-bar>
+        <v-main>
+            <v-container>
+                <Chart
+                    :width="chartWidth"
+                    :height="windowHeight * 0.7"
+                />
+                <SpecialEventTimeline :event-list="events.cranachElder" :color="'black'"/>
+                <SpecialEventTimeline :event-list="events.cranachYounger" :color="'black'"/>
+                <SpecialEventTimeline :event-list="events.luther" :color="'grey'"/>
+                <SpecialEventTimeline :event-list="events.history"/>
+                <Timeline
+                    :width="chartWidth"
+                    :height="windowHeight * 0.1"
+                />
+            </v-container>
+        </v-main>
+    </v-app>
 </template>
 
 <script>

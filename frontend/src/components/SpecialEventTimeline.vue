@@ -63,7 +63,6 @@ export default {
 		},
 	},
 	data: () => ({
-		show: false,
 		toolTipData: {},
 		toolTip: null,
 		toolTipId: `toolTip-${Date.now().valueOf()}`,
@@ -101,12 +100,10 @@ export default {
 				.style('left', `${event.x}px`)
 				.style('top', `${event.layerY}px`)
 				.style('visibility', 'visible');
-			this.show = true;
 		},
 		dismissToolTip() {
 			this.toolTip
 				.style('visibility', 'hidden');
-			this.show = false;
 		},
 	},
 };

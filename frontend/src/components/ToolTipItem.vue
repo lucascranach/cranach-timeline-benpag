@@ -9,7 +9,11 @@
 					max-height="300px"
 				>
 				<v-row class="ma-0">
-					<h3>Gemälde ({{item.startDate && item.startDate > 0 ? (item.startDate === item.endDate ? item.startDate : item.startDate + ' bis ' + item.endDate) : 'Datierung unbekannt' }})</h3>
+					<h3>Gemälde
+						({{item.startDate && item.startDate > 0 ?
+						(item.startDate === item.endDate ? item.startDate : item.startDate + ' bis ' + item.endDate) :
+						'Datierung unbekannt' }})
+					</h3>
 				</v-row>
 				<v-row :style="`background-color: white`">
 					<v-col cols="4">
@@ -25,7 +29,9 @@
 									<v-list-item-content>
 										<v-tooltip top>
 											<template v-slot:activator="{ on }">
-												<v-list-item-title v-on="on">{{item.title && item.title.length > 0 ? item.title[0] : 'k.A.' }}</v-list-item-title>
+												<v-list-item-title v-on="on">
+													{{item.title && item.title.length > 0 ? item.title[0] : 'k.A.' }}
+												</v-list-item-title>
 											</template>
 											<span>{{item.title && item.title.length > 0 ? item.title[0] : 'k.A.' }}</span>
 										</v-tooltip>
@@ -39,7 +45,8 @@
 										<v-icon :color="`${color}`">brush</v-icon>
 									</v-list-item-icon>
 									<v-list-item-content class="pa-0" style="position: absolute; top: 0; left:50%">
-										<v-list-item-title v-text="item.artists && item.artists[0] ? item.artists[0] : 'k.A.'"></v-list-item-title>
+										<v-list-item-title v-text="item.artists && item.artists[0] ? item.artists[0] : 'k.A.'">
+										</v-list-item-title>
 									</v-list-item-content>
 								</v-list-item>
 								<v-list-item>
@@ -47,7 +54,8 @@
 										<v-icon :color="`${color}`">public</v-icon>
 									</v-list-item-icon>
 									<v-list-item-content class="pa-0" style="position: absolute; top: 0; left:50%">
-										<v-list-item-title v-text="item.location && item.location[0] ? item.location[0] : 'k.A.'"></v-list-item-title>
+										<v-list-item-title v-text="item.location && item.location[0] ? item.location[0] : 'k.A.'">
+										</v-list-item-title>
 									</v-list-item-content>
 								</v-list-item>
 								<v-list-item>
@@ -55,7 +63,8 @@
 										<v-icon :color="`${color}`">shopping_basket</v-icon>
 									</v-list-item-icon>
 									<v-list-item-content class="pa-0" style="position: absolute; top: 0; left:50%">
-										<v-list-item-title v-text="item.customer && item.customer[0] ? item.customer[0] : 'k.A.'"></v-list-item-title>
+										<v-list-item-title v-text="item.customer && item.customer[0] ? item.customer[0] : 'k.A.'">
+										</v-list-item-title>
 									</v-list-item-content>
 								</v-list-item>
 							</v-list>

@@ -9,7 +9,7 @@
 					max-height="300px"
 				>
 				<v-row class="ma-0">
-					<h3>Gemälde</h3>
+					<h3>Gemälde ({{item.startDate && item.startDate > 0 ? (item.startDate === item.endDate ? item.startDate : item.startDate + ' bis ' + item.endDate) : 'Datierung unbekannt' }})</h3>
 				</v-row>
 				<v-row :style="`background-color: white`">
 					<v-col cols="4">

@@ -242,7 +242,7 @@ export default {
 				.attr('clip-path', 'url(#clip)');
 
 			const myThis = this;
-			const size = 100;
+			const size = 30;
 			const recipeSymbol = d3.symbol().type(d3.symbolSquare).size(size);
 
 			const node = this.scatter2.selectAll('.dot')
@@ -255,9 +255,9 @@ export default {
 			node.append('path')
 				.attr('d', recipeSymbol)
 				.attr('opacity', 1)
-				.style('fill', 'rgba(0,255,0,0.5)')
+				.style('fill', 'rgb(66,116,173)')
 				.attr('stroke-width', 1)
-				.attr('stroke', 'rgba(0, 0, 0, 0.75)')
+				.attr('stroke', 'rgb(255,255,255)')
 				.on('mouseover', (d) => {
 					d3.select(`.d3r-${d.id}`).classed('active', true);
 					myThis.toolTipData = d;
@@ -297,12 +297,6 @@ export default {
 </script>
 
 <style>
-  .zoom-buttons {
-	position: absolute;
-	right: 60px;
-	top: 80px;
-	z-index: 10;
-  }
   .axis.xaxis text {
 	fill: rgba(0, 0, 0, 0.5);
   }
@@ -318,43 +312,6 @@ export default {
   .x.axis path {
 	display: none;
   }
-  .axis-names {
-	font-weight: 200;
-	fill: rgba(0, 0, 0, 0.8);
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-  }
-  .axis-names::selection {
-	background: none;
-  }
-  .stull-text {
-	font-weight: 200;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-  }
-  .stull-text::selection {
-	background: none;
-  }
-  .stull-temp-names {
-	font-size: .75rem;
-	font-weight: 200;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-  }
-  .stull-temp-names::selection {
-	background: none;
-  }
-  .sial-line {
-	stroke: #000000;
-	stroke-width: 1px;
-	vector-effect: non-scaling-stroke;
-  }
   .d3-tooltip {
 	position: absolute;
 	top: 0;
@@ -363,9 +320,5 @@ export default {
 	text-align: center;
 	pointer-events: none;
 	z-index: 999999;
-  }
-  .d3r.active {
-	stroke: rgba(0, 0, 0, 1) !important;
-	stroke-width: 4px !important;
   }
 </style>

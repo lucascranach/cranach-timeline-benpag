@@ -23,51 +23,31 @@
 								/>
 					</v-col>
 					<v-col cols="8" class="pa-0">
-						<v-card-text class="pa-0">
-							<v-list>
-								<v-list-item two-line>
-									<v-list-item-content>
-										<v-tooltip top>
-											<template v-slot:activator="{ on }">
-												<v-list-item-title v-on="on">
-													{{item.title && item.title.length > 0 ? item.title[0] : 'k.A.' }}
-												</v-list-item-title>
-											</template>
-											<span>{{item.title && item.title.length > 0 ? item.title[0] : 'k.A.' }}</span>
-										</v-tooltip>
-										<v-list-item-subtitle>
-											<v-divider></v-divider>
-										</v-list-item-subtitle>
-									</v-list-item-content>
-								</v-list-item>
-								<v-list-item>
-									<v-list-item-icon class="ma-0" >
-										<v-icon :color="`${color}`">brush</v-icon>
-									</v-list-item-icon>
-									<v-list-item-content class="pa-0" style="position: absolute; top: 0; left:50%">
-										<v-list-item-title v-text="item.artists && item.artists[0] ? item.artists[0] : 'k.A.'">
-										</v-list-item-title>
-									</v-list-item-content>
-								</v-list-item>
-								<v-list-item>
-									<v-list-item-icon class="ma-0" >
-										<v-icon :color="`${color}`">public</v-icon>
-									</v-list-item-icon>
-									<v-list-item-content class="pa-0" style="position: absolute; top: 0; left:50%">
-										<v-list-item-title v-text="item.location && item.location[0] ? item.location[0] : 'k.A.'">
-										</v-list-item-title>
-									</v-list-item-content>
-								</v-list-item>
-								<v-list-item>
-									<v-list-item-icon class="ma-0" >
-										<v-icon :color="`${color}`">shopping_basket</v-icon>
-									</v-list-item-icon>
-									<v-list-item-content class="pa-0" style="position: absolute; top: 0; left:50%">
-										<v-list-item-title v-text="item.customer && item.customer[0] ? item.customer[0] : 'k.A.'">
-										</v-list-item-title>
-									</v-list-item-content>
-								</v-list-item>
-							</v-list>
+						<v-card-text class="pa-0 text-left">
+                            <v-row dense>
+                                <v-col cols="12">
+                                    <span>{{item.title && item.title.length > 0 ? item.title[0] : 'k.A.' }}</span>
+                                    <hr>
+                                </v-col>
+                            </v-row>
+                            <v-row dense>
+                                <v-col cols="12">
+                                    <v-icon :color="`${color}`">brush</v-icon>
+                                    <span class="ml-2">{{ item.artists && item.artists[0] ? item.artists[0].name : 'k.A.' }}</span>
+                                </v-col>
+                            </v-row>
+                            <v-row dense>
+                                <v-col cols="12">
+                                    <v-icon :color="`${color}`">public</v-icon>
+                                    <span class="ml-2">{{ item.location && item.location[0] ? item.location[0] : 'k.A.' }}</span>
+                                </v-col>
+                            </v-row>
+                            <v-row dense>
+                                <v-col cols="12">
+                                    <v-icon :color="`${color}`">shopping_basket</v-icon>
+                                    <span class="ml-2">{{ item.customer && item.customer[0] ? item.customer[0] : 'k.A.' }}</span>
+                                </v-col>
+                            </v-row>
 						</v-card-text>
 					</v-col>
 				</v-row>

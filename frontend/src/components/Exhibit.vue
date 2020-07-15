@@ -11,37 +11,37 @@
                 :style="'background-color: white'"
             />
             <div class="headline">
-                Titel
+                {{item.title[0]}}
             </div>
             <v-card-text class="pa-0">
                 <v-row>
                     <v-col>
                         <v-icon>mdi-flower</v-icon>
-                        <div>Blume</div>
+                        <div>{{item.location[0]}}</div>
                     </v-col>
                     <v-col>
                         <v-icon>mdi-flower</v-icon>
-                        <div>Blume</div>
-                    </v-col>
-                </v-row>
-                <v-row>
-                    <v-col>
-                        <v-icon>mdi-flower</v-icon>
-                        <div>Blume</div>
-                    </v-col>
-                    <v-col>
-                        <v-icon>mdi-flower</v-icon>
-                        <div>Blume</div>
+                        <div>tbd</div>
                     </v-col>
                 </v-row>
                 <v-row>
                     <v-col>
                         <v-icon>mdi-flower</v-icon>
-                        <div>Blume</div>
+                        <div>tbd</div>
                     </v-col>
                     <v-col>
                         <v-icon>mdi-flower</v-icon>
-                        <div>Blume</div>
+                        <div>tbd</div>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col>
+                        <v-icon>mdi-flower</v-icon>
+                        <div>{{item.startDate + ' - ' + item.endDate}}</div>
+                    </v-col>
+                    <v-col>
+                        <v-icon>mdi-flower</v-icon>
+                        <div>{{item.artists[0].name}}</div>
                     </v-col>
                 </v-row>
             </v-card-text>
@@ -51,6 +51,12 @@
 <script>
 export default {
 	name: 'Exhibit',
+	props: {
+		item: {
+			type: Object,
+			required: true,
+		},
+	},
 };
 </script>
 

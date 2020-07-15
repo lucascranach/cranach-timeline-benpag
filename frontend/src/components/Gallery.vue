@@ -6,7 +6,7 @@
         </v-row>
         <v-row class="mx-2">
             <v-col v-for="item in items" :key="item.id" cols="3" class="px-1">
-                <Exhibit/>
+                <Exhibit :item="item"/>
                 <v-btn :href="item.imageUrl" class="button">Weiterlesen</v-btn>
             </v-col>
         </v-row>

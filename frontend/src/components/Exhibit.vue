@@ -12,7 +12,7 @@
             />
             <div class="headline" style="margin: 5px">
                 {{item.title[0]}}
-
+            </div>
             <v-card-text class="pa-0" style="margin: 5px">
                 <v-row>
                     <v-col>

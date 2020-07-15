@@ -8,14 +8,14 @@ const config = require('../../global.config');
 
 async function importData() {
 	try {
-		config.jsonTitles.forEach(async (url) => {
-			const jsonData = await axios.get(config.dataBaseUrl + url);
-			fs.writeFileSync(path.join(`${__dirname}../../../data/${url}`), JSON.stringify(jsonData.data), null, 2);
-			if (url === 'cda-paintings-v2.de.json') {
-				parserPaintings.parsePaintingsDe();
-			} else if (url === 'cda-graphics-v2.virtual.de.json') {
-				parserGraphics.parseGraphicsDe();
-			}
+		config.jsonFiles.forEach((file) => {
+			axios.get(config.dataBaseUrl + file.uri).then((jsonData) => {
+				if (file.title === 'cda-paintings-v2.de.json') {
+					parserPaintings.parsePaintingsDe(jsonData.data);
+				} else if (file.title === 'cda-graphics-v2.virtual.de.json') {
+					parserGraphics.parseGraphicsDe(jsonData.data);
+				}
+			}).catch((error) => console.error(error));
 		});
 	} catch (err) {
 		console.error(err);

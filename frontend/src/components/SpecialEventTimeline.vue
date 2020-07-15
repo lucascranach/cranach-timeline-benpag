@@ -1,28 +1,24 @@
 <template>
 	<div>
-		<EventToolTipItem :id="toolTipId" class="d3-tooltip" :item="toolTipData"></EventToolTipItem>
-		<v-row>
-			<v-col cols="12">
-				<svg id="specialEventTimeline" :width="width" :height="height">
-					<g :transform="`translate(${margin.left},0)`">
-						<line
-							:id="toolTipId+'-line'"
-							x1="0" :y1="height / 2"
-							:x2="lineWidth" :y2="height / 2"
-							:stroke="color" :stroke-width="lineThickness"
-						/>
-						<circle
-							v-for="(item,key) in eventList" :key="key"
-							v-show="xAxis(new Date(item.startDate)) >= 0"
-							:r="lineThickness" :fill="color"
-							:cx="xAxis(new Date(item.startDate))" :cy="height / 2"
-							@mouseover="showToolTip($event, item)"
-							@mouseleave="dismissToolTip()"
-						/>
-					</g>
-				</svg>
-			</v-col>
-		</v-row>
+		<EventToolTipItem :id="toolTipId" class="d3-tooltip" :item="toolTipData" />
+        <svg id="specialEventTimeline" :width="width" :height="height">
+            <g :transform="`translate(${margin.left},0)`">
+                <line
+                    :id="toolTipId+'-line'"
+                    x1="0" :y1="height / 2"
+                    :x2="lineWidth" :y2="height / 2"
+                    :stroke="color" :stroke-width="lineThickness"
+                />
+                <circle
+                    v-for="(item,key) in eventList" :key="key"
+                    v-show="xAxis(new Date(item.startDate)) >= 0"
+                    :r="lineThickness" :fill="color"
+                    :cx="xAxis(new Date(item.startDate))" :cy="height / 2"
+                    @mouseover="showToolTip($event, item)"
+                    @mouseleave="dismissToolTip()"
+                />
+            </g>
+        </svg>
 	</div>
 </template>
 

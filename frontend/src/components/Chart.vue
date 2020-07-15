@@ -2,6 +2,7 @@
 <template>
   <div>
 	<div id="umf-d3-chart"></div>
+	<ToolTipItem :id="tooltipDivId" class="d3-tooltip" :item="toolTipData" />
   </div>
 </template>
 
@@ -9,10 +10,11 @@
 import { mapState } from 'vuex';
 import { event as currentEvent } from 'd3-selection';
 import d3 from '../plugins/d3-importer';
+import ToolTipItem from './ToolTipItem.vue';
 
 export default {
 	name: 'Chart',
-	components: { },
+	components: { ToolTipItem },
 	props: {
 		chartDivId: {
 			type: String,
@@ -163,6 +165,21 @@ export default {
 				.attr('x', 0)
 				.attr('y', 0);
 		},
+		calculateToolTipX(mouseX, toolTipWidth, margin = 10) {
+			if (mouseX - (toolTipWidth / 2) - margin < 0) {
+				return margin;
+			}
+			if (mouseX + (toolTipWidth / 2) + margin > window.innerWidth) {
+				return window.innerWidth - 5 * margin - toolTipWidth;
+			}
+			return mouseX - (toolTipWidth / 2);
+		},
+		calculateToolTipY(mouseY, toolTipHeight, margin = 10) {
+			if (mouseY - toolTipHeight - margin < 0) {
+				return mouseY + 10;
+			}
+			return mouseY - toolTipHeight - margin;
+		},
 		updateChart() {
 			if (!this.actualWidth || !this.height) {
 				return;
@@ -225,7 +242,7 @@ export default {
 				.attr('clip-path', 'url(#clip)');
 
 			const myThis = this;
-			const size = 100;
+			const size = 30;
 			const recipeSymbol = d3.symbol().type(d3.symbolSquare).size(size);
 
 			const node = this.scatter2.selectAll('.dot')
@@ -238,28 +255,18 @@ export default {
 			node.append('path')
 				.attr('d', recipeSymbol)
 				.attr('opacity', 1)
-				.style('fill', 'rgba(0,255,0,0.5)')
+				.style('fill', 'rgb(66,116,173)')
 				.attr('stroke-width', 1)
-				.attr('stroke', 'rgba(0, 0, 0, 0.75)')
+				.attr('stroke', 'rgb(255,255,255)')
 				.on('mouseover', (d) => {
 					d3.select(`.d3r-${d.id}`).classed('active', true);
 					myThis.toolTipData = d;
-
-					const tooltipHeight = myThis.tooltipDiv.node().getBoundingClientRect().height;
-					const sumHeight = tooltipHeight + currentEvent.y;
-					let top;
-
-					if (sumHeight < window.screen.height * 0.85) {
-						top = currentEvent.y;
-					} else if (currentEvent.y - tooltipHeight > 0) {
-						top = currentEvent.y - tooltipHeight;
-					} else {
-						top = currentEvent.y - tooltipHeight / 2;
-					}
-
+					const headerElement = document.getElementsByTagName('header')[0];
+					const mouseX = currentEvent.pageX;
+					const mouseY = currentEvent.pageY - headerElement.getBoundingClientRect().height;
 					myThis.tooltipDiv
-						.style('left', `${currentEvent.x}px`)
-						.style('top', `${top}px`)
+						.style('left', `${this.calculateToolTipX(mouseX, myThis.tooltipDiv.node().getBoundingClientRect().width)}px`)
+						.style('top', `${this.calculateToolTipY(mouseY, myThis.tooltipDiv.node().getBoundingClientRect().height)}px`)
 						.style('visibility', 'visible');
 				})
 				.on('mouseout', (d) => {
@@ -290,12 +297,6 @@ export default {
 </script>
 
 <style>
-  .zoom-buttons {
-	position: absolute;
-	right: 60px;
-	top: 80px;
-	z-index: 10;
-  }
   .axis.xaxis text {
 	fill: rgba(0, 0, 0, 0.5);
   }
@@ -311,56 +312,13 @@ export default {
   .x.axis path {
 	display: none;
   }
-  .axis-names {
-	font-weight: 200;
-	fill: rgba(0, 0, 0, 0.8);
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-  }
-  .axis-names::selection {
-	background: none;
-  }
-  .stull-text {
-	font-weight: 200;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-  }
-  .stull-text::selection {
-	background: none;
-  }
-  .stull-temp-names {
-	font-size: .75rem;
-	font-weight: 200;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-  }
-  .stull-temp-names::selection {
-	background: none;
-  }
-  .sial-line {
-	stroke: #000000;
-	stroke-width: 1px;
-	vector-effect: non-scaling-stroke;
-  }
   .d3-tooltip {
 	position: absolute;
 	top: 0;
 	left: 0;
 	overflow: hidden;
 	text-align: center;
-	font: 12px sans-serif;
 	pointer-events: none;
 	z-index: 999999;
-	max-width: 20vw;
-  }
-  .d3r.active {
-	stroke: rgba(0, 0, 0, 1) !important;
-	stroke-width: 4px !important;
   }
 </style>

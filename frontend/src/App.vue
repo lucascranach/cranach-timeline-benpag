@@ -9,12 +9,32 @@
             <v-container>
                 <Chart
                     :width="chartWidth"
-                    :height="windowHeight * 0.7"
+                    :height="windowHeight * 0.67"
                 />
-                <SpecialEventTimeline :event-list="events.cranachElder" :color="'black'"/>
-                <SpecialEventTimeline :event-list="events.cranachYounger" :color="'black'"/>
-                <SpecialEventTimeline :event-list="events.luther" :color="'grey'"/>
-                <SpecialEventTimeline :event-list="events.history"/>
+                <SpecialEventTimeline
+                    :width="chartWidth"
+                    :height="windowHeight * 0.008"
+                    :event-list="events.cranachElder"
+                    color="black"
+                />
+                <SpecialEventTimeline
+                    :width="chartWidth"
+                    :height="windowHeight * 0.008"
+                    :event-list="events.cranachYounger"
+                    color="purple"
+                />
+                <SpecialEventTimeline
+                    :width="chartWidth"
+                    :height="windowHeight * 0.008"
+                    :event-list="events.luther"
+                    color="grey"
+                />
+                <SpecialEventTimeline
+                    :width="chartWidth"
+                    :height="windowHeight * 0.008"
+                    :event-list="events.history"
+                    color="darkCyan"
+                />
                 <Timeline
                     :width="chartWidth"
                     :height="windowHeight * 0.1"

@@ -47,7 +47,7 @@ export default new Vuex.Store({
 			commit('setItems', filteredItems);
 		},
 		loadData({ commit }) {
-			const allItems = works.paintings.filter((w) => w.startDate > 1000);
+			const allItems = works.paintings.filter((w) => w.startDate > 1490 && w.startDate < 1620);
 			Object.freeze(allItems);
 			commit('setItems', allItems);
 			commit('setAllItems', allItems);
@@ -64,7 +64,7 @@ export default new Vuex.Store({
 			return state.allItems;
 		},
 		getHistogramImages(state) {
-			return state.allItems.slice(0, 10);
+			return state.allItems.filter((i) => i.imageUrl !== '').slice(0, 10);
 		},
 	},
 });

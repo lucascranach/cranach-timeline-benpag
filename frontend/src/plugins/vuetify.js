@@ -20,4 +20,7 @@ export default new Vuetify({
 		},
 		dark: false,
 	},
+	icons: {
+		iconfont: 'md',
+	},
 });

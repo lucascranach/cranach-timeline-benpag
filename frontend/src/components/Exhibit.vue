@@ -10,17 +10,17 @@
                 class="pa-0"
                 :style="'background-color: white'"
             />
-            <div class="headline">
+            <div class="headline" style="margin: 5px">
                 Titel
             </div>
-            <v-card-text class="pa-0">
+            <v-card-text class="pa-0" style="margin: 5px">
                 <v-row>
                     <v-col>
-                        <v-icon>mdi-flower</v-icon>
+                        <v-icon>mdi-map-marker</v-icon>
                         <div>Blume</div>
                     </v-col>
                     <v-col>
-                        <v-icon>mdi-flower</v-icon>
+                        <v-icon>mdi-cash</v-icon>
                         <div>Blume</div>
                     </v-col>
                 </v-row>
@@ -36,11 +36,11 @@
                 </v-row>
                 <v-row>
                     <v-col>
-                        <v-icon>mdi-flower</v-icon>
+                        <v-icon>mdi-calendar</v-icon>
                         <div>Blume</div>
                     </v-col>
                     <v-col>
-                        <v-icon>mdi-flower</v-icon>
+                        <v-icon>mdi-account</v-icon>
                         <div>Blume</div>
                     </v-col>
                 </v-row>

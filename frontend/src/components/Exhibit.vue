@@ -1,7 +1,5 @@
 <template>
-    <div>
         <v-card
-            :elevation="hover ? 10 : 0"
             class="pa-0"
             :style="'border: 3px solid white'"
             color="white"
@@ -48,7 +46,6 @@
                 </v-row>
             </v-card-text>
         </v-card>
-    </div>
 </template>
 
 <script>

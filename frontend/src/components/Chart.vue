@@ -319,6 +319,6 @@ export default {
 	overflow: hidden;
 	text-align: center;
 	pointer-events: none;
-	z-index: 999999;
+	z-index: 999998;
   }
 </style>

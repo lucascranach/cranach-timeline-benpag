@@ -1,9 +1,6 @@
 <template>
         <v-card>
         <v-row justify="space-around">
-            <v-btn icon @click="this.$emit('closeGallery')">
-                <v-icon>mdi-close</v-icon>
-            </v-btn>
             <v-checkbox v-model="paintingsSelected" class="mx-2" label="Gemälde"></v-checkbox>
             <v-checkbox v-model="graphicsSelected" class="mx-2" label="Grafiken"></v-checkbox>
         </v-row>

@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const parserPaintings = require('./parsePaintingsDe');
 const parserGraphics = require('./parseGraphicsDe');
+const parserArchivals = require('./parseArchivalsDe');
 
 const config = require('../../global.config');
 
@@ -14,6 +15,8 @@ async function importData() {
 					parserPaintings.parsePaintingsDe(jsonData.data);
 				} else if (file.title === 'cda-graphics-v2.virtual.de.json') {
 					parserGraphics.parseGraphicsDe(jsonData.data);
+				} else if (file.title === 'cda-archivals-v2.de.json') {
+					parserArchivals.parseArchivalsDe(jsonData.data);
 				}
 			}).catch((error) => console.error(error));
 		});

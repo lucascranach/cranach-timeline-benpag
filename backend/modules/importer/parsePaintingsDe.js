@@ -38,6 +38,7 @@ module.exports = {
 					title: getTitles(painting.titles),
 					location: getLocations(painting.locations),
 					artists: getArtists(painting.involvedPersons),
+					type: 'painting',
 				}),
 			)).then((data) => fs.writeFileSync(
 				path.join(`${__dirname}../../../data/paintings.json`), JSON.stringify({ paintings: data }, null, 2),
@@ -46,7 +47,6 @@ module.exports = {
 			console.error(err);
 			return 'Parsing failed!';
 		}
-		console.log(c);
-		return `Parsing successful, parsed JSONs are stored at ${path.join(`${__dirname}../../../data/`)}`;
+		return `Parsing paintings successful, parsed JSONs are stored at ${path.join(`${__dirname}../../../data/`)}`;
 	},
 };

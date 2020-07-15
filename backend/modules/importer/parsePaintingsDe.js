@@ -17,7 +17,7 @@ function getLocations(locationArray) {
 async function validateImageUrl(images) {
 	if (images) {
 		try {
-			await axios.get(images.sizes.s.src);
+			await axios.head(images.sizes.s.src);
 			return images.sizes.s.src;
 		} catch (e) {
 			return '';
@@ -46,6 +46,7 @@ module.exports = {
 			console.error(err);
 			return 'Parsing failed!';
 		}
+		console.log(c);
 		return `Parsing successful, parsed JSONs are stored at ${path.join(`${__dirname}../../../data/`)}`;
 	},
 };

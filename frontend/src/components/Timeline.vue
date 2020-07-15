@@ -139,7 +139,7 @@ export default {
 		sliderColor: 'rgb(200, 20, 20)',
 		inactiveColor: 'rgba(180,180,180,0.5)',
 		pillHeight: 20,
-		fillerRange: {
+		filterRange: {
 			from: 0,
 			to: 100,
 		},
@@ -241,15 +241,15 @@ export default {
 					if (min > current) {
 						sliderLeft.attr('transform', 'translate(0, 0)');
 						areaInactiveLeft.attr('width', 0);
-						this.fillerRange.from = min;
-					} else if (this.fillerRange.to <= current) {
-						this.fillerRange.from = this.fillerRange.to;
+						this.filterRange.from = min;
+					} else if (this.filterRange.to <= current) {
+						this.filterRange.from = this.filterRange.to;
 					} else {
 						sliderLeft.attr('transform', `translate(${event.x}, 0)`);
 						areaInactiveLeft.attr('width', event.x);
-						this.fillerRange.from = current;
+						this.filterRange.from = current;
 					}
-					sliderLeftText.text(this.fillerRange.from);
+					sliderLeftText.text(this.filterRange.from);
 
 					const bounding = area.node().getBBox();
 					areaSlider.attr('width', bounding.width - this.pillWidth);
@@ -257,10 +257,10 @@ export default {
 					areaSlider.attr('transform', `translate(${event.x}, 0)`);
 				})
 				.on('end', () => {
-					this.applyYearFilter(this.fillerRange);
+					this.applyYearFilter(this.filterRange);
 				});
 			sliderLeft.call(sliderLeftDragHandler);
-			sliderLeftText.text(this.fillerRange.from);
+			sliderLeftText.text(this.filterRange.from);
 		},
 		setupSliderRight() {
 			const sliderRight = select('#sliderRight');
@@ -277,28 +277,28 @@ export default {
 					if (max < current) {
 						sliderRight.attr('transform', 'translate(0, 0)');
 						areaInactiveRight.attr('width', 0);
-						this.fillerRange.to = max;
-					} else if (this.fillerRange.from >= current) {
-						this.fillerRange.to = this.fillerRange.from;
+						this.filterRange.to = max;
+					} else if (this.filterRange.from >= current) {
+						this.filterRange.to = this.filterRange.from;
 					} else {
 						const xOffset = event.x - maxPx;
 						sliderRight.attr('transform', `translate(${xOffset}, 0)`);
 						areaInactiveRight
 							.attr('width', Math.abs(xOffset))
 							.attr('transform', `translate(${xOffset}, 0)`);
-						this.fillerRange.to = current;
+						this.filterRange.to = current;
 					}
-					sliderRightText.text(this.fillerRange.to);
+					sliderRightText.text(this.filterRange.to);
 
 					const bounding = area.node().getBBox();
 					areaSlider.attr('width', bounding.width - this.pillWidth);
 					areaSlider.attr('height', bounding.height);
 				})
 				.on('end', () => {
-					this.applyYearFilter(this.fillerRange);
+					this.applyYearFilter(this.filterRange);
 				});
 			sliderRight.call(sliderRightDragHandler);
-			sliderRightText.text(this.fillerRange.to);
+			sliderRightText.text(this.filterRange.to);
 		},
 		setupAreaSlider() {
 			const sliderLeft = select('#sliderLeft');
@@ -316,9 +316,9 @@ export default {
 					const currentLeft = Math.floor(this.xAxis.invert(event.x));
 					const currentRight = Math.floor(this.xAxis.invert(event.x + areaSlider.node().getBBox().width));
 					if (min > currentLeft) {
-						this.fillerRange.from = min;
+						this.filterRange.from = min;
 					} else if (max < currentRight) {
-						this.fillerRange.to = max;
+						this.filterRange.to = max;
 					} else {
 						areaSlider.attr('transform', `translate(${event.x}, 0)`);
 						sliderLeft.attr('transform', `translate(${event.x}, 0)`);
@@ -330,20 +330,20 @@ export default {
 							.attr('width', Math.abs(xTranslateOffset))
 							.attr('transform', `translate(${xTranslateOffset}, 0)`);
 
-						this.fillerRange.from = currentLeft;
-						this.fillerRange.to = currentRight;
-						sliderLeftText.text(this.fillerRange.from);
-						sliderRightText.text(this.fillerRange.to);
+						this.filterRange.from = currentLeft;
+						this.filterRange.to = currentRight;
+						sliderLeftText.text(this.filterRange.from);
+						sliderRightText.text(this.filterRange.to);
 					}
 				})
 				.on('end', () => {
-					this.applyYearFilter(this.fillerRange);
+					this.applyYearFilter(this.filterRange);
 				});
 			areaSlider.call(areaSliderDragHandler);
 		},
 	},
 	mounted() {
-		[this.fillerRange.from, this.fillerRange.to] = this.xAxis.domain();
+		[this.filterRange.from, this.filterRange.to] = this.xAxis.domain();
 
 		this.setupSliderLeft();
 		this.setupSliderRight();

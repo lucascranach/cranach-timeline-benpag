@@ -9,6 +9,7 @@ const indexRouter = require('./routes/index');
 const paintingsRouter = require('./routes/paintings');
 const graphicsRouter = require('./routes/graphics');
 const archivalsRouter = require('./routes/archivals');
+const eventsRouter = require('./routes/events');
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use('/', indexRouter);
 app.use('/paintings', paintingsRouter);
 app.use('/graphics', graphicsRouter);
 app.use('/archivals', archivalsRouter);
+app.use('/events', eventsRouter);
 
 app.listen(config.port, () => {
 	console.log(`Server listen on port ${config.port}`);

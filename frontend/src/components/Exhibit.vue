@@ -10,17 +10,17 @@
                 class="pa-0"
                 :style="'background-color: white'"
             />
-            <div class="headline">
+            <div class="headline" style="margin: 5px">
                 {{item.title[0]}}
-            </div>
-            <v-card-text class="pa-0">
+
+            <v-card-text class="pa-0" style="margin: 5px">
                 <v-row>
                     <v-col>
-                        <v-icon>mdi-flower</v-icon>
+                        <v-icon>mdi-map-marker</v-icon>
                         <div>{{item.location[0]}}</div>
                     </v-col>
                     <v-col>
-                        <v-icon>mdi-flower</v-icon>
+                        <v-icon>mdi-cash</v-icon>
                         <div>tbd</div>
                     </v-col>
                 </v-row>
@@ -36,11 +36,11 @@
                 </v-row>
                 <v-row>
                     <v-col>
-                        <v-icon>mdi-flower</v-icon>
+                        <v-icon>mdi-calendar</v-icon>
                         <div>{{item.startDate + ' - ' + item.endDate}}</div>
                     </v-col>
                     <v-col>
-                        <v-icon>mdi-flower</v-icon>
+                        <v-icon>mdi-account</v-icon>
                         <div>{{item.artists[0].name}}</div>
                     </v-col>
                 </v-row>

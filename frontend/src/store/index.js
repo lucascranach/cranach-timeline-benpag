@@ -1,10 +1,11 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import works from '../../../backend/data/paintings.json';
+import axios from 'axios';
 import cranachElderEvents from '../assets/cranachElderEvents.json';
 import cranachYoungerEvents from '../assets/cranachYoungerEvents.json';
 import lutherEvents from '../assets/lutherEvents.json';
 import historyEvents from '../assets/historyEvents.json';
+import config from '../../global.config';
 
 Vue.use(Vuex);
 
@@ -46,9 +47,14 @@ export default new Vuex.Store({
 			Object.freeze(filteredItems);
 			commit('setItems', filteredItems);
 		},
-		loadData({ commit }) {
-			const allItems = works.paintings.filter((w) => w.startDate > 1490 && w.startDate < 1620);
+		async loadData({ commit }) {
+			const data = (await Promise.all(
+				config.resources.map(async (r) => (await axios.get(config.dataBaseUrl + r)).data[r]),
+			)).flat();
+
+			const allItems = data.filter((w) => w.startDate > 1490 && w.startDate < 1620);
 			Object.freeze(allItems);
+
 			commit('setItems', allItems);
 			commit('setAllItems', allItems);
 			commit('calculateHistogram', allItems);

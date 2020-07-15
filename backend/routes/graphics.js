@@ -4,7 +4,7 @@ const path = require('path');
 
 const router = express.Router();
 
-router.get('/all', (req, res) => {
+router.get('/', (req, res) => {
 	const jsonPath = path.join(`${__dirname}../../data/graphics.json`);
 	if (fs.existsSync(jsonPath)) {
 		const result = JSON.parse(fs.readFileSync(jsonPath));

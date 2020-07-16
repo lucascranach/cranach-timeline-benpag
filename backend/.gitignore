@@ -1,5 +1,7 @@
 # Image data
-/data/
+/data/archivals.json
+/data/graphics.json
+/data/paintings.json
 
 # Logs
 logs

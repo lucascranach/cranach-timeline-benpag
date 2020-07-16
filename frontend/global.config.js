@@ -6,4 +6,5 @@ module.exports = {
 		graphics: 'rgb(72,138,63)',
 		archivals: 'rgb(226,161,74)',
 	},
+	events: ['cranachElder', 'cranachYounger', 'luther', 'history'],
 };

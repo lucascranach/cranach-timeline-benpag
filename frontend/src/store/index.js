@@ -1,10 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
-import cranachElderEvents from '../assets/cranachElderEvents.json';
-import cranachYoungerEvents from '../assets/cranachYoungerEvents.json';
-import lutherEvents from '../assets/lutherEvents.json';
-import historyEvents from '../assets/historyEvents.json';
 import config from '../../global.config';
 
 Vue.use(Vuex);
@@ -16,12 +12,7 @@ export default new Vuex.Store({
 		items: [],
 		allItems: [],
 		histogram: [],
-		events: {
-			cranachElder: cranachElderEvents,
-			cranachYounger: cranachYoungerEvents,
-			luther: lutherEvents,
-			history: historyEvents,
-		},
+		events: { },
 	},
 	mutations: {
 		setItems(state, items) {
@@ -29,6 +20,10 @@ export default new Vuex.Store({
 		},
 		setAllItems(state, items) {
 			state.allItems = items;
+		},
+		setEvents(state, events) {
+			events.forEach((e) => Object.assign(state.events, e));
+			console.log(state.events);
 		},
 		calculateHistogram(state) {
 			state.histogram = state.allItems.reduce((histogram, item) => {
@@ -58,6 +53,16 @@ export default new Vuex.Store({
 			commit('setItems', allItems);
 			commit('setAllItems', allItems);
 			commit('calculateHistogram', allItems);
+
+			const events = await Promise.all(
+				config.events.map(async (r) => {
+					const x = {};
+					x[r] = (await axios.get(`${config.dataBaseUrl}events/${r}`)).data;
+					return x;
+				}),
+			);
+
+			commit('setEvents', events);
 		},
 	},
 	modules: {

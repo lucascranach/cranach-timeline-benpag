@@ -255,7 +255,7 @@ export default {
 			node.append('path')
 				.attr('d', recipeSymbol)
 				.attr('opacity', 1)
-				.style('fill', 'rgb(66,116,173)')
+				.attr('class', (d) => d.type)
 				.attr('stroke-width', 1)
 				.attr('stroke', 'rgb(255,255,255)')
 				.on('mouseover', (d) => {
@@ -311,6 +311,15 @@ export default {
   }
   .x.axis path {
 	display: none;
+  }
+  .graphic {
+    fill: rgb(72, 138, 63)
+  }
+  .archival {
+    fill: rgb(226,161,74)
+  }
+  .painting {
+	fill: rgb(66,116,173)
   }
   .d3-tooltip {
 	position: absolute;

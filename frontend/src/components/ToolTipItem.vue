@@ -3,8 +3,7 @@
 			<v-card
 					:elevation="hover ? 10 : 0"
 					:id="`production-${item.id}`"
-					:style="`border: 2px solid ${color}`"
-					class="pa-0 ma-0"
+					:class="`pa-0 ma-0 ${item.type}`"
 					max-width="450px"
 					max-height="300px"
 				>
@@ -70,3 +69,15 @@ export default {
 	},
 };
 </script>
+
+<style>
+.graphic {
+    border: 2px solid rgb(72, 138, 63)
+}
+.archival {
+border: 2px solid rgb(226,161,74)
+}
+.painting {
+border: 2px solid rgb(66,116,173)
+}
+</style>

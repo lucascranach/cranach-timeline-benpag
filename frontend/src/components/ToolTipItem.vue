@@ -8,7 +8,7 @@
 					max-height="300px"
 				>
 				<v-row class="ma-0">
-					<h3>Gemälde
+					<h3>{{item.type === 'painting' ? 'Gemälde' : (item.type === 'archival' ? 'Archivalie' : 'Zeichnung')}}
 						({{item.startDate && item.startDate > 0 ?
 						(item.startDate === item.endDate ? item.startDate : item.startDate + ' bis ' + item.endDate) :
 						'Datierung unbekannt' }})
@@ -64,8 +64,25 @@ export default {
 		},
 		color: {
 			type: String,
-			default: 'rgba(66, 125, 173, 1)',
+			default: 'rgba(0, 0, 0, 1)',
 		},
+	},
+	created() {
+		// This should be called before the <template> is rendered, but after the item is available -> is this possible
+		switch (this.item.type) {
+		case 'painting':
+			this.color = 'rgb(66,116,173)';
+			break;
+		case 'graphic':
+			this.color = 'rgb(72, 138, 63)';
+			break;
+		case 'archival':
+			this.color = 'rgb(226,161,74)';
+			break;
+		default:
+			break;
+		}
+		console.log(this.color);
 	},
 };
 </script>

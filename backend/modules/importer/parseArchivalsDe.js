@@ -19,11 +19,12 @@ module.exports = {
 				summary: archival.summaries[0],
 				type: 'archival',
 			}));
+
 			fs.writeFileSync(path.join(`${__dirname}../../../data/archivals.json`), JSON.stringify(mainAttributes, null, 2));
+			return `Parsing archivals successful, parsed JSONs are stored at ${path.join(`${__dirname}../../../data/`)}`;
 		} catch (err) {
 			console.error(err);
 			return 'Parsing failed!';
 		}
-		return `Parsing archivals successful, parsed JSONs are stored at ${path.join(`${__dirname}../../../data/`)}`;
 	},
 };

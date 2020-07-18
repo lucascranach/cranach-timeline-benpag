@@ -8,23 +8,21 @@ const parserArchivals = require('./parseArchivalsDe');
 const config = require('../../global.config');
 
 async function importData() {
-	try {
-		config.jsonFiles.forEach((file) => {
-			axios.get(config.dataBaseUrl + file.uri).then((jsonData) => {
-				if (file.title === 'cda-paintings-v2.de.json') {
-					parserPaintings.parsePaintingsDe(jsonData.data);
-				} else if (file.title === 'cda-graphics-v2.virtual.de.json') {
-					parserGraphics.parseGraphicsDe(jsonData.data);
-				} else if (file.title === 'cda-archivals-v2.de.json') {
-					parserArchivals.parseArchivalsDe(jsonData.data);
-				}
-			}).catch((error) => console.error(error));
-		});
-	} catch (err) {
-		console.error(err);
-		return 'Data import failed';
-	}
-	return `Data import succeeded, JSONs are stored at ${path.join(`${__dirname}../../../data/`)}`;
+	const promises = [];
+	config.jsonFiles.forEach((file) => {
+		promises.push(axios.get(config.dataBaseUrl + file.uri).then((jsonData) => {
+			if (file.title === 'cda-paintings-v2.de.json') {
+				return parserPaintings.parsePaintingsDe(jsonData.data);
+			} if (file.title === 'cda-graphics-v2.virtual.de.json') {
+				return parserGraphics.parseGraphicsDe(jsonData.data);
+			} if (file.title === 'cda-archivals-v2.de.json') {
+				return parserArchivals.parseArchivalsDe(jsonData.data);
+			}
+			return file.title;
+		}).catch((error) => console.error(error)));
+	});
+
+	return Promise.all(promises).then((data) => data.join('\n'));
 }
 
 if (!fs.existsSync(path.join(`${__dirname}../../../data/`))) fs.mkdirSync(path.join(`${__dirname}../../../data/`));

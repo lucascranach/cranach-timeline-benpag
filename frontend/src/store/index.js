@@ -12,7 +12,12 @@ export default new Vuex.Store({
 		items: [],
 		allItems: [],
 		histogram: [],
-		events: { },
+		events: {
+			cranachElder: [],
+			cranachYounger: [],
+			luther: [],
+			history: [],
+		},
 	},
 	mutations: {
 		setItems(state, items) {
@@ -21,9 +26,8 @@ export default new Vuex.Store({
 		setAllItems(state, items) {
 			state.allItems = items;
 		},
-		setEvents(state, events) {
-			events.forEach((e) => Object.assign(state.events, e));
-			console.log(state.events);
+		setEvent(state, event) {
+			Object.assign(state.events, event);
 		},
 		calculateHistogram(state) {
 			state.histogram = state.allItems.reduce((histogram, item) => {
@@ -32,6 +36,7 @@ export default new Vuex.Store({
 				histogram[item.startDate] = (histogram[item.startDate] || 0) + 1;
 				return histogram;
 			}, {});
+			Object.freeze(state.histogram);
 		},
 	},
 	actions: {
@@ -54,15 +59,15 @@ export default new Vuex.Store({
 			commit('setAllItems', allItems);
 			commit('calculateHistogram', allItems);
 
-			const events = await Promise.all(
-				config.events.map(async (r) => {
-					const x = {};
-					x[r] = (await axios.get(`${config.dataBaseUrl}events/${r}`)).data;
-					return x;
-				}),
-			);
-
-			commit('setEvents', events);
+			config.events.forEach((eventName) => {
+				axios.get(`${config.dataBaseUrl}events/${eventName}`)
+					.then((response) => {
+						const event = {};
+						event[eventName] = response.data;
+						Object.freeze(event);
+						commit('setEvent', event);
+					});
+			});
 		},
 	},
 	modules: {

@@ -1,10 +1,10 @@
 {
   "name": "backend",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "import": "rd /s /q \"data\" && node modules/importer/index.js"
+    "import": "node modules/importer/index.js"
   },
   "dependencies": {
     "axios": "^0.19.2",

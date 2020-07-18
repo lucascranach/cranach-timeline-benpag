@@ -170,6 +170,13 @@ export default {
 			return Math.floor(this.pillHeight * 0.6);
 		},
 	},
+	watch: {
+		xAxis: {
+			handler() {
+				this.setupSliders();
+			},
+		},
+	},
 	methods: {
 		...mapGetters([
 			'getHistogramImages',
@@ -226,6 +233,12 @@ export default {
 			).join();
 
 			return `${start} ${result} ${end}`;
+		},
+		setupSliders() {
+			[this.filterRange.from, this.filterRange.to] = this.xAxis.domain();
+			this.setupSliderLeft();
+			this.setupSliderRight();
+			this.setupAreaSlider();
 		},
 		setupSliderLeft() {
 			const sliderLeft = select('#sliderLeft');
@@ -341,13 +354,6 @@ export default {
 				});
 			areaSlider.call(areaSliderDragHandler);
 		},
-	},
-	mounted() {
-		[this.filterRange.from, this.filterRange.to] = this.xAxis.domain();
-
-		this.setupSliderLeft();
-		this.setupSliderRight();
-		this.setupAreaSlider();
 	},
 };
 </script>

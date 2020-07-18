@@ -113,7 +113,7 @@ export default {
 		overflow: hidden;
 		text-align: center;
 		pointer-events: none;
-		z-index: 999998;
+		z-index: 999999;
 		visibility: hidden;
 		transform: translate(-50% , -105%);
 	}

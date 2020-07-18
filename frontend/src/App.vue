@@ -7,11 +7,9 @@
         </v-app-bar>
         <v-main>
             <v-container>
-                <v-btn @click="switchComponents()">Galerie</v-btn>
-                <div class="activeComponent">
-                <Visualisation v-if="activeComponent === 'visualisation'"/>
-                <Gallery v-if="activeComponent === 'gallery'"/>
-                </div>
+                <v-btn @click="switchComponents()">{{buttonText}}</v-btn>
+                <Visualisation v-show="activeComponent === 'visualisation'"/>
+                <Gallery v-show="activeComponent === 'gallery'"/>
             </v-container>
         </v-main>
     </v-app>
@@ -30,21 +28,24 @@ export default {
 	data() {
 		return {
 			activeComponent: 'visualisation',
+			buttonText: 'Galerie',
 		};
 	},
 	methods: {
 		switchComponents() {
 			if (this.activeComponent === 'visualisation') {
 				this.activeComponent = 'gallery';
+				this.buttonText = 'Visualisierung';
 			} else {
 				this.activeComponent = 'visualisation';
+				this.buttonText = 'Galerie';
 			}
 		},
 	},
 };
 </script>
 <style scoped>
-.activeComponent {
-    margin-top: 10px;
+.marginTop {
+    margin-top: 100px;
 }
 </style>

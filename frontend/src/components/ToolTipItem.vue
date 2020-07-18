@@ -3,7 +3,7 @@
 			<v-card
 					:elevation="hover ? 10 : 0"
 					:id="`production-${item.id}`"
-					:class="`pa-0 ma-0 ${item.type}`"
+					:class="`pa-0 ma-0 toolTipCard`"
 					max-width="450px"
 					max-height="300px"
 				>
@@ -31,19 +31,19 @@
                             </v-row>
                             <v-row dense>
                                 <v-col cols="12">
-                                    <v-icon :color="`${color}`">brush</v-icon>
+                                    <v-icon class="toolTipIcon">brush</v-icon>
                                     <span class="ml-2">{{ item.artists && item.artists[0] ? item.artists[0].name : 'k.A.' }}</span>
                                 </v-col>
                             </v-row>
                             <v-row dense>
                                 <v-col cols="12">
-                                    <v-icon :color="`${color}`">public</v-icon>
+                                    <v-icon class="toolTipIcon">public</v-icon>
                                     <span class="ml-2">{{ item.location && item.location[0] ? item.location[0] : 'k.A.' }}</span>
                                 </v-col>
                             </v-row>
                             <v-row dense>
                                 <v-col cols="12">
-                                    <v-icon :color="`${color}`">shopping_basket</v-icon>
+                                    <v-icon class="toolTipIcon">shopping_basket</v-icon>
                                     <span class="ml-2">{{ item.customer && item.customer[0] ? item.customer[0] : 'k.A.' }}</span>
                                 </v-col>
                             </v-row>
@@ -67,34 +67,31 @@ export default {
 			default: 'rgba(0, 0, 0, 1)',
 		},
 	},
-	created() {
-		// This should be called before the <template> is rendered, but after the item is available -> is this possible
-		switch (this.item.type) {
-		case 'painting':
-			this.color = 'rgb(66,116,173)';
-			break;
-		case 'graphic':
-			this.color = 'rgb(72, 138, 63)';
-			break;
-		case 'archival':
-			this.color = 'rgb(226,161,74)';
-			break;
-		default:
-			break;
-		}
-		console.log(this.color);
+	watch: {
+		item: (newOne) => {
+			switch (newOne.type) {
+			case 'painting':
+				// eslint-disable-next-line no-param-reassign
+				document.querySelectorAll('.toolTipIcon').forEach((el) => { el.style.color = 'rgb(66,116,173)'; });
+				// eslint-disable-next-line no-param-reassign
+				document.querySelectorAll('.toolTipCard').forEach((el) => { el.style.border = '2px solid rgb(66,116,173)'; });
+				break;
+			case 'graphic':
+				// eslint-disable-next-line no-param-reassign
+				document.querySelectorAll('.toolTipIcon').forEach((el) => { el.style.color = 'rgb(72, 138, 63)'; });
+				// eslint-disable-next-line no-param-reassign
+				document.querySelectorAll('.toolTipCard').forEach((el) => { el.style.border = '2px solid rgb(72, 138, 63)'; });
+				break;
+			case 'archival':
+				// eslint-disable-next-line no-param-reassign
+				document.querySelectorAll('.toolTipIcon').forEach((el) => { el.style.color = 'rgb(226,161,74)'; });
+				// eslint-disable-next-line no-param-reassign
+				document.querySelectorAll('.toolTipCard').forEach((el) => { el.style.border = '2px solid rgb(226,161,74)'; });
+				break;
+			default:
+				break;
+			}
+		},
 	},
 };
 </script>
-
-<style>
-.graphic {
-    border: 2px solid rgb(72, 138, 63)
-}
-.archival {
-border: 2px solid rgb(226,161,74)
-}
-.painting {
-border: 2px solid rgb(66,116,173)
-}
-</style>

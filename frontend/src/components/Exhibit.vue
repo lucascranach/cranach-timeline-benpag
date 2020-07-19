@@ -5,7 +5,7 @@
             color="white"
             width="300px">
             <v-img
-                :src="'https://tr.rbxcdn.com/f95d9891bdebe2d001ac99f1af3cbf05/420/420/Decal/Png'"
+                :src="item.imageUrl && item.imageUrl !== '' ? item.imageUrl : config.placeholderImageUrl"
                 position="center top"
                 class="pa-0"
                 :style="'background-color: white'"
@@ -51,8 +51,15 @@
 </template>
 
 <script>
+import config from '../../global.config';
+
 export default {
 	name: 'Exhibit',
+	data() {
+		return {
+			config,
+		};
+	},
 	props: {
 		item: {
 			type: Object,

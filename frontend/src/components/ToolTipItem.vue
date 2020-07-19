@@ -3,7 +3,7 @@
 			<v-card
 					:elevation="hover ? 10 : 0"
 					:id="`production-${item.id}`"
-					:class="`pa-0 ma-0 toolTipCard`"
+					:class="[item.type, 'pa-0 ma-0 toolTipCard']"
 					max-width="450px"
 					max-height="300px"
 				>
@@ -67,31 +67,26 @@ export default {
 			default: 'rgba(0, 0, 0, 1)',
 		},
 	},
-	watch: {
-		item: (newOne) => {
-			switch (newOne.type) {
-			case 'painting':
-				// eslint-disable-next-line no-param-reassign
-				document.querySelectorAll('.toolTipIcon').forEach((el) => { el.style.color = 'rgb(66,116,173)'; });
-				// eslint-disable-next-line no-param-reassign
-				document.querySelectorAll('.toolTipCard').forEach((el) => { el.style.border = '2px solid rgb(66,116,173)'; });
-				break;
-			case 'graphic':
-				// eslint-disable-next-line no-param-reassign
-				document.querySelectorAll('.toolTipIcon').forEach((el) => { el.style.color = 'rgb(72, 138, 63)'; });
-				// eslint-disable-next-line no-param-reassign
-				document.querySelectorAll('.toolTipCard').forEach((el) => { el.style.border = '2px solid rgb(72, 138, 63)'; });
-				break;
-			case 'archival':
-				// eslint-disable-next-line no-param-reassign
-				document.querySelectorAll('.toolTipIcon').forEach((el) => { el.style.color = 'rgb(226,161,74)'; });
-				// eslint-disable-next-line no-param-reassign
-				document.querySelectorAll('.toolTipCard').forEach((el) => { el.style.border = '2px solid rgb(226,161,74)'; });
-				break;
-			default:
-				break;
-			}
-		},
-	},
 };
 </script>
+
+<style>
+    .graphic {
+        border: 2px solid rgb(72,138,63) !important;
+    }
+    .graphic .toolTipIcon {
+        color: rgb(72, 138, 63) !important;
+    }
+    .archival {
+        border: 2px solid rgb(226,161,74) !important;
+    }
+    .archival .toolTipIcon {
+        color: rgb(226,161,74) !important;
+    }
+    .painting {
+        border: 2px solid rgb(66,116,173) !important;
+    }
+    .painting .toolTipIcon {
+        color: rgb(66,116,173) !important;
+    }
+</style>

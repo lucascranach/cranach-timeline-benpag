@@ -59,15 +59,13 @@ export default new Vuex.Store({
 			commit('setAllItems', allItems);
 			commit('calculateHistogram', allItems);
 
-			config.events.forEach((eventName) => {
-				axios.get(`${config.dataBaseUrl}events/${eventName}`)
-					.then((response) => {
-						const event = {};
-						event[eventName] = response.data;
-						Object.freeze(event);
-						commit('setEvent', event);
-					});
-			});
+			await Promise.all(config.events.map((eventName) => axios.get(`${config.dataBaseUrl}events/${eventName}`)
+				.then((response) => {
+					const event = {};
+					event[eventName] = response.data;
+					Object.freeze(event);
+					commit('setEvent', event);
+				})));
 		},
 	},
 	modules: {

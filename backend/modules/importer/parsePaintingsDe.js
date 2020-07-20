@@ -17,7 +17,7 @@ function getLocations(locationArray) {
 async function validateImageUrl(images) {
 	if (images) {
 		try {
-			await axios.get(images.sizes.s.src);
+			await axios.head(images.sizes.s.src);
 			return images.sizes.s.src;
 		} catch (e) {
 			return '';
@@ -27,9 +27,9 @@ async function validateImageUrl(images) {
 	}
 }
 module.exports = {
-	parsePaintingsDe: (paintingsJson) => {
+	parsePaintingsDe: async (paintingsJson) => {
 		try {
-			Promise.all(paintingsJson.items.map(
+			const data = await Promise.all(paintingsJson.items.map(
 				async (painting) => ({
 					id: painting.objectId,
 					imageUrl: await validateImageUrl(painting.images),
@@ -38,14 +38,17 @@ module.exports = {
 					title: getTitles(painting.titles),
 					location: getLocations(painting.locations),
 					artists: getArtists(painting.involvedPersons),
+					type: 'painting',
 				}),
-			)).then((data) => fs.writeFileSync(
-				path.join(`${__dirname}../../../data/paintings.json`), JSON.stringify({ paintings: data }, null, 2),
 			));
+
+			fs.writeFileSync(
+				path.join(`${__dirname}../../../data/paintings.json`), JSON.stringify({ paintings: data }, null, 2),
+			);
+			return `Parsing paintings successful, parsed JSONs are stored at ${path.join(`${__dirname}../../../data/`)}`;
 		} catch (err) {
 			console.error(err);
 			return 'Parsing failed!';
 		}
-		return `Parsing successful, parsed JSONs are stored at ${path.join(`${__dirname}../../../data/`)}`;
 	},
 };

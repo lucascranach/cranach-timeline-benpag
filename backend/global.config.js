@@ -1,5 +1,6 @@
 module.exports = {
 	dataBaseUrl: 'https://raw.githubusercontent.com/lucascranach/importer/pipe-system/output/',
+	placeholderImageUrl: 'https://via.placeholder.com/350',
 	jsonFiles: [
 		// { uri: '/20191122/cda-graphics-restoration-v2.json', title: 'cda-graphics-restoration-v2.json' },
 		// { uri: '/20191122/cda-graphics-v2.real.de.json', title: 'cda-graphics-v2.real.de.json' },

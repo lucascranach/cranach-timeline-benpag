@@ -7,4 +7,5 @@ module.exports = {
 		archivals: 'rgb(226,161,74)',
 	},
 	events: ['cranachElder', 'cranachYounger', 'luther', 'history'],
+	placeholderImageUrl: 'https://via.placeholder.com/350',
 };

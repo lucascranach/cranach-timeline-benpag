@@ -1,18 +1,18 @@
 <template>
-    <v-app>
-        <v-app-bar app>
-            <v-spacer/>
-            <h1>Cranach Timeline</h1>
-            <v-spacer/>
-        </v-app-bar>
-        <v-main>
-            <v-container>
-                <v-btn @click="switchComponents()">{{buttonText}}</v-btn>
-                <Visualisation v-show="activeComponent === 'visualisation'"/>
-                <Gallery v-show="activeComponent === 'gallery'"/>
-            </v-container>
-        </v-main>
-    </v-app>
+	<v-app>
+		<v-app-bar app>
+			<v-spacer/>
+			<h1>Cranach Timeline</h1>
+			<v-spacer/>
+		</v-app-bar>
+		<v-main>
+			<v-container>
+				<v-btn @click="switchComponents()">{{buttonText}}</v-btn>
+				<Visualisation v-show="activeComponent === 'visualisation'"/>
+				<Gallery v-show="activeComponent === 'gallery'"/>
+			</v-container>
+		</v-main>
+	</v-app>
 </template>
 
 <script>

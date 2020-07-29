@@ -8,6 +8,7 @@
         <v-main>
             <v-container>
                 <v-btn @click="switchComponents()">{{buttonText}}</v-btn>
+                <Filters></Filters>
                 <Visualisation v-show="activeComponent === 'visualisation'"/>
                 <Gallery v-show="activeComponent === 'gallery'"/>
             </v-container>
@@ -18,10 +19,12 @@
 <script>
 import Visualisation from './components/Visualisation.vue';
 import Gallery from './components/Gallery.vue';
+import Filters from './components/Filters.vue';
 
 export default {
 	name: 'App',
 	components: {
+		Filters,
 		Gallery,
 		Visualisation,
 	},

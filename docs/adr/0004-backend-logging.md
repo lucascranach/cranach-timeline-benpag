@@ -1,7 +1,7 @@
 # Node.js for backend development
 
 * Status: accepted
-* Date: 2020-07-24
+* Date: 2020-07-29
 
 ## Context and Problem Statement
 
@@ -9,69 +9,67 @@ To enable efficient development, persistent logging should be introduced. Theref
 ## Considered Options
 
 * Pino
-* log-to-file
-* winstons
+* Log-to-file
+* Winston
 * Tracer
 
 ## Decision Outcome
 
-Chosen option: Node.js
+Chosen option: Winston
 
 ### Positive Consequences
 
-* practicing frameworks that are relevant for other projects
-* no explicit training because the technologies are common
-* prototype is written in Node.js
-* testing frameworks avaiable
+* persistent logging to file
+* error messages are also displayed inside the console
+* possibility to use different logs for different log messages
 
 ### Negative Consequences
 
-* common technologies are reused instead of trying new technologies
-* not all team members are familiar with it
+* already implemented error catching needs to be reworked
 
 ## Pros and Cons of the Options
 
-### Node.js
+### Pino
 
-Node.js is a server-side JavaScript web framework for creating HTTP servers and REST APIs.
+Pino is a Node.js Logger with low overhead.
 
-* Good, because it has an own package manager
-* Good, because it's extendable
-* Good, because it minimizes boilerplate
-* Good, because it's based on JavaScript such as the frontend
-* Good, because it can be used in serverless enviroments
-* Bad, because it creates large project files (node_modules)
+* Good, it uses the JSON format
+* Good, because it got a low overhead
+* Good, because it can pipe the output to stdout
+* Bad, because it only supports the JSON format
 
-### C#
+### log-to-file
 
-C# is an object oriented language, which provides HTTP Server in combination with the ASP.NET Core web framework.
+Log-to-file is a simple node package, which enables logging to a file.
 
-* Good, because it's a stable language
-* Bad, because it generates overhead
-* Bad, because it's type-specific
-* Bad, because it's unknown to the team
+* Good, because its lightweight
+* Good, because it supports timestamps
+* Bad, because it supports only timestamps and a log message
+* Bad, because it doesn't support the JSON format
 
-### PHP
 
-PHP is a server-side language to set up HTTP web servers.
+### Winston
+
+Winston is a simple and universal javascript logging library.
 
 * Good, because the documentation is thorough and complete
-* Good, because it's a stable language
-* Good, because it can be used in serverless enviroments
-* Bad, because it has a lot of boilerplate
+* Good, because it supports multiple logging formats
+* Good, because its very customizable 
+* Good, because it supports multiple transports
+* Bad, because it has a larger overhead
 
-### Kotlin (Ktor)
+### Tracer
 
-Ktor is a framework built by JetBrains for creating Web applications in Kotlin, making use of coroutines for high scalability and offering an idiomatic API.
+Tracer is a customizable logging library for Node.js
 
-* Good, because it provides syntactic sugar
-* Bad, because it's type-specific
-* Bad, because it offers only a small package manager
-
+* Good, it supports color console
+* Good, because its easy to implement
+* Good, because it supports timestamps
+* Bad, because it only logs to the console and not to a file
 
 ## Links
 
-* [Node.js](https://nodejs.org/en/)
-* [C#](https://docs.microsoft.com/de-de/dotnet/csharp/tour-of-csharp/)
-* [PHP](https://php.net/manual/de/intro-whatis.php)
-* [Ktor](https://github.com/ktorio/ktor)
+* [Pino](https://github.com/pinojs/pino)
+* [Log-to-file](https://www.npmjs.com/package/log-to-file)
+* [Winston](https://github.com/winstonjs/winston)
+* [Tracer](https://www.npmjs.com/package/tracer)

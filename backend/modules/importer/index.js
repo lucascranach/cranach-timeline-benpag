@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const parserPaintings = require('./parsePaintingsDe');
 const parserGraphics = require('./parseGraphicsDe');
+const logger = require('../Logger/logger');
 
 const config = require('../../global.config');
 
@@ -15,10 +16,10 @@ async function importData() {
 				} else if (file.title === 'cda-graphics-v2.virtual.de.json') {
 					parserGraphics.parseGraphicsDe(jsonData.data);
 				}
-			}).catch((error) => console.error(error));
+			}).catch((error) => logger.error(error));
 		});
 	} catch (err) {
-		console.error(err);
+		logger.error(err);
 		return 'Data import failed';
 	}
 	return `Data import succeeded, JSONs are stored at ${path.join(`${__dirname}../../../data/`)}`;

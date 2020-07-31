@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const logger = require('../Logger/logger');
+const backendLogger = require('../Logger/backendLogger');
 
 function getTitles(titlesArray) {
 	return titlesArray.map((it) => it.title);
@@ -31,7 +31,7 @@ module.exports = {
 			}));
 			fs.writeFileSync(path.join(`${__dirname}../../../data/graphics.json`), JSON.stringify(mainAttributes, null, 2));
 		} catch (err) {
-			logger.error(err);
+			backendLogger.error(err);
 			return 'Parsing failed!';
 		}
 		return `Parsing successful, parsed JSONs are stored at ${path.join(`${__dirname}../../../data/`)}`;

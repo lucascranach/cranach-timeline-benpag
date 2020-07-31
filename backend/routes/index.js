@@ -1,5 +1,5 @@
 const express = require('express');
-const logger = require('../modules/Logger/logger');
+const backendLogger = require('../modules/Logger/backendLogger');
 
 const router = express.Router();
 
@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
 	try {
 		res.render('index', { title: 'Express' });
 	} catch (e) {
-		logger.error(e);
+		backendLogger.error(e);
 		res.send(e);
 	}
 });

@@ -1,7 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-const logger = require('../modules/Logger/logger');
+const backendLogger = require('../modules/Logger/backendLogger');
 
 const router = express.Router();
 
@@ -15,7 +15,7 @@ router.get('/all', (req, res) => {
 			res.status(500).send('paintings.json is missing');
 		}
 	} catch (e) {
-		logger.error(e);
+		backendLogger.error(e);
 		res.status(500).send(e);
 	}
 });

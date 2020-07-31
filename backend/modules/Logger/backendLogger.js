@@ -1,16 +1,15 @@
 const { createLogger, format, transports } = require('winston');
 
-const logger = createLogger({
+const backendLogger = createLogger({
 	level: 'info',
 	format: format.combine(
 		format.errors({ stack: true }),
 		format.timestamp(),
 		format.prettyPrint(),
 	),
-	defaultMeta: { service: 'user-service' },
+	defaultMeta: { service: 'backend' },
 	transports: [
-		new transports.File({ filename: 'logs/error.log', level: 'error' }),
-		new transports.File({ filename: 'logs/combined.log' }),
+		new transports.File({ filename: 'logs/backendError.log', level: 'error' }),
 		new transports.Console({
 			level: 'debug',
 			handleExceptions: true,
@@ -20,4 +19,4 @@ const logger = createLogger({
 	],
 });
 
-module.exports = logger;
+module.exports = backendLogger;

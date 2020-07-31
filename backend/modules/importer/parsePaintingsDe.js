@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
-const logger = require('../Logger/logger');
+const backendLogger = require('../Logger/backendLogger');
 
 function getArtists(involvedPersons) {
 	return involvedPersons.filter((it) => it.role === 'Künstler');
@@ -21,7 +21,7 @@ async function validateImageUrl(images) {
 			await axios.get(images.sizes.s.src);
 			return images.sizes.s.src;
 		} catch (e) {
-			logger.error(e);
+			backendLogger.error(e);
 			return '';
 		}
 	} else {
@@ -45,7 +45,7 @@ module.exports = {
 				path.join(`${__dirname}../../../data/paintings.json`), JSON.stringify({ paintings: data }, null, 2),
 			));
 		} catch (err) {
-			logger.error(err);
+			backendLogger.error(err);
 			return 'Parsing failed!';
 		}
 		return `Parsing successful, parsed JSONs are stored at ${path.join(`${__dirname}../../../data/`)}`;

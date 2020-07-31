@@ -26,24 +26,23 @@ app.listen(config.port, () => {
 	console.log(`Server listen on port ${config.port}`);
 });
 
-// eslint-disable-next-line no-unused-vars
-app.use((req, res, next) => {
+app.use((req, res) => {
 	res.status(404);
 
-	if (req.is('application/json')) {
+	if (req.get('Content-Type') === 'application/json') {
 		res.send({ error: 'Not found' });
 		return;
 	}
 
-	res.status(415);
-	res.send(`Unsupported Media Type: ${req.accepts}`);
+	res.status(406).send('Not Acceptable');
 });
 
+// Declaring 'next' here is mandatory for an error handler, see: https://expressjs.com/de/guide/error-handling.html
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
 	res.status(500);
 
-	if (req.is('application/json')) {
+	if (req.get('Content-Type') === 'application/json') {
 		res.send({ error: err.message });
 		return;
 	}

@@ -18,23 +18,17 @@ module.exports = {
 		const mainAttributes = {
 			graphics: [],
 		};
-		try {
-			mainAttributes.graphics = graphicsJson.items.map((graphic) => ({
-				id: graphic.objectId,
-				imageUrl: '',
-				startDate: graphic.dating.begin,
-				endDate: graphic.dating.end,
-				title: getTitles(graphic.titles),
-				location: getLocations(graphic.locations),
-				artists: getArtists(graphic.involvedPersons),
-				type: 'graphic',
-			}));
-
-			fs.writeFileSync(path.join(`${__dirname}../../../data/graphics.json`), JSON.stringify(mainAttributes, null, 2));
-			return `Parsing graphics successful, parsed JSONs are stored at ${path.join(`${__dirname}../../../data/`)}`;
-		} catch (err) {
-			console.error(err);
-			return 'Parsing failed!';
-		}
+		mainAttributes.graphics = graphicsJson.items.map((graphic) => ({
+			id: graphic.objectId,
+			imageUrl: '',
+			startDate: graphic.dating.begin,
+			endDate: graphic.dating.end,
+			title: getTitles(graphic.titles),
+			location: getLocations(graphic.locations),
+			artists: getArtists(graphic.involvedPersons),
+			type: 'graphic',
+		}));
+		fs.writeFileSync(path.join(`${__dirname}../../../data/graphics.json`), JSON.stringify(mainAttributes, null, 2));
+		return `Parsing graphics successful, parsed JSONs are stored at ${path.join(`${__dirname}../../../data/`)}`;
 	},
 };

@@ -14,4 +14,10 @@ module.exports = {
 		// { uri: '/20191122/cda-archivals-v2.en.json', title: 'cda-archivals-v2.en.json' },
 	],
 	port: 3000,
+	eventTypes: [
+		'cranachElder',
+		'cranachYounger',
+		'luther',
+		'history',
+	],
 };

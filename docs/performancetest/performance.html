@@ -5,13 +5,11 @@
     <body>
         <button onclick="start()">Start</button>
         <div id="filter">Filter: </div>
-        <div id="some">Some: </div>
         <div id="foreach">ForEach: </div>
         <div id="forLoop">For: </div>
         <script>
             let result = {
                 filter: [],
-                some: [],
                 foreach: [],
                 forLoop: []
             };
@@ -20,18 +18,15 @@
                 for(let i = 1; i <= 2095; i++) {
                     const data = getData(i);
                     result.filter.push(useFilter(data));
-                    result.some.push(useSome(data));
                     result.foreach.push(useForeach(data));
                     result.forLoop.push(useForLoop(data));
                 }
                 result.filter.sort();
-                result.some.sort();
                 result.foreach.sort();
                 result.forLoop.sort();
                 showResults();
                 result = {
                     filter: [],
-                    some: [],
                     foreach: [],
                     forLoop: []
                 };
@@ -41,14 +36,6 @@
                 let res = [];
                 const p1 = performance.now();
                 res = data.filter((d) => d.id > 500000);
-                const p2 = performance.now();
-                return p2 - p1;
-            }
-
-            function useSome(data) {
-                let res = [];
-                const p1 = performance.now();
-                res = data.some((d) => d.id > 500000);
                 const p2 = performance.now();
                 return p2 - p1;
             }
@@ -79,7 +66,6 @@
 
             function showResults() {
                 document.getElementById('filter').innerHTML = 'Filter: ' + result.filter.join(';');
-                document.getElementById('some').innerHTML = 'Some: ' + result.some.join(';');
                 document.getElementById('foreach').innerHTML = 'ForEach: ' + result.foreach.join(';');
                 document.getElementById('forLoop').innerHTML = 'For: ' + result.forLoop.join(';');
             }

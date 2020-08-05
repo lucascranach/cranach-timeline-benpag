@@ -8,7 +8,7 @@
         <v-main>
             <v-container>
                 <v-btn @click="switchComponents()">{{buttonText}}</v-btn>
-                <Filters></Filters>
+                <Filters/>
                 <Visualisation v-show="activeComponent === 'visualisation'"/>
                 <Gallery v-show="activeComponent === 'gallery'"/>
             </v-container>

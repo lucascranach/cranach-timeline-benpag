@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const backendLogger = require('../Logger/backendLogger');
 
 function getTitles(titlesArray) {
 	return titlesArray.map((it) => it.title);
@@ -15,25 +14,21 @@ function getArtists(involvedPersons) {
 }
 
 module.exports = {
-	parseGraphicsDe: (graphicsJson) => {
-		const mainAttributes = {
-			graphics: [],
-		};
-		try {
+		parseGraphicsDe: (graphicsJson) => {
+			const mainAttributes = {
+				graphics: [],
+			};
 			mainAttributes.graphics = graphicsJson.items.map((graphic) => ({
 				id: graphic.objectId,
-				imageUrl: 'http://lucascranach.org/imageserver/G_AT_A_DG1929-75/01_Overall/G_AT_A_DG1929-75_Overall-002-s.jpg',
+				imageUrl: '',
 				startDate: graphic.dating.begin,
 				endDate: graphic.dating.end,
 				title: getTitles(graphic.titles),
 				location: getLocations(graphic.locations),
 				artists: getArtists(graphic.involvedPersons),
+				type: 'graphic',
 			}));
 			fs.writeFileSync(path.join(`${__dirname}../../../data/graphics.json`), JSON.stringify(mainAttributes, null, 2));
-		} catch (err) {
-			backendLogger.error(err);
-			return 'Parsing failed!';
-		}
-		return `Parsing successful, parsed JSONs are stored at ${path.join(`${__dirname}../../../data/`)}`;
-	},
+			return `Parsing graphics successful, parsed JSONs are stored at ${path.join(`${__dirname}../../../data/`)}`;
+		},	
 };

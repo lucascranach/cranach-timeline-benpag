@@ -1,79 +1,51 @@
 <template>
-    <v-app>
-        <v-app-bar app>
-            <v-spacer/>
-            <h1>Cranach Timeline</h1>
-            <v-spacer/>
-        </v-app-bar>
-        <v-main>
-            <v-container>
-                <Chart
-                    :width="chartWidth"
-                    :height="windowHeight * 0.67"
-                />
-                <SpecialEventTimeline
-                    :width="chartWidth"
-                    :height="windowHeight * 0.008"
-                    :event-list="events.cranachElder"
-                    color="black"
-                />
-                <SpecialEventTimeline
-                    :width="chartWidth"
-                    :height="windowHeight * 0.008"
-                    :event-list="events.cranachYounger"
-                    color="purple"
-                />
-                <SpecialEventTimeline
-                    :width="chartWidth"
-                    :height="windowHeight * 0.008"
-                    :event-list="events.luther"
-                    color="grey"
-                />
-                <SpecialEventTimeline
-                    :width="chartWidth"
-                    :height="windowHeight * 0.008"
-                    :event-list="events.history"
-                    color="darkCyan"
-                />
-                <Timeline
-                    :width="chartWidth"
-                    :height="windowHeight * 0.1"
-                />
-            </v-container>
-        </v-main>
-    </v-app>
+	<v-app>
+		<v-app-bar app>
+			<v-spacer/>
+			<h1>Cranach Timeline</h1>
+			<v-spacer/>
+		</v-app-bar>
+		<v-main>
+			<v-container>
+				<v-btn @click="switchComponents()">{{buttonText}}</v-btn>
+				<Visualisation v-show="activeComponent === 'visualisation'"/>
+				<Gallery v-show="activeComponent === 'gallery'"/>
+			</v-container>
+		</v-main>
+	</v-app>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
-import Timeline from './components/Timeline.vue';
-import Chart from './components/Chart.vue';
-import SpecialEventTimeline from './components/SpecialEventTimeline.vue';
+import Visualisation from './components/Visualisation.vue';
+import Gallery from './components/Gallery.vue';
 
 export default {
 	name: 'App',
 	components: {
-		Chart,
-		SpecialEventTimeline,
-		Timeline,
+		Gallery,
+		Visualisation,
 	},
-	computed: {
-		...mapState({
-			items: (state) => state.items,
-			events: (state) => state.events,
-		}),
-		chartWidth() {
-			return window.innerWidth * 0.925;
-		},
-		windowHeight() {
-			return window.innerHeight;
-		},
-	},
-	created() {
-		this.loadData();
+	data() {
+		return {
+			activeComponent: 'visualisation',
+			buttonText: 'Galerie',
+		};
 	},
 	methods: {
-		...mapActions(['loadData']),
+		switchComponents() {
+			if (this.activeComponent === 'visualisation') {
+				this.activeComponent = 'gallery';
+				this.buttonText = 'Visualisierung';
+			} else {
+				this.activeComponent = 'visualisation';
+				this.buttonText = 'Galerie';
+			}
+		},
 	},
 };
 </script>
+<style scoped>
+.marginTop {
+    margin-top: 100px;
+}
+</style>

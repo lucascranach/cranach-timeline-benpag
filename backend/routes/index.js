@@ -1,16 +1,16 @@
 const express = require('express');
-const backendLogger = require('../modules/Logger/backendLogger');
 
 const router = express.Router();
 
-/* GET home page. */
 router.get('/', (req, res) => {
-	try {
-		res.render('index', { title: 'Express' });
-	} catch (e) {
-		backendLogger.error(e);
-		res.send(e);
-	}
+	res.format({
+		'application/json': () => {
+			res.sendStatus(200);
+		},
+		default() {
+			res.status(406).send('Not Acceptable');
+		},
+	});
 });
 
 module.exports = router;

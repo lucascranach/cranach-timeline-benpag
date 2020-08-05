@@ -18,7 +18,7 @@ function getLocations(locationArray) {
 async function validateImageUrl(images) {
 	if (images) {
 		try {
-			await axios.get(images.sizes.s.src);
+			await axios.head(images.sizes.s.src);
 			return images.sizes.s.src;
 		} catch (e) {
 			backendLogger.error(e);
@@ -29,25 +29,22 @@ async function validateImageUrl(images) {
 	}
 }
 module.exports = {
-	parsePaintingsDe: (paintingsJson) => {
-		try {
-			Promise.all(paintingsJson.items.map(
-				async (painting) => ({
-					id: painting.objectId,
-					imageUrl: await validateImageUrl(painting.images),
-					startDate: painting.dating.begin,
-					endDate: painting.dating.end,
-					title: getTitles(painting.titles),
-					location: getLocations(painting.locations),
-					artists: getArtists(painting.involvedPersons),
-				}),
-			)).then((data) => fs.writeFileSync(
-				path.join(`${__dirname}../../../data/paintings.json`), JSON.stringify({ paintings: data }, null, 2),
-			));
-		} catch (err) {
-			backendLogger.error(err);
-			return 'Parsing failed!';
-		}
-		return `Parsing successful, parsed JSONs are stored at ${path.join(`${__dirname}../../../data/`)}`;
+	parsePaintingsDe: async (paintingsJson) => {
+		const data = await Promise.all(paintingsJson.items.map(
+			async (painting) => ({
+				id: painting.objectId,
+				imageUrl: await validateImageUrl(painting.images),
+				startDate: painting.dating.begin,
+				endDate: painting.dating.end,
+				title: getTitles(painting.titles),
+				location: getLocations(painting.locations),
+				artists: getArtists(painting.involvedPersons),
+				type: 'painting',
+			}),
+		));
+		fs.writeFileSync(
+			path.join(`${__dirname}../../../data/paintings.json`), JSON.stringify({ paintings: data }, null, 2),
+		);
+		return `Parsing paintings successful, parsed JSONs are stored at ${path.join(`${__dirname}../../../data/`)}`;
 	},
 };

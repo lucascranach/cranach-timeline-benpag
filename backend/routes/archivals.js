@@ -7,12 +7,12 @@ const router = express.Router();
 router.get('/', (req, res) => {
 	res.format({
 		'application/json': () => {
-			const jsonPath = path.join(`${__dirname}../../data/paintings.json`);
+			const jsonPath = path.join(`${__dirname}../../data/archivals.json`);
 			if (fs.existsSync(jsonPath)) {
 				const result = JSON.parse(fs.readFileSync(jsonPath));
 				res.send(result);
 			} else {
-				res.status(500).send({ error: 'paintings.json is missing' });
+				res.status(500).send({ error: 'archivals.json is missing' });
 			}
 		},
 		default() {

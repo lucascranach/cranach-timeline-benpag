@@ -1,10 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import works from '../../../backend/data/paintings.json';
-import cranachElderEvents from '../assets/cranachElderEvents.json';
-import cranachYoungerEvents from '../assets/cranachYoungerEvents.json';
-import lutherEvents from '../assets/lutherEvents.json';
-import historyEvents from '../assets/historyEvents.json';
+import axios from 'axios';
+import config from '../../global.config';
 
 Vue.use(Vuex);
 
@@ -16,10 +13,10 @@ export default new Vuex.Store({
 		allItems: [],
 		histogram: [],
 		events: {
-			cranachElder: cranachElderEvents,
-			cranachYounger: cranachYoungerEvents,
-			luther: lutherEvents,
-			history: historyEvents,
+			cranachElder: [],
+			cranachYounger: [],
+			luther: [],
+			history: [],
 		},
 	},
 	mutations: {
@@ -29,6 +26,9 @@ export default new Vuex.Store({
 		setAllItems(state, items) {
 			state.allItems = items;
 		},
+		setEvent(state, event) {
+			Object.assign(state.events, event);
+		},
 		calculateHistogram(state) {
 			state.histogram = state.allItems.reduce((histogram, item) => {
 				// reason: https://github.com/eslint/eslint/issues/8581
@@ -36,6 +36,7 @@ export default new Vuex.Store({
 				histogram[item.startDate] = (histogram[item.startDate] || 0) + 1;
 				return histogram;
 			}, {});
+			Object.freeze(state.histogram);
 		},
 	},
 	actions: {
@@ -46,12 +47,33 @@ export default new Vuex.Store({
 			Object.freeze(filteredItems);
 			commit('setItems', filteredItems);
 		},
-		loadData({ commit }) {
-			const allItems = works.paintings.filter((w) => w.startDate > 1490 && w.startDate < 1620);
-			Object.freeze(allItems);
-			commit('setItems', allItems);
-			commit('setAllItems', allItems);
-			commit('calculateHistogram', allItems);
+		async loadData({ commit }) {
+			try {
+				const data = (await Promise.all(
+					config.resources.map(async (r) => (await axios.get(config.dataBaseUrl + r)).data[r]),
+				)).flat();
+
+				const allItems = data.filter((w) => w.startDate > 1490 && w.startDate < 1620);
+				Object.freeze(allItems);
+
+				commit('setItems', allItems);
+				commit('setAllItems', allItems);
+				commit('calculateHistogram', allItems);
+
+				await Promise.all(config.events.map((eventName) => axios.get(`${config.dataBaseUrl}events/${eventName}`)
+					.then((response) => {
+						const event = {};
+						event[eventName] = response.data;
+						Object.freeze(event);
+						commit('setEvent', event);
+					})));
+			} catch (err) {
+				console.log('Ja moin, ein Fehler beim Download der Files', err);
+				// TODO: @Dominik: Correct logging
+				commit('setItems', null);
+				commit('setAllItems', null);
+				commit('setEvent', null);
+			}
 		},
 	},
 	modules: {

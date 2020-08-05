@@ -3,13 +3,12 @@
 			<v-card
 					:elevation="hover ? 10 : 0"
 					:id="`production-${item.id}`"
-					:style="`border: 2px solid ${color}`"
-					class="pa-0 ma-0"
+					:class="[item.type, 'pa-0 ma-0 toolTipCard']"
 					max-width="450px"
 					max-height="300px"
 				>
 				<v-row class="ma-0">
-					<h3>Gemälde
+					<h3>{{item.type === 'painting' ? 'Gemälde' : (item.type === 'archival' ? 'Archivalie' : 'Zeichnung')}}
 						({{item.startDate && item.startDate > 0 ?
 						(item.startDate === item.endDate ? item.startDate : item.startDate + ' bis ' + item.endDate) :
 						'Datierung unbekannt' }})
@@ -32,19 +31,19 @@
                             </v-row>
                             <v-row dense>
                                 <v-col cols="12">
-                                    <v-icon :color="`${color}`">brush</v-icon>
+                                    <v-icon class="toolTipIcon">brush</v-icon>
                                     <span class="ml-2">{{ item.artists && item.artists[0] ? item.artists[0].name : 'k.A.' }}</span>
                                 </v-col>
                             </v-row>
                             <v-row dense>
                                 <v-col cols="12">
-                                    <v-icon :color="`${color}`">public</v-icon>
+                                    <v-icon class="toolTipIcon">public</v-icon>
                                     <span class="ml-2">{{ item.location && item.location[0] ? item.location[0] : 'k.A.' }}</span>
                                 </v-col>
                             </v-row>
                             <v-row dense>
                                 <v-col cols="12">
-                                    <v-icon :color="`${color}`">shopping_basket</v-icon>
+                                    <v-icon class="toolTipIcon">shopping_basket</v-icon>
                                     <span class="ml-2">{{ item.customer && item.customer[0] ? item.customer[0] : 'k.A.' }}</span>
                                 </v-col>
                             </v-row>
@@ -65,8 +64,29 @@ export default {
 		},
 		color: {
 			type: String,
-			default: 'rgba(66, 125, 173, 1)',
+			default: 'rgba(0, 0, 0, 1)',
 		},
 	},
 };
 </script>
+
+<style>
+    .graphic {
+        border: 2px solid rgb(72,138,63) !important;
+    }
+    .graphic .toolTipIcon {
+        color: rgb(72, 138, 63) !important;
+    }
+    .archival {
+        border: 2px solid rgb(226,161,74) !important;
+    }
+    .archival .toolTipIcon {
+        color: rgb(226,161,74) !important;
+    }
+    .painting {
+        border: 2px solid rgb(66,116,173) !important;
+    }
+    .painting .toolTipIcon {
+        color: rgb(66,116,173) !important;
+    }
+</style>

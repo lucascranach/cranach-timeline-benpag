@@ -68,8 +68,7 @@ export default new Vuex.Store({
 						commit('setEvent', event);
 					})));
 			} catch (err) {
-				console.log('Ja moin, ein Fehler beim Download der Files', err);
-				// TODO: @Dominik: Correct logging
+				await axios.post(`${config.dataBaseUrl}log/frontend`, err);
 				commit('setItems', null);
 				commit('setAllItems', null);
 				commit('setEvent', null);

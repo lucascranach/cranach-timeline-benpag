@@ -6,9 +6,9 @@ import filters from './filters';
 
 Vue.use(Vuex);
 
-function FilterNotFoundException(filerName) {
-	this.message = `Filter ${filerName} does not implemented and will be skipped`;
-	this.name = filerName;
+function FilterNotFoundException(filterName) {
+	this.message = `Filter ${filterName} does not implemented!`;
+	this.name = filterName;
 }
 
 export default new Vuex.Store({

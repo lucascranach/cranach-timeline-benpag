@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "echo Running ESLint... && npx eslint **/*.js && echo Done && node app.js",
-    "import": "echo Running ESLint... && npx eslint **/*.js && echo Done && node modules/importer/index.js"
+    "import": "echo Running ESLint... && npx eslint **/*.js && echo Done && node modules/importer/index.js",
+    "deploy": "cd ../.docker && docker-compose build && docker-compose down && docker-compose up -d"
   },
   "dependencies": {
     "axios": "^0.19.2",

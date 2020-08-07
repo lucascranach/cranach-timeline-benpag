@@ -21,7 +21,6 @@ async function validateImageUrl(images) {
 			await axios.head(images.sizes.s.src);
 			return images.sizes.s.src;
 		} catch (e) {
-			backendLogger.error(e);
 			return '';
 		}
 	} else {

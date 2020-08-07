@@ -22,8 +22,8 @@ module.exports = {
 	],
 	currentTimezone: 'Europe/Berlin',
 	logFileNames: {
-		backendLogFileName: 'logs/backendError.log',
-		frontendLogFileName: 'logs/frontendError.log',
+		backend: 'logs/backendError.log',
+		frontend: 'logs/frontendError.log',
 	},
 	logLevels: {
 		backendFile: 'error',

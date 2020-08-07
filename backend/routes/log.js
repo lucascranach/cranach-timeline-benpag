@@ -1,5 +1,5 @@
 const express = require('express');
-const frontendLogger = require('../modules/Logger/frontendLogger');
+const frontendLogger = require('../modules/logger/frontendLogger');
 
 const router = express.Router();
 

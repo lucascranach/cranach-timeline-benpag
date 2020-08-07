@@ -5,6 +5,7 @@ const cors = require('cors');
 const config = require('./global.config');
 const indexRouter = require('./routes/index');
 const paintingsRouter = require('./routes/paintings');
+const loggingRouter = require('./routes/log');
 const graphicsRouter = require('./routes/graphics');
 const archivalsRouter = require('./routes/archivals');
 const eventsRouter = require('./routes/events');
@@ -18,6 +19,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/paintings', paintingsRouter);
+app.use('/log', loggingRouter);
 app.use('/graphics', graphicsRouter);
 app.use('/archivals', archivalsRouter);
 app.use('/events', eventsRouter);

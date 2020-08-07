@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const parserPaintings = require('./parsePaintingsDe');
 const parserGraphics = require('./parseGraphicsDe');
+const backendLogger = require('../modules/Logger/backendLogger');
 const parserArchivals = require('./parseArchivalsDe');
 
 const config = require('../../global.config');
@@ -19,7 +20,7 @@ async function importData() {
 				return parserArchivals.parseArchivalsDe(jsonData.data);
 			}
 			return file.title;
-		}).catch((error) => console.error(error)));
+		}).catch((error) => backendLogger.error(error)));
 	});
 
 	return Promise.all(promises).then((data) => data.join('\n'));

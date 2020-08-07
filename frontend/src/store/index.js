@@ -45,15 +45,18 @@ export default new Vuex.Store({
 			}, {});
 			Object.freeze(state.histogram);
 		},
-		addFilter(state, { name, params }) {
-			if (filters[name] === undefined) {
-				throw new FilterNotFoundException(name);
+		addFilter(state, { name, type, params }) {
+			if (filters[type] === undefined) {
+				throw new FilterNotFoundException(type);
 			}
-			state.activeFilters.push({
+			const filter = {
 				name,
+				type,
 				params,
-				apply: filters[name],
-			});
+				apply: filters[type],
+			};
+			Object.freeze(filter);
+			state.activeFilters.push(filter);
 		},
 		removeFilter(state, name) {
 			const filter = state.activeFilters.find((f) => f.name === name);
@@ -79,7 +82,8 @@ export default new Vuex.Store({
 		},
 		applyYearFilter({ dispatch }, { from, to }) {
 			const filter = {
-				name: 'year',
+				name: 'uniqueFilterName',
+				type: 'year',
 				params: { from, to },
 			};
 			dispatch('addFilter', filter);
@@ -112,8 +116,6 @@ export default new Vuex.Store({
 				commit('setEvent', null);
 			}
 		},
-	},
-	modules: {
 	},
 	getters: {
 		getItems(state) {

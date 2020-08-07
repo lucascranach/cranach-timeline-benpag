@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
+const backendLogger = require('../Logger/backendLogger');
 
 function getArtists(involvedPersons) {
 	return involvedPersons.filter((it) => it.role === 'Künstler');
@@ -20,6 +21,7 @@ async function validateImageUrl(images) {
 			await axios.head(images.sizes.s.src);
 			return images.sizes.s.src;
 		} catch (e) {
+			backendLogger.error(e);
 			return '';
 		}
 	} else {

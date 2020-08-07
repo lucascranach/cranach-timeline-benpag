@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
+const backendLogger = require('../Logger/backendLogger');
 
 function getArtists(involvedPersons) {
 	return involvedPersons.filter((it) => it.role === 'Künstler');
@@ -20,6 +21,7 @@ async function validateImageUrl(images) {
 			await axios.head(images.sizes.s.src);
 			return images.sizes.s.src;
 		} catch (e) {
+			backendLogger.error(e);
 			return '';
 		}
 	} else {
@@ -28,27 +30,21 @@ async function validateImageUrl(images) {
 }
 module.exports = {
 	parsePaintingsDe: async (paintingsJson) => {
-		try {
-			const data = await Promise.all(paintingsJson.items.map(
-				async (painting) => ({
-					id: painting.objectId,
-					imageUrl: await validateImageUrl(painting.images),
-					startDate: painting.dating.begin,
-					endDate: painting.dating.end,
-					title: getTitles(painting.titles),
-					location: getLocations(painting.locations),
-					artists: getArtists(painting.involvedPersons),
-					type: 'painting',
-				}),
-			));
-
-			fs.writeFileSync(
-				path.join(`${__dirname}../../../data/paintings.json`), JSON.stringify({ paintings: data }, null, 2),
-			);
-			return `Parsing paintings successful, parsed JSONs are stored at ${path.join(`${__dirname}../../../data/`)}`;
-		} catch (err) {
-			console.error(err);
-			return 'Parsing failed!';
-		}
+		const data = await Promise.all(paintingsJson.items.map(
+			async (painting) => ({
+				id: painting.objectId,
+				imageUrl: await validateImageUrl(painting.images),
+				startDate: painting.dating.begin,
+				endDate: painting.dating.end,
+				title: getTitles(painting.titles),
+				location: getLocations(painting.locations),
+				artists: getArtists(painting.involvedPersons),
+				type: 'painting',
+			}),
+		));
+		fs.writeFileSync(
+			path.join(`${__dirname}../../../data/paintings.json`), JSON.stringify({ paintings: data }, null, 2),
+		);
+		return `Parsing paintings successful, parsed JSONs are stored at ${path.join(`${__dirname}../../../data/`)}`;
 	},
 };

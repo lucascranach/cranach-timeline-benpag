@@ -48,24 +48,31 @@ export default new Vuex.Store({
 			commit('setItems', filteredItems);
 		},
 		async loadData({ commit }) {
-			const data = (await Promise.all(
-				config.resources.map(async (r) => (await axios.get(config.dataBaseUrl + r)).data[r]),
-			)).flat();
+			try {
+				const data = (await Promise.all(
+					config.resources.map(async (r) => (await axios.get(config.dataBaseUrl + r)).data[r]),
+				)).flat();
 
-			const allItems = data.filter((w) => w.startDate > 1490 && w.startDate < 1620);
-			Object.freeze(allItems);
+				const allItems = data.filter((w) => w.startDate > 1490 && w.startDate < 1620);
+				Object.freeze(allItems);
 
-			commit('setItems', allItems);
-			commit('setAllItems', allItems);
-			commit('calculateHistogram', allItems);
+				commit('setItems', allItems);
+				commit('setAllItems', allItems);
+				commit('calculateHistogram', allItems);
 
-			await Promise.all(config.events.map((eventName) => axios.get(`${config.dataBaseUrl}events/${eventName}`)
-				.then((response) => {
-					const event = {};
-					event[eventName] = response.data;
-					Object.freeze(event);
-					commit('setEvent', event);
-				})));
+				await Promise.all(config.events.map((eventName) => axios.get(`${config.dataBaseUrl}events/${eventName}`)
+					.then((response) => {
+						const event = {};
+						event[eventName] = response.data;
+						Object.freeze(event);
+						commit('setEvent', event);
+					})));
+			} catch (err) {
+				await axios.post(`${config.dataBaseUrl}log/frontend`, err);
+				commit('setItems', null);
+				commit('setAllItems', null);
+				commit('setEvent', null);
+			}
 		},
 	},
 	modules: {

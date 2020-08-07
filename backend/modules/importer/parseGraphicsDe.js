@@ -14,11 +14,10 @@ function getArtists(involvedPersons) {
 }
 
 module.exports = {
-	parseGraphicsDe: (graphicsJson) => {
-		const mainAttributes = {
-			graphics: [],
-		};
-		try {
+		parseGraphicsDe: (graphicsJson) => {
+			const mainAttributes = {
+				graphics: [],
+			};
 			mainAttributes.graphics = graphicsJson.items.map((graphic) => ({
 				id: graphic.objectId,
 				imageUrl: '',
@@ -29,12 +28,7 @@ module.exports = {
 				artists: getArtists(graphic.involvedPersons),
 				type: 'graphic',
 			}));
-
 			fs.writeFileSync(path.join(`${__dirname}../../../data/graphics.json`), JSON.stringify(mainAttributes, null, 2));
 			return `Parsing graphics successful, parsed JSONs are stored at ${path.join(`${__dirname}../../../data/`)}`;
-		} catch (err) {
-			console.error(err);
-			return 'Parsing failed!';
-		}
-	},
+		},	
 };

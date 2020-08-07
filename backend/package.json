@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "import": "node modules/importer/index.js"
+    "import": "node modules/importer/index.js",
+    "deploy": "cd ../.docker && docker-compose build && docker-compose down && docker-compose up -d"
   },
   "dependencies": {
     "axios": "^0.19.2",

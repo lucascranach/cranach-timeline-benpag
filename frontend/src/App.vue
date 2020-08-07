@@ -7,7 +7,8 @@
 		</v-app-bar>
 		<v-main>
 			<v-container>
-				<v-btn @click="switchComponents()">{{buttonText}}</v-btn>
+				<v-btn @click="switchComponents()">{{ buttonText }}</v-btn>
+				<FilterComponent/>
 				<Visualisation v-show="activeComponent === 'visualisation'"/>
 				<Gallery v-show="activeComponent === 'gallery'"/>
 			</v-container>
@@ -18,15 +19,18 @@
 <script>
 import Visualisation from './components/Visualisation.vue';
 import Gallery from './components/Gallery.vue';
+import FilterComponent from './components/Filters/Filters.vue';
 
 export default {
 	name: 'App',
 	components: {
+		FilterComponent,
 		Gallery,
 		Visualisation,
 	},
 	data() {
 		return {
+			currentFilter: undefined,
 			activeComponent: 'visualisation',
 			buttonText: 'Galerie',
 		};
@@ -46,6 +50,6 @@ export default {
 </script>
 <style scoped>
 .marginTop {
-    margin-top: 100px;
+	margin-top: 100px;
 }
 </style>

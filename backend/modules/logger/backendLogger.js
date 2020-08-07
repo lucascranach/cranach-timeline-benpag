@@ -11,7 +11,7 @@ const appendTimestamp = format((infoParam, opts) => {
 });
 
 const backendLogger = createLogger({
-	level: 'info',
+	level: config.logLevels.MinReqLevel,
 	format: format.combine(
 		format.errors({ stack: true }),
 		appendTimestamp({ tz: config.currentTimezone }),

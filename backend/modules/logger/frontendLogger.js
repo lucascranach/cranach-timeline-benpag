@@ -10,8 +10,8 @@ const appendTimestamp = format((infoParam, opts) => {
 	return info;
 });
 
-const backendLogger = createLogger({
-	level: 'info',
+const frontendLogger = createLogger({
+	level: config.logLevels.MinReqLevel,
 	format: format.combine(
 		format.errors({ stack: true }),
 		appendTimestamp({ tz: config.currentTimezone }),
@@ -23,4 +23,4 @@ const backendLogger = createLogger({
 	],
 });
 
-module.exports = backendLogger;
+module.exports = frontendLogger;

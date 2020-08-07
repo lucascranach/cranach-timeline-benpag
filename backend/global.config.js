@@ -24,5 +24,6 @@ module.exports = {
 	logLevels: {
 		backendFile: 'error',
 		backendConsole: 'debug',
+		MinReqLevel: 'info',
 	},
 };

@@ -7,7 +7,7 @@ import filters from './filters';
 Vue.use(Vuex);
 
 function FilterNotFoundException(filterName) {
-	this.message = `Filter ${filterName} does not implemented!`;
+	this.message = `Filter ${filterName} is not implemented!`;
 	this.name = filterName;
 }
 

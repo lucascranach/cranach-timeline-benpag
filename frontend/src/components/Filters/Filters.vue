@@ -4,7 +4,7 @@
 			<v-btn @click="toggleSearch()">Suche</v-btn>
 			<div v-if="search !== null">
 				<v-subheader>Volltext:</v-subheader>
-				<v-text-field v-bind:model="search.text"></v-text-field>
+				<v-text-field v-model="search.text"></v-text-field>
 			</div>
 		</v-col>
 		<v-col>

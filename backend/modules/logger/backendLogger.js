@@ -19,7 +19,7 @@ const backendLogger = createLogger({
 	),
 	defaultMeta: { service: 'backend' },
 	transports: [
-		new transports.File({ filename: 'logs/backendError.log', level: config.logLevels.backendFile }),
+		new transports.File({ filename: config.logFileNames.backendLogFileName, level: config.logLevels.backendFile }),
 		new transports.Console({
 			level: config.logLevels.backendConsole,
 			handleExceptions: true,

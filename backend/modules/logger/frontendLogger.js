@@ -19,7 +19,7 @@ const frontendLogger = createLogger({
 	),
 	defaultMeta: { service: 'frontend' },
 	transports: [
-		new transports.File({ filename: 'logs/frontendError.log' }),
+		new transports.File({ filename: config.logFileNames.frontendLogFileName }),
 	],
 });
 

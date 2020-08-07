@@ -20,4 +20,9 @@ module.exports = {
 		'luther',
 		'history',
 	],
+	currentTimezone: 'Europe/Berlin',
+	logLevels: {
+		backendFile: 'error',
+		backendConsole: 'debug',
+	},
 };

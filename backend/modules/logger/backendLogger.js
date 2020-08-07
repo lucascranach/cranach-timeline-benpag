@@ -1,5 +1,6 @@
 const moment = require('moment-timezone');
 const { createLogger, format, transports } = require('winston');
+const config = require('../../global.config');
 
 const appendTimestamp = format((infoParam, opts) => {
 	const info = infoParam;
@@ -13,14 +14,14 @@ const backendLogger = createLogger({
 	level: 'info',
 	format: format.combine(
 		format.errors({ stack: true }),
-		appendTimestamp({ tz: 'Europe/Berlin' }),
+		appendTimestamp({ tz: config.currentTimezone }),
 		format.prettyPrint(),
 	),
 	defaultMeta: { service: 'backend' },
 	transports: [
-		new transports.File({ filename: 'logs/backendError.log', level: 'error' }),
+		new transports.File({ filename: 'logs/backendError.log', level: config.logLevels.backendFile }),
 		new transports.Console({
-			level: 'debug',
+			level: config.logLevels.backendConsole,
 			handleExceptions: true,
 			json: false,
 			colorize: true,

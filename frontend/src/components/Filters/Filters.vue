@@ -88,13 +88,6 @@ export default {
 			this.category = null;
 			this.time = null;
 		},
-		emitState() {
-			this.$emit('input', {
-				search: this.search,
-				category: this.category,
-				time: this.time,
-			});
-		},
 	},
 };
 </script>

@@ -38,9 +38,6 @@
 			</v-list>
 		</v-col>
 		<v-col>
-			<v-btn>Weitere</v-btn>
-		</v-col>
-		<v-col>
 			<v-btn @click="resetFilters()">Reset</v-btn>
 		</v-col>
 	</v-row>
@@ -56,7 +53,6 @@ export default {
 			search: null,
 			category: null,
 			time: null,
-			unwatchFunctions: [],
 		};
 	},
 	methods: {
@@ -99,19 +95,6 @@ export default {
 				time: this.time,
 			});
 		},
-		unwatchAll() {
-			for (let i = 0; i < this.unwatchFunctions.length; i += 1) {
-				this.unwatchFunctions[i]();
-			}
-		},
-	},
-	created() {
-		this.unwatchFunctions.push(this.$watch('search', this.emitState.bind(this), { deep: true }));
-		this.unwatchFunctions.push(this.$watch('category', this.emitState.bind(this), { deep: true }));
-		this.unwatchFunctions.push(this.$watch('time', this.emitState.bind(this), { deep: true }));
-	},
-	destroyed() {
-		this.unwatchAll();
 	},
 };
 </script>

@@ -13,6 +13,11 @@ module.exports = {
 		{ uri: '/20191122/cda-archivals-v2.de.json', title: 'cda-archivals-v2.de.json' },
 		// { uri: '/20191122/cda-archivals-v2.en.json', title: 'cda-archivals-v2.en.json' },
 	],
+	parsedJsonPaths: {
+		paintings: '../../data/paintings.json',
+		graphics: '../../data/graphics.json',
+		archivals: '../../data/archivals.json',
+	},
 	port: 3000,
 	eventTypes: [
 		'cranachElder',

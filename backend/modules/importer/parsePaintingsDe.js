@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
-const backendLogger = require('../Logger/backendLogger');
+const backendLogger = require('../logger/backendLogger');
 
 function getArtists(involvedPersons) {
 	return involvedPersons.filter((it) => it.role === 'Künstler');

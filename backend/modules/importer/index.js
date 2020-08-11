@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const parserPaintings = require('./parsePaintingsDe');
 const parserGraphics = require('./parseGraphicsDe');
-const backendLogger = require('../modules/Logger/backendLogger');
+const backendLogger = require('../logger/backendLogger');
 const parserArchivals = require('./parseArchivalsDe');
 
 const config = require('../../global.config');

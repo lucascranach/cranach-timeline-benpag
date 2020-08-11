@@ -5,6 +5,7 @@ const parserPaintings = require('./parsePaintingsDe');
 const parserGraphics = require('./parseGraphicsDe');
 const backendLogger = require('../logger/backendLogger');
 const parserArchivals = require('./parseArchivalsDe');
+const checkParseDate = require('./checkParseDate');
 
 const config = require('../../global.config');
 
@@ -28,6 +29,12 @@ async function importData() {
 
 if (!fs.existsSync(path.join(`${__dirname}../../../data/`))) fs.mkdirSync(path.join(`${__dirname}../../../data/`));
 
-importData().then((result) => {
-	console.log(result);
-});
+console.log('Check if parsing is required...');
+if (checkParseDate.newParseRequired()) {
+	console.log('Parse is required!');
+	importData().then((result) => {
+		console.log(result);
+	});
+} else {
+	console.log('No parse required!');
+}

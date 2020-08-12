@@ -18,6 +18,7 @@ module.exports = {
 		graphics: '../../data/graphics.json',
 		archivals: '../../data/archivals.json',
 	},
+	newParseIntervallInDays: 7,
 	port: 3000,
 	eventTypes: [
 		'cranachElder',

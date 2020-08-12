@@ -2,6 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const config = require('../../global.config');
 
+function getDaysInMs(days) {
+	return ((((days * 24) * 60) * 60) * 1000);
+}
+
 function allFilesExist() {
 	return fs.existsSync(path.join(__dirname, config.parsedJsonPaths.paintings))
 		|| fs.existsSync(path.join(__dirname, config.parsedJsonPaths.archivals))
@@ -18,7 +22,7 @@ function timestampIsValid() {
 	const currentDateInMs = new Date();
 	const timestampDate = new Date(jsonData.timestamp);
 	// 604800000 equals 7 days
-	return currentDateInMs - timestampDate <= 604800000;
+	return currentDateInMs - timestampDate <= getDaysInMs(config.newParseIntervallInDays);
 }
 module.exports = {
 	filesValid: () => {

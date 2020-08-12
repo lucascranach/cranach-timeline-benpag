@@ -21,7 +21,6 @@ function timestampIsValid() {
 	}
 	const currentDateInMs = new Date();
 	const timestampDate = new Date(jsonData.timestamp);
-	// 604800000 equals 7 days
 	return currentDateInMs - timestampDate <= getDaysInMs(config.newParseIntervallInDays);
 }
 module.exports = {

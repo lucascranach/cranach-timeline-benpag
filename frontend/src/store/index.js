@@ -2,8 +2,14 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
 import config from '../../global.config';
+import filters from './filters';
 
 Vue.use(Vuex);
+
+function FilterNotFoundException(filterName) {
+	this.message = `Filter ${filterName} is not implemented!`;
+	this.name = filterName;
+}
 
 export default new Vuex.Store({
 	strict: true,
@@ -18,6 +24,7 @@ export default new Vuex.Store({
 			luther: [],
 			history: [],
 		},
+		activeFilters: [],
 	},
 	mutations: {
 		setItems(state, items) {
@@ -38,14 +45,48 @@ export default new Vuex.Store({
 			}, {});
 			Object.freeze(state.histogram);
 		},
+		addFilter(state, { name, type, params }) {
+			if (filters[type] === undefined) {
+				throw new FilterNotFoundException(type);
+			}
+			const filter = {
+				name,
+				type,
+				params,
+				apply: filters[type],
+			};
+			Object.freeze(filter);
+			state.activeFilters.push(filter);
+		},
+		removeFilter(state, name) {
+			const filter = state.activeFilters.find((f) => f.name === name);
+			if (filter !== undefined) {
+				state.activeFilters.splice(state.activeFilters.indexOf(filter), 1);
+			}
+		},
 	},
 	actions: {
-		applyYearFilter({ commit, state }, { from, to }) {
-			const filteredItems = state.allItems.filter(
-				(i) => i.startDate >= from && i.endDate <= to,
-			);
+		addFilter({ commit, dispatch }, filter) {
+			commit('removeFilter', filter.name);
+			commit('addFilter', filter);
+			dispatch('applyFilter');
+		},
+		removeFilter({ commit, dispatch }, filterName) {
+			commit('removeFilter', filterName);
+			dispatch('applyFilter');
+		},
+		applyFilter({ commit, state }) {
+			const filteredItems = state.allItems.filter((item) => state.activeFilters.every((f) => f.apply(item, f.params)));
 			Object.freeze(filteredItems);
 			commit('setItems', filteredItems);
+		},
+		applyYearFilter({ dispatch }, { from, to }) {
+			const filter = {
+				name: 'uniqueFilterName',
+				type: 'year',
+				params: { from, to },
+			};
+			dispatch('addFilter', filter);
 		},
 		async loadData({ commit }) {
 			try {
@@ -74,8 +115,6 @@ export default new Vuex.Store({
 				commit('setEvent', null);
 			}
 		},
-	},
-	modules: {
 	},
 	getters: {
 		getItems(state) {

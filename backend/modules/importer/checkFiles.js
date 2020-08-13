@@ -16,7 +16,7 @@ function timestampIsValid() {
 	const jsonFile = fs.readFileSync(path.join(__dirname, '../../data/paintings.json'));
 	const jsonData = JSON.parse(jsonFile);
 
-	if (jsonData.timestamp === undefined) {
+	if (typeof jsonData.timestamp === 'undefined') {
 		return false;
 	}
 	const currentDateInMs = new Date();

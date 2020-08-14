@@ -1,4 +1,5 @@
 <template>
+    <div v-observe-visibility="visibilityChanged" v-if="isVisible">
         <v-card
             class="pa-0"
             style="border: 3px solid white"
@@ -47,7 +48,10 @@
                     </v-col>
                 </v-row>
             </v-card-text>
+            <!-- imageUrl is taken as a placeholder and needs to be replaced with CDA Url-->
+            <v-btn v-if="item.imageUrl" :href="item.imageUrl" class="button">Weiterlesen</v-btn>
         </v-card>
+    </div>
 </template>
 
 <script>
@@ -58,7 +62,14 @@ export default {
 	data() {
 		return {
 			config,
+			isVisible: true,
 		};
+	},
+	methods: {
+		visibilityChanged(isVisible, entry) {
+			this.isVisible = isVisible;
+			console.log(entry);
+		},
 	},
 	props: {
 		item: {
@@ -70,5 +81,10 @@ export default {
 </script>
 
 <style scoped>
-
+.button {
+    margin-top: 10px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
 </style>

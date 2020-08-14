@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import VueObserveVisibility from 'vue-observe-visibility';
 import App from './App.vue';
 import ErrorPage from './Error.vue';
 import store from './store';
@@ -6,6 +7,7 @@ import vuetify from './plugins/vuetify';
 
 Vue.config.productionTip = false;
 Vue.config.devtools = false;
+Vue.use(VueObserveVisibility);
 
 new Vue({
 	store,

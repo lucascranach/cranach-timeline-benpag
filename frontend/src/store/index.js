@@ -88,6 +88,14 @@ export default new Vuex.Store({
 			};
 			dispatch('addFilter', filter);
 		},
+		applyCategoryFilter({ dispatch }, { paintings, graphics }) {
+		    const filter = {
+		        name: 'categoryFilter',
+				type: 'category',
+				params: { paintings, graphics },
+			};
+		    dispatch('addFilter', filter);
+		},
 		async loadData({ commit }) {
 			try {
 				const data = (await Promise.all(

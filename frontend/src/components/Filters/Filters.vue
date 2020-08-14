@@ -40,6 +40,9 @@
 		<v-col>
 			<v-btn @click="resetFilters()">Reset</v-btn>
 		</v-col>
+        <v-col>
+            <v-checkbox label="Best Of"/>
+        </v-col>
 	</v-row>
 </template>
 
@@ -53,6 +56,7 @@ export default {
 			search: null,
 			category: null,
 			time: null,
+			bestof: false,
 		};
 	},
 	methods: {

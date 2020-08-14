@@ -29,12 +29,12 @@ async function importData() {
 
 if (!fs.existsSync(path.join(`${__dirname}../../../data/`))) fs.mkdirSync(path.join(`${__dirname}../../../data/`));
 
-console.log('Check if parsing is required...');
+backendLogger.debug('Check if parsing is required...');
 if (checkFiles.filesValid()) {
-	console.log('No parse required!');
+	backendLogger.debug('No parse required!');
 } else {
-	console.log('Parse is required!');
+	backendLogger.debug('Parse is required!');
 	importData().then((result) => {
-		console.log(result);
+		backendLogger.debug(result);
 	});
 }

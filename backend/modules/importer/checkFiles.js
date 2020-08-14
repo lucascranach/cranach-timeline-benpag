@@ -3,7 +3,7 @@ const path = require('path');
 const config = require('../../global.config');
 
 function getDaysInMs(days) {
-	return ((((days * 24) * 60) * 60) * 1000);
+	return days * 24 * 60 * 60 * 1000;
 }
 
 function allFilesExist() {

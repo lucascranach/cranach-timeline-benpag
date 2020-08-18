@@ -1,7 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
-const backendLogger = require('../logger/backendLogger');
 
 function getArtists(involvedPersons) {
 	return involvedPersons.filter((it) => it.role === 'Künstler');
@@ -42,7 +41,12 @@ module.exports = {
 			}),
 		));
 		fs.writeFileSync(
-			path.join(`${__dirname}../../../data/paintings.json`), JSON.stringify({ paintings: data }, null, 2),
+			path.join(`${__dirname}../../../data/paintings.json`), JSON.stringify(
+				{
+					timestamp: new Date(),
+					paintings: data,
+				}, null, 2,
+			),
 		);
 		return `Parsing paintings successful, parsed JSONs are stored at ${path.join(`${__dirname}../../../data/`)}`;
 	},

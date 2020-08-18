@@ -9,7 +9,7 @@
 			<v-container>
 				<v-btn @click="switchComponents()">{{ buttonText }}</v-btn>
 				<FilterComponent/>
-				<Visualisation v-show="activeComponent === 'visualisation'"/>
+				<Visualisation v-if="activeComponent === 'visualisation'"/>
                 <Gallery v-if="activeComponent === 'gallery'"/>
 			</v-container>
 		</v-main>

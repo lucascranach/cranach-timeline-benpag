@@ -14,18 +14,15 @@
 
 <script>
 import { mapState } from 'vuex';
-// import lazyLoadComponent from '@/utils/lazy-load-component';
-// import ExhibitPlaceholder from '@/components/ExhibitPlaceholder.vue';
-import Exhibit from '@/components/Exhibit.vue';
+import Placeholder from '@/components/Placeholder.vue';
 
 export default {
 	name: 'Gallery',
 	components: {
-		/* Exhibit: lazyLoadComponent({
-			componentFactory: () => import('./Exhibit.vue'),
-			loading: ExhibitPlaceholder,
-		}), */
-		Exhibit, // : () => import('./Exhibit.vue'),
+		Exhibit: () => ({
+			component: import('./Exhibit.vue'),
+			loading: Placeholder,
+		}),
 	},
 	data() {
 		return {

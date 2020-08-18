@@ -182,7 +182,7 @@ export default {
 			'getHistogramImages',
 		]),
 		...mapActions([
-			'applyYearFilter',
+			'addFilter',
 		]),
 		getPath(index) {
 			const xPos = index * this.imageWidth;
@@ -270,7 +270,7 @@ export default {
 					areaSlider.attr('transform', `translate(${event.x}, 0)`);
 				})
 				.on('end', () => {
-					this.applyYearFilter(this.filterRange);
+					this.applyYearFilter();
 				});
 			sliderLeft.call(sliderLeftDragHandler);
 			sliderLeftText.text(this.filterRange.from);
@@ -308,7 +308,7 @@ export default {
 					areaSlider.attr('height', bounding.height);
 				})
 				.on('end', () => {
-					this.applyYearFilter(this.filterRange);
+					this.applyYearFilter();
 				});
 			sliderRight.call(sliderRightDragHandler);
 			sliderRightText.text(this.filterRange.to);
@@ -350,9 +350,17 @@ export default {
 					}
 				})
 				.on('end', () => {
-					this.applyYearFilter(this.filterRange);
+					this.applyYearFilter();
 				});
 			areaSlider.call(areaSliderDragHandler);
+		},
+		applyYearFilter() {
+			const filter = {
+				name: 'yearFilter',
+				type: 'year',
+				params: this.filterRange,
+			};
+			this.addFilter(filter);
 		},
 	},
 };

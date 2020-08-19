@@ -45,11 +45,13 @@
 			<v-list v-if="time !== null">
 				<v-list-item>
 					<v-subheader>Von:</v-subheader>
-					<v-text-field v-model="time.from"></v-text-field>
+					<v-text-field @change="applyYearFilter()"
+                                  v-model="time.from"></v-text-field>
 				</v-list-item>
 				<v-list-item>
 					<v-subheader>Bis:</v-subheader>
-					<v-text-field v-model="time.to"></v-text-field>
+					<v-text-field @change="applyYearFilter()"
+                                  v-model="time.to"></v-text-field>
 				</v-list-item>
 			</v-list>
 		</v-col>
@@ -135,6 +137,13 @@ export default {
 				name: 'categoryFilter',
 				type: 'category',
 				params: { validCategories: Object.values(this.category) },
+			});
+		},
+		applyYearFilter() {
+		    this.addFilter({
+				name: 'yearFilter',
+				type: 'year',
+				params: this.time,
 			});
 		},
 	},

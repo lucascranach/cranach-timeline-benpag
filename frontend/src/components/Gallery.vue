@@ -7,8 +7,6 @@
         <v-row class="mx-2">
             <v-col v-for="item in items" :key="item.id" cols="3" class="px-1">
                 <Exhibit :item="item"/>
-                <!-- imageUrl is taken as a placeholder and needs to be replaced with CDA Url-->
-                <v-btn v-if="item.imageUrl" :href="item.imageUrl" class="button">Weiterlesen</v-btn>
             </v-col>
         </v-row>
         </v-card>
@@ -16,12 +14,15 @@
 
 <script>
 import { mapState } from 'vuex';
-import Exhibit from './Exhibit.vue';
+import Placeholder from '@/components/Placeholder.vue';
 
 export default {
 	name: 'Gallery',
 	components: {
-		Exhibit,
+		Exhibit: () => ({
+			component: import('./Exhibit.vue'),
+			loading: Placeholder,
+		}),
 	},
 	data() {
 		return {
@@ -38,12 +39,6 @@ export default {
 </script>
 
 <style scoped>
-    .button {
-        margin-top: 10px;
-        position: relative;
-        left: 50%;
-        transform: translateX(-50%);
-    }
     .margin {
         margin-top: 10px;
     }

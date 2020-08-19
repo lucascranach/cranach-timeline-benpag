@@ -47,6 +47,8 @@
                     </v-col>
                 </v-row>
             </v-card-text>
+            <!-- imageUrl is taken as a placeholder and needs to be replaced with CDA Url-->
+            <v-btn v-if="item.imageUrl" :href="item.imageUrl" class="button">Weiterlesen</v-btn>
         </v-card>
 </template>
 
@@ -70,5 +72,10 @@ export default {
 </script>
 
 <style scoped>
-
+.button {
+    margin-top: 10px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
 </style>

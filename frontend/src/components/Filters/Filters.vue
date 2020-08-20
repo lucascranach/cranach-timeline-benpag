@@ -46,12 +46,12 @@
 				<v-list-item>
 					<v-subheader>Von:</v-subheader>
 					<v-text-field @change="applyYearFilter()"
-                                  v-model="time.from"></v-text-field>
+                                  v-model="time.from" />
 				</v-list-item>
 				<v-list-item>
 					<v-subheader>Bis:</v-subheader>
 					<v-text-field @change="applyYearFilter()"
-                                  v-model="time.to"></v-text-field>
+                                  v-model="time.to" />
 				</v-list-item>
 			</v-list>
 		</v-col>

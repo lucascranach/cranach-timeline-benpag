@@ -1,19 +1,23 @@
 <template>
         <v-card
-            class="pa-0"
             style="border: 3px solid white"
             color="white"
-            width="300px">
+            width="300px"
+        :elevation="cardElevation"
+            @mouseover="changeElevation(24)"
+            @mouseout="changeElevation(1)"
+        >
             <v-img
                 :src="item.imageUrl && item.imageUrl !== '' ? item.imageUrl : config.placeholderImageUrl"
                 position="center top"
-                class="pa-0"
-                :style="'background-color: white'"
+                style="background-color: white"
+                width="350"
+                height="350"
             />
             <div class="headline" style="margin: 5px">
                 {{ item.title[0] && item.title[0] !== '' ? item.title[0] : 'Titel unbekannt'}}
             </div>
-            <v-card-text class="pa-0" style="margin: 5px">
+            <v-card-text style="margin: 5px">
                 <v-row>
                     <v-col>
                         <v-icon>mdi-map-marker</v-icon>
@@ -60,12 +64,18 @@ export default {
 	data() {
 		return {
 			config,
+			cardElevation: 1,
 		};
 	},
 	props: {
 		item: {
 			type: Object,
 			required: true,
+		},
+	},
+	methods: {
+		changeElevation(newElevation) {
+			this.cardElevation = newElevation;
 		},
 	},
 };

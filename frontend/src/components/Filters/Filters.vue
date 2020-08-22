@@ -4,7 +4,9 @@
 			<v-btn @click="toggleSearch()">Suche</v-btn>
 			<div v-if="search !== null">
 				<v-subheader>Volltext:</v-subheader>
-				<v-text-field v-model="search.text"></v-text-field>
+				<v-text-field v-model="search"
+								@change="applySearch()"
+				></v-text-field>
 			</div>
 		</v-col>
 		<v-col>
@@ -90,7 +92,7 @@ export default {
 		]),
 		toggleSearch() {
 			if (this.search === null) {
-				this.search = { text: '' };
+				this.search = '';
 			} else {
 				this.search = null;
 			}
@@ -140,10 +142,17 @@ export default {
 			});
 		},
 		applyYearFilter() {
-		    this.addFilter({
+			this.addFilter({
 				name: 'yearFilter',
 				type: 'year',
 				params: this.time,
+			});
+		},
+		applySearch() {
+			this.addFilter({
+				name: 'search',
+				type: 'search',
+				params: this.search.toLowerCase(),
 			});
 		},
 	},

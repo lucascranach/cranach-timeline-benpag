@@ -5,7 +5,7 @@
 			<div v-if="search !== null">
 				<v-subheader>Volltext:</v-subheader>
 				<v-text-field v-model="search"
-								@change="applySearch()"
+								@input="asyncSearch()"
 				></v-text-field>
 			</div>
 		</v-col>
@@ -147,6 +147,11 @@ export default {
 				type: 'year',
 				params: this.time,
 			});
+		},
+		asyncSearch() {
+			setTimeout(() => {
+				this.applySearch();
+			}, 0);
 		},
 		applySearch() {
 			this.addFilter({

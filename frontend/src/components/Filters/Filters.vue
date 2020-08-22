@@ -87,6 +87,7 @@ export default {
 	methods: {
 		...mapActions([
 			'addFilter',
+			'removeFilter',
 		]),
 		toggleSearch() {
 			if (this.search === null) {
@@ -124,6 +125,9 @@ export default {
 			}
 		},
 		resetFilters() {
+			this.removeFilter('yearFilter');
+			this.removeFilter('search');
+			this.removeFilter('categoryFilter');
 			this.search = null;
 			this.category = {
 				paintings: 'painting',
@@ -140,7 +144,7 @@ export default {
 			});
 		},
 		applyYearFilter() {
-		    this.addFilter({
+			this.addFilter({
 				name: 'yearFilter',
 				type: 'year',
 				params: this.time,

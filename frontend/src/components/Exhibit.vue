@@ -2,13 +2,13 @@
         <v-card
             class="pa-0"
             style="border: 3px solid white"
-            color="white"
-            width="300px">
+            color="white">
             <v-img
                 :src="item.imageUrl && item.imageUrl !== '' ? item.imageUrl : config.placeholderImageUrl"
                 position="center top"
                 class="pa-0"
                 :style="'background-color: white'"
+                height="300px"
             />
             <div class="headline" style="margin: 5px">
                 {{ item.title[0] && item.title[0] !== '' ? item.title[0] : 'Titel unbekannt'}}

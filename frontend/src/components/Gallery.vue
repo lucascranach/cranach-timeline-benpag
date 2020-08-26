@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <v-container>
         <v-row justify="space-around">
             <v-checkbox v-model="paintingsSelected" class="mx-2" label="Gemälde"/>
             <v-checkbox v-model="graphicsSelected" class="mx-2" label="Grafiken"/>
@@ -8,33 +8,29 @@
             :items="scrollItems"
             :item-height="650"
             height="520"
-            bench="8"
+            :bench="itemsPerRow"
         >
             <template v-slot="{ item }">
-               <v-row no-gutters>
-                   <v-col v-for="exhibit in item" :key="exhibit.id" cols="3" class="px-4">
-                       <Exhibit :item="exhibit"/>
-                   </v-col>
-               </v-row>
+                <v-row no-gutters>
+                    <v-col v-for="exhibit in item" :key="exhibit.id" :cols="columnSize" class="px-4">
+                        <Exhibit :item="exhibit"/>
+                    </v-col>
+                </v-row>
             </template>
         </v-virtual-scroll>
-    </div>
+    </v-container>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import Placeholder from '@/components/Placeholder.vue';
+import Exhibit from './Exhibit.vue';
 
 export default {
 	name: 'Gallery',
-	components: {
-		Exhibit: () => ({
-			component: import('./Exhibit.vue'),
-			loading: Placeholder,
-		}),
-	},
+	components: { Exhibit },
 	data() {
 		return {
+			itemsPerRow: 4,
 			paintingsSelected: false,
 			graphicsSelected: false,
 		};
@@ -43,23 +39,18 @@ export default {
 		...mapState({
 			items: (state) => state.items,
 		}),
+		columnSize() {
+			return 12 / this.itemsPerRow;
+		},
 		scrollItems() {
-			return this.items.reduce((resultArray, item, index) => {
-				const chunkIndex = Math.floor(index / 4);
-				if (!resultArray[chunkIndex]) {
-					// eslint-disable-next-line no-param-reassign
-					resultArray[chunkIndex] = []; // start a new chunk
-				}
-				resultArray[chunkIndex].push(item);
-				return resultArray;
-			}, []);
+			const chunkCount = Math.ceil(this.items.length / this.itemsPerRow);
+			const emptyChunks = Array(chunkCount).fill(this.itemsPerRow);
+			return emptyChunks.map((chunkSize, index) => this.items.slice(index * chunkSize, (index + 1) * chunkSize));
 		},
 	},
 };
 </script>
 
 <style scoped>
-    .margin {
-        margin-top: 10px;
-    }
+
 </style>

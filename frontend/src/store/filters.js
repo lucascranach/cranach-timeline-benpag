@@ -5,16 +5,9 @@ function searchArchival(item, searchQuery) {
 }
 
 function search(item, searchQuery) {
-	if (item.title.some((x) => x.toLowerCase().includes(searchQuery))) {
-		return true;
-	}
-	if (item.artists.some((x) => x.name.toLowerCase().includes(searchQuery) || x.alternativeName.toLowerCase().includes(searchQuery))) {
-		return true;
-	}
-	if (item.location.some((x) => x.toLowerCase().includes(searchQuery))) {
-		return true;
-	}
-	return false;
+	return item.title.some((x) => x.toLowerCase().includes(searchQuery))
+	|| item.artists.some((x) => x.name.toLowerCase().includes(searchQuery) || x.alternativeName.toLowerCase().includes(searchQuery))
+	|| item.location.some((x) => x.toLowerCase().includes(searchQuery));
 }
 
 function CategoryNotFoundException(categoryName) {
@@ -28,7 +21,7 @@ const filters = {
 	search: (item, searchQuery) => {
 		switch (item.type) {
 		case 'archival': return searchArchival(item, searchQuery);
-		case 'painting': return search(item, searchQuery);
+		case 'painting':
 		case 'graphic': return search(item, searchQuery);
 		default: throw new CategoryNotFoundException(item.type);
 		}

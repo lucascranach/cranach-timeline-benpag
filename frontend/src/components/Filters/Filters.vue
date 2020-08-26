@@ -6,7 +6,7 @@
 				<v-subheader>Volltext:</v-subheader>
 				<v-text-field v-model="search"
 								@input="asyncSearch()"
-				></v-text-field>
+				/>
 			</div>
 		</v-col>
 		<v-col>

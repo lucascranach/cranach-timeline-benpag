@@ -33,7 +33,6 @@ export default {
 			loading: Placeholder,
 		}),
 	},
-	components: { Exhibit },
 	data() {
 		return {
 			itemsPerRow: 4,

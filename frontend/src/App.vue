@@ -1,16 +1,16 @@
 <template>
 	<v-app>
 		<v-app-bar app>
-			<v-spacer/>
+			<v-spacer />
 			<h1>Cranach Timeline</h1>
-			<v-spacer/>
+			<v-spacer />
 		</v-app-bar>
 		<v-main>
 			<v-container>
 				<v-btn @click="switchComponents()">{{ buttonText }}</v-btn>
-				<FilterComponent/>
-                <Visualisation v-show="activeComponent === 'visualisation'"/>
-                <Gallery v-show="activeComponent === 'gallery'"/>
+				<FilterComponent />
+                <Visualisation @tooltipClick="openItemInGallery($event)" v-show="activeComponent === 'visualisation'" />
+                <Gallery v-show="activeComponent === 'gallery'" :scrollToExhibit="scrollToExhibit"/>
 			</v-container>
 		</v-main>
 	</v-app>
@@ -33,6 +33,7 @@ export default {
 			currentFilter: undefined,
 			activeComponent: 'visualisation',
 			buttonText: 'Galerie',
+			scrollToExhibit: null,
 		};
 	},
 	methods: {
@@ -44,6 +45,10 @@ export default {
 				this.activeComponent = 'visualisation';
 				this.buttonText = 'Galerie';
 			}
+		},
+		openItemInGallery(exhibit) {
+			this.switchComponents();
+			this.scrollToExhibit = exhibit;
 		},
 	},
 };

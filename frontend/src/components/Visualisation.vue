@@ -1,6 +1,7 @@
 <template>
     <div>
         <Chart
+            @tooltipClick="$emit('tooltipClick', $event)"
             :width="chartWidth"
             :height="windowHeight * 0.67"
         />

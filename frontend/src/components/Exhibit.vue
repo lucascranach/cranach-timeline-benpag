@@ -1,19 +1,19 @@
 <template>
         <v-card
-            style="border: 3px solid white"
+            style="border: 3px solid white; overflow: hidden"
             color="white"
-            width="300px"
         :elevation="cardElevation"
-            @mouseover="changeElevation(24)"
-            @mouseout="changeElevation(1)"
+            @mouseover="letsDance(true)"
+            @mouseout="letsDance(false)"
         >
-            <v-img
-                :src="item.imageUrl && item.imageUrl !== '' ? item.imageUrl : config.placeholderImageUrl"
-                position="center top"
-                style="background-color: white"
-                width="350"
-                height="350"
-            />
+            <div class="imageContainer">
+                <v-img
+                    :src="item.imageUrl && item.imageUrl !== '' ? item.imageUrl : config.placeholderImageUrl"
+                    :class="{'imageAnimation' : runAnimation }"
+                    position="center top"
+                    style="background-color: white"
+                />
+            </div>
             <div class="headline" style="margin: 5px">
                 {{ item.title[0] && item.title[0] !== '' ? item.title[0] : 'Titel unbekannt'}}
             </div>
@@ -65,6 +65,7 @@ export default {
 		return {
 			config,
 			cardElevation: 1,
+			runAnimation: false,
 		};
 	},
 	props: {
@@ -74,8 +75,14 @@ export default {
 		},
 	},
 	methods: {
-		changeElevation(newElevation) {
-			this.cardElevation = newElevation;
+		letsDance(isDancing) {
+			if (isDancing) {
+				this.runAnimation = true;
+				this.cardElevation = 24;
+			} else {
+				this.runAnimation = false;
+				this.cardElevation = 1;
+			}
 		},
 	},
 };
@@ -87,5 +94,30 @@ export default {
     position: relative;
     left: 50%;
     transform: translateX(-50%);
+}
+.imageContainer {
+    width: 400px;
+    height: 350px;
+    overflow: hidden;
+}
+.imageAnimation {
+    animation: kenburns 20s infinite;
+}
+@keyframes kenburns {
+0% {
+    opacity: 0;
+}
+5% {
+    opacity: 1;
+}
+95% {
+    transform: scale3d(1.5, 1.5, 1.5) translate3d(-50px, -120px, 0px);
+    animation-timing-function: ease-in;
+    opacity: 1;
+}
+100% {
+    transform: scale3d(2, 2, 2) translate3d(-170px, -100px, 0px);
+    opacity: 0;
+}
 }
 </style>

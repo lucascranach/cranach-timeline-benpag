@@ -3,8 +3,8 @@
             style="border: 3px solid white; overflow: hidden"
             color="white"
         :elevation="cardElevation"
-            @mouseover="letsDance(true)"
-            @mouseout="letsDance(false)"
+            @mouseover="setHighlighting(true)"
+            @mouseout="setHighlighting(false)"
         >
             <div class="imageContainer">
                 <v-img
@@ -75,8 +75,8 @@ export default {
 		},
 	},
 	methods: {
-		letsDance(isDancing) {
-			if (isDancing) {
+		setHighlighting(isSelected) {
+			if (isSelected) {
 				this.runAnimation = true;
 				this.cardElevation = 24;
 			} else {

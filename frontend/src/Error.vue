@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
 	name: 'Error',
 	props: {
@@ -49,6 +51,12 @@ export default {
 				error.stack = this.errorData.error;
 				error.component = `${this.errorData.source}, Zeile: ${this.errorData.lineno}`;
 			}
+
+			axios.post(
+				`${process.env.VUE_APP_BACKENDPATH}log/frontend/`,
+				error,
+			);
+
 			return error;
 		},
 	},

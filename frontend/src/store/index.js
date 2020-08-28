@@ -80,14 +80,6 @@ export default new Vuex.Store({
 			Object.freeze(filteredItems);
 			commit('setItems', filteredItems);
 		},
-		applyYearFilter({ dispatch }, { from, to }) {
-			const filter = {
-				name: 'uniqueFilterName',
-				type: 'year',
-				params: { from, to },
-			};
-			dispatch('addFilter', filter);
-		},
 		async loadData({ commit }) {
 			try {
 				const data = (await Promise.all(

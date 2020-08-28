@@ -23,10 +23,16 @@
 
 <script>
 import { mapState } from 'vuex';
-import Exhibit from './Exhibit.vue';
+import Placeholder from '@/components/Placeholder.vue';
 
 export default {
 	name: 'Gallery',
+	components: {
+		Exhibit: () => ({
+			component: import('./Exhibit.vue'),
+			loading: Placeholder,
+		}),
+	},
 	components: { Exhibit },
 	data() {
 		return {
@@ -52,5 +58,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

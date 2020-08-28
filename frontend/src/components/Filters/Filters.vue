@@ -7,7 +7,9 @@
 			</v-btn>
 			<div v-if="search !== null">
 				<v-subheader>Volltext:</v-subheader>
-				<v-text-field v-model="search.text"></v-text-field>
+				<v-text-field v-model="search"
+								@input="asyncSearch()"
+				/>
 			</div>
 		</v-col>
 		<v-col>
@@ -100,7 +102,7 @@ export default {
 		]),
 		toggleSearch() {
 			if (this.search === null) {
-				this.search = { text: '' };
+				this.search = '';
 			} else {
 				this.search = null;
 			}
@@ -152,6 +154,17 @@ export default {
 				params: this.time,
 			});
 		},
+		asyncSearch() {
+			setTimeout(() => {
+				this.applySearch();
+			}, 0);
+		},
+		applySearch() {
+			this.addFilter({
+				name: 'search',
+				type: 'search',
+				params: this.search.toLowerCase(),
+			});
 		resetCategoryFilter() {
 			this.removeFilter('categoryFilter');
 			this.category = {

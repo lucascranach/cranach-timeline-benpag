@@ -25,26 +25,26 @@
 						<v-card-text class="pa-0 text-left">
                             <v-row dense>
                                 <v-col cols="12">
-                                    <span>{{item.title && item.title.length > 0 ? item.title[0] : 'k.A.' }}</span>
+                                    <span>{{Array.isArray(item.title) ? item.title[0] : (item.title ? item.title : 'k.A.') }}</span>
                                     <hr>
                                 </v-col>
                             </v-row>
                             <v-row dense>
                                 <v-col cols="12">
                                     <v-icon class="toolTipIcon">brush</v-icon>
-                                    <span class="ml-2">{{ item.artists && item.artists[0] ? item.artists[0].name : 'k.A.' }}</span>
+                                    <span class="ml-2">{{Array.isArray(item.artists) ? (item.artists[0].name ? item.artists[0].name : 'k.A.') : (item.artists ? item.artists : 'k.A.') }}</span>
                                 </v-col>
                             </v-row>
                             <v-row dense>
                                 <v-col cols="12">
                                     <v-icon class="toolTipIcon">public</v-icon>
-                                    <span class="ml-2">{{ item.location && item.location[0] ? item.location[0] : 'k.A.' }}</span>
+                                    <span class="ml-2">{{Array.isArray(item.location) ? (item.location[0] ? item.location[0] : 'k.A.') : (item.location ? item.location : 'k.A.') }}</span>
                                 </v-col>
                             </v-row>
                             <v-row dense>
                                 <v-col cols="12">
                                     <v-icon class="toolTipIcon">shopping_basket</v-icon>
-                                    <span class="ml-2">{{ item.customer && item.customer[0] ? item.customer[0] : 'k.A.' }}</span>
+                                    <span class="ml-2">{{ Array.isArray(item.artists) ? (item.artists[0].remarks ? item.artists[0].remarks : 'k.A.') : (item.repository ? item.repository : 'k.A.') }}</span>
                                 </v-col>
                             </v-row>
 						</v-card-text>

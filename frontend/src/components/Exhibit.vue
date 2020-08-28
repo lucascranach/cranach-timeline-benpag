@@ -2,7 +2,7 @@
         <v-card
             style="border: 3px solid white; overflow: hidden"
             color="white"
-        :elevation="cardElevation"
+            :elevation="cardElevation"
             @mouseover="setHighlighting(true)"
             @mouseout="setHighlighting(false)"
         >

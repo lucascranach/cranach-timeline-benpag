@@ -70,7 +70,9 @@
 			<v-btn @click="resetFilters()">Reset</v-btn>
 		</v-col>
         <v-col>
-            <v-checkbox label="Best Of"/>
+            <v-checkbox label="Best Of"
+                        @change="applyBestOfFilter()"
+                        v-model="bestof" />
         </v-col>
 	</v-row>
 </template>
@@ -154,6 +156,14 @@ export default {
 				params: this.time,
 			});
 		},
+		applyBestOfFilter() {
+			// eslint-disable-next-line no-mixed-spaces-and-tabs
+		    this.addFilter({
+				name: 'bestofFilter',
+				type: 'bestof',
+				params: this.bestof,
+			});
+		},
 		asyncSearch() {
 			setTimeout(() => {
 				this.applySearch();
@@ -165,6 +175,7 @@ export default {
 				type: 'search',
 				params: this.search.toLowerCase(),
 			});
+		},
 		resetCategoryFilter() {
 			this.removeFilter('categoryFilter');
 			this.category = {
@@ -176,6 +187,10 @@ export default {
 		resetYearFilter() {
 			this.removeFilter('yearFilter');
 			this.time = null;
+		},
+		resetBestOfFilter() {
+			this.removeFilter('bestofFilter');
+			this.bestof = false;
 		},
 		resetSearch() {
 			this.removeFilter('search');

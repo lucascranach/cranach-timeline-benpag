@@ -14,10 +14,10 @@
                     style="background-color: white"
                 />
             </div>
-            <div class="headline" style="margin: 5px">
+            <div class="headline">
                 {{ item.title[0] && item.title[0] !== '' ? item.title[0] : 'Titel unbekannt'}}
             </div>
-            <v-card-text style="margin: 5px">
+            <v-card-text>
                 <v-row>
                     <v-col>
                         <v-icon>mdi-map-marker</v-icon>
@@ -78,7 +78,7 @@ export default {
 		setHighlighting(isSelected) {
 			if (isSelected) {
 				this.runAnimation = true;
-				this.cardElevation = 24;
+				this.cardElevation = 5;
 			} else {
 				this.runAnimation = false;
 				this.cardElevation = 1;
@@ -92,6 +92,7 @@ export default {
 .button {
     margin-top: 10px;
     position: relative;
+    margin-bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -105,7 +106,7 @@ export default {
 }
 @keyframes kenburns {
 0% {
-    opacity: 0;
+    opacity: 0.8;
 }
 5% {
     opacity: 1;

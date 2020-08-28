@@ -38,6 +38,7 @@ module.exports = {
 				location: getLocations(painting.locations),
 				artists: getArtists(painting.involvedPersons),
 				type: 'painting',
+				isBestOf: painting.isBestOf,
 			}),
 		));
 		fs.writeFileSync(

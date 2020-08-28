@@ -71,8 +71,8 @@
 		</v-col>
         <v-col>
             <v-checkbox label="Best Of"
-                        @change="applyBestOfFilter()"
-                        v-model="bestof" />
+                        @change="applyIsBestOfFilter()"
+                        v-model="isBestOf" />
         </v-col>
 	</v-row>
 </template>
@@ -94,7 +94,7 @@ export default {
 				archivals: 'archival',
 			},
 			time: null,
-			bestof: false,
+			isBestOf: false,
 		};
 	},
 	methods: {
@@ -156,12 +156,12 @@ export default {
 				params: this.time,
 			});
 		},
-		applyBestOfFilter() {
+		applyIsBestOfFilter() {
 			// eslint-disable-next-line no-mixed-spaces-and-tabs
 		    this.addFilter({
-				name: 'bestofFilter',
-				type: 'bestof',
-				params: this.bestof,
+				name: 'isBestOfFilter',
+				type: 'isBestOf',
+				params: this.isBestOf,
 			});
 		},
 		asyncSearch() {
@@ -188,9 +188,9 @@ export default {
 			this.removeFilter('yearFilter');
 			this.time = null;
 		},
-		resetBestOfFilter() {
-			this.removeFilter('bestofFilter');
-			this.bestof = false;
+		resetIsBestOfFilter() {
+			this.removeFilter('isBestOfFilter');
+			this.isBestOf = false;
 		},
 		resetSearch() {
 			this.removeFilter('search');

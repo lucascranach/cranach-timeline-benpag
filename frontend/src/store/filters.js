@@ -26,6 +26,7 @@ const filters = {
 		default: throw new CategoryNotFoundException(item.type);
 		}
 	},
+	isBestOf: (item) => item.isBestOf === true,
 };
 
 export default filters;

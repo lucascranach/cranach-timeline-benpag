@@ -2,6 +2,9 @@
 	<v-row>
 		<v-col>
 			<v-btn @click="toggleSearch()">Suche</v-btn>
+			<v-btn class="filterIcon" @click="resetSearch()">
+				<v-icon>settings_backup_restore</v-icon>
+			</v-btn>
 			<div v-if="search !== null">
 				<v-subheader>Volltext:</v-subheader>
 				<v-text-field v-model="search.text"></v-text-field>
@@ -9,6 +12,9 @@
 		</v-col>
 		<v-col>
 			<v-btn @click="toggleCategory()">Kategorie</v-btn>
+			<v-btn class="filterIcon" @click="resetCategoryFilter()">
+				<v-icon>settings_backup_restore</v-icon>
+			</v-btn>
 			<v-list>
 				<v-list-item>
 					<v-list-item-action>
@@ -42,6 +48,9 @@
 		</v-col>
 		<v-col>
 			<v-btn @click="toggleTime()">Zeit</v-btn>
+			<v-btn class="filterIcon" @click="resetYearFilter()">
+				<v-icon>settings_backup_restore</v-icon>
+			</v-btn>
 			<v-list v-if="time !== null">
 				<v-list-item>
 					<v-subheader>Von:</v-subheader>
@@ -87,6 +96,7 @@ export default {
 	methods: {
 		...mapActions([
 			'addFilter',
+			'removeFilter',
 		]),
 		toggleSearch() {
 			if (this.search === null) {
@@ -124,13 +134,9 @@ export default {
 			}
 		},
 		resetFilters() {
-			this.search = null;
-			this.category = {
-				paintings: 'painting',
-				graphics: 'graphic',
-				archivals: 'archival',
-			};
-			this.time = null;
+			this.resetCategoryFilter();
+			this.resetYearFilter();
+			this.resetSearch();
 		},
 		applyCategoryFilter() {
 			this.addFilter({
@@ -146,10 +152,28 @@ export default {
 				params: this.time,
 			});
 		},
+		resetCategoryFilter() {
+			this.removeFilter('categoryFilter');
+			this.category = {
+				paintings: 'painting',
+				graphics: 'graphic',
+				archivals: 'archival',
+			};
+		},
+		resetYearFilter() {
+			this.removeFilter('yearFilter');
+			this.time = null;
+		},
+		resetSearch() {
+			this.removeFilter('search');
+			this.search = null;
+		},
 	},
 };
 </script>
 
 <style scoped>
-
+	.filterIcon {
+		margin-left: 10px;
+	}
 </style>

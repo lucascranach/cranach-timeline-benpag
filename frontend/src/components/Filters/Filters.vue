@@ -140,7 +140,7 @@ export default {
 			});
 		},
 		applyYearFilter() {
-		    this.addFilter({
+			this.addFilter({
 				name: 'yearFilter',
 				type: 'year',
 				params: this.time,

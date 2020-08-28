@@ -6,12 +6,12 @@
         </v-row>
         <v-virtual-scroll
             :items="scrollItems"
-            :item-height="650"
+            :item-height="750"
             height="520"
             :bench="itemsPerRow"
         >
             <template v-slot="{ item }">
-                <v-row no-gutters>
+                <v-row no-gutters class="mt-4">
                     <v-col v-for="exhibit in item" :key="exhibit.id" :cols="columnSize" class="px-4">
                         <Exhibit :item="exhibit"/>
                     </v-col>

@@ -102,9 +102,9 @@ export default {
     overflow: hidden;
 }
 .imageAnimation {
-    animation: kenburns 20s infinite;
+    animation: kenburnsEffect 20s infinite;
 }
-@keyframes kenburns {
+@keyframes kenburnsEffect {
     0% {
         opacity: 0.8;
     }

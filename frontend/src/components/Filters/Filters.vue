@@ -165,6 +165,7 @@ export default {
 				type: 'search',
 				params: this.search.toLowerCase(),
 			});
+		},
 		resetCategoryFilter() {
 			this.removeFilter('categoryFilter');
 			this.category = {

@@ -54,7 +54,5 @@ export default {
 };
 </script>
 <style scoped>
-.marginTop {
-	margin-top: 100px;
-}
+
 </style>

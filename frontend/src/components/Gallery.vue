@@ -10,7 +10,6 @@
             :item-height="itemHeight"
             height="520"
             :bench="itemsPerRow"
-            class="flex flex-column"
         >
             <template v-slot="{ item }">
                 <v-row no-gutters>
@@ -47,7 +46,7 @@ export default {
 				easing: 'easeInOutCubic',
 				container: '#galleryScroller',
 			},
-			itemHeight: 750,
+			itemHeight: 780,
 		};
 	},
 	computed: {
@@ -68,7 +67,6 @@ export default {
 			handler(value) {
 				const index = this.items.indexOf(value);
 				const offset = Math.floor(index / this.itemsPerRow) * this.itemHeight;
-				console.log(index, offset);
 				this.$vuetify.goTo(offset, this.scrollingOptions);
 			},
 		},

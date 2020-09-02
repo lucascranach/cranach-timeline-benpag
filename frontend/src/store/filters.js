@@ -1,13 +1,19 @@
 function searchArchival(item, searchQuery) {
 	return item.title.toLowerCase().includes(searchQuery)
 	|| item.repository.toLowerCase().includes(searchQuery)
-	|| item.summary.toLowerCase().includes(searchQuery);
+	|| item.summary.toLowerCase().includes(searchQuery)
+	|| item.endDate.toString().includes(searchQuery)
+	|| item.startDate.toString().includes(searchQuery)
+	|| item.id.toString().includes(searchQuery);
 }
 
 function search(item, searchQuery) {
 	return item.title.some((x) => x.toLowerCase().includes(searchQuery))
-	|| item.artists.some((x) => x.name.toLowerCase().includes(searchQuery) || x.alternativeName.toLowerCase().includes(searchQuery))
-	|| item.location.some((x) => x.toLowerCase().includes(searchQuery));
+	|| item.artists.some((x) => x.name.toLowerCase().includes(searchQuery) || x.alternativeName.toLowerCase().includes(searchQuery) || x.remarks.toLowerCase().includes(searchQuery))
+	|| item.location.some((x) => x.toLowerCase().includes(searchQuery))
+	|| item.endDate.toString().includes(searchQuery)
+	|| item.startDate.toString().includes(searchQuery)
+	|| item.id.toString().includes(searchQuery);
 }
 
 function CategoryNotFoundException(categoryName) {

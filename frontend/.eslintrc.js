@@ -15,6 +15,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'max-len': [1, 140, 4],
     'indent': ['error', 'tab'],
-    'no-tabs': ['error', { allowIndentationTabs: true }]
+    'no-tabs': ['error', { allowIndentationTabs: true }],
+	'no-mixed-spaces-and-tabs': ['error', 'smart-tabs']
   },
 };

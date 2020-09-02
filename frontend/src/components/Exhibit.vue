@@ -1,19 +1,23 @@
 <template>
         <v-card
-            class="pa-0"
-            style="border: 3px solid white"
-            color="white">
-            <v-img
-                :src="item.imageUrl && item.imageUrl !== '' ? item.imageUrl : config.placeholderImageUrl"
-                position="center top"
-                class="pa-0"
-                :style="'background-color: white'"
-                height="300px"
-            />
-            <div class="headline" style="margin: 5px">
+            style="border: 3px solid white; overflow: hidden"
+            color="white"
+            :elevation="cardElevation"
+            @mouseover="setHighlighting(true)"
+            @mouseout="setHighlighting(false)"
+        >
+            <div class="imageContainer">
+                <v-img
+                    :src="item.imageUrl && item.imageUrl !== '' ? item.imageUrl : config.placeholderImageUrl"
+                    :class="{'imageAnimation' : runAnimation }"
+                    position="center top"
+                    style="background-color: white"
+                />
+            </div>
+            <div class="headline">
                 {{ item.title[0] && item.title[0] !== '' ? item.title[0] : 'Titel unbekannt'}}
             </div>
-            <v-card-text class="pa-0" style="margin: 5px">
+            <v-card-text>
                 <v-row>
                     <v-col>
                         <v-icon>mdi-map-marker</v-icon>
@@ -60,12 +64,25 @@ export default {
 	data() {
 		return {
 			config,
+			cardElevation: 1,
+			runAnimation: false,
 		};
 	},
 	props: {
 		item: {
 			type: Object,
 			required: true,
+		},
+	},
+	methods: {
+		setHighlighting(isSelected) {
+			if (isSelected) {
+				this.runAnimation = true;
+				this.cardElevation = 5;
+			} else {
+				this.runAnimation = false;
+				this.cardElevation = 1;
+			}
 		},
 	},
 };
@@ -75,7 +92,33 @@ export default {
 .button {
     margin-top: 10px;
     position: relative;
+    margin-bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
+}
+.imageContainer {
+    width: 400px;
+    height: 350px;
+    overflow: hidden;
+}
+.imageAnimation {
+    animation: kenburnsEffect 20s infinite;
+}
+@keyframes kenburnsEffect {
+    0% {
+        opacity: 0.8;
+    }
+    5% {
+        opacity: 1;
+    }
+    95% {
+        transform: scale3d(1.5, 1.5, 1.5) translate3d(-50px, -120px, 0px);
+        animation-timing-function: ease-in;
+        opacity: 1;
+    }
+    100% {
+        transform: scale3d(2, 2, 2) translate3d(-170px, -100px, 0px);
+        opacity: 0;
+    }
 }
 </style>

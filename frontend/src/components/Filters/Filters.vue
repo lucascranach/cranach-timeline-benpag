@@ -70,7 +70,9 @@
 			<v-btn @click="resetFilters()">Reset</v-btn>
 		</v-col>
         <v-col>
-            <v-checkbox label="Best Of"/>
+            <v-checkbox label="Best Of"
+                        @change="applyIsBestOfFilter()"
+                        v-model="isBestOf" />
         </v-col>
 	</v-row>
 </template>
@@ -92,7 +94,7 @@ export default {
 				archivals: 'archival',
 			},
 			time: null,
-			bestof: false,
+			isBestOf: false,
 		};
 	},
 	methods: {
@@ -154,6 +156,13 @@ export default {
 				params: this.time,
 			});
 		},
+		applyIsBestOfFilter() {
+		    this.addFilter({
+				name: 'isBestOfFilter',
+				type: 'isBestOf',
+				params: this.isBestOf,
+			});
+		},
 		asyncSearch() {
 			setTimeout(() => {
 				this.applySearch();
@@ -177,6 +186,10 @@ export default {
 		resetYearFilter() {
 			this.removeFilter('yearFilter');
 			this.time = null;
+		},
+		resetIsBestOfFilter() {
+			this.removeFilter('isBestOfFilter');
+			this.isBestOf = false;
 		},
 		resetSearch() {
 			this.removeFilter('search');

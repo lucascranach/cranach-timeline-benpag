@@ -4,13 +4,13 @@
 			<v-card width="500" height="70">
 				<v-row>
 					<v-col>
-						<v-btn @click="applyCategoryButton('painting')" style="color: blue;">Gemälde</v-btn>
+						<v-btn @click="applyCategoryButton('painting')" v-bind:style="stylePainting">Gemälde</v-btn>
 					</v-col>
 					<v-col>
-						<v-btn @click="applyCategoryButton('graphic')" style="color: red">Drucke</v-btn>
+						<v-btn @click="applyCategoryButton('graphic')" v-bind:style="styleGraphic">Drucke</v-btn>
 					</v-col>
 					<v-col>
-						<v-btn @click="applyCategoryButton('archival')" style="color: green">Archivalien</v-btn>
+						<v-btn @click="applyCategoryButton('archival')" v-bind:style="styleArchivals">Archivalien</v-btn>
 					</v-col>
 				</v-row>
 			</v-card>
@@ -94,6 +94,7 @@
 
 <script>
 import { mapActions } from 'vuex';
+import config from '../../../global.config';
 
 export default {
 	name: 'Filters',
@@ -110,6 +111,15 @@ export default {
 			},
 			time: null,
 			bestof: false,
+			stylePainting: {
+				color: config.colors.paintings,
+			},
+			styleGraphic: {
+				color: config.colors.graphics,
+			},
+			styleArchivals: {
+				color: config.colors.archivals,
+			},
 		};
 	},
 	methods: {
@@ -204,22 +214,28 @@ export default {
 			case 'painting':
 				if (this.category.paintings === 'painting') {
 					this.category.paintings = '';
+					this.stylePainting.color = 'grey';
 				} else {
 					this.category.paintings = 'painting';
+					this.stylePainting.color = config.colors.paintings;
 				}
 				break;
 			case 'graphic':
 				if (this.category.graphics === 'graphic') {
 					this.category.graphics = '';
+					this.styleGraphic.color = 'grey';
 				} else {
 					this.category.graphics = 'graphic';
+					this.styleGraphic.color = config.colors.graphics;
 				}
 				break;
 			case 'archival':
 				if (this.category.archivals === 'archival') {
 					this.category.archivals = '';
+					this.styleArchivals.color = 'grey';
 				} else {
 					this.category.archivals = 'archival';
+					this.styleArchivals.color = config.colors.archivals;
 				}
 				break;
 			default: break;

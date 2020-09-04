@@ -1,6 +1,9 @@
 <!--suppress CommaExpressionJS -->
 <template>
   <div>
+	  <v-btn @click="resetZoom">
+		  Reset Zoom
+	  </v-btn>
 	<div id="umf-d3-chart"></div>
 	<ToolTipItem :id="tooltipDivId" class="d3-tooltip" :item="toolTipData" />
   </div>
@@ -287,10 +290,15 @@ export default {
 		zoomed() {
 			const { transform } = currentEvent;
 			this.scatter2.selectAll('.dot')
-				.attr('transform',
-					(d) => `translate(${transform.applyX(this.x(new Date(d.startDate, 1, 1)))},${transform.applyY(this.y(d.y))})`);
+				.attr(
+					'transform',
+					(d) => `translate(${transform.applyX(this.x(new Date(d.startDate, 1, 1)))},${transform.applyY(this.y(d.y))})`,
+				);
 			this.gX.call(this.xAxis.scale(transform.rescaleX(this.x)));
 			this.gY.call(this.yAxis.scale(transform.rescaleY(this.y)));
+		},
+		resetZoom() {
+			this.svg.call(this.zoom.transform, d3.zoomIdentity);
 		},
 	},
 };

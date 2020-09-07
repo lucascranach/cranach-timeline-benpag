@@ -1,12 +1,12 @@
 <!--suppress CommaExpressionJS -->
 <template>
-  <div>
-	  <v-btn @click="resetZoom">
-		  Reset Zoom
-	  </v-btn>
-	<div id="umf-d3-chart"></div>
-	<ToolTipItem :id="tooltipDivId" class="d3-tooltip" :item="toolTipData" />
-  </div>
+	<div>
+		<v-btn @click="resetZoom" class="mb-4">
+			Reset Zoom
+		</v-btn>
+		<div id="umf-d3-chart"></div>
+		<ToolTipItem :id="tooltipDivId" class="d3-tooltip" :item="toolTipData"/>
+	</div>
 </template>
 
 <script>
@@ -46,35 +46,11 @@ export default {
 		margin: {
 			type: Object,
 			default: () => ({
-				left: 20,
+				left: 30,
 				right: 30,
 				top: 10,
 				bottom: 20,
 			}),
-		},
-		maxNameLength: {
-			type: Number,
-			default: 20,
-		},
-		colortype: {
-			type: String,
-			default: 'r2o',
-		},
-		axisLabelFontSize: {
-			type: String,
-			default: '1.25rem',
-		},
-		showImageSize: {
-			type: Number,
-			default: 40,
-		},
-		imageHoverSize: {
-			type: Number,
-			default: 100,
-		},
-		showImageFileSize: {
-			type: String,
-			default: 's',
 		},
 		isZoomActive: {
 			type: Boolean,
@@ -90,10 +66,11 @@ export default {
 			gX: null,
 			gY: null,
 			svg: null,
-			scatter2: null,
+			scatterPlot: null,
 			zoom: null,
 			tooltipDiv: null,
 			toolTipData: {},
+			lastTransform: null,
 		};
 	},
 	mounted() {
@@ -105,7 +82,7 @@ export default {
 			},
 		);
 		this.$watch(
-			() => ((this.search, this.isZoomActive, this.items, Date.now())), () => {
+			() => ((this.isZoomActive, this.items, Date.now())), () => {
 				this.reset();
 			},
 		);
@@ -115,26 +92,17 @@ export default {
 		...mapState({
 			items: (state) => state.items,
 		}),
-		actualWidth() {
-			if (this.width) {
-				return this.width;
-			}
-			if (document.getElementById(this.chartDivId)) {
-				return document.getElementById(this.chartDivId).clientWidth;
-			}
-			return null;
+		svgWidth() {
+			return this.minWidth < this.width ? this.width : this.minWidth;
+		},
+		svgHeight() {
+			return this.minHeight < this.height ? this.height : this.minHeight;
 		},
 		displayWidth() {
-			if (this.minWidth > this.actualWidth) {
-				return this.minWidth - this.margin.left - this.margin.right;
-			}
-			return this.actualWidth - this.margin.left - this.margin.right;
+			return this.svgWidth - this.margin.left - this.margin.right;
 		},
 		displayHeight() {
-			if (this.minHeight > this.height) {
-				return this.minHeight - this.margin.top - this.margin.bottom;
-			}
-			return this.height - this.margin.top - this.margin.bottom;
+			return this.svgHeight - this.margin.top - this.margin.bottom;
 		},
 	},
 	methods: {
@@ -144,12 +112,11 @@ export default {
 			this.updateChart();
 		},
 		setupSvg() {
-		// Our svg size includes the margins
+			// Our svg size includes the margins
 			this.svg = d3.select(`#${this.chartDivId}`).append('svg')
-				.attr('width', this.displayWidth + this.margin.left + this.margin.right)
-				.attr('height', this.displayHeight + this.margin.top + this.margin.bottom)
-				.append('g')
-				.attr('transform', `translate(${this.margin.left},${this.margin.top})`);
+				.attr('width', this.svgWidth)
+				.attr('height', this.svgHeight)
+				.append('g');
 
 			// Define the div for the tooltip
 			this.tooltipDiv = d3.select(`#${this.tooltipDivId}`).style('visibility', 'hidden');
@@ -168,6 +135,113 @@ export default {
 				.attr('x', 0)
 				.attr('y', 0);
 		},
+		updateChart() {
+			if (this.items.length < 1) {
+				return;
+			}
+
+			this.setupAxis();
+			this.setupZoom();
+
+			const myThis = this;
+			const size = 30;
+			const recipeSymbol = d3.symbol().type(d3.symbolSquare).size(size);
+
+			this.scatterPlot = this.svg.append('g')
+				.attr('id', 'scatterPlot')
+				.attr('clip-path', 'url(#clip)')
+				.attr('transform', `translate(${this.margin.left}, ${this.margin.top})`);
+
+			const node = this.scatterPlot.selectAll('.dot')
+				.data(this.items)
+				.enter()
+				.append('g')
+				.attr('class', 'dot')
+				.attr('transform', (d) => `translate(${this.x(new Date(d.startDate, 1, 1)) - 1},${this.y(d.yPos) - size / 4})`);
+
+			node.append('path')
+				.attr('d', recipeSymbol)
+				.attr('opacity', 1)
+				.attr('class', (d) => d.type)
+				.attr('stroke-width', 1)
+				.attr('stroke', 'rgb(255,255,255)')
+				.on('mouseover', (d) => {
+					d3.select(`.d3r-${d.id}`).classed('active', true);
+					myThis.toolTipData = d;
+					const headerElement = document.getElementsByTagName('header')[0];
+					const mouseX = currentEvent.pageX;
+					const mouseY = currentEvent.pageY - headerElement.getBoundingClientRect().height;
+					const rect = myThis.tooltipDiv.node().getBoundingClientRect();
+					myThis.tooltipDiv
+						.style('left', `${this.calculateToolTipX(mouseX, rect.width)}px`)
+						.style('top', `${this.calculateToolTipY(mouseY, rect.height)}px`)
+						.style('visibility', 'visible');
+				})
+				.on('mouseout', (d) => {
+					d3.select(`.d3r-${d.id}`).classed('active', false);
+					myThis.toolTipData = {};
+					myThis.tooltipDiv.style('visibility', 'hidden');
+				});
+		},
+		setupAxis() {
+			const yStack = {};
+			const xMinMax = d3.extent(this.items, (d) => {
+				yStack[d.startDate] = (yStack[d.startDate] || 0) + 1;
+				// eslint-disable-next-line no-param-reassign
+				d.yPos = yStack[d.startDate];
+				return d.startDate;
+			});
+
+			/* X Axis */
+			this.x = d3.scaleTime()
+				.domain([
+					new Date(xMinMax[0], 1, 1),
+					new Date(xMinMax[1], 1, 1),
+				]).nice()
+				.range([0, this.displayWidth]);
+
+			this.xAxis = d3.axisBottom(this.x);
+
+			this.gX = this.svg.append('g')
+				.classed('axis xaxis', true)
+				.attr('transform', `translate(${this.margin.left},${this.svgHeight - this.margin.bottom})`)
+				.call(this.xAxis);
+
+			/* Y Axis */
+			this.y = d3.scaleLinear()
+				.domain([0, Math.max.apply(null, Object.values(yStack))]).nice()
+				.range([this.displayHeight, 0]);
+
+			this.yAxis = d3.axisLeft(this.y).ticks(this.y.domain()[1] / 20);
+
+			this.gY = this.svg.append('g')
+				.classed('axis yaxis', true)
+				.attr('transform', `translate(${this.margin.left},${this.margin.top})`)
+				.call(this.yAxis);
+		},
+		setupZoom() {
+			if (!this.isZoomActive) {
+				return;
+			}
+			const extend = [[0, 0], [this.displayWidth, this.displayHeight]];
+			this.zoom = d3.zoom()
+				.extent(extend)
+				.scaleExtent([1, 10])
+				.translateExtent(extend)
+				.on('zoom', this.zoomed);
+			this.svg.call(this.zoom);
+		},
+		zoomed() {
+			const { transform } = currentEvent;
+			this.scatterPlot.selectAll('.dot')
+				.attr(
+					'transform',
+					(d) => `translate(${transform.applyX(this.x(new Date(d.startDate, 1, 1)) - 1)},${transform.applyY(this.y(d.yPos))})`,
+				);
+			this.gX.call(this.xAxis.scale(transform.rescaleX(this.x)));
+			this.gY.call(this.yAxis.scale(transform.rescaleY(this.y)));
+			this.lastTransform = transform;
+		},
 		calculateToolTipX(mouseX, toolTipWidth, margin = 10) {
 			if (mouseX - (toolTipWidth / 2) - margin < 0) {
 				return margin;
@@ -183,119 +257,14 @@ export default {
 			}
 			return mouseY - toolTipHeight - margin;
 		},
-		updateChart() {
-			if (!this.actualWidth || !this.height) {
-				return;
-			}
-
-			if (this.isZoomActive) {
-				this.zoom = d3.zoom()
-					.scaleExtent([1, 40])
-					.translateExtent([[-100, -100], [this.displayWidth + 90, this.displayHeight + 100]])
-					.on('zoom', this.zoomed);
-				this.svg.call(this.zoom);
-			}
-
-			const yStack = {};
-			const xMinMax = d3.extent(this.items, (d) => {
-				if (yStack[d.startDate] === undefined) {
-					yStack[d.startDate] = { count: 1 };
-				} else {
-					yStack[d.startDate].count += 1;
-				}
-				// eslint-disable-next-line no-param-reassign
-				d.y = yStack[d.startDate].count;
-				return d.startDate;
-			});
-
-			const yMinMax = d3.extent(Object.values(yStack), (d) => d.count);
-			yMinMax[1] += 1;
-			this.x = d3.scaleTime()
-				.domain([new Date(xMinMax[0], 1, 1), new Date(xMinMax[1], 1, 1)]).nice()
-				.range([0, this.displayWidth]);
-			this.y = d3.scaleLinear()
-				.domain(yMinMax).nice()
-				.range([this.displayHeight, 0]);
-
-			/** ***********************************
-				 * X Axis
-				 * ********************************** */
-			this.xAxis = d3.axisBottom(this.x)
-				.tickSizeOuter(-this.displayHeight)
-				.ticks((xMinMax[1] - xMinMax[0]) / 20);
-
-			this.gX = this.svg.append('g')
-				.classed('axis xaxis axis--x', true)
-				.attr('transform', `translate(0,${this.displayHeight})`)
-				.call(this.xAxis);
-
-			/** ***********************************
-				 * Y Axis
-				 * ********************************** */
-			this.yAxis = d3.axisLeft(this.y)
-				.tickSizeOuter(-this.displayWidth)
-				.ticks((10 * this.displayHeight) / this.displayWidth);
-
-			this.gY = this.svg.append('g')
-				.classed('axis yaxis axis--y', true)
-				.call(this.yAxis);
-
-			this.scatter2 = this.svg.append('g')
-				.attr('id', 'scatterplot2')
-				.attr('clip-path', 'url(#clip)');
-
-			const myThis = this;
-			const size = 30;
-			const recipeSymbol = d3.symbol().type(d3.symbolSquare).size(size);
-
-			const node = this.scatter2.selectAll('.dot')
-				.data(this.items)
-				.enter()
-				.append('g')
-				.attr('class', 'dot')
-				.attr('transform', (d) => `translate(${this.x(new Date(d.startDate, 1, 1))},${this.y(d.y) - size / 4})`);
-
-			node.append('path')
-				.attr('d', recipeSymbol)
-				.attr('opacity', 1)
-				.attr('class', (d) => d.type)
-				.attr('stroke-width', 1)
-				.attr('stroke', 'rgb(255,255,255)')
-				.on('mouseover', (d) => {
-					d3.select(`.d3r-${d.id}`).classed('active', true);
-					myThis.toolTipData = d;
-					const headerElement = document.getElementsByTagName('header')[0];
-					const mouseX = currentEvent.pageX;
-					const mouseY = currentEvent.pageY - headerElement.getBoundingClientRect().height;
-					myThis.tooltipDiv
-						.style('left', `${this.calculateToolTipX(mouseX, myThis.tooltipDiv.node().getBoundingClientRect().width)}px`)
-						.style('top', `${this.calculateToolTipY(mouseY, myThis.tooltipDiv.node().getBoundingClientRect().height)}px`)
-						.style('visibility', 'visible');
-				})
-				.on('mouseout', (d) => {
-					d3.select(`.d3r-${d.id}`).classed('active', false);
-					myThis.toolTipData = {};
-					myThis.tooltipDiv.style('visibility', 'hidden');
-				});
-		},
 		reset() {
-			d3.selectAll('.regions').remove();
-			d3.selectAll('.contour').remove();
 			d3.selectAll('.dot').remove();
-			d3.selectAll('#scatterplot2').remove();
-			d3.selectAll('.xaxis').remove();
-			d3.selectAll('.yaxis').remove();
+			d3.selectAll('#scatterPlot').remove();
+			d3.selectAll('.axis').remove();
 			this.updateChart();
-		},
-		zoomed() {
-			const { transform } = currentEvent;
-			this.scatter2.selectAll('.dot')
-				.attr(
-					'transform',
-					(d) => `translate(${transform.applyX(this.x(new Date(d.startDate, 1, 1)))},${transform.applyY(this.y(d.y))})`,
-				);
-			this.gX.call(this.xAxis.scale(transform.rescaleX(this.x)));
-			this.gY.call(this.yAxis.scale(transform.rescaleY(this.y)));
+			if (this.lastTransform !== null) {
+				this.svg.call(this.zoom.transform, this.lastTransform);
+			}
 		},
 		resetZoom() {
 			this.svg.call(this.zoom.transform, d3.zoomIdentity);
@@ -305,31 +274,38 @@ export default {
 </script>
 
 <style>
-  .axis.xaxis text {
+.axis.xaxis text {
 	fill: rgba(0, 0, 0, 0.5);
-  }
-  .axis.yaxis text {
+}
+
+.axis.yaxis text {
 	fill: rgba(0, 0, 0, 0.5);
-  }
-  .axis path,
-  .axis line {
+}
+
+.axis path,
+.axis line {
 	fill: none;
 	stroke: rgba(0, 0, 0, 0.1);
 	shape-rendering: crispEdges;
-  }
-  .x.axis path {
+}
+
+.x.axis path {
 	display: none;
-  }
-  .graphic {
-    fill: rgb(72, 138, 63)
-  }
-  .archival {
-    fill: rgb(226,161,74)
-  }
-  .painting {
-	fill: rgb(66,116,173)
-  }
-  .d3-tooltip {
+}
+
+.graphic {
+	fill: rgb(72, 138, 63)
+}
+
+.archival {
+	fill: rgb(226, 161, 74)
+}
+
+.painting {
+	fill: rgb(66, 116, 173)
+}
+
+.d3-tooltip {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -337,5 +313,5 @@ export default {
 	text-align: center;
 	pointer-events: none;
 	z-index: 999999;
-  }
+}
 </style>

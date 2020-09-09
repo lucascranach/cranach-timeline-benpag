@@ -181,6 +181,13 @@ export default {
 				params: this.time,
 			});
 		},
+		applyIsBestOfFilter() {
+		    this.addFilter({
+				name: 'isBestOfFilter',
+				type: 'isBestOf',
+				params: this.isBestOf,
+			});
+		},
 		asyncSearch() {
 			setTimeout(() => {
 				this.applySearch();
@@ -204,6 +211,10 @@ export default {
 		resetYearFilter() {
 			this.removeFilter('yearFilter');
 			this.time = null;
+		},
+		resetIsBestOfFilter() {
+			this.removeFilter('isBestOfFilter');
+			this.isBestOf = false;
 		},
 		resetSearch() {
 			this.removeFilter('search');

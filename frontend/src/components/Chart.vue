@@ -273,6 +273,9 @@ export default {
 					d3.select(`.d3r-${d.id}`).classed('active', false);
 					myThis.toolTipData = {};
 					myThis.tooltipDiv.style('visibility', 'hidden');
+				})
+				.on('click', (d) => {
+					myThis.$emit('tooltipClick', d);
 				});
 		},
 		reset() {

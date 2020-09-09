@@ -5,15 +5,16 @@
             <v-checkbox v-model="graphicsSelected" class="mx-2" label="Grafiken"/>
         </v-row>
         <v-virtual-scroll
+            id="galleryScroller"
             :items="scrollItems"
-            :item-height="750"
+            :item-height="itemHeight"
             height="520"
             :bench="itemsPerRow"
         >
             <template v-slot="{ item }">
-                <v-row no-gutters class="mt-4">
+                <v-row no-gutters>
                     <v-col v-for="exhibit in item" :key="exhibit.id" :cols="columnSize" class="px-4">
-                        <Exhibit :item="exhibit"/>
+                        <Exhibit :id="`exhibit-${exhibit.id}`" :item="exhibit"/>
                     </v-col>
                 </v-row>
             </template>
@@ -23,21 +24,29 @@
 
 <script>
 import { mapState } from 'vuex';
-import Placeholder from '@/components/Placeholder.vue';
+import Exhibit from '@/components/Exhibit.vue';
 
 export default {
 	name: 'Gallery',
-	components: {
-		Exhibit: () => ({
-			component: import('./Exhibit.vue'),
-			loading: Placeholder,
-		}),
+	components: { Exhibit },
+	props: {
+		scrollToExhibit: {
+			type: Object,
+			required: false,
+		},
 	},
 	data() {
 		return {
 			itemsPerRow: 4,
 			paintingsSelected: false,
 			graphicsSelected: false,
+			scrollingOptions: {
+				duration: 300,
+				offset: 0,
+				easing: 'easeInOutCubic',
+				container: '#galleryScroller',
+			},
+			itemHeight: 780,
 		};
 	},
 	computed: {
@@ -51,6 +60,15 @@ export default {
 			const chunkCount = Math.ceil(this.items.length / this.itemsPerRow);
 			const emptyChunks = Array(chunkCount).fill(this.itemsPerRow);
 			return emptyChunks.map((chunkSize, index) => this.items.slice(index * chunkSize, (index + 1) * chunkSize));
+		},
+	},
+	watch: {
+		scrollToExhibit: {
+			handler(value) {
+				const index = this.items.indexOf(value);
+				const offset = Math.floor(index / this.itemsPerRow) * this.itemHeight;
+				this.$vuetify.goTo(offset, this.scrollingOptions);
+			},
 		},
 	},
 };

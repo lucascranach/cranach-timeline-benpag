@@ -8,4 +8,8 @@ module.exports = {
 	},
 	events: ['cranachElder', 'cranachYounger', 'luther', 'history'],
 	placeholderImageUrl: 'https://via.placeholder.com/350',
+	defaultDates: {
+		start: 1490,
+		end: 1620,
+	},
 };

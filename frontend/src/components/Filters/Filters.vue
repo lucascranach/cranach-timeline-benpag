@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import config from '../../../global.config';
 
 export default {
@@ -126,6 +126,10 @@ export default {
 		...mapActions([
 			'addFilter',
 			'removeFilter',
+		]),
+		...mapGetters([
+			'getStartYear',
+			'getEndYear',
 		]),
 		toggleSearch() {
 			if (this.search === null) {
@@ -175,6 +179,12 @@ export default {
 			});
 		},
 		applyYearFilter() {
+			if (this.time.from === '') {
+				this.time.from = this.getStartYear();
+			}
+			if (this.time.to === '') {
+				this.time.to = this.getEndYear();
+			}
 			this.addFilter({
 				name: 'yearFilter',
 				type: 'year',

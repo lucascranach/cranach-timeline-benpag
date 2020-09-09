@@ -118,5 +118,11 @@ export default new Vuex.Store({
 		getHistogramImages(state) {
 			return state.allItems.filter((i) => i.imageUrl !== '').slice(0, 10);
 		},
+		getStartYear(state) {
+			return Math.min(...state.allItems.map((i) => i.startDate), config.defaultDates.start);
+		},
+		getEndYear(state) {
+			return Math.max(...state.allItems.map((i) => i.startDate), config.defaultDates.end);
+		},
 	},
 });

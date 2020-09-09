@@ -11,18 +11,6 @@ function FilterNotFoundException(filterName) {
 	this.name = filterName;
 }
 
-function getHistogram(items) {
-	const result = items.reduce((histogram, item) => {
-		// reason: https://github.com/eslint/eslint/issues/8581
-		/* eslint-disable no-param-reassign */
-		histogram[item.startDate] = (histogram[item.startDate] || 0) + 1;
-		return histogram;
-	}, {});
-
-	Object.freeze(result);
-	return result;
-}
-
 export default new Vuex.Store({
 	strict: true,
 	devtools: true,
@@ -50,7 +38,14 @@ export default new Vuex.Store({
 			Object.assign(state.events, event);
 		},
 		calculateHistogram(state) {
-			state.histogram = getHistogram(state.allItems);
+			state.histogram = state.items.reduce((histogram, item) => {
+				// reason: https://github.com/eslint/eslint/issues/8581
+				/* eslint-disable no-param-reassign */
+				histogram[item.startDate] = (histogram[item.startDate] || 0) + 1;
+				return histogram;
+			}, {});
+
+			Object.freeze(state.histogram);
 		},
 		addFilter(state, { name, type, params }) {
 			if (filters[type] === undefined) {

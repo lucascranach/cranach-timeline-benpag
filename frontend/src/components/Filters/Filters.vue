@@ -1,84 +1,100 @@
 <template>
-	<v-row>
-		<v-col>
-			<v-btn @click="toggleSearch()">Suche</v-btn>
-			<v-btn class="filterIcon" @click="resetSearch()">
-				<v-icon>settings_backup_restore</v-icon>
-			</v-btn>
-			<div v-if="search !== null">
-				<v-subheader>Volltext:</v-subheader>
-				<v-text-field v-model="search"
-								@input="asyncSearch()"
-				/>
-			</div>
-		</v-col>
-		<v-col>
-			<v-btn @click="toggleCategory()">Kategorie</v-btn>
-			<v-btn class="filterIcon" @click="resetCategoryFilter()">
-				<v-icon>settings_backup_restore</v-icon>
-			</v-btn>
-			<v-list>
-				<v-list-item>
-					<v-list-item-action>
-						<v-switch @change="applyCategoryFilter()"
-                                  v-model="category.paintings"
-                                  true-value="painting" false-value=""
-                                  value="painting"
-                        />
-					</v-list-item-action>
-					<v-list-item-title>Gemälde</v-list-item-title>
-				</v-list-item>
-				<v-list-item>
-					<v-list-item-action>
-						<v-switch  @change="applyCategoryFilter()"
-                                   v-model="category.graphics"
-                                   true-value="graphic" false-value=""
-                                   value="painting" />
-					</v-list-item-action>
-					<v-list-item-title>Drucke</v-list-item-title>
-				</v-list-item>
-                <v-list-item>
-                    <v-list-item-action>
-                        <v-switch  @change="applyCategoryFilter()"
-                                   v-model="category.archivals"
-                                   true-value="archival" false-value=""
-                                   value="archival" />
-                    </v-list-item-action>
-                    <v-list-item-title>Archivalien</v-list-item-title>
-                </v-list-item>
-			</v-list>
-		</v-col>
-		<v-col>
-			<v-btn @click="toggleTime()">Zeit</v-btn>
-			<v-btn class="filterIcon" @click="resetYearFilter()">
-				<v-icon>settings_backup_restore</v-icon>
-			</v-btn>
-			<v-list v-if="time !== null">
-				<v-list-item>
-					<v-subheader>Von:</v-subheader>
-					<v-text-field @change="applyYearFilter()"
-                                  v-model="time.from" />
-				</v-list-item>
-				<v-list-item>
-					<v-subheader>Bis:</v-subheader>
-					<v-text-field @change="applyYearFilter()"
-                                  v-model="time.to" />
-				</v-list-item>
-			</v-list>
-		</v-col>
-		<v-col>
-			<v-btn @click="resetFilters()">Reset</v-btn>
-		</v-col>
-        <v-col>
-            <v-checkbox label="Best Of"
-                        @change="applyIsBestOfFilter()"
-                        v-model="isBestOf" />
-        </v-col>
-	</v-row>
+	<div>
+		<v-layout justify-center>
+			<v-card width="500" height="70">
+				<v-row>
+					<v-col>
+						<v-btn @click="applyCategoryButton('painting')" v-bind:style="stylePainting">Gemälde</v-btn>
+					</v-col>
+					<v-col>
+						<v-btn @click="applyCategoryButton('graphic')" v-bind:style="styleGraphic">Drucke</v-btn>
+					</v-col>
+					<v-col>
+						<v-btn @click="applyCategoryButton('archival')" v-bind:style="styleArchivals">Archivalien</v-btn>
+					</v-col>
+				</v-row>
+			</v-card>
+		</v-layout>
+		<v-row>
+			<v-col>
+				<v-btn @click="toggleSearch()">Suche</v-btn>
+				<v-btn class="filterIcon" @click="resetSearch()">
+					<v-icon>settings_backup_restore</v-icon>
+				</v-btn>
+				<div v-if="search !== null">
+					<v-subheader>Volltext:</v-subheader>
+					<v-text-field v-model="search"
+								  @input="asyncSearch()"
+					/>
+				</div>
+			</v-col>
+			<v-col>
+				<v-btn @click="toggleCategory()">Kategorie</v-btn>
+				<v-btn class="filterIcon" @click="resetCategoryFilter()">
+					<v-icon>settings_backup_restore</v-icon>
+				</v-btn>
+				<v-list>
+					<v-list-item>
+						<v-list-item-action>
+							<v-switch @change="applyCategoryFilter()"
+									  v-model="category.paintings"
+									  true-value="painting" false-value=""
+									  value="painting"
+							/>
+						</v-list-item-action>
+						<v-list-item-title>Gemälde</v-list-item-title>
+					</v-list-item>
+					<v-list-item>
+						<v-list-item-action>
+							<v-switch @change="applyCategoryFilter()"
+									  v-model="category.graphics"
+									  true-value="graphic" false-value=""
+									  value="painting"/>
+						</v-list-item-action>
+						<v-list-item-title>Drucke</v-list-item-title>
+					</v-list-item>
+					<v-list-item>
+						<v-list-item-action>
+							<v-switch @change="applyCategoryFilter()"
+									  v-model="category.archivals"
+									  true-value="archival" false-value=""
+									  value="archival"/>
+						</v-list-item-action>
+						<v-list-item-title>Archivalien</v-list-item-title>
+					</v-list-item>
+				</v-list>
+			</v-col>
+			<v-col>
+				<v-btn @click="toggleTime()">Zeit</v-btn>
+				<v-btn class="filterIcon" @click="resetYearFilter()">
+					<v-icon>settings_backup_restore</v-icon>
+				</v-btn>
+				<v-list v-if="time !== null">
+					<v-list-item>
+						<v-subheader>Von:</v-subheader>
+						<v-text-field @change="applyYearFilter()"
+									  v-model="time.from"/>
+					</v-list-item>
+					<v-list-item>
+						<v-subheader>Bis:</v-subheader>
+						<v-text-field @change="applyYearFilter()"
+									  v-model="time.to"/>
+					</v-list-item>
+				</v-list>
+			</v-col>
+			<v-col>
+				<v-btn @click="resetFilters()">Reset</v-btn>
+			</v-col>
+			<v-col>
+				<v-checkbox label="Best Of"/>
+			</v-col>
+		</v-row>
+	</div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
+import config from '../../../global.config';
 
 export default {
 	name: 'Filters',
@@ -94,7 +110,16 @@ export default {
 				archivals: 'archival',
 			},
 			time: null,
-			isBestOf: false,
+			bestof: false,
+			stylePainting: {
+				color: config.colors.paintings,
+			},
+			styleGraphic: {
+				color: config.colors.graphics,
+			},
+			styleArchivals: {
+				color: config.colors.archivals,
+			},
 		};
 	},
 	methods: {
@@ -195,12 +220,45 @@ export default {
 			this.removeFilter('search');
 			this.search = null;
 		},
+		applyCategoryButton(filterType) {
+			switch (filterType) {
+			case 'painting':
+				if (this.category.paintings === 'painting') {
+					this.category.paintings = '';
+					this.stylePainting.color = 'grey';
+				} else {
+					this.category.paintings = 'painting';
+					this.stylePainting.color = config.colors.paintings;
+				}
+				break;
+			case 'graphic':
+				if (this.category.graphics === 'graphic') {
+					this.category.graphics = '';
+					this.styleGraphic.color = 'grey';
+				} else {
+					this.category.graphics = 'graphic';
+					this.styleGraphic.color = config.colors.graphics;
+				}
+				break;
+			case 'archival':
+				if (this.category.archivals === 'archival') {
+					this.category.archivals = '';
+					this.styleArchivals.color = 'grey';
+				} else {
+					this.category.archivals = 'archival';
+					this.styleArchivals.color = config.colors.archivals;
+				}
+				break;
+			default: break;
+			}
+			this.applyCategoryFilter();
+		},
 	},
 };
 </script>
 
 <style scoped>
-	.filterIcon {
-		margin-left: 10px;
-	}
+.filterIcon {
+	margin-left: 10px;
+}
 </style>

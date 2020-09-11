@@ -18,6 +18,7 @@ export default new Vuex.Store({
 		items: [],
 		allItems: [],
 		histogram: [],
+		chartHistogram: [],
 		events: {
 			cranachElder: [],
 			cranachYounger: [],
@@ -37,12 +38,13 @@ export default new Vuex.Store({
 			Object.assign(state.events, event);
 		},
 		calculateHistogram(state) {
-			state.histogram = state.allItems.reduce((histogram, item) => {
+			state.histogram = state.items.reduce((histogram, item) => {
 				// reason: https://github.com/eslint/eslint/issues/8581
-				// eslint-disable-next-line no-param-reassign
+				/* eslint-disable no-param-reassign */
 				histogram[item.startDate] = (histogram[item.startDate] || 0) + 1;
 				return histogram;
 			}, {});
+
 			Object.freeze(state.histogram);
 		},
 		addFilter(state, { name, type, params }) {

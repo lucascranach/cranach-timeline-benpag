@@ -1,48 +1,52 @@
 <template>
-    <div>
-        <Chart
-            @tooltipClick="$emit('tooltipClick', $event)"
-            :width="chartWidth"
-            :height="windowHeight * 0.67"
-            v-show="this.getItemsBool()"
-        />
-      <h1
-          v-show="!this.getItemsBool()">
-        Es wurden keine Elemente für diese Filtereinstellungen gefunden.
-      </h1>
-        <SpecialEventTimeline
-            :width="chartWidth"
-            :height="windowHeight * 0.008"
-            :event-list="events.cranachElder"
-            color="black"
-            v-show="this.getItemsBool()"
-        />
-        <SpecialEventTimeline
-            :width="chartWidth"
-            :height="windowHeight * 0.008"
-            :event-list="events.cranachYounger"
-            color="purple"
-            v-show="this.getItemsBool()"
-        />
-        <SpecialEventTimeline
-            :width="chartWidth"
-            :height="windowHeight * 0.008"
-            :event-list="events.luther"
-            color="grey"
-            v-show="this.getItemsBool()"
-        />
-        <SpecialEventTimeline
-            :width="chartWidth"
-            :height="windowHeight * 0.008"
-            :event-list="events.history"
-            color="darkCyan"
-            v-show="this.getItemsBool()"
-        />
-        <Timeline
-            :width="chartWidth"
-            :height="windowHeight * 0.1"
-        />
+  <div>
+    <h1
+        v-show="!this.hasItems()">
+      Es wurden keine Elemente für diese Filtereinstellungen gefunden.
+    </h1>
+    <div
+        v-show="this.hasItems()"
+    >
+      <Chart
+          @tooltipClick="$emit('tooltipClick', $event)"
+          :width="chartWidth"
+          :height="windowHeight * 0.67"
+          v-show="this.hasItems()"
+      />
+      <SpecialEventTimeline
+          :width="chartWidth"
+          :height="windowHeight * 0.008"
+          :event-list="events.cranachElder"
+          color="black"
+          v-show="this.hasItems()"
+      />
+      <SpecialEventTimeline
+          :width="chartWidth"
+          :height="windowHeight * 0.008"
+          :event-list="events.cranachYounger"
+          color="purple"
+          v-show="this.hasItems()"
+      />
+      <SpecialEventTimeline
+          :width="chartWidth"
+          :height="windowHeight * 0.008"
+          :event-list="events.luther"
+          color="grey"
+          v-show="this.hasItems()"
+      />
+      <SpecialEventTimeline
+          :width="chartWidth"
+          :height="windowHeight * 0.008"
+          :event-list="events.history"
+          color="darkCyan"
+          v-show="this.hasItems()"
+      />
     </div>
+    <Timeline
+        :width="chartWidth"
+        :height="windowHeight * 0.1"
+    />
+  </div>
 </template>
 
 <script>
@@ -75,7 +79,7 @@ export default {
 	},
 	methods: {
 		...mapGetters([
-			'getItemsBool',
+			'hasItems',
 		]),
 		...mapActions(['loadData']),
 	},

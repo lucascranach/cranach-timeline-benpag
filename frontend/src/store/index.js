@@ -2,14 +2,10 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
 import config from '../../global.config';
+import exceptions from '../../global.exceptions';
 import filters from './filters';
 
 Vue.use(Vuex);
-
-function FilterNotFoundException(filterName) {
-	this.message = `Filter ${filterName} is not implemented!`;
-	this.name = filterName;
-}
 
 export default new Vuex.Store({
 	strict: true,
@@ -49,7 +45,7 @@ export default new Vuex.Store({
 		},
 		addFilter(state, { name, type, params }) {
 			if (filters[type] === undefined) {
-				throw new FilterNotFoundException(type);
+				throw new exceptions.FilterNotFoundException(type);
 			}
 			const filter = {
 				name,

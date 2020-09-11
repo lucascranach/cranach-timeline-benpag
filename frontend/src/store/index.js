@@ -112,6 +112,14 @@ export default new Vuex.Store({
 		getItems(state) {
 			return state.items;
 		},
+		getItemsBool(state) {
+			if (state.items.length > 0) {
+				console.log('true');
+				return true;
+			}
+			console.log('false');
+			return false;
+		},
 		getAllItems(state) {
 			return state.allItems;
 		},

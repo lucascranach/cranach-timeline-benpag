@@ -112,7 +112,7 @@ export default new Vuex.Store({
 		getItems(state) {
 			return state.items;
 		},
-		getItemsBool(state) {
+		hasItems(state) {
 			if (state.items.length > 0) {
 				console.log('true');
 				return true;

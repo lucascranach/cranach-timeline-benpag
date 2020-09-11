@@ -71,7 +71,9 @@ export default {
 			tooltipDiv: null,
 			toolTipData: {},
 			lastTransform: null,
-			pxSize: null,
+			symbolSizeInPx: null,
+			maxSymbolSizeInPx: 36,
+
 		};
 	},
 	mounted() {
@@ -158,9 +160,9 @@ export default {
 				.attr('transform', (d) => `translate(${this.getXCoordinateOfItem(d)},${this.getYCoordinateOfItem(d)})`);
 
 			const myThis = this;
-			this.pxSize = Math.floor(this.displayHeight / this.y.domain()[1]);
+			this.symbolSizeInPx = Math.floor(this.displayHeight / this.y.domain()[1]);
 			node.append('path')
-				.attr('d', this.getItemSymbol(this.pxSize))
+				.attr('d', this.getItemSymbol(this.symbolSizeInPx))
 				.attr('opacity', 1)
 				.attr('class', (d) => d.type)
 				.attr('stroke-width', 1)
@@ -249,14 +251,15 @@ export default {
 
 			// --- rescale symbol of items in chart
 			const diff = this.scatterPlot.node().getBoundingClientRect().height - this.displayHeight;
-			const pxSize = Math.floor((this.displayHeight + diff) / this.y.domain()[1]);
-			node.selectAll('path').attr('d', this.getItemSymbol(pxSize));
+			const symbolSizeInPx = Math.floor((this.displayHeight + diff) / this.y.domain()[1]);
+			node.selectAll('path').attr('d', this.getItemSymbol(symbolSizeInPx));
 
 			// save transform to reset it when filters are applied
 			this.lastTransform = transform;
 		},
 		getItemSymbol(pxSize) {
-			return d3.symbol().type(d3.symbolSquare).size(pxSize * pxSize);
+			const size = this.maxSymbolSizeInPx > pxSize ? pxSize ** 2 : this.maxSymbolSizeInPx ** 2;
+			return d3.symbol().type(d3.symbolSquare).size(size);
 		},
 		calculateToolTipX(mouseX, toolTipWidth, margin = 10) {
 			if (mouseX - (toolTipWidth / 2) - margin < 0) {
@@ -277,7 +280,7 @@ export default {
 			return this.x(new Date(startDate, 1, 1)) - 1;
 		},
 		getYCoordinateOfItem({ yPos }) {
-			return this.y(yPos) + (this.pxSize / 2);
+			return this.y(yPos) + (this.symbolSizeInPx / 2);
 		},
 		reset() {
 			d3.selectAll('.dot').remove();

@@ -148,6 +148,7 @@ export default {
 		...mapState({
 			data: (state) => state.histogram,
 			yearFilter: (state) => state.activeFilters.find((f) => f.name === 'yearFilter'),
+			yearRange: (state) => state.chartYearRange,
 		}),
 		timelineWidth() {
 			return this.width - this.margin.left - this.margin.right;
@@ -179,15 +180,10 @@ export default {
 		},
 		yearFilter: {
 			handler(val) {
-				if (val !== undefined) {
-					this.filterRange = val.params;
-				} else {
-					[this.filterRange.from, this.filterRange.to] = this.xAxis.domain();
-				}
-
-				select('#areaSlider').dispatch('yearFilterChanged');
+				this.onFilterRangeChanged(val?.params);
 			},
 		},
+		yearRange: 'onFilterRangeChanged',
 	},
 	methods: {
 		...mapGetters([
@@ -231,7 +227,7 @@ export default {
 			const countsPerYear = Object.values(this.data) || [];
 
 			this.xAxis = scaleLinear()
-				.domain([this.years[0], this.years[this.years.length - 1]]).nice()
+				.domain([this.years[0] - 1, parseInt(this.years[this.years.length - 1], 10) + 1])
 				.range([0, this.timelineWidth]);
 
 			const yAxis = scaleLinear()
@@ -395,6 +391,15 @@ export default {
 				params: this.filterRange,
 			};
 			this.addFilter(filter);
+		},
+		onFilterRangeChanged(filterRange) {
+			if (filterRange !== undefined) {
+				this.filterRange = filterRange;
+			} else {
+				[this.filterRange.from, this.filterRange.to] = this.xAxis.domain();
+			}
+
+			select('#areaSlider').dispatch('yearFilterChanged');
 		},
 	},
 };

@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 import { event as currentEvent } from 'd3-selection';
 import d3 from '../plugins/d3-importer';
 import ToolTipItem from './ToolTipItem.vue';
@@ -106,6 +106,9 @@ export default {
 		},
 	},
 	methods: {
+		...mapMutations([
+			'setChartYearRange',
+		]),
 		setUpChart() {
 			this.setupSvg();
 			this.setupDimensions();
@@ -244,6 +247,9 @@ export default {
 			this.gX.call(this.xAxis.scale(transform.rescaleX(this.x)));
 			this.gY.call(this.yAxis.scale(transform.rescaleY(this.y)));
 			this.lastTransform = transform;
+
+			const [from, to] = this.xAxis.scale().domain();
+			this.setChartYearRange({ from: from.getFullYear(), to: to.getFullYear() });
 		},
 		calculateToolTipX(mouseX, toolTipWidth, margin = 10) {
 			if (mouseX - (toolTipWidth / 2) - margin < 0) {

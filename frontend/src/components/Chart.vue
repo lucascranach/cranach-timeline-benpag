@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapMutations, mapGetters } from 'vuex';
 import { event as currentEvent } from 'd3-selection';
 import d3 from '../plugins/d3-importer';
 import ToolTipItem from './ToolTipItem.vue';
@@ -109,6 +109,9 @@ export default {
 		...mapMutations([
 			'setChartYearRange',
 		]),
+		...mapGetters([
+			'getXAxisDomain',
+		]),
 		setUpChart() {
 			this.setupSvg();
 			this.setupDimensions();
@@ -191,22 +194,24 @@ export default {
 		},
 		setupAxis() {
 			const yStack = {};
-			const xMinMax = d3.extent(this.items, (d) => {
+			const yMinMax = d3.extent(this.items, (d) => {
 				yStack[d.startDate] = (yStack[d.startDate] || 0) + 1;
 				// eslint-disable-next-line no-param-reassign
 				d.yPos = yStack[d.startDate];
-				return d.startDate;
+				return d.yPos;
 			});
 
 			/* X Axis */
+			const [start, end] = this.getXAxisDomain();
 			this.x = d3.scaleTime()
 				.domain([
-					new Date(xMinMax[0] - 1, 1, 1),
-					new Date(xMinMax[1] + 1, 1, 1),
+					new Date(start, 1, 1),
+					new Date(end, 1, 1),
 				])
 				.range([0, this.displayWidth]);
 
 			this.xAxis = d3.axisBottom(this.x);
+			this.setChartYearRange({ from: start, to: end });
 
 			this.gX = this.svg.append('g')
 				.classed('axis xaxis', true)
@@ -215,7 +220,7 @@ export default {
 
 			/* Y Axis */
 			this.y = d3.scaleLinear()
-				.domain([0, Math.max(...Object.values(yStack))]).nice()
+				.domain([0, yMinMax[1]]).nice()
 				.range([this.displayHeight, 0]);
 
 			this.yAxis = d3.axisLeft(this.y).ticks(this.y.domain()[1] / 20);
@@ -249,6 +254,9 @@ export default {
 			this.lastTransform = transform;
 
 			const [from, to] = this.xAxis.scale().domain();
+			if (from.getMinutes() > 0) {
+				from.setFullYear(from.getFullYear() + 1);
+			}
 			this.setChartYearRange({ from: from.getFullYear(), to: to.getFullYear() });
 		},
 		calculateToolTipX(mouseX, toolTipWidth, margin = 10) {

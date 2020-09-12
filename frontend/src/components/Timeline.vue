@@ -188,6 +188,7 @@ export default {
 	methods: {
 		...mapGetters([
 			'getHistogramImages',
+			'getStaticXAxisDomain',
 		]),
 		...mapActions([
 			'addFilter',
@@ -227,7 +228,7 @@ export default {
 			const countsPerYear = Object.values(this.data) || [];
 
 			this.xAxis = scaleLinear()
-				.domain([this.years[0] - 1, parseInt(this.years[this.years.length - 1], 10) + 1])
+				.domain(this.getStaticXAxisDomain())
 				.range([0, this.timelineWidth]);
 
 			const yAxis = scaleLinear()
@@ -394,7 +395,7 @@ export default {
 		},
 		onFilterRangeChanged(filterRange) {
 			if (filterRange !== undefined) {
-				this.filterRange = filterRange;
+				this.filterRange = { ...filterRange };
 			} else {
 				[this.filterRange.from, this.filterRange.to] = this.xAxis.domain();
 			}

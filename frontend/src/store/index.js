@@ -114,20 +114,22 @@ export default new Vuex.Store({
 		},
 	},
 	getters: {
-		getItems(state) {
-			return state.items;
-		},
-		getAllItems(state) {
-			return state.allItems;
-		},
 		getHistogramImages(state) {
 			return state.allItems.filter((i) => i.imageUrl !== '').slice(0, 10);
 		},
-		getStartYear(state) {
-			return Math.min(...state.allItems.map((i) => i.startDate), config.defaultDates.start);
+		getXAxisDomain(state) {
+			const startDates = state.items.map((i) => i.startDate);
+			return [
+				Math.min(...startDates) - 1,
+				Math.max(...startDates) + 1,
+			];
 		},
-		getEndYear(state) {
-			return Math.max(...state.allItems.map((i) => i.startDate), config.defaultDates.end);
+		getStaticXAxisDomain(state) {
+			const startDates = state.allItems.map((i) => i.startDate);
+			return [
+				Math.min(...startDates, config.defaultDates.start) - 1,
+				Math.max(...startDates, config.defaultDates.end) + 1,
+			];
 		},
 	},
 });

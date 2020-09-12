@@ -21,7 +21,7 @@ function search(item, searchQuery) {
 }
 
 const filters = {
-	year: (item, { from, to }) => item.startDate >= from && item.endDate <= to,
+	year: (item, { from, to }) => item.startDate >= from && item.startDate <= to,
 	category: (item, { validCategories }) => validCategories.includes(item.type),
 	search: (item, searchQuery) => {
 		switch (item.type) {

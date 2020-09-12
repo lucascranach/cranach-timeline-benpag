@@ -198,9 +198,9 @@ export default {
 			/* X Axis */
 			this.x = d3.scaleTime()
 				.domain([
-					new Date(xMinMax[0], 1, 1),
-					new Date(xMinMax[1], 1, 1),
-				]).nice()
+					new Date(xMinMax[0] - 1, 1, 1),
+					new Date(xMinMax[1] + 1, 1, 1),
+				])
 				.range([0, this.displayWidth]);
 
 			this.xAxis = d3.axisBottom(this.x);
@@ -212,7 +212,7 @@ export default {
 
 			/* Y Axis */
 			this.y = d3.scaleLinear()
-				.domain([0, Math.max.apply(null, Object.values(yStack))]).nice()
+				.domain([0, Math.max(...Object.values(yStack))]).nice()
 				.range([this.displayHeight, 0]);
 
 			this.yAxis = d3.axisLeft(this.y).ticks(this.y.domain()[1] / 20);

@@ -147,6 +147,7 @@ export default {
 	computed: {
 		...mapState({
 			data: (state) => state.histogram,
+			yearFilter: (state) => state.activeFilters.find((f) => f.name === 'yearFilter'),
 		}),
 		timelineWidth() {
 			return this.width - this.margin.left - this.margin.right;
@@ -174,6 +175,17 @@ export default {
 		xAxis: {
 			handler() {
 				this.setupSliders();
+			},
+		},
+		yearFilter: {
+			handler(val) {
+				if (val !== undefined) {
+					this.filterRange = val.params;
+				} else {
+					[this.filterRange.from, this.filterRange.to] = this.xAxis.domain();
+				}
+
+				select('#areaSlider').dispatch('yearFilterChanged');
 			},
 		},
 	},
@@ -272,6 +284,7 @@ export default {
 				.on('end', () => {
 					this.applyYearFilter();
 				});
+
 			sliderLeft.call(sliderLeftDragHandler);
 			sliderLeftText.text(this.filterRange.from);
 		},
@@ -310,6 +323,7 @@ export default {
 				.on('end', () => {
 					this.applyYearFilter();
 				});
+
 			sliderRight.call(sliderRightDragHandler);
 			sliderRightText.text(this.filterRange.to);
 		},
@@ -353,6 +367,26 @@ export default {
 					this.applyYearFilter();
 				});
 			areaSlider.call(areaSliderDragHandler);
+
+			const area = select('#area');
+			areaSlider.on('yearFilterChanged', () => {
+				const x = this.xAxis(this.filterRange.from);
+				sliderLeft.attr('transform', `translate(${x}, 0)`);
+				areaInactiveLeft.attr('width', x);
+				sliderLeftText.text(this.filterRange.from);
+
+				const xOffset = this.xAxis(this.filterRange.to) - maxPx;
+				sliderRight.attr('transform', `translate(${xOffset}, 0)`);
+				areaInactiveRight
+					.attr('width', Math.abs(xOffset))
+					.attr('transform', `translate(${xOffset}, 0)`);
+				sliderRightText.text(this.filterRange.to);
+
+				const bounding = area.node().getBBox();
+				areaSlider.attr('width', bounding.width - this.pillWidth);
+				areaSlider.attr('height', bounding.height);
+				areaSlider.attr('transform', `translate(${x}, 0)`);
+			});
 		},
 		applyYearFilter() {
 			const filter = {

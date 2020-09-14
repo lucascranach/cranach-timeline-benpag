@@ -5,8 +5,8 @@
             <g :transform="`translate(${margin.left},0)`">
                 <line
                     :id="toolTipId+'-line'"
-                    x1="0" :y1="height / 2"
-                    :x2="lineWidth" :y2="height / 2"
+                    :x1="eventList[0]  ? xAxis(new Date(eventList[0].startDate)) : 0" :y1="height / 2"
+                    :x2="eventList[0]  ? xAxis(new Date(eventList[eventList.length - 1].startDate)) : 0" :y2="height / 2"
                     :stroke="color" :stroke-width="lineThickness"
                 />
                 <circle
@@ -62,6 +62,10 @@ export default {
 		toolTipData: {},
 		toolTip: null,
 		toolTipId: `toolTip-${Date.now().valueOf()}`,
+		timelineBoundaries: {
+			start: 0,
+			end: 0,
+		},
 	}),
 	computed: {
 		lineThickness() {

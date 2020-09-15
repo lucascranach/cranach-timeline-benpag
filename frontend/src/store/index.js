@@ -114,6 +114,15 @@ export default new Vuex.Store({
 		},
 	},
 	getters: {
+		getItems(state) {
+			return state.items;
+		},
+		hasItems(state) {
+			return state.items.length > 0
+		},
+		getAllItems(state) {
+			return state.allItems;
+		},
 		getHistogramImages(state) {
 			return state.allItems.filter((i) => i.imageUrl !== '').slice(0, 10);
 		},

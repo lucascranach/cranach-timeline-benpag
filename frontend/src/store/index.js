@@ -105,8 +105,8 @@ export default new Vuex.Store({
 						event[eventName] = response.data;
 						Object.freeze(event);
 						commit('setEvent', event);
-						commit('setLoadingState', false);
 					})));
+				commit('setLoadingState', false);
 			} catch (err) {
 				await axios.post(`${config.dataBaseUrl}log/frontend`, err);
 				commit('setItems', null);
@@ -118,9 +118,6 @@ export default new Vuex.Store({
 	getters: {
 		getItems(state) {
 			return state.items;
-		},
-		getLoadingState(state) {
-			return state.isLoading;
 		},
 		getAllItems(state) {
 			return state.allItems;

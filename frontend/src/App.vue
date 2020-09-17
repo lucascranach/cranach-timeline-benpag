@@ -9,7 +9,7 @@
 			<v-container>
 				<v-btn @click="switchComponents()">{{ buttonText }}</v-btn>
 				<FilterComponent/>
-				<loading :active.sync="isLoading"></loading>
+				<loading :active.sync="isLoading"/>
                 <Visualisation @tooltipClick="openItemInGallery($event)" v-show="activeComponent === 'visualisation'" />
                 <Gallery v-show="activeComponent === 'gallery'" :scrollToExhibit="scrollToExhibit"/>
 			</v-container>

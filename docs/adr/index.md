@@ -13,6 +13,7 @@ This log lists the architectural decisions for Cranach.
 - [ARD-0006](0006-deployment.md) - Use docker and docker-compose for deployment
 - [ARD-0007](0007-searching.md) - Use Array.filter as default search method
 - [ARD-0008](0008-backend-parser-for-category-data.md) - No parser changes for inconsistent data structure
+- [ARD-0009](0009-frontend-loading-overlay.md) - Adding a loading overlay when longer loading time occur
 
 
 

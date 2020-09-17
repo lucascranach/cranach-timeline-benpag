@@ -22,6 +22,7 @@ export default new Vuex.Store({
 			history: [],
 		},
 		activeFilters: [],
+		isLoading: false,
 	},
 	mutations: {
 		setItems(state, items) {
@@ -32,6 +33,9 @@ export default new Vuex.Store({
 		},
 		setEvent(state, event) {
 			Object.assign(state.events, event);
+		},
+		setLoadingState(state, isLoading) {
+			state.isLoading = isLoading;
 		},
 		calculateHistogram(state) {
 			state.histogram = state.items.reduce((histogram, item) => {
@@ -65,6 +69,7 @@ export default new Vuex.Store({
 	},
 	actions: {
 		addFilter({ commit, dispatch }, filter) {
+			commit('setLoadingState', true);
 			commit('removeFilter', filter.name);
 			commit('addFilter', filter);
 			dispatch('applyFilter');
@@ -74,11 +79,14 @@ export default new Vuex.Store({
 			dispatch('applyFilter');
 		},
 		applyFilter({ commit, state }) {
+			commit('setLoadingState', true);
 			const filteredItems = state.allItems.filter((item) => state.activeFilters.every((f) => f.apply(item, f.params)));
 			Object.freeze(filteredItems);
 			commit('setItems', filteredItems);
+			commit('setLoadingState', false);
 		},
 		async loadData({ commit }) {
+			commit('setLoadingState', true);
 			try {
 				const data = (await Promise.all(
 					config.resources.map(async (r) => (await axios.get(config.dataBaseUrl + r)).data[r]),
@@ -97,6 +105,7 @@ export default new Vuex.Store({
 						event[eventName] = response.data;
 						Object.freeze(event);
 						commit('setEvent', event);
+						commit('setLoadingState', false);
 					})));
 			} catch (err) {
 				await axios.post(`${config.dataBaseUrl}log/frontend`, err);
@@ -109,6 +118,9 @@ export default new Vuex.Store({
 	getters: {
 		getItems(state) {
 			return state.items;
+		},
+		getLoadingState(state) {
+			return state.isLoading;
 		},
 		getAllItems(state) {
 			return state.allItems;

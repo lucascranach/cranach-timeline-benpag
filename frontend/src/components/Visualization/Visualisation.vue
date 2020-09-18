@@ -52,7 +52,7 @@
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
 import Timeline from './Timeline.vue';
-import Chart from './Chart.vue';
+import Chart from './Chart/Chart.vue';
 import SpecialEventTimeline from './SpecialEventTimeLine/SpecialEventTimeline.vue';
 
 export default {

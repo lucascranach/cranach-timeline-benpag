@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import Visualisation from './components/Visualisation.vue';
-import Gallery from './components/Gallery.vue';
+import Visualisation from './components/Visualization/Visualisation.vue';
+import Gallery from './components/Gallery/Gallery.vue';
 import FilterComponent from './components/Filters/Filters.vue';
 
 export default {

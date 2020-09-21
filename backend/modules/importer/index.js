@@ -36,7 +36,6 @@ if (checkFiles.filesValid()) {
 } else {
 	backendLogger.debug('Parse is required!');
 	importData().then((result) => {
-		backendLogger.debug('Parse is required!');
 		backendLogger.debug('Parsing completed');
 		backendLogger.debug('Starting geocoding');
 		geoConverter.convert().then(() => {

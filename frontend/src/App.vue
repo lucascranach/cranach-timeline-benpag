@@ -9,7 +9,7 @@
 			<v-container>
 				<v-btn @click="switchComponents()">{{ buttonText }}</v-btn>
 				<FilterComponent />
-                <Visualisation @tooltipClick="openItemInGallery($event)" v-show="activeComponent === 'visualisation'" />
+                <Visualization @tooltipClick="openItemInGallery($event)" v-show="activeComponent === 'visualization'" />
                 <Gallery v-show="activeComponent === 'gallery'" :scrollToExhibit="scrollToExhibit"/>
 			</v-container>
 		</v-main>
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import Visualisation from './components/Visualisation.vue';
+import Visualization from './components/Visualization.vue';
 import Gallery from './components/Gallery.vue';
 import FilterComponent from './components/Filters/Filters.vue';
 
@@ -26,23 +26,23 @@ export default {
 	components: {
 		FilterComponent,
 		Gallery,
-		Visualisation,
+		Visualization,
 	},
 	data() {
 		return {
 			currentFilter: undefined,
-			activeComponent: 'visualisation',
+			activeComponent: 'vizualisation',
 			buttonText: 'Galerie',
 			scrollToExhibit: null,
 		};
 	},
 	methods: {
 		switchComponents() {
-			if (this.activeComponent === 'visualisation') {
+			if (this.activeComponent === 'visualization') {
 				this.activeComponent = 'gallery';
 				this.buttonText = 'Visualisierung';
 			} else {
-				this.activeComponent = 'visualisation';
+				this.activeComponent = 'visualization';
 				this.buttonText = 'Galerie';
 			}
 		},

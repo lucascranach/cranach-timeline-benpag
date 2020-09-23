@@ -10,7 +10,7 @@
 				<v-btn @click="switchComponents()">{{ buttonText }}</v-btn>
 				<FilterComponent/>
 				<loading :active.sync="isLoading"/>
-                <Visualisation @tooltipClick="openItemInGallery($event)" v-show="activeComponent === 'visualisation'" />
+                <Visualization @tooltipClick="openItemInGallery($event)" v-show="activeComponent === 'visualization'" />
                 <Gallery v-show="activeComponent === 'gallery'" :scrollToExhibit="scrollToExhibit"/>
 			</v-container>
 		</v-main>
@@ -20,7 +20,7 @@
 <script>
 import { mapState } from 'vuex';
 import Loading from 'vue-loading-overlay';
-import Visualisation from './components/Visualisation.vue';
+import Visualization from './components/Visualization.vue';
 import Gallery from './components/Gallery.vue';
 import FilterComponent from './components/Filters/Filters.vue';
 import 'vue-loading-overlay/dist/vue-loading.css';
@@ -30,13 +30,13 @@ export default {
 	components: {
 		FilterComponent,
 		Gallery,
-		Visualisation,
+		Visualization,
 		Loading,
 	},
 	data() {
 		return {
 			currentFilter: undefined,
-			activeComponent: 'visualisation',
+			activeComponent: 'vizualisation',
 			buttonText: 'Galerie',
 			scrollToExhibit: null,
 		};
@@ -48,11 +48,11 @@ export default {
 	},
 	methods: {
 		switchComponents() {
-			if (this.activeComponent === 'visualisation') {
+			if (this.activeComponent === 'visualization') {
 				this.activeComponent = 'gallery';
 				this.buttonText = 'Visualisierung';
 			} else {
-				this.activeComponent = 'visualisation';
+				this.activeComponent = 'visualization';
 				this.buttonText = 'Galerie';
 			}
 		},

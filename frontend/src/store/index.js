@@ -119,6 +119,9 @@ export default new Vuex.Store({
 		getItems(state) {
 			return state.items;
 		},
+		hasItems(state) {
+			return state.items.length > 0;
+		},
 		getAllItems(state) {
 			return state.allItems;
 		},

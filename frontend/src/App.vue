@@ -8,7 +8,8 @@
 		<v-main>
 			<v-container>
 				<v-btn @click="switchComponents()">{{ buttonText }}</v-btn>
-				<FilterComponent />
+				<FilterComponent/>
+				<loading :active.sync="isLoading"/>
                 <Visualization @tooltipClick="openItemInGallery($event)" v-show="activeComponent === 'visualization'" />
                 <Gallery v-show="activeComponent === 'gallery'" :scrollToExhibit="scrollToExhibit"/>
 			</v-container>
@@ -17,9 +18,12 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import Loading from 'vue-loading-overlay';
 import Visualization from './components/Visualization.vue';
 import Gallery from './components/Gallery.vue';
 import FilterComponent from './components/Filters/Filters.vue';
+import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
 	name: 'App',
@@ -27,6 +31,7 @@ export default {
 		FilterComponent,
 		Gallery,
 		Visualization,
+		Loading,
 	},
 	data() {
 		return {
@@ -35,6 +40,11 @@ export default {
 			buttonText: 'Galerie',
 			scrollToExhibit: null,
 		};
+	},
+	computed: {
+		...mapState({
+			isLoading: (state) => state.isLoading,
+		}),
 	},
 	methods: {
 		switchComponents() {

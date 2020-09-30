@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<EventToolTipItem :id="toolTipId" class="d3-tooltip" :item="toolTipData" />
+		<EventToolTipItem :id="toolTipId" :item="toolTipData" :max-width="toolTipMaxWidth"/>
         <svg id="specialEventTimeline" :width="width" :height="height">
             <g :transform="`translate(${margin.left},0)`">
                 <line
@@ -78,6 +78,9 @@ export default {
 		lineWidth() {
 			return this.width - this.margin.left - this.margin.right;
 		},
+		toolTipMaxWidth() {
+			return this.width * 0.25;
+		},
 		xAxis() {
 			const { from, to } = this.yearRange;
 			return scaleTime()
@@ -97,9 +100,11 @@ export default {
 		]),
 		showToolTip(event, item) {
 			this.toolTipData = item;
+			const xOffset = event.x > this.toolTipMaxWidth / 2 ? -50 : -((event.x - this.margin.left) / this.toolTipMaxWidth) * 100;
 			this.toolTip
 				.style('left', `${event.x}px`)
 				.style('top', `${event.layerY}px`)
+				.style('transform', `translate(${xOffset}%, -107%)`)
 				.style('visibility', 'visible');
 		},
 		dismissToolTip() {
@@ -108,17 +113,3 @@ export default {
 	},
 };
 </script>
-
-<style scoped>
-	.d3-tooltip {
-		position: absolute;
-		top: auto;
-		left: 50%;
-		overflow: hidden;
-		text-align: center;
-		pointer-events: none;
-		z-index: 999999;
-		visibility: hidden;
-		transform: translate(-50% , -105%);
-	}
-</style>

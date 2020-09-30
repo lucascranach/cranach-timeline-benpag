@@ -56,7 +56,7 @@ import Chart from './Chart/Chart.vue';
 import SpecialEventTimeline from './SpecialEventTimeLine/SpecialEventTimeline.vue';
 
 export default {
-	name: 'Visualisation',
+	name: 'Visualization',
 	components: {
 		Chart,
 		SpecialEventTimeline,

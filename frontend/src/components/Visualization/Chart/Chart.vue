@@ -12,7 +12,7 @@
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex';
 import { event as currentEvent } from 'd3-selection';
-import d3 from '../plugins/d3-importer';
+import d3 from '../../../plugins/d3-importer';
 import ToolTipItem from './ToolTipItem.vue';
 
 export default {

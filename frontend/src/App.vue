@@ -20,8 +20,8 @@
 <script>
 import { mapState } from 'vuex';
 import Loading from 'vue-loading-overlay';
-import Visualization from './components/Visualization.vue';
-import Gallery from './components/Gallery.vue';
+import Visualization from './components/Visualization/Visualisation.vue';
+import Gallery from './components/Gallery/Gallery.vue';
 import FilterComponent from './components/Filters/Filters.vue';
 import 'vue-loading-overlay/dist/vue-loading.css';
 
@@ -36,7 +36,7 @@ export default {
 	data() {
 		return {
 			currentFilter: undefined,
-			activeComponent: 'vizualisation',
+			activeComponent: 'visualization',
 			buttonText: 'Galerie',
 			scrollToExhibit: null,
 		};

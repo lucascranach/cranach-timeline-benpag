@@ -10,9 +10,9 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapMutations, mapGetters } from 'vuex';
 import { event as currentEvent } from 'd3-selection';
-import d3 from '../plugins/d3-importer';
+import d3 from '../../../plugins/d3-importer';
 import ToolTipItem from './ToolTipItem.vue';
 
 export default {
@@ -71,6 +71,9 @@ export default {
 			tooltipDiv: null,
 			toolTipData: {},
 			lastTransform: null,
+			symbolSizeInPx: null,
+			maxSymbolSizeInPx: 36,
+
 		};
 	},
 	mounted() {
@@ -106,6 +109,12 @@ export default {
 		},
 	},
 	methods: {
+		...mapMutations([
+			'setChartYearRange',
+		]),
+		...mapGetters([
+			'getXAxisDomain',
+		]),
 		setUpChart() {
 			this.setupSvg();
 			this.setupDimensions();
@@ -126,7 +135,8 @@ export default {
 			this.svg.append('rect')
 				.attr('width', this.displayWidth)
 				.attr('height', this.displayHeight)
-				.style('fill', 'transparent');
+				.style('fill', 'transparent')
+				.attr('transform', `translate(${this.margin.left}, ${this.margin.top})`);
 			this.svg.append('defs').append('svg:clipPath')
 				.attr('id', 'clip')
 				.append('svg:rect')
@@ -143,10 +153,6 @@ export default {
 			this.setupAxis();
 			this.setupZoom();
 
-			const myThis = this;
-			const size = 30;
-			const recipeSymbol = d3.symbol().type(d3.symbolSquare).size(size);
-
 			this.scatterPlot = this.svg.append('g')
 				.attr('id', 'scatterPlot')
 				.attr('clip-path', 'url(#clip)')
@@ -157,10 +163,12 @@ export default {
 				.enter()
 				.append('g')
 				.attr('class', 'dot')
-				.attr('transform', (d) => `translate(${this.x(new Date(d.startDate, 1, 1)) - 1},${this.y(d.yPos) - size / 4})`);
+				.attr('transform', (d) => `translate(${this.getXCoordinateOfItem(d)},${this.getYCoordinateOfItem(d)})`);
 
+			const myThis = this;
+			this.symbolSizeInPx = Math.floor(this.displayHeight / this.y.domain()[1]);
 			node.append('path')
-				.attr('d', recipeSymbol)
+				.attr('d', this.getItemSymbol(this.symbolSizeInPx))
 				.attr('opacity', 1)
 				.attr('class', (d) => d.type)
 				.attr('stroke-width', 1)
@@ -188,22 +196,24 @@ export default {
 		},
 		setupAxis() {
 			const yStack = {};
-			const xMinMax = d3.extent(this.items, (d) => {
+			const yMinMax = d3.extent(this.items, (d) => {
 				yStack[d.startDate] = (yStack[d.startDate] || 0) + 1;
 				// eslint-disable-next-line no-param-reassign
 				d.yPos = yStack[d.startDate];
-				return d.startDate;
+				return d.yPos;
 			});
 
 			/* X Axis */
+			const [start, end] = this.getXAxisDomain();
 			this.x = d3.scaleTime()
 				.domain([
-					new Date(xMinMax[0], 1, 1),
-					new Date(xMinMax[1], 1, 1),
-				]).nice()
+					new Date(start, 1, 1),
+					new Date(end, 1, 1),
+				])
 				.range([0, this.displayWidth]);
 
 			this.xAxis = d3.axisBottom(this.x);
+			this.setChartYearRange({ from: start, to: end });
 
 			this.gX = this.svg.append('g')
 				.classed('axis xaxis', true)
@@ -212,7 +222,7 @@ export default {
 
 			/* Y Axis */
 			this.y = d3.scaleLinear()
-				.domain([0, Math.max.apply(null, Object.values(yStack))]).nice()
+				.domain([0, yMinMax[1]]).nice()
 				.range([this.displayHeight, 0]);
 
 			this.yAxis = d3.axisLeft(this.y).ticks(this.y.domain()[1] / 20);
@@ -236,14 +246,34 @@ export default {
 		},
 		zoomed() {
 			const { transform } = currentEvent;
-			this.scatterPlot.selectAll('.dot')
-				.attr(
-					'transform',
-					(d) => `translate(${transform.applyX(this.x(new Date(d.startDate, 1, 1)) - 1)},${transform.applyY(this.y(d.yPos))})`,
-				);
+			// --- scaling axes to transformed value
 			this.gX.call(this.xAxis.scale(transform.rescaleX(this.x)));
 			this.gY.call(this.yAxis.scale(transform.rescaleY(this.y)));
+
+			// --- apply transform on each item in chart
+			const node = this.scatterPlot.selectAll('.dot')
+				.attr(
+					'transform',
+					(d) => `translate(${transform.applyX(this.getXCoordinateOfItem(d))},${transform.applyY(this.getYCoordinateOfItem(d))})`,
+				);
+
+			// --- rescale symbol of items in chart
+			const diff = this.scatterPlot.node().getBoundingClientRect().height - this.displayHeight;
+			const symbolSizeInPx = Math.floor((this.displayHeight + diff) / this.y.domain()[1]);
+			node.selectAll('path').attr('d', this.getItemSymbol(symbolSizeInPx));
+
+			// save transform to reset it when filters are applied
 			this.lastTransform = transform;
+
+			const [from, to] = this.xAxis.scale().domain();
+			if (from.getMinutes() > 0) {
+				from.setFullYear(from.getFullYear() + 1);
+			}
+			this.setChartYearRange({ from: from.getFullYear(), to: to.getFullYear() });
+		},
+		getItemSymbol(pxSize) {
+			const size = this.maxSymbolSizeInPx > pxSize ? pxSize ** 2 : this.maxSymbolSizeInPx ** 2;
+			return d3.symbol().type(d3.symbolSquare).size(size);
 		},
 		calculateToolTipX(mouseX, toolTipWidth, margin = 10) {
 			if (mouseX - (toolTipWidth / 2) - margin < 0) {
@@ -259,6 +289,12 @@ export default {
 				return mouseY + 10;
 			}
 			return mouseY - toolTipHeight - margin;
+		},
+		getXCoordinateOfItem({ startDate }) {
+			return this.x(new Date(startDate, 1, 1)) - 1;
+		},
+		getYCoordinateOfItem({ yPos }) {
+			return this.y(yPos) + (this.symbolSizeInPx / 2);
 		},
 		reset() {
 			d3.selectAll('.dot').remove();

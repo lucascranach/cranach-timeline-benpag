@@ -7,7 +7,7 @@
 						<v-btn @click="applyCategoryButton('painting')" v-bind:style="stylePainting">Gemälde</v-btn>
 					</v-col>
 					<v-col>
-						<v-btn @click="applyCategoryButton('graphic')" v-bind:style="styleGraphic">Drucke</v-btn>
+						<v-btn @click="applyCategoryButton('graphic')" v-bind:style="styleGraphic">Zeichnungen</v-btn>
 					</v-col>
 					<v-col>
 						<v-btn @click="applyCategoryButton('archival')" v-bind:style="styleArchivals">Archivalien</v-btn>
@@ -51,7 +51,7 @@
 									  true-value="graphic" false-value=""
 									  value="painting"/>
 						</v-list-item-action>
-						<v-list-item-title>Drucke</v-list-item-title>
+						<v-list-item-title>Zeichnungen</v-list-item-title>
 					</v-list-item>
 					<v-list-item>
 						<v-list-item-action>
@@ -128,8 +128,7 @@ export default {
 			'removeFilter',
 		]),
 		...mapGetters([
-			'getStartYear',
-			'getEndYear',
+			'getXAxisDomain',
 		]),
 		toggleSearch() {
 			if (this.search === null) {
@@ -180,10 +179,10 @@ export default {
 		},
 		applyYearFilter() {
 			if (this.time.from === '') {
-				this.time.from = this.getStartYear();
+				[this.time.from] = this.getXAxisDomain();
 			}
 			if (this.time.to === '') {
-				this.time.to = this.getEndYear();
+				[, this.time.to] = this.getXAxisDomain();
 			}
 			this.addFilter({
 				name: 'yearFilter',

@@ -24,7 +24,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import Exhibit from '@/components/Exhibit.vue';
+import Exhibit from '@/components/Gallery/Exhibit.vue';
 
 export default {
 	name: 'Gallery',

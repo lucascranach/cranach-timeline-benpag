@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import config from '../../global.config';
+import config from '../../../global.config';
 
 export default {
 	name: 'Exhibit',

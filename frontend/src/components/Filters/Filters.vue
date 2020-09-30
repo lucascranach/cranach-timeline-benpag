@@ -128,8 +128,7 @@ export default {
 			'removeFilter',
 		]),
 		...mapGetters([
-			'getStartYear',
-			'getEndYear',
+			'getXAxisDomain',
 		]),
 		toggleSearch() {
 			if (this.search === null) {
@@ -180,10 +179,10 @@ export default {
 		},
 		applyYearFilter() {
 			if (this.time.from === '') {
-				this.time.from = this.getStartYear();
+				[this.time.from] = this.getXAxisDomain();
 			}
 			if (this.time.to === '') {
-				this.time.to = this.getEndYear();
+				[, this.time.to] = this.getXAxisDomain();
 			}
 			this.addFilter({
 				name: 'yearFilter',

@@ -24,7 +24,7 @@
 
 <script>
 import { scaleTime } from 'd3-scale';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 import { select } from 'd3-selection';
 import EventToolTipItem from './EventToolTipItem.vue';
 
@@ -68,6 +68,10 @@ export default {
 		},
 	}),
 	computed: {
+		...mapState({
+			items: (state) => state.items,
+			yearRange: (state) => state.chartYearRange,
+		}),
 		lineThickness() {
 			return this.height / 2;
 		},
@@ -75,16 +79,13 @@ export default {
 			return this.width - this.margin.left - this.margin.right;
 		},
 		xAxis() {
+			const { from, to } = this.yearRange;
 			return scaleTime()
 				.domain([
-					new Date(`${this.sortedYears[0]}-01-01`),
-					new Date(`${this.sortedYears[this.sortedYears.length - 1]}-01-01`),
+					new Date(`${from}-01-01`),
+					new Date(`${to}-01-01`),
 				])
-				.nice()
 				.range([0, this.lineWidth]);
-		},
-		sortedYears() {
-			return this.getItems().map((item) => item.startDate).sort();
 		},
 	},
 	mounted() {
@@ -92,7 +93,7 @@ export default {
 	},
 	methods: {
 		...mapGetters([
-			'getItems',
+			'getXAxisDomain',
 		]),
 		showToolTip(event, item) {
 			this.toolTipData = item;
@@ -102,8 +103,7 @@ export default {
 				.style('visibility', 'visible');
 		},
 		dismissToolTip() {
-			this.toolTip
-				.style('visibility', 'hidden');
+			this.toolTip.style('visibility', 'hidden');
 		},
 	},
 };

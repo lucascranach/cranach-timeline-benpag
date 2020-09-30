@@ -147,6 +147,8 @@ export default {
 	computed: {
 		...mapState({
 			data: (state) => state.histogram,
+			yearFilter: (state) => state.activeFilters.find((f) => f.name === 'yearFilter'),
+			yearRange: (state) => state.chartYearRange,
 		}),
 		timelineWidth() {
 			return this.width - this.margin.left - this.margin.right;
@@ -176,10 +178,17 @@ export default {
 				this.setupSliders();
 			},
 		},
+		yearFilter: {
+			handler(val) {
+				this.onFilterRangeChanged(val?.params);
+			},
+		},
+		yearRange: 'onFilterRangeChanged',
 	},
 	methods: {
 		...mapGetters([
 			'getHistogramImages',
+			'getStaticXAxisDomain',
 		]),
 		...mapActions([
 			'addFilter',
@@ -219,7 +228,7 @@ export default {
 			const countsPerYear = Object.values(this.data) || [];
 
 			this.xAxis = scaleLinear()
-				.domain([this.years[0], this.years[this.years.length - 1]]).nice()
+				.domain(this.getStaticXAxisDomain())
 				.range([0, this.timelineWidth]);
 
 			const yAxis = scaleLinear()
@@ -272,6 +281,7 @@ export default {
 				.on('end', () => {
 					this.applyYearFilter();
 				});
+
 			sliderLeft.call(sliderLeftDragHandler);
 			sliderLeftText.text(this.filterRange.from);
 		},
@@ -310,6 +320,7 @@ export default {
 				.on('end', () => {
 					this.applyYearFilter();
 				});
+
 			sliderRight.call(sliderRightDragHandler);
 			sliderRightText.text(this.filterRange.to);
 		},
@@ -353,6 +364,26 @@ export default {
 					this.applyYearFilter();
 				});
 			areaSlider.call(areaSliderDragHandler);
+
+			const area = select('#area');
+			areaSlider.on('yearFilterChanged', () => {
+				const x = this.xAxis(this.filterRange.from);
+				sliderLeft.attr('transform', `translate(${x}, 0)`);
+				areaInactiveLeft.attr('width', x);
+				sliderLeftText.text(this.filterRange.from);
+
+				const xOffset = this.xAxis(this.filterRange.to) - maxPx;
+				sliderRight.attr('transform', `translate(${xOffset}, 0)`);
+				areaInactiveRight
+					.attr('width', Math.abs(xOffset))
+					.attr('transform', `translate(${xOffset}, 0)`);
+				sliderRightText.text(this.filterRange.to);
+
+				const bounding = area.node().getBBox();
+				areaSlider.attr('width', bounding.width - this.pillWidth);
+				areaSlider.attr('height', bounding.height);
+				areaSlider.attr('transform', `translate(${x}, 0)`);
+			});
 		},
 		applyYearFilter() {
 			const filter = {
@@ -361,6 +392,15 @@ export default {
 				params: this.filterRange,
 			};
 			this.addFilter(filter);
+		},
+		onFilterRangeChanged(filterRange) {
+			if (filterRange !== undefined) {
+				this.filterRange = { ...filterRange };
+			} else {
+				[this.filterRange.from, this.filterRange.to] = this.xAxis.domain();
+			}
+
+			select('#areaSlider').dispatch('yearFilterChanged');
 		},
 	},
 };

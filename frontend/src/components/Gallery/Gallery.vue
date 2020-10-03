@@ -1,8 +1,8 @@
 <template>
     <v-container>
         <v-row justify="space-around">
-            <v-checkbox v-model="paintingsSelected" class="mx-2" label="Gemälde"/>
-            <v-checkbox v-model="graphicsSelected" class="mx-2" label="Grafiken"/>
+            <v-checkbox v-model="paintingsSelected" class="mx-2" :label="$t('paintings')"/>
+            <v-checkbox v-model="graphicsSelected" class="mx-2" :label="$t('graphics')"/>
         </v-row>
         <v-virtual-scroll
             id="galleryScroller"

@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import i18n from '@/plugins/i18n';
 import App from './App.vue';
 import ErrorPage from './Error.vue';
 import store from './store';
@@ -10,6 +11,7 @@ Vue.config.devtools = false;
 new Vue({
 	store,
 	vuetify,
+	i18n,
 	render: (h) => h(App),
 }).$mount('#app');
 

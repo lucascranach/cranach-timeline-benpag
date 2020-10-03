@@ -2,7 +2,7 @@
 	<v-app>
 		<v-app-bar app>
 			<v-spacer />
-			<h1>Cranach Timeline</h1>
+			<h1>{{$t('cranach_timeline')}}</h1>
 			<v-spacer />
 		</v-app-bar>
 		<v-main>

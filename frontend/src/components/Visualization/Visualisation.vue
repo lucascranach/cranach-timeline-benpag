@@ -2,7 +2,7 @@
   <div>
     <h1
         v-show="!this.hasItems()">
-      Es wurden keine Elemente für diese Filtereinstellungen gefunden.
+      {{$t('no_filter_elements')}}
     </h1>
     <div
         v-show="this.hasItems()"

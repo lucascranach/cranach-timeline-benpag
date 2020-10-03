@@ -1,13 +1,28 @@
 <template>
 	<v-app>
 		<v-app-bar app>
+			<v-badge
+				:value="activeFilters.length > 0"
+				:content="activeFilters.length"
+				left
+				offset-y="20"
+				offset-x="20"
+				overlap
+			>
+				<v-btn
+					icon
+					@click="() => this.showFilters = !this.showFilters"
+				>
+					<v-icon large>mdi-filter</v-icon>
+				</v-btn>
+			</v-badge>
 			<v-spacer />
 			<h1>Cranach Timeline</h1>
 			<v-spacer />
 		</v-app-bar>
 		<v-main>
 			<v-container>
-				<FilterComponent/>
+				<FilterComponent :showFilters="showFilters"/>
 				<loading :active.sync="isLoading"/>
                 <Visualization @tooltipClick="openItemInGallery($event)" v-show="activeComponent === 'visualization'" />
                 <Gallery v-show="activeComponent === 'gallery'" :scrollToExhibit="scrollToExhibit"/>
@@ -34,7 +49,7 @@ export default {
 	},
 	data() {
 		return {
-			currentFilter: undefined,
+			showFilters: true,
 			activeComponent: 'visualization',
 			buttonText: 'Galerie',
 			scrollToExhibit: null,
@@ -43,6 +58,7 @@ export default {
 	computed: {
 		...mapState({
 			isLoading: (state) => state.isLoading,
+			activeFilters: (state) => state.activeFilters,
 		}),
 	},
 	methods: {

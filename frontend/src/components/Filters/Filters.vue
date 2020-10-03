@@ -1,6 +1,6 @@
 <template>
 	<v-sheet>
-		<v-row>
+		<v-row v-show="showFilters">
 			<v-col v-for="(component, i) in this.formElements" :key="i">
 				<v-menu
 					offset-y
@@ -56,6 +56,12 @@ import config from '../../../global.config';
 
 export default {
 	name: 'Filters',
+	props: {
+		showFilters: {
+			type: Boolean,
+			default: true,
+		},
+	},
 	components: {
 		CategoryFilter,
 		IsBestOfFilter,

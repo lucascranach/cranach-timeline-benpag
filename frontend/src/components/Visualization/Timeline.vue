@@ -1,107 +1,103 @@
 <template>
-	<v-row>
-		<v-col cols="12">
-			<svg :height="height" :width="width">
-				<g :transform="`translate(${margin.left},0)`">
-					<g :transform="`translate(0, ${gap - strokeWidth})`">
-						<g v-for="(img, index) in this.getHistogramImages()" :key="index">
-							<defs>
-								<pattern
-                                    :id="`img-${index}`" patternUnits="userSpaceOnUse"
-                                    :width="imageWidth" :height="imageHeight"
-                                >
-									<image
-										preserveAspectRatio="xMidYMin slice"
-										:width="imageWidth"
-										:height="imageHeight"
-										:href="img.imageUrl"
-									/>
-								</pattern>
-							</defs>
-							<path :d="getPath(index)" :fill="`url(#img-${index})`"/>
-						</g>
-						<g>
-                        <defs>
-                            <linearGradient id="toTransparency" y1="100%" y2="0%">
-                                <stop offset="0" :stop-color="histogramColor" stop-opacity="0.4"></stop>
-                                <stop offset="1" :stop-color="histogramColor" stop-opacity="0.8"></stop>
-                            </linearGradient>
-                        </defs>
-                        <polyline
-                            :points="getPolylinePoints()"
-                            :stroke="histogramColor"
-                            fill="url(#toTransparency)"
-                        />
-                        </g>
-                        <rect
-                            id="areaInactiveLeft"
-                            x="0" y="0"
-                            :height="imageHeight"
-                            :fill="inactiveColor"
-                        />
-                        <rect
-                            id="areaInactiveRight"
-                            :x="timelineWidth" y="0"
-                            :height="imageHeight"
-                            :fill="inactiveColor"
-                        />
-					</g>
-                    <line
-                        x1="0" :y1="height"
-                        :x2="timelineWidth" :y2="height"
-                        :stroke="sliderColor" :stroke-width="strokeWidth * 2"
-                    />
-                    <rect
-                        id="areaSlider" class="slider"
-                        x="0" y="0"
-                        fill="transparent"
-                    />
-					<g id="area">
-						<g id="sliderLeft" class="slider">
-                            <line
-                                x1="0" y1="0"
-                                x2="0" :y2="timelineWidth"
-                                :stroke="sliderColor" :stroke-width="strokeWidth"
-                            />
-                            <rect
-                                :x="-(pillWidth / 2)" y="1"
-                                :ry="pillWidth / 4" rx="10"
-                                :fill="histogramColor"
-                                :width="pillWidth" height="20"
-                                :stroke="sliderColor" :stroke-width="strokeWidth"
-                            />
-                            <text
-                                id="sliderLeftText"
-                                x="0" :y="pillFontSize"
-                                :font-size="pillFontSize"
-                                dominant-baseline="middle" text-anchor="middle"
-                            />
-                        </g>
-                        <g id="sliderRight" class="slider">
-                            <line
-                                :x1="timelineWidth" :y1="height"
-                                :x2="timelineWidth" :y2="0"
-                                :stroke="sliderColor" :stroke-width="strokeWidth"
-                            />
-                            <rect
-                                :x="timelineWidth - (pillWidth / 2)" y="1"
-                                :ry="pillWidth / 4" rx="10"
-                                :fill="histogramColor"
-                                :width="pillWidth" height="20"
-                                :stroke="sliderColor" :stroke-width="strokeWidth"
-                            />
-                            <text
-                                id="sliderRightText"
-                                :x="timelineWidth" :y="pillFontSize"
-                                dominant-baseline="middle" text-anchor="middle"
-                                :font-size="pillFontSize"
-                            />
-                        </g>
-					</g>
+	<svg :height="height" :width="width">
+		<g :transform="`translate(${margin.left},0)`">
+			<g :transform="`translate(0, ${gap - strokeWidth})`">
+				<g v-for="(img, index) in this.getHistogramImages()" :key="index">
+					<defs>
+						<pattern
+							:id="`img-${index}`" patternUnits="userSpaceOnUse"
+							:width="imageWidth" :height="imageHeight"
+						>
+							<image
+								preserveAspectRatio="xMidYMin slice"
+								:width="imageWidth"
+								:height="imageHeight"
+								:href="img.imageUrl"
+							/>
+						</pattern>
+					</defs>
+					<path :d="getPath(index)" :fill="`url(#img-${index})`"/>
 				</g>
-			</svg>
-		</v-col>
-	</v-row>
+				<g>
+					<defs>
+						<linearGradient id="toTransparency" y1="100%" y2="0%">
+							<stop offset="0" :stop-color="histogramColor" stop-opacity="0.4"></stop>
+							<stop offset="1" :stop-color="histogramColor" stop-opacity="0.8"></stop>
+						</linearGradient>
+					</defs>
+					<polyline
+						:points="getPolylinePoints()"
+						:stroke="histogramColor"
+						fill="url(#toTransparency)"
+					/>
+				</g>
+				<rect
+					id="areaInactiveLeft"
+					x="0" y="0"
+					:height="imageHeight"
+					:fill="inactiveColor"
+				/>
+				<rect
+					id="areaInactiveRight"
+					:x="timelineWidth" y="0"
+					:height="imageHeight"
+					:fill="inactiveColor"
+				/>
+			</g>
+			<line
+				x1="0" :y1="height"
+				:x2="timelineWidth" :y2="height"
+				:stroke="sliderColor" :stroke-width="strokeWidth * 2"
+			/>
+			<rect
+				id="areaSlider" class="slider"
+				x="0" y="0"
+				fill="transparent"
+			/>
+			<g id="area">
+				<g id="sliderLeft" class="slider">
+					<line
+						x1="0" y1="0"
+						x2="0" :y2="timelineWidth"
+						:stroke="sliderColor" :stroke-width="strokeWidth"
+					/>
+					<rect
+						:x="-(pillWidth / 2)" y="1"
+						:ry="pillWidth / 4" rx="10"
+						:fill="histogramColor"
+						:width="pillWidth" height="20"
+						:stroke="sliderColor" :stroke-width="strokeWidth"
+					/>
+					<text
+						id="sliderLeftText"
+						x="0" :y="pillFontSize"
+						:font-size="pillFontSize"
+						dominant-baseline="middle" text-anchor="middle"
+					/>
+				</g>
+				<g id="sliderRight" class="slider">
+					<line
+						:x1="timelineWidth" :y1="height"
+						:x2="timelineWidth" :y2="0"
+						:stroke="sliderColor" :stroke-width="strokeWidth"
+					/>
+					<rect
+						:x="timelineWidth - (pillWidth / 2)" y="1"
+						:ry="pillWidth / 4" rx="10"
+						:fill="histogramColor"
+						:width="pillWidth" height="20"
+						:stroke="sliderColor" :stroke-width="strokeWidth"
+					/>
+					<text
+						id="sliderRightText"
+						:x="timelineWidth" :y="pillFontSize"
+						dominant-baseline="middle" text-anchor="middle"
+						:font-size="pillFontSize"
+					/>
+				</g>
+			</g>
+		</g>
+	</svg>
 </template>
 
 <script>

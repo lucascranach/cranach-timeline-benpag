@@ -7,7 +7,6 @@
 		</v-app-bar>
 		<v-main>
 			<v-container>
-				<v-btn @click="switchComponents()">{{ buttonText }}</v-btn>
 				<FilterComponent/>
 				<loading :active.sync="isLoading"/>
                 <Visualization @tooltipClick="openItemInGallery($event)" v-show="activeComponent === 'visualization'" />

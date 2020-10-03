@@ -1,66 +1,39 @@
 <template>
-	<v-menu
-		v-model="menu"
-		offset-y
-		tile
-		:close-on-content-click="false"
-	>
-		<template v-slot:activator="{ on, attrs }">
-			<v-btn
+	<v-row dense>
+		<v-col>
+			<v-text-field
+				v-model="time.from"
+				prefix="Von"
 				outlined
-				text
-				block
-				large
-				v-bind="attrs"
-				v-on="on"
-			>
-				Zeit
-			</v-btn>
-		</template>
-		<v-card>
-			<v-row class="px-3">
-				<v-col>
-					<v-text-field
-						v-model="time.from"
-						prefix="Von"
-						outlined
-						rounded
-						dense
-						clearable
-						hide-details
-						@change="applyYearFilter()"
-					/>
-				</v-col>
-				<v-col>
-					<v-text-field
-						v-model="time.to"
-						prefix="Bis"
-						outlined
-						rounded
-						dense
-						clearable
-						hide-details
-						@change="applyYearFilter()"
-					/>
-				</v-col>
-				<v-col cols="12" class="px-3" v-if="false">
-					<v-range-slider
-						v-model="rangeSliderValue"
-						hide-details
-						thumb-label="always"
-						:min="this.getStaticXAxisDomain()[0]" step="1"
-						:max="this.getStaticXAxisDomain()[1]"
-					/>
-				</v-col>
-			</v-row>
-			<v-card-actions>
-				<v-spacer />
-				<v-btn text @click="menu = false">
-					Close
-				</v-btn>
-			</v-card-actions>
-		</v-card>
-	</v-menu>
+				rounded
+				dense
+				clearable
+				hide-details
+				@change="applyYearFilter()"
+			/>
+		</v-col>
+		<v-col>
+			<v-text-field
+				v-model="time.to"
+				prefix="Bis"
+				outlined
+				rounded
+				dense
+				clearable
+				hide-details
+				@change="applyYearFilter()"
+			/>
+		</v-col>
+		<v-col cols="12" class="px-3 mt-10" v-if="true">
+			<v-range-slider
+				v-model="rangeSliderValue"
+				hide-details
+				thumb-label="always"
+				:min="this.getStaticXAxisDomain()[0]" step="1"
+				:max="this.getStaticXAxisDomain()[1]"
+			/>
+		</v-col>
+	</v-row>
 </template>
 
 <script>
@@ -71,7 +44,6 @@ export default {
 	name: 'TimeFilter',
 	data() {
 		return {
-			menu: false,
 			time: {
 				from: config.defaultDates.start,
 				to: config.defaultDates.end,
@@ -133,7 +105,3 @@ export default {
 	},
 };
 </script>
-
-<style scoped>
-
-</style>

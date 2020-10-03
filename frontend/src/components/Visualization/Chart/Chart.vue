@@ -1,7 +1,7 @@
 <!--suppress CommaExpressionJS -->
 <template>
 	<div>
-		<v-btn @click="resetZoom" class="mb-4">
+		<v-btn @click="resetZoom" v-if="false" class="mb-4">
 			Reset Zoom
 		</v-btn>
 		<div id="umf-d3-chart"></div>
@@ -146,6 +146,7 @@ export default {
 				.attr('y', 0);
 		},
 		updateChart() {
+			console.log('updateChart');
 			if (this.items.length < 1) {
 				return;
 			}
@@ -213,7 +214,7 @@ export default {
 				.range([0, this.displayWidth]);
 
 			this.xAxis = d3.axisBottom(this.x);
-			this.setChartYearRange({ from: start, to: end });
+			this.setChartYearRange({ from: start + 1, to: end - 1 });
 
 			this.gX = this.svg.append('g')
 				.classed('axis xaxis', true)

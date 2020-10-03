@@ -1,98 +1,68 @@
 <template>
-	<v-combobox
-		:items="Object.values(category)"
-		label="Kategorie"
-		multiple
-		outlined
-		dense
-	/>
+	<v-sheet>
+		<v-switch
+			v-for="(category, i) in categoryList" :key="i"
+			v-model="selectedCategories"
+			:label="category.name"
+			:value="category.value"
+			:color="colors[category.value]"
+			class="my-1"
+			inset
+			dense
+			multiple
+			hide-details
+		/>
+	</v-sheet>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 import config from '../../../global.config';
 
 export default {
 	name: 'CategoryFilter',
 	data() {
 		return {
-			category: {
-				active: false,
-				paintings: 'painting',
-				graphics: 'graphic',
-				archivals: 'archival',
-			},
-			stylePainting: {
-				color: config.colors.paintings,
-			},
-			styleGraphic: {
-				color: config.colors.graphics,
-			},
-			styleArchivals: {
-				color: config.colors.archivals,
-			},
+			categoryList: [
+				{ name: 'paintings', value: 'painting' },
+				{ name: 'graphics', value: 'graphic' },
+				{ name: 'archivals', value: 'archival' },
+			],
+			colors: config.colors,
+			selectedCategories: [],
 		};
+	},
+	computed: {
+		...mapState({
+			categoryFilter: (state) => state.activeFilters.find((f) => f.name === 'categoryFilter'),
+		}),
+	},
+	watch: {
+		selectedCategories() {
+			if (this.selectedCategories.length < 1) {
+				this.removeFilter('categoryFilter');
+			} else {
+				this.applyCategoryFilter();
+			}
+		},
+		categoryFilter() {
+			if (this.categoryFilter === undefined) {
+				this.selectedCategories = [];
+			}
+		},
 	},
 	methods: {
 		...mapActions([
 			'addFilter',
 			'removeFilter',
 		]),
-		resetFilters() {
-			this.resetCategoryFilter();
-		},
 		applyCategoryFilter() {
 			this.addFilter({
 				name: 'categoryFilter',
 				type: 'category',
-				params: { validCategories: Object.values(this.category) },
+				params: { validCategories: [...this.selectedCategories] },
 			});
-		},
-		resetCategoryFilter() {
-			this.removeFilter('categoryFilter');
-			this.category = {
-				paintings: 'painting',
-				graphics: 'graphic',
-				archivals: 'archival',
-			};
-		},
-		applyCategoryButton(filterType) {
-			switch (filterType) {
-			case 'painting':
-				if (this.category.paintings === 'painting') {
-					this.category.paintings = '';
-					this.stylePainting.color = 'grey';
-				} else {
-					this.category.paintings = 'painting';
-					this.stylePainting.color = config.colors.paintings;
-				}
-				break;
-			case 'graphic':
-				if (this.category.graphics === 'graphic') {
-					this.category.graphics = '';
-					this.styleGraphic.color = 'grey';
-				} else {
-					this.category.graphics = 'graphic';
-					this.styleGraphic.color = config.colors.graphics;
-				}
-				break;
-			case 'archival':
-				if (this.category.archivals === 'archival') {
-					this.category.archivals = '';
-					this.styleArchivals.color = 'grey';
-				} else {
-					this.category.archivals = 'archival';
-					this.styleArchivals.color = config.colors.archivals;
-				}
-				break;
-			default: break;
-			}
-			this.applyCategoryFilter();
 		},
 	},
 };
 </script>
-
-<style scoped>
-
-</style>

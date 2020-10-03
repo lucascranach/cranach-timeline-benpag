@@ -21,6 +21,7 @@ import config from '../../../global.config';
 
 export default {
 	name: 'CategoryFilter',
+	filterName: 'categoryFilter',
 	data() {
 		return {
 			categoryList: [
@@ -40,7 +41,7 @@ export default {
 	watch: {
 		selectedCategories() {
 			if (this.selectedCategories.length < 1) {
-				this.removeFilter('categoryFilter');
+				this.removeFilter(this.$options.filterName);
 			} else {
 				this.applyCategoryFilter();
 			}
@@ -58,10 +59,13 @@ export default {
 		]),
 		applyCategoryFilter() {
 			this.addFilter({
-				name: 'categoryFilter',
+				name: this.$options.filterName,
 				type: 'category',
-				params: { validCategories: [...this.selectedCategories] },
+				params: { validCategories: this.selectedCategories },
 			});
+		},
+		removeFilterValue(filterValue) {
+			this.selectedCategories.splice(this.selectedCategories.indexOf(filterValue.value), 1);
 		},
 	},
 };

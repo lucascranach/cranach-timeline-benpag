@@ -15,6 +15,7 @@ import { mapActions, mapState } from 'vuex';
 
 export default {
 	name: 'IsBestOfFilter',
+	filterName: 'isBestOfFilter',
 	data() {
 		return {
 			isBestOf: false,
@@ -40,13 +41,16 @@ export default {
 		applyIsBestOfFilter() {
 			if (this.isBestOf) {
 				this.addFilter({
-					name: 'isBestOfFilter',
+					name: this.$options.filterName,
 					type: 'isBestOf',
 					params: this.isBestOf,
 				});
 			} else {
-				this.removeFilter('isBestOfFilter');
+				this.removeFilter(this.$options.filterName);
 			}
+		},
+		removeFilterValue() {
+			this.removeFilter(this.$options.filterName);
 		},
 	},
 };

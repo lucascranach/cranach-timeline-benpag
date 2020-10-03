@@ -42,6 +42,7 @@ import config from '../../../global.config';
 
 export default {
 	name: 'TimeFilter',
+	filterName: 'yearFilter',
 	data() {
 		return {
 			time: {
@@ -88,8 +89,13 @@ export default {
 				this.time.to = max;
 			}
 
+			if (this.time.from === min && this.time.to === max) {
+				this.removeFilter(this.$options.filterName);
+				return;
+			}
+
 			this.addFilter({
-				name: 'yearFilter',
+				name: this.$options.filterName,
 				type: 'year',
 				params: this.time,
 			});
@@ -98,9 +104,13 @@ export default {
 			return Number.isNaN(parseInt(inputValue, 10));
 		},
 		resetYearFilter() {
-			this.removeFilter('yearFilter');
+			this.removeFilter(this.$options.filterName);
 			[this.time.from, this.time.to] = this.getStaticXAxisDomain();
 			this.rangeSliderValue = [...this.getStaticXAxisDomain()];
+		},
+		removeFilterValue({ key }) {
+			this.time[key] = undefined;
+			this.applyYearFilter();
 		},
 	},
 };

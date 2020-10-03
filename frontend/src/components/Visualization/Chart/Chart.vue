@@ -146,7 +146,6 @@ export default {
 				.attr('y', 0);
 		},
 		updateChart() {
-			console.log('updateChart');
 			if (this.items.length < 1) {
 				return;
 			}

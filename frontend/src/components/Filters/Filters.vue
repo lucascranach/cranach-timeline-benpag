@@ -18,7 +18,7 @@
 						</v-btn>
 					</template>
 					<v-card flat class="px-3 py-6">
-						<component :is="component" />
+						<component :ref="component.filterName" :is="component" />
 					</v-card>
 				</v-menu>
 			</v-col>
@@ -28,8 +28,9 @@
 				v-for="(filterValue, i) in activeFilterValues" :key="i"
 				v-show="filterValue.value"
 				class="mx-2"
-				:color="colors[filterValue.value] || 'primary'"
 				close
+				:color="colors[filterValue.value] || 'primary'"
+				@click:close="removeFilterValue(filterValue)"
 			>
 				{{ filterValue.value }}
 			</v-chip>
@@ -37,7 +38,7 @@
 				v-show="activeFilterValues.length > 0"
 				class="mx-2"
 				label
-				@click="this.resetFilters"
+				@click="resetFilters"
 			>
 				Reset all
 			</v-chip>
@@ -77,10 +78,17 @@ export default {
 			activeFilters: (state) => state.activeFilters,
 		}),
 		activeFilterValues() {
-			console.log('activeFilterValues');
 			return this.activeFilters.map((f) => {
+				if (Array.isArray(f.params)) {
+					return f.params.map((value) => ({ name: f.name, value }));
+				}
 				if (typeof f.params === 'object') {
-					return Object.values(f.params).flat().map((value) => ({ name: f.name, value }));
+					return Object.entries(f.params).map(([key, value]) => {
+						if (Array.isArray(value)) {
+							return value.map((i) => ({ name: f.name, key, value: i }));
+						}
+						return { name: f.name, key, value };
+					}).flat();
 				}
 				return { name: f.name, value: f.params };
 			}).flat();
@@ -88,8 +96,13 @@ export default {
 	},
 	methods: {
 		...mapActions([
+			'addFilter',
+			'removeFilter',
 			'resetFilters',
 		]),
+		removeFilterValue(filterValue) {
+			this.$refs[filterValue.name][0].removeFilterValue(filterValue);
+		},
 	},
 };
 </script>

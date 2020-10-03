@@ -6,6 +6,7 @@
 		dense
 		clearable
 		hide-details
+		prepend-inner-icon="search"
 		@input="asyncSearch()"
 	/>
 </template>
@@ -15,6 +16,7 @@ import { mapActions, mapState } from 'vuex';
 
 export default {
 	name: 'TextSearchFilter',
+	filterName: 'search',
 	data() {
 		return {
 			search: '',
@@ -39,16 +41,19 @@ export default {
 		]),
 		asyncSearch() {
 			if (this.search === null || this.search === undefined) {
-				this.removeFilter('search');
+				this.removeFilter(this.$options.filterName);
 			} else {
 				setTimeout(() => {
 					this.addFilter({
-						name: 'search',
+						name: this.$options.filterName,
 						type: 'search',
 						params: this.search.toLowerCase(),
 					});
 				}, 0);
 			}
+		},
+		removeFilterValue() {
+			this.removeFilter(this.$options.filterName);
 		},
 	},
 };

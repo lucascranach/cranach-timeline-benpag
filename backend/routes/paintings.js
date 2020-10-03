@@ -5,9 +5,10 @@ const path = require('path');
 const router = express.Router();
 
 router.get('/', (req, res) => {
+	const { lang } = req.query;
 	res.format({
 		'application/json': () => {
-			const jsonPath = path.join(`${__dirname}../../data/paintings.json`);
+			const jsonPath = path.join(`${__dirname}../../data/paintings_${lang}.json`);
 			if (fs.existsSync(jsonPath)) {
 				const result = JSON.parse(fs.readFileSync(jsonPath));
 				res.send(result);

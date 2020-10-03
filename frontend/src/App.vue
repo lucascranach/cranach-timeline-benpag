@@ -4,6 +4,11 @@
 			<v-spacer />
 			<h1>{{$t('cranach_timeline')}}</h1>
 			<v-spacer />
+			<div>
+				<button v-for="entry in languages" :key="entry.title" @click="changeLocale(entry.language)">
+					<flag :iso="entry.flag" v-bind:squared=false /> {{entry.title}}
+				</button>
+			</div>
 		</v-app-bar>
 		<v-main>
 			<v-container>
@@ -20,6 +25,7 @@
 <script>
 import { mapState } from 'vuex';
 import Loading from 'vue-loading-overlay';
+import i18n from '@/plugins/i18n';
 import Visualization from './components/Visualization/Visualisation.vue';
 import Gallery from './components/Gallery/Gallery.vue';
 import FilterComponent from './components/Filters/Filters.vue';
@@ -39,6 +45,10 @@ export default {
 			activeComponent: 'visualization',
 			buttonText: 'Galerie',
 			scrollToExhibit: null,
+			languages: [
+				{ flag: 'de', language: 'de', title: 'Deutsch' },
+				{ flag: 'gb', language: 'en', title: 'English' },
+			],
 		};
 	},
 	computed: {
@@ -60,9 +70,17 @@ export default {
 			this.switchComponents();
 			this.scrollToExhibit = exhibit;
 		},
+		changeLocale(locale) {
+			i18n.locale = locale;
+		},
 	},
 };
 </script>
 <style scoped>
-
+button {
+	padding: 15px;
+	border: 1px solid green;
+	font-size: 18px;
+	margin: 15px;
+	}
 </style>

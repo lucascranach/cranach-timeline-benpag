@@ -1,7 +1,7 @@
 <template>
 	<v-text-field
 		v-model="search"
-		label="Volltext Suche"
+		:label="$t('TextSearchFilter')"
 		outlined
 		dense
 		clearable

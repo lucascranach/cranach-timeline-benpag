@@ -98,7 +98,7 @@ export default {
 };
 </script>
 <style scoped>
-button {
+div > button {
 	padding: 15px;
 	border: 1px solid green;
 	font-size: 18px;

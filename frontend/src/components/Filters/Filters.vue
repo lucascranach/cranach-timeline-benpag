@@ -14,7 +14,7 @@
 							v-bind="attrs"
 							v-on="on"
 						>
-							{{ component.name }}
+							{{ $t(component.name) }}
 						</v-btn>
 					</template>
 					<v-card flat class="px-3 py-6">

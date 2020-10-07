@@ -2,7 +2,7 @@
 	<v-switch
 		v-model="isBestOf"
 		class="mt-0"
-		label="Show Best Of only"
+		:label="$t('show_best_of_only')"
 		inset
 		dense
 		hide-details

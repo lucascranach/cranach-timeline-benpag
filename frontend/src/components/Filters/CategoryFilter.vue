@@ -3,7 +3,7 @@
 		<v-switch
 			v-for="(category, i) in categoryList" :key="i"
 			v-model="selectedCategories"
-			:label="category.name"
+			:label="$t(category.name)"
 			:value="category.value"
 			:color="colors[category.value]"
 			class="my-1"

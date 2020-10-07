@@ -3,7 +3,7 @@
 		<v-col>
 			<v-text-field
 				v-model="time.from"
-				prefix="Von"
+				:prefix="$t('from')"
 				outlined
 				rounded
 				dense
@@ -15,7 +15,7 @@
 		<v-col>
 			<v-text-field
 				v-model="time.to"
-				prefix="Bis"
+				:prefix="$t('to')"
 				outlined
 				rounded
 				dense

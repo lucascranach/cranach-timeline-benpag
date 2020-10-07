@@ -15,44 +15,44 @@
                 />
             </div>
             <div class="headline">
-                {{ item.title[0] && item.title[0] !== '' ? item.title[0] : 'Titel unbekannt'}}
+                {{ item.title[0] && item.title[0] !== '' ? item.title[0] : $t('title_unknown')}}
             </div>
             <v-card-text>
                 <v-row>
                     <v-col>
                         <v-icon>mdi-map-marker</v-icon>
-                        <div>{{ item.location[0] && item.location[0] !== '' ? item.location[0] : 'Ort unbekannt'}}</div>
+                        <div>{{ item.location[0] && item.location[0] !== '' ? item.location[0] : $t('place_unknown')}}</div>
                     </v-col>
                     <v-col>
                         <v-icon>mdi-cash</v-icon>
-                        <div>Auftraggeber unbekannt</div>
+                        <div>{{$t('client_unknown')}}</div>
                     </v-col>
                 </v-row>
                 <v-row>
                     <v-col>
                         <v-icon>mdi-flower</v-icon>
-                        <div>Medium unbekannt</div>
+                        <div>{{$t('medium_unknown')}}</div>
                     </v-col>
                     <v-col>
                         <v-icon>mdi-flower</v-icon>
-                        <div>Größe unbekannt</div>
+                        <div>{{$t('size_unknown')}}</div>
                     </v-col>
                 </v-row>
                 <v-row>
                     <v-col>
                         <v-icon>mdi-calendar</v-icon>
-                        <div>{{item.startDate && item.startDate !== '' ? item.startDate : 'Unbekannt' +
+                        <div>{{item.startDate && item.startDate !== '' ? item.startDate : $t('unknown') +
                             ' - '
-                            + item.endDate && item.endDate !== '' ? item.endDate : 'Unbekannt'}}</div>
+                            + item.endDate && item.endDate !== '' ? item.endDate : $t('unknown')}}</div>
                     </v-col>
                     <v-col>
                         <v-icon>mdi-account</v-icon>
-                        <div>{{ item.artists[0] && item.artists[0].name !== '' ? item.artists[0].name : 'Künstler unbekannt'}}</div>
+                        <div>{{ item.artists[0] && item.artists[0].name !== '' ? item.artists[0].name : $t('artist_unknown')}}</div>
                     </v-col>
                 </v-row>
             </v-card-text>
             <!-- imageUrl is taken as a placeholder and needs to be replaced with CDA Url-->
-            <v-btn v-if="item.imageUrl" :href="item.imageUrl" class="button">Weiterlesen</v-btn>
+            <v-btn v-if="item.imageUrl" :href="item.imageUrl" class="button">{{$t('continue_reading')}}</v-btn>
         </v-card>
 </template>
 

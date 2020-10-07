@@ -1,7 +1,10 @@
 # Image data
-/data/archivals.json
-/data/graphics.json
-/data/paintings.json
+/data/archivals_de.json
+/data/graphics_de.json
+/data/paintings_de.json
+/data/archivals_en.json
+/data/graphics_en.json
+/data/paintings_en.json
 
 # Logs
 logs

@@ -1,4 +1,6 @@
 import Vue from 'vue';
+import i18n from '@/plugins/i18n';
+import FlagIcon from 'vue-flag-icon';
 import App from './App.vue';
 import ErrorPage from './Error.vue';
 import store from './store';
@@ -6,10 +8,12 @@ import vuetify from './plugins/vuetify';
 
 Vue.config.productionTip = false;
 Vue.config.devtools = false;
+Vue.use(FlagIcon);
 
 new Vue({
 	store,
 	vuetify,
+	i18n,
 	render: (h) => h(App),
 }).$mount('#app');
 

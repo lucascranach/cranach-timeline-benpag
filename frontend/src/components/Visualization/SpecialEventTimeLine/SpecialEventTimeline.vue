@@ -53,8 +53,6 @@ export default {
 	}),
 	computed: {
 		...mapState({
-			items: (state) => state.items,
-			yearRange: (state) => state.chartYearRange,
 			zoomTransform: (state) => state.chartZoomTransform,
 		}),
 		lineThickness() {

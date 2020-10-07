@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
+import i18n from '@/plugins/i18n';
 import config from '../../global.config';
 import exceptions from '../../global.exceptions';
 import filters from './filters';
@@ -96,7 +97,7 @@ export default new Vuex.Store({
 			commit('setLoadingState', true);
 			try {
 				const data = (await Promise.all(
-					config.resources.map(async (r) => (await axios.get(config.dataBaseUrl + r)).data[r]),
+					config.resources.map(async (r) => (await axios.get(`${config.dataBaseUrl + r}?lang=${i18n.locale}`)).data[r]),
 				)).flat();
 
 				const allItems = data.filter((w) => w.startDate > 1490 && w.startDate < 1620);
@@ -106,7 +107,7 @@ export default new Vuex.Store({
 				commit('setAllItems', allItems);
 				commit('calculateHistogram', allItems);
 
-				await Promise.all(config.events.map((eventName) => axios.get(`${config.dataBaseUrl}events/${eventName}`)
+				await Promise.all(config.events.map((eventName) => axios.get(`${config.dataBaseUrl}events/${eventName}?lang=${i18n.locale}`)
 					.then((response) => {
 						const event = {};
 						event[eventName] = response.data;

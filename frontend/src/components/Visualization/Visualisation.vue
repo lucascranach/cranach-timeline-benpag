@@ -8,6 +8,7 @@
         v-show="this.hasItems()"
     >
       <Chart
+          ref="chart"
           @tooltipClick="$emit('tooltipClick', $event)"
           :width="chartWidth"
           :height="windowHeight * 0.67"
@@ -50,7 +51,9 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from 'vuex';
+import {
+	mapState, mapActions, mapGetters,
+} from 'vuex';
 import Timeline from './Timeline.vue';
 import Chart from './Chart/Chart.vue';
 import SpecialEventTimeline from './SpecialEventTimeLine/SpecialEventTimeline.vue';

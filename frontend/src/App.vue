@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import Loading from 'vue-loading-overlay';
 import i18n from '@/plugins/i18n';
 import Visualization from './components/Visualization/Visualisation.vue';
@@ -57,6 +57,10 @@ export default {
 		}),
 	},
 	methods: {
+		...mapActions([
+			'applyFilter',
+			'loadData',
+		]),
 		switchComponents() {
 			if (this.activeComponent === 'visualization') {
 				this.activeComponent = 'gallery';
@@ -70,8 +74,10 @@ export default {
 			this.switchComponents();
 			this.scrollToExhibit = exhibit;
 		},
-		changeLocale(locale) {
+		async changeLocale(locale) {
 			i18n.locale = locale;
+			await this.loadData();
+			this.applyFilter();
 		},
 	},
 };

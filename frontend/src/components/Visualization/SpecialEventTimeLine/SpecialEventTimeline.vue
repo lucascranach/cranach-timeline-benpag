@@ -12,7 +12,7 @@ import { event as d3Event } from 'd3-selection';
 import EventToolTipItem from './EventToolTipItem.vue';
 
 export default {
-	name: 'SpecialEventTimeline.vue',
+	name: 'SpecialEventTimeline',
 	components: { EventToolTipItem },
 	props: {
 		width: {
@@ -45,10 +45,6 @@ export default {
 		toolTipData: {},
 		toolTip: null,
 		componentId: `${Date.now().valueOf()}`,
-		timelineBoundaries: {
-			start: 0,
-			end: 0,
-		},
 		svg: null,
 	}),
 	computed: {

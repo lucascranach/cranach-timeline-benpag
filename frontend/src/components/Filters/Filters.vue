@@ -4,32 +4,32 @@
 			<v-card width="500" height="70">
 				<v-row>
 					<v-col>
-						<v-btn @click="applyCategoryButton('painting')" v-bind:style="stylePainting">Gemälde</v-btn>
+						<v-btn @click="applyCategoryButton('painting')" v-bind:style="stylePainting">{{$t('paintings')}}</v-btn>
 					</v-col>
 					<v-col>
-						<v-btn @click="applyCategoryButton('graphic')" v-bind:style="styleGraphic">Zeichnungen</v-btn>
+						<v-btn @click="applyCategoryButton('graphic')" v-bind:style="styleGraphic">{{$t('graphics')}}</v-btn>
 					</v-col>
 					<v-col>
-						<v-btn @click="applyCategoryButton('archival')" v-bind:style="styleArchivals">Archivalien</v-btn>
+						<v-btn @click="applyCategoryButton('archival')" v-bind:style="styleArchivals">{{$t('archivals')}}</v-btn>
 					</v-col>
 				</v-row>
 			</v-card>
 		</v-layout>
 		<v-row>
 			<v-col>
-				<v-btn @click="toggleSearch()">Suche</v-btn>
+				<v-btn @click="toggleSearch()">{{$t('search')}}</v-btn>
 				<v-btn class="filterIcon" @click="resetSearch()">
 					<v-icon>settings_backup_restore</v-icon>
 				</v-btn>
 				<div v-if="search !== null">
-					<v-subheader>Volltext:</v-subheader>
+					<v-subheader>{{$t('fulltext')}}:</v-subheader>
 					<v-text-field v-model="search"
 								  @input="asyncSearch()"
 					/>
 				</div>
 			</v-col>
 			<v-col>
-				<v-btn @click="toggleCategory()">Kategorie</v-btn>
+				<v-btn @click="toggleCategory()">{{$t('category')}}</v-btn>
 				<v-btn class="filterIcon" @click="resetCategoryFilter()">
 					<v-icon>settings_backup_restore</v-icon>
 				</v-btn>
@@ -42,7 +42,7 @@
 									  value="painting"
 							/>
 						</v-list-item-action>
-						<v-list-item-title>Gemälde</v-list-item-title>
+						<v-list-item-title>{{$t('paintings')}}</v-list-item-title>
 					</v-list-item>
 					<v-list-item>
 						<v-list-item-action>
@@ -51,7 +51,7 @@
 									  true-value="graphic" false-value=""
 									  value="painting"/>
 						</v-list-item-action>
-						<v-list-item-title>Zeichnungen</v-list-item-title>
+						<v-list-item-title>{{$t('graphics')}}</v-list-item-title>
 					</v-list-item>
 					<v-list-item>
 						<v-list-item-action>
@@ -60,30 +60,30 @@
 									  true-value="archival" false-value=""
 									  value="archival"/>
 						</v-list-item-action>
-						<v-list-item-title>Archivalien</v-list-item-title>
+						<v-list-item-title>{{$t('archivals')}}</v-list-item-title>
 					</v-list-item>
 				</v-list>
 			</v-col>
 			<v-col>
-				<v-btn @click="toggleTime()">Zeit</v-btn>
+				<v-btn @click="toggleTime()">{{$t('time')}}</v-btn>
 				<v-btn class="filterIcon" @click="resetYearFilter()">
 					<v-icon>settings_backup_restore</v-icon>
 				</v-btn>
 				<v-list v-if="time !== null">
 					<v-list-item>
-						<v-subheader>Von:</v-subheader>
+						<v-subheader>{{$t('from')}}:</v-subheader>
 						<v-text-field @change="applyYearFilter()"
 									  v-model="time.from"/>
 					</v-list-item>
 					<v-list-item>
-						<v-subheader>Bis:</v-subheader>
+						<v-subheader>{{$t('to')}}:</v-subheader>
 						<v-text-field @change="applyYearFilter()"
 									  v-model="time.to"/>
 					</v-list-item>
 				</v-list>
 			</v-col>
 			<v-col>
-				<v-btn @click="resetFilters()">Reset</v-btn>
+				<v-btn @click="resetFilters()">{{$t('reset')}}</v-btn>
 			</v-col>
 			<v-col>
 				<v-checkbox label="Best Of"/>

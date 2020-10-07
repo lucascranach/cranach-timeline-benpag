@@ -1,10 +1,10 @@
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
-const parserPaintings = require('./parsePaintingsDe');
-const parserGraphics = require('./parseGraphicsDe');
+const parserPaintings = require('./parsePaintings');
+const parserGraphics = require('./parseGraphics');
 const backendLogger = require('../logger/backendLogger');
-const parserArchivals = require('./parseArchivalsDe');
+const parserArchivals = require('./parseArchivals');
 const geoConverter = require('./convertGeolocation');
 const checkFiles = require('./checkFiles');
 
@@ -16,10 +16,16 @@ async function importData() {
 		promises.push(axios.get(config.dataBaseUrl + file.uri).then((jsonData) => {
 			if (file.title === 'cda-paintings-v2.de.json') {
 				return parserPaintings.parsePaintingsDe(jsonData.data);
+			} if (file.title === 'cda-paintings-v2.en.json') {
+				return parserPaintings.parsePaintingsEn(jsonData.data);
 			} if (file.title === 'cda-graphics-v2.virtual.de.json') {
 				return parserGraphics.parseGraphicsDe(jsonData.data);
+			} if (file.title === 'cda-graphics-v2.virtual.en.json') {
+				return parserGraphics.parseGraphicsEn(jsonData.data);
 			} if (file.title === 'cda-archivals-v2.de.json') {
 				return parserArchivals.parseArchivalsDe(jsonData.data);
+			} if (file.title === 'cda-archivals-v2.en.json') {
+				return parserArchivals.parseArchivalsEn(jsonData.data);
 			}
 			return file.title;
 		}).catch((error) => backendLogger.error(error)));

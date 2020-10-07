@@ -8,11 +8,11 @@
 			max-height="300px"
 		>
 			<v-row class="ma-0">
-				<h3>{{ item.type === 'painting' ? 'Gemälde' : (item.type === 'archival' ? 'Archivalie' : 'Zeichnung') }}
+				<h3>{{ item.type === 'painting' ? $t('painting') : (item.type === 'archival' ? $t('archival') : $t('graphic')) }}
 					({{
 						item.startDate && item.startDate > 0 ?
-							(item.startDate === item.endDate ? item.startDate : item.startDate + ' bis ' + item.endDate) :
-							'Datierung unbekannt'
+							(item.startDate === item.endDate ? item.startDate : item.startDate + ' '+$t('to_')+' ' + item.endDate) :
+							$t('dating_unknown')
 					}})
 				</h3>
 			</v-row>
@@ -28,7 +28,7 @@
 						<v-row dense>
 							<v-col cols="12">
 								<span>{{
-										Array.isArray(item.title) ? item.title[0] : (item.title ? item.title : 'k.A.')
+										Array.isArray(item.title) ? item.title[0] : (item.title ? item.title : $t('na'))
 									}}</span>
 								<hr>
 							</v-col>
@@ -37,7 +37,7 @@
 							<v-col cols="12">
 								<v-icon class="toolTipIcon">brush</v-icon>
 								<span class="ml-2">{{
-										Array.isArray(item.artists) ? (item.artists[0].name ? item.artists[0].name : 'k.A.') : (item.artists ? item.artists : 'k.A.')
+										Array.isArray(item.artists) ? (item.artists[0].name ? item.artists[0].name : $t('na')) : (item.artists ? item.artists : $t('na'))
 									}}</span>
 							</v-col>
 						</v-row>
@@ -45,7 +45,7 @@
 							<v-col cols="12">
 								<v-icon class="toolTipIcon">public</v-icon>
 								<span class="ml-2">{{
-										Array.isArray(item.location) ? (item.location[0] ? item.location[0] : 'k.A.') : (item.location ? item.location : 'k.A.')
+										Array.isArray(item.location) ? (item.location[0] ? item.location[0] : $t('na')) : (item.location ? item.location : $t('na'))
 									}}</span>
 							</v-col>
 						</v-row>
@@ -53,7 +53,7 @@
 							<v-col cols="12">
 								<v-icon class="toolTipIcon">shopping_basket</v-icon>
 								<span class="ml-2">{{
-										Array.isArray(item.artists) ? (item.artists[0].remarks ? item.artists[0].remarks : 'k.A.') : (item.repository ? item.repository : 'k.A.')
+										Array.isArray(item.artists) ? (item.artists[0].remarks ? item.artists[0].remarks : $t('na')) : (item.repository ? item.repository : $t('na'))
 									}}</span>
 							</v-col>
 						</v-row>

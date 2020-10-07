@@ -110,7 +110,6 @@ export default {
 	},
 	methods: {
 		...mapMutations([
-			'setChartYearRange',
 			'setChartZoomTransform',
 		]),
 		...mapGetters([
@@ -214,7 +213,6 @@ export default {
 				.range([0, this.displayWidth]);
 
 			this.xAxis = d3.axisBottom(this.x);
-			this.setChartYearRange({ from: start, to: end });
 
 			this.gX = this.svg.append('g')
 				.classed('axis xaxis', true)
@@ -265,12 +263,6 @@ export default {
 
 			// save transform to reset it when filters are applied
 			this.setChartZoomTransform(transform);
-
-			const [from, to] = this.xAxis.scale().domain();
-			if (from.getMinutes() > 0) {
-				from.setFullYear(from.getFullYear() + 1);
-			}
-			this.setChartYearRange({ from: from.getFullYear(), to: to.getFullYear() });
 		},
 		getItemSymbol(pxSize) {
 			const size = this.maxSymbolSizeInPx > pxSize ? pxSize ** 2 : this.maxSymbolSizeInPx ** 2;

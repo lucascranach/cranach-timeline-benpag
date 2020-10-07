@@ -24,10 +24,6 @@ export default new Vuex.Store({
 			history: [],
 		},
 		activeFilters: [],
-		chartYearRange: {
-			from: config.defaultDates.start,
-			to: config.defaultDates.end,
-		},
 		chartZoomTransform: zoomIdentity,
 		isLoading: false,
 	},
@@ -72,9 +68,6 @@ export default new Vuex.Store({
 			if (filter !== undefined) {
 				state.activeFilters.splice(state.activeFilters.indexOf(filter), 1);
 			}
-		},
-		setChartYearRange(state, yearRange) {
-			state.chartYearRange = yearRange;
 		},
 		setChartZoomTransform(state, transform) {
 			state.chartZoomTransform = transform;

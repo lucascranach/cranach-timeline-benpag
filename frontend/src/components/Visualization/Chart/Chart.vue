@@ -1,8 +1,8 @@
 <!--suppress CommaExpressionJS -->
 <template>
 	<div>
-		<v-btn @click="resetZoom" v-if="false" class="mb-4">
-			Reset Zoom
+		<v-btn @click="resetZoom" class="mb-4">
+			{{$t('reset_zoom')}}
 		</v-btn>
 		<div id="umf-d3-chart"></div>
 		<ToolTipItem :id="tooltipDivId" class="d3-tooltip" :item="toolTipData"/>

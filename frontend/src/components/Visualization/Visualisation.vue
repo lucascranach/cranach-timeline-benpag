@@ -2,7 +2,7 @@
   <div>
     <h1
         v-show="!this.hasItems()">
-      Es wurden keine Elemente für diese Filtereinstellungen gefunden.
+      {{$t('no_filter_elements')}}
     </h1>
     <div
         v-show="this.hasItems()"
@@ -50,7 +50,9 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from 'vuex';
+import {
+	mapState, mapActions, mapGetters,
+} from 'vuex';
 import Timeline from './Timeline.vue';
 import Chart from './Chart/Chart.vue';
 import SpecialEventTimeline from './SpecialEventTimeLine/SpecialEventTimeline.vue';

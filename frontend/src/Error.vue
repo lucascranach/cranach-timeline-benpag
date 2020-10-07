@@ -2,14 +2,14 @@
 	<v-app>
 		<v-app-bar app>
 			<v-spacer/>
-			<h1>Fehler</h1>
+			<h1>{{$t('error')}}</h1>
 			<v-spacer/>
 		</v-app-bar>
 		<v-main>
 			<v-container>
 				<v-alert type="error">
-					<h3>Ein Fehler ist aufgetreten, bitte kontaktieren Sie Ihren Administrator.</h3>
-					Fehlermeldung: {{error.title}} (aufgetreten in {{error.component}})<br>
+					<h3>{{$t('error_occured')}}</h3>
+					{{$t('error_message')}}: {{error.title}} ({{$t('occured_in')}} {{error.component}})<br>
 					<p style="white-space: pre;">{{error.stack}}</p>
 				</v-alert>
 			</v-container>

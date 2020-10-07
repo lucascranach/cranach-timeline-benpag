@@ -6,16 +6,17 @@ const { eventTypes } = require('../global.config');
 const router = express.Router();
 
 router.get('/:event', (req, res) => {
+	const { lang } = req.query;
 	res.format({
 		'application/json': () => {
 			const eventType = req.params.event;
 			if (eventTypes.includes(eventType)) {
-				const jsonPath = path.join(`${__dirname}../../data/${eventType}Events.json`);
+				const jsonPath = path.join(`${__dirname}../../data/${eventType}Events_${lang}.json`);
 				if (fs.existsSync(jsonPath)) {
 					const result = JSON.parse(fs.readFileSync(jsonPath));
 					res.send(result);
 				} else {
-					res.status(500).send({ error: `${eventType}Events.json is missing` });
+					res.status(500).send({ error: `${eventType}Events_${lang}.json is missing` });
 				}
 			} else {
 				res.status(500).send({ error: 'Unknown event type' });

@@ -70,7 +70,6 @@ export default {
 			zoom: null,
 			tooltipDiv: null,
 			toolTipData: {},
-			lastTransform: null,
 			symbolSizeInPx: null,
 			maxSymbolSizeInPx: 36,
 
@@ -94,6 +93,7 @@ export default {
 	computed: {
 		...mapState({
 			items: (state) => state.items,
+			lastTransform: (state) => state.chartZoomTransform,
 		}),
 		svgWidth() {
 			return this.minWidth < this.width ? this.width : this.minWidth;
@@ -111,6 +111,7 @@ export default {
 	methods: {
 		...mapMutations([
 			'setChartYearRange',
+			'setChartZoomTransform',
 		]),
 		...mapGetters([
 			'getXAxisDomain',
@@ -263,7 +264,7 @@ export default {
 			node.selectAll('path').attr('d', this.getItemSymbol(symbolSizeInPx));
 
 			// save transform to reset it when filters are applied
-			this.lastTransform = transform;
+			this.setChartZoomTransform(transform);
 
 			const [from, to] = this.xAxis.scale().domain();
 			if (from.getMinutes() > 0) {
@@ -301,11 +302,10 @@ export default {
 			d3.selectAll('#scatterPlot').remove();
 			d3.selectAll('.axis').remove();
 			this.updateChart();
-			if (this.lastTransform !== null) {
-				this.svg.call(this.zoom.transform, this.lastTransform);
-			}
+			this.svg.call(this.zoom.transform, this.lastTransform);
 		},
 		resetZoom() {
+			this.setChartZoomTransform(d3.zoomIdentity);
 			this.svg.call(this.zoom.transform, d3.zoomIdentity);
 		},
 	},

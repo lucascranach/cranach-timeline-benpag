@@ -1,8 +1,8 @@
 <template>
-	<div>
+	<div :style="`margin-left:${margin.left}px;`">
 		<EventToolTipItem :id="toolTipId" :item="toolTipData" :max-width="toolTipMaxWidth"/>
-        <svg id="specialEventTimeline" :width="width" :height="height">
-            <g :transform="`translate(${margin.left},0)`">
+        <svg id="specialEventTimeline" :width="lineWidth" :height="height">
+            <g>
                 <line
                     :id="toolTipId+'-line'"
                     :x1="eventList[0]  ? xAxis(new Date(eventList[0].startDate)) : 0" :y1="height / 2"

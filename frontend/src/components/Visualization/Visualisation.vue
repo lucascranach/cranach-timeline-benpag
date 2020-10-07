@@ -1,50 +1,48 @@
 <template>
   <div>
-    <h1
-        v-show="!this.hasItems()">
+    <h1 v-show="!this.hasItems()">
       Es wurden keine Elemente für diese Filtereinstellungen gefunden.
     </h1>
-    <div
-        v-show="this.hasItems()"
-    >
+    <div v-show="this.hasItems()">
       <Chart
           @tooltipClick="$emit('tooltipClick', $event)"
           :width="chartWidth"
           :height="windowHeight * 0.67"
-          v-show="this.hasItems()"
+		  :margin="margins"
       />
       <SpecialEventTimeline
           :width="chartWidth"
           :height="windowHeight * 0.008"
+		  :margin="margins"
           :event-list="events.cranachElder"
           color="black"
-          v-show="this.hasItems()"
       />
       <SpecialEventTimeline
           :width="chartWidth"
           :height="windowHeight * 0.008"
+		  :margin="margins"
           :event-list="events.cranachYounger"
           color="purple"
-          v-show="this.hasItems()"
       />
       <SpecialEventTimeline
           :width="chartWidth"
           :height="windowHeight * 0.008"
+		  :margin="margins"
           :event-list="events.luther"
           color="grey"
-          v-show="this.hasItems()"
       />
       <SpecialEventTimeline
           :width="chartWidth"
           :height="windowHeight * 0.008"
+		  :margin="margins"
           :event-list="events.history"
           color="darkCyan"
-          v-show="this.hasItems()"
       />
     </div>
     <Timeline
         :width="chartWidth"
         :height="windowHeight * 0.1"
+		:margin="margins"
     />
   </div>
 </template>
@@ -61,6 +59,16 @@ export default {
 		Chart,
 		SpecialEventTimeline,
 		Timeline,
+	},
+	data() {
+		return {
+			margins: {
+				left: 30,
+				right: 30,
+				top: 10,
+				bottom: 20,
+			},
+		};
 	},
 	computed: {
 		...mapState({

@@ -13,6 +13,7 @@
 							block
 							v-bind="attrs"
 							v-on="on"
+							class="text-capitalize"
 						>
 							{{ $t(component.name) }}
 						</v-btn>

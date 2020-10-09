@@ -2,26 +2,7 @@
 	<v-sheet>
 		<v-row v-show="showFilters">
 			<v-col v-for="(component, i) in this.formElements" :key="i">
-				<v-menu
-					offset-y
-					tile
-					:close-on-content-click="false"
-				>
-					<template v-slot:activator="{ on, attrs }">
-						<v-btn
-							outlined
-							block
-							v-bind="attrs"
-							v-on="on"
-							class="text-capitalize"
-						>
-							{{ $t(transformToI18nKey(component.name)) }}
-						</v-btn>
-					</template>
-					<v-card flat class="px-3 py-6">
-						<component :ref="component.filterName" :is="component" />
-					</v-card>
-				</v-menu>
+				<component :ref="component.filterName" :is="component" />
 			</v-col>
 		</v-row>
 		<v-row justify="center">
@@ -96,11 +77,6 @@ export default {
 			'removeFilter',
 			'resetFilters',
 		]),
-		transformToI18nKey(str) {
-			const i18nRegex = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g;
-			const lcFirstStr = str.charAt(0).toLowerCase() + str.slice(1);
-			return lcFirstStr.replace(i18nRegex, (match) => `_${match.toLowerCase()}`);
-		},
 		removeFilterValue(filterValue) {
 			this.$refs[filterValue.name][0].removeFilterValue(filterValue);
 		},

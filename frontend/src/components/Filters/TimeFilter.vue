@@ -1,39 +1,58 @@
 <template>
-	<v-row dense>
-		<v-col>
-			<v-text-field
-				v-model="time.from"
-				:prefix="$t('from')"
+	<v-menu
+		offset-y
+		tile
+		:close-on-content-click="false"
+	>
+		<template v-slot:activator="{ on, attrs }">
+			<v-btn
 				outlined
-				rounded
-				dense
-				clearable
-				hide-details
-				@change="applyYearFilter()"
-			/>
-		</v-col>
-		<v-col>
-			<v-text-field
-				v-model="time.to"
-				:prefix="$t('to')"
-				outlined
-				rounded
-				dense
-				clearable
-				hide-details
-				@change="applyYearFilter()"
-			/>
-		</v-col>
-		<v-col cols="12" class="px-3 mt-10" v-if="true">
-			<v-range-slider
-				v-model="rangeSliderValue"
-				hide-details
-				thumb-label="always"
-				:min="this.getStaticXAxisDomain()[0]" step="1"
-				:max="this.getStaticXAxisDomain()[1]"
-			/>
-		</v-col>
-	</v-row>
+				block
+				v-bind="attrs"
+				v-on="on"
+				class="text-capitalize"
+			>
+				{{ $t('time_filter') }}
+			</v-btn>
+		</template>
+		<v-card flat class="px-3 py-6">
+			<v-row dense>
+				<v-col>
+					<v-text-field
+						v-model="time.from"
+						:prefix="$t('from')"
+						outlined
+						rounded
+						dense
+						clearable
+						hide-details
+						@change="applyYearFilter()"
+					/>
+				</v-col>
+				<v-col>
+					<v-text-field
+						v-model="time.to"
+						:prefix="$t('to')"
+						outlined
+						rounded
+						dense
+						clearable
+						hide-details
+						@change="applyYearFilter()"
+					/>
+				</v-col>
+				<v-col cols="12" class="px-3 mt-10" v-if="true">
+					<v-range-slider
+						v-model="rangeSliderValue"
+						hide-details
+						thumb-label="always"
+						:min="this.getStaticXAxisDomain()[0]" step="1"
+						:max="this.getStaticXAxisDomain()[1]"
+					/>
+				</v-col>
+			</v-row>
+		</v-card>
+	</v-menu>
 </template>
 
 <script>
@@ -114,7 +133,10 @@ export default {
 			this.applyYearFilter();
 		},
 		getFilterParameterDescriptions(filterValue) {
-			return Object.entries(filterValue.params).map(([key, value]) => ({ description: `${this.$t(key)}: ${value}`, value }));
+			return Object.entries(filterValue.params).map(([key, value]) => ({
+				description: `${this.$t(key)}: ${value}`,
+				value,
+			}));
 		},
 	},
 };

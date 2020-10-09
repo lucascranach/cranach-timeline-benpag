@@ -1,17 +1,34 @@
 <template>
-	<v-sheet>
-		<v-switch
-			v-for="(category, i) in categoryList" :key="i"
-			v-model="selectedCategories"
-			:label="$t(category.name)"
-			:value="category.value"
-			class="my-1"
-			inset
-			dense
-			multiple
-			hide-details
-		/>
-	</v-sheet>
+	<v-menu
+		offset-y
+		tile
+		:close-on-content-click="false"
+	>
+		<template v-slot:activator="{ on, attrs }">
+			<v-btn
+				outlined
+				block
+				v-bind="attrs"
+				v-on="on"
+				class="text-capitalize"
+			>
+				{{ $t('category_filter') }}
+			</v-btn>
+		</template>
+		<v-card flat class="px-3 py-6">
+			<v-switch
+				v-for="(category, i) in categoryList" :key="i"
+				v-model="selectedCategories"
+				:label="$t(category.name)"
+				:value="category.value"
+				class="my-1"
+				inset
+				dense
+				multiple
+				hide-details
+			/>
+		</v-card>
+	</v-menu>
 </template>
 
 <script>
@@ -67,7 +84,10 @@ export default {
 			this.selectedCategories.splice(this.selectedCategories.indexOf(filterValue.value), 1);
 		},
 		getFilterParameterDescriptions(filterValue) {
-			return filterValue.params.validCategories.map((category) => ({ description: this.$t(category), value: category }));
+			return filterValue.params.validCategories.map((category) => ({
+				description: this.$t(category),
+				value: category,
+			}));
 		},
 	},
 };

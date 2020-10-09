@@ -1,15 +1,12 @@
 <template>
-	<v-switch
-		v-model="isBestOf"
-		class="mt-0"
-		:label="$t('show_best_of_only')"
-		inset
-		dense
-		hide-details
-		autofocus
-		@change="applyIsBestOfFilter"
-		@focus="applyIsBestOfFilter"
-	/>
+	<v-btn
+		outlined
+		block
+		class="text-capitalize"
+		@click="toggleBestOf"
+	>
+		{{ $t('is_best_of_filter') }}
+	</v-btn>
 </template>
 
 <script>
@@ -40,6 +37,10 @@ export default {
 			'addFilter',
 			'removeFilter',
 		]),
+		toggleBestOf() {
+			this.isBestOf = !this.isBestOf;
+			this.applyIsBestOfFilter();
+		},
 		applyIsBestOfFilter() {
 			if (this.isBestOf) {
 				this.addFilter({

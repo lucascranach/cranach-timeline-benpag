@@ -1,15 +1,35 @@
 <template>
-	<v-text-field
-		v-model="search"
-		:label="$t('text_search_filter')"
-		outlined
-		dense
-		clearable
-		autofocus
-		hide-details
-		prepend-inner-icon="search"
-		@input="asyncSearch()"
-	/>
+	<v-menu
+		v-model="isMenuOpen"
+		offset-y
+		tile
+		:close-on-content-click="false"
+	>
+		<template v-slot:activator="{ on, attrs }">
+			<v-btn
+				outlined
+				block
+				v-bind="attrs"
+				v-on="on"
+				class="text-capitalize"
+			>
+				{{ $t('text_search_filter') }}
+			</v-btn>
+		</template>
+		<v-card flat class="px-3 py-6">
+			<v-text-field
+				v-model="search"
+				:label="$t('text_search_filter')"
+				outlined
+				dense
+				clearable
+				hide-details
+				:autofocus="isMenuOpen"
+				prepend-inner-icon="search"
+				@input="asyncSearch()"
+			/>
+		</v-card>
+	</v-menu>
 </template>
 
 <script>
@@ -21,6 +41,7 @@ export default {
 	data() {
 		return {
 			search: '',
+			isMenuOpen: false,
 		};
 	},
 	computed: {

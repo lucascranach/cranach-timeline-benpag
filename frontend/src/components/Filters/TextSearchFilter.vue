@@ -1,10 +1,11 @@
 <template>
 	<v-text-field
 		v-model="search"
-		:label="$t('TextSearchFilter')"
+		:label="$t('text_search_filter')"
 		outlined
 		dense
 		clearable
+		autofocus
 		hide-details
 		prepend-inner-icon="search"
 		@input="asyncSearch()"
@@ -40,7 +41,7 @@ export default {
 			'removeFilter',
 		]),
 		asyncSearch() {
-			if (this.search === null || this.search === undefined) {
+			if (this.search === null || this.search === undefined || this.search === '') {
 				this.removeFilter(this.$options.filterName);
 			} else {
 				setTimeout(() => {
@@ -54,6 +55,9 @@ export default {
 		},
 		removeFilterValue() {
 			this.removeFilter(this.$options.filterName);
+		},
+		getFilterParameterDescriptions(filterValue) {
+			return [{ description: `"${filterValue.params}"`, value: filterValue.params }];
 		},
 	},
 };

@@ -6,7 +6,9 @@
 		inset
 		dense
 		hide-details
+		autofocus
 		@change="applyIsBestOfFilter"
+		@focus="applyIsBestOfFilter"
 	/>
 </template>
 
@@ -51,6 +53,9 @@ export default {
 		},
 		removeFilterValue() {
 			this.removeFilter(this.$options.filterName);
+		},
+		getFilterParameterDescriptions() {
+			return [{ description: this.$t('best_of_only'), value: this.isBestOf }];
 		},
 	},
 };

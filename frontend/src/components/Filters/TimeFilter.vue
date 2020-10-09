@@ -108,9 +108,13 @@ export default {
 			[this.time.from, this.time.to] = this.getStaticXAxisDomain();
 			this.rangeSliderValue = [...this.getStaticXAxisDomain()];
 		},
-		removeFilterValue({ key }) {
+		removeFilterValue({ params, value }) {
+			const [key] = Object.entries(params).find(([, val]) => val === value);
 			this.time[key] = undefined;
 			this.applyYearFilter();
+		},
+		getFilterParameterDescriptions(filterValue) {
+			return Object.entries(filterValue.params).map(([key, value]) => ({ description: `${this.$t(key)}: ${value}`, value }));
 		},
 	},
 };

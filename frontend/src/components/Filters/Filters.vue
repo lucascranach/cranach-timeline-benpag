@@ -15,7 +15,7 @@
 							v-on="on"
 							class="text-capitalize"
 						>
-							{{ $t(component.name) }}
+							{{ $t(transformToI18nKey(component.name)) }}
 						</v-btn>
 					</template>
 					<v-card flat class="px-3 py-6">
@@ -27,13 +27,13 @@
 		<v-row justify="center">
 			<v-chip
 				v-for="(filterValue, i) in activeFilterValues" :key="i"
-				v-show="filterValue.value"
 				class="mx-2"
+				outlined
+				color="grey darken-3"
 				close
-				:color="colors[filterValue.value] || 'primary'"
 				@click:close="removeFilterValue(filterValue)"
 			>
-				{{ filterValue.value }}
+				{{ filterValue.description }}
 			</v-chip>
 			<v-chip
 				v-show="activeFilterValues.length > 0"
@@ -41,7 +41,7 @@
 				label
 				@click="resetFilters"
 			>
-				Reset all
+				{{ $t('reset') }}
 			</v-chip>
 		</v-row>
 	</v-sheet>
@@ -85,20 +85,9 @@ export default {
 			activeFilters: (state) => state.activeFilters,
 		}),
 		activeFilterValues() {
-			return this.activeFilters.map((f) => {
-				if (Array.isArray(f.params)) {
-					return f.params.map((value) => ({ name: f.name, value }));
-				}
-				if (typeof f.params === 'object') {
-					return Object.entries(f.params).map(([key, value]) => {
-						if (Array.isArray(value)) {
-							return value.map((i) => ({ name: f.name, key, value: i }));
-						}
-						return { name: f.name, key, value };
-					}).flat();
-				}
-				return { name: f.name, value: f.params };
-			}).flat();
+			return this.activeFilters.map(
+				(filter) => this.getFilterParameterDescriptions(filter).map((description) => ({ ...filter, ...description })),
+			).flat();
 		},
 	},
 	methods: {
@@ -107,8 +96,16 @@ export default {
 			'removeFilter',
 			'resetFilters',
 		]),
+		transformToI18nKey(str) {
+			const i18nRegex = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g;
+			const lcFirstStr = str.charAt(0).toLowerCase() + str.slice(1);
+			return lcFirstStr.replace(i18nRegex, (match) => `_${match.toLowerCase()}`);
+		},
 		removeFilterValue(filterValue) {
 			this.$refs[filterValue.name][0].removeFilterValue(filterValue);
+		},
+		getFilterParameterDescriptions(filterValue) {
+			return this.$refs[filterValue.name][0].getFilterParameterDescriptions(filterValue);
 		},
 	},
 };

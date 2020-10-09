@@ -5,7 +5,6 @@
 			v-model="selectedCategories"
 			:label="$t(category.name)"
 			:value="category.value"
-			:color="colors[category.value]"
 			class="my-1"
 			inset
 			dense
@@ -66,6 +65,9 @@ export default {
 		},
 		removeFilterValue(filterValue) {
 			this.selectedCategories.splice(this.selectedCategories.indexOf(filterValue.value), 1);
+		},
+		getFilterParameterDescriptions(filterValue) {
+			return filterValue.params.validCategories.map((category) => ({ description: this.$t(category), value: category }));
 		},
 	},
 };

@@ -8,7 +8,6 @@
         v-show="this.hasItems()"
     >
       <Chart
-          @tooltipClick="$emit('tooltipClick', $event)"
           :width="chartWidth"
           :height="windowHeight * 0.67"
           v-show="this.hasItems()"

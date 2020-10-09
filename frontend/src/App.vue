@@ -12,11 +12,9 @@
 		</v-app-bar>
 		<v-main>
 			<v-container>
-				<v-btn @click="switchComponents()">{{ buttonText }}</v-btn>
 				<FilterComponent/>
 				<loading :active.sync="isLoading"/>
-                <Visualization @tooltipClick="openItemInGallery($event)" v-show="activeComponent === 'visualization'" />
-                <Gallery v-show="activeComponent === 'gallery'" :scrollToExhibit="scrollToExhibit"/>
+                <Visualization />
 			</v-container>
 		</v-main>
 	</v-app>
@@ -27,7 +25,6 @@ import { mapState, mapActions } from 'vuex';
 import Loading from 'vue-loading-overlay';
 import i18n from '@/plugins/i18n';
 import Visualization from './components/Visualization/Visualisation.vue';
-import Gallery from './components/Gallery/Gallery.vue';
 import FilterComponent from './components/Filters/Filters.vue';
 import 'vue-loading-overlay/dist/vue-loading.css';
 
@@ -35,14 +32,12 @@ export default {
 	name: 'App',
 	components: {
 		FilterComponent,
-		Gallery,
 		Visualization,
 		Loading,
 	},
 	data() {
 		return {
 			currentFilter: undefined,
-			activeComponent: 'visualization',
 			buttonText: 'Galerie',
 			scrollToExhibit: null,
 			languages: [
@@ -61,19 +56,6 @@ export default {
 			'applyFilter',
 			'loadData',
 		]),
-		switchComponents() {
-			if (this.activeComponent === 'visualization') {
-				this.activeComponent = 'gallery';
-				this.buttonText = 'Visualisierung';
-			} else {
-				this.activeComponent = 'visualization';
-				this.buttonText = 'Galerie';
-			}
-		},
-		openItemInGallery(exhibit) {
-			this.switchComponents();
-			this.scrollToExhibit = exhibit;
-		},
 		async changeLocale(locale) {
 			i18n.locale = locale;
 			await this.loadData();

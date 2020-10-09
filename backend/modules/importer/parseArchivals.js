@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const config = require('../../global.config');
 
 function parseArchivals(archivalsJson, lang) {
 	const mainAttributes = {
@@ -8,6 +9,7 @@ function parseArchivals(archivalsJson, lang) {
 	mainAttributes.archivals = archivalsJson.items.map((archival) => ({
 		id: archival.inventoryNumber,
 		imageUrl: '',
+		detailUrl: config.detailPageHost + config.archivalDetailPagePath + archival.inventoryNumber,
 		startDate: archival.dating.begin,
 		endDate: archival.dating.end,
 		title: archival.inventoryNumber,

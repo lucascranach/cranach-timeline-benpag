@@ -38,8 +38,6 @@ export default {
 	data() {
 		return {
 			currentFilter: undefined,
-			buttonText: 'Galerie',
-			scrollToExhibit: null,
 			languages: [
 				{ flag: 'de', language: 'de', title: 'Deutsch' },
 				{ flag: 'gb', language: 'en', title: 'English' },

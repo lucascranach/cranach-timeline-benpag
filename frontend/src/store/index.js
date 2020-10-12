@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
 import i18n from '@/plugins/i18n';
+import { zoomIdentity } from 'd3-zoom';
 import config from '../../global.config';
 import exceptions from '../../global.exceptions';
 import filters from './filters';
@@ -23,10 +24,7 @@ export default new Vuex.Store({
 			history: [],
 		},
 		activeFilters: [],
-		chartYearRange: {
-			from: config.defaultDates.start,
-			to: config.defaultDates.end,
-		},
+		chartZoomTransform: zoomIdentity,
 		isLoading: false,
 	},
 	mutations: {
@@ -71,8 +69,8 @@ export default new Vuex.Store({
 				state.activeFilters.splice(state.activeFilters.indexOf(filter), 1);
 			}
 		},
-		setChartYearRange(state, yearRange) {
-			state.chartYearRange = yearRange;
+		setChartZoomTransform(state, transform) {
+			state.chartZoomTransform = transform;
 		},
 	},
 	actions: {

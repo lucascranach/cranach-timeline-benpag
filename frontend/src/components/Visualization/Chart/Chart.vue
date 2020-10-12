@@ -190,8 +190,10 @@ export default {
 					myThis.toolTipData = {};
 					myThis.tooltipDiv.style('visibility', 'hidden');
 				})
-				.on('click', (d) => {
-					myThis.$emit('tooltipClick', d);
+				.on('click', () => {
+					if (myThis.toolTipData.type !== 'graphic') {
+						window.open(`${myThis.toolTipData.detailUrl}`, '_blank');
+					}
 				});
 		},
 		setupAxis() {

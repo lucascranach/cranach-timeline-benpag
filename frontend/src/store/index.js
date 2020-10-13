@@ -69,6 +69,9 @@ export default new Vuex.Store({
 				state.activeFilters.splice(state.activeFilters.indexOf(filter), 1);
 			}
 		},
+		resetFilters(state) {
+			state.activeFilters = [];
+		},
 		setChartZoomTransform(state, transform) {
 			state.chartZoomTransform = transform;
 		},
@@ -83,6 +86,10 @@ export default new Vuex.Store({
 		removeFilter({ commit, dispatch }, filterName) {
 			commit('removeFilter', filterName);
 			dispatch('applyFilter');
+		},
+		resetFilters({ commit, state }) {
+			commit('resetFilters');
+			commit('setItems', state.allItems);
 		},
 		applyFilter({ commit, state }) {
 			commit('setLoadingState', true);

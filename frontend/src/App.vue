@@ -1,6 +1,21 @@
 <template>
 	<v-app>
 		<v-app-bar app>
+			<v-badge
+				:value="activeFilters.length > 0"
+				:content="activeFilters.length"
+				left
+				offset-y="20"
+				offset-x="20"
+				overlap
+			>
+				<v-btn
+					icon
+					@click="() => this.showFilters = !this.showFilters"
+				>
+					<v-icon large>mdi-filter</v-icon>
+				</v-btn>
+			</v-badge>
 			<v-spacer />
 			<h1>{{$t('cranach_timeline')}}</h1>
 			<v-spacer />
@@ -12,7 +27,7 @@
 		</v-app-bar>
 		<v-main>
 			<v-container>
-				<FilterComponent/>
+				<FilterComponent :showFilters="showFilters"/>
 				<loading :active.sync="isLoading"/>
                 <Visualization />
 			</v-container>
@@ -37,7 +52,7 @@ export default {
 	},
 	data() {
 		return {
-			currentFilter: undefined,
+			showFilters: true,
 			languages: [
 				{ flag: 'de', language: 'de', title: 'Deutsch' },
 				{ flag: 'gb', language: 'en', title: 'English' },
@@ -47,6 +62,7 @@ export default {
 	computed: {
 		...mapState({
 			isLoading: (state) => state.isLoading,
+			activeFilters: (state) => state.activeFilters,
 		}),
 	},
 	methods: {
@@ -63,7 +79,7 @@ export default {
 };
 </script>
 <style scoped>
-button {
+div > button {
 	padding: 15px;
 	border: 1px solid green;
 	font-size: 18px;

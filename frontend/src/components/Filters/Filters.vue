@@ -1,273 +1,88 @@
 <template>
-	<div>
-		<v-layout justify-center>
-			<v-card width="500" height="70">
-				<v-row>
-					<v-col>
-						<v-btn @click="applyCategoryButton('painting')" v-bind:style="stylePainting">{{$t('paintings')}}</v-btn>
-					</v-col>
-					<v-col>
-						<v-btn @click="applyCategoryButton('graphic')" v-bind:style="styleGraphic">{{$t('graphics')}}</v-btn>
-					</v-col>
-					<v-col>
-						<v-btn @click="applyCategoryButton('archival')" v-bind:style="styleArchivals">{{$t('archivals')}}</v-btn>
-					</v-col>
-				</v-row>
-			</v-card>
-		</v-layout>
-		<v-row>
-			<v-col>
-				<v-btn @click="toggleSearch()">{{$t('search')}}</v-btn>
-				<v-btn class="filterIcon" @click="resetSearch()">
-					<v-icon>settings_backup_restore</v-icon>
-				</v-btn>
-				<div v-if="search !== null">
-					<v-subheader>{{$t('fulltext')}}:</v-subheader>
-					<v-text-field v-model="search"
-								  @input="asyncSearch()"
-					/>
-				</div>
-			</v-col>
-			<v-col>
-				<v-btn @click="toggleCategory()">{{$t('category')}}</v-btn>
-				<v-btn class="filterIcon" @click="resetCategoryFilter()">
-					<v-icon>settings_backup_restore</v-icon>
-				</v-btn>
-				<v-list>
-					<v-list-item>
-						<v-list-item-action>
-							<v-switch @change="applyCategoryFilter()"
-									  v-model="category.paintings"
-									  true-value="painting" false-value=""
-									  value="painting"
-							/>
-						</v-list-item-action>
-						<v-list-item-title>{{$t('paintings')}}</v-list-item-title>
-					</v-list-item>
-					<v-list-item>
-						<v-list-item-action>
-							<v-switch @change="applyCategoryFilter()"
-									  v-model="category.graphics"
-									  true-value="graphic" false-value=""
-									  value="painting"/>
-						</v-list-item-action>
-						<v-list-item-title>{{$t('graphics')}}</v-list-item-title>
-					</v-list-item>
-					<v-list-item>
-						<v-list-item-action>
-							<v-switch @change="applyCategoryFilter()"
-									  v-model="category.archivals"
-									  true-value="archival" false-value=""
-									  value="archival"/>
-						</v-list-item-action>
-						<v-list-item-title>{{$t('archivals')}}</v-list-item-title>
-					</v-list-item>
-				</v-list>
-			</v-col>
-			<v-col>
-				<v-btn @click="toggleTime()">{{$t('time')}}</v-btn>
-				<v-btn class="filterIcon" @click="resetYearFilter()">
-					<v-icon>settings_backup_restore</v-icon>
-				</v-btn>
-				<v-list v-if="time !== null">
-					<v-list-item>
-						<v-subheader>{{$t('from')}}:</v-subheader>
-						<v-text-field @change="applyYearFilter()"
-									  v-model="time.from"/>
-					</v-list-item>
-					<v-list-item>
-						<v-subheader>{{$t('to')}}:</v-subheader>
-						<v-text-field @change="applyYearFilter()"
-									  v-model="time.to"/>
-					</v-list-item>
-				</v-list>
-			</v-col>
-			<v-col>
-				<v-btn @click="resetFilters()">{{$t('reset')}}</v-btn>
-			</v-col>
-			<v-col>
-				<v-checkbox label="Best Of"/>
+	<v-sheet>
+		<v-row v-show="showFilters">
+			<v-col v-for="(component, i) in this.formElements" :key="i">
+				<component :ref="component.filterName" :is="component" />
 			</v-col>
 		</v-row>
-	</div>
+		<v-row justify="center">
+			<v-chip
+				v-for="(filterValue, i) in activeFilterValues" :key="i"
+				class="mx-2"
+				outlined
+				color="grey darken-3"
+				close
+				@click:close="removeFilterValue(filterValue)"
+			>
+				{{ filterValue.description }}
+			</v-chip>
+			<v-chip
+				v-show="activeFilterValues.length > 0"
+				class="mx-2"
+				label
+				@click="resetFilters"
+			>
+				{{ $t('reset') }}
+			</v-chip>
+		</v-row>
+	</v-sheet>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapState } from 'vuex';
+import CategoryFilter from './CategoryFilter.vue';
+import IsBestOfFilter from './IsBestOfFilter.vue';
+import TextSearchFilter from './TextSearchFilter.vue';
+import TimeFilter from './TimeFilter.vue';
 import config from '../../../global.config';
 
 export default {
 	name: 'Filters',
-	props: ['value'],
-	event: ['click'],
+	props: {
+		showFilters: {
+			type: Boolean,
+			default: true,
+		},
+	},
+	components: {
+		CategoryFilter,
+		IsBestOfFilter,
+		TextSearchFilter,
+		TimeFilter,
+	},
 	data() {
 		return {
-			search: null,
-			category: {
-				active: false,
-				paintings: 'painting',
-				graphics: 'graphic',
-				archivals: 'archival',
-			},
-			time: null,
-			bestof: false,
-			stylePainting: {
-				color: config.colors.paintings,
-			},
-			styleGraphic: {
-				color: config.colors.graphics,
-			},
-			styleArchivals: {
-				color: config.colors.archivals,
-			},
+			colors: config.colors,
+			formElements: [
+				TextSearchFilter,
+				CategoryFilter,
+				TimeFilter,
+				IsBestOfFilter,
+			],
 		};
+	},
+	computed: {
+		...mapState({
+			activeFilters: (state) => state.activeFilters,
+		}),
+		activeFilterValues() {
+			return this.activeFilters.map(
+				(filter) => this.getFilterParameterDescriptions(filter).map((description) => ({ ...filter, ...description })),
+			).flat();
+		},
 	},
 	methods: {
 		...mapActions([
 			'addFilter',
 			'removeFilter',
+			'resetFilters',
 		]),
-		...mapGetters([
-			'getXAxisDomain',
-		]),
-		toggleSearch() {
-			if (this.search === null) {
-				this.search = '';
-			} else {
-				this.search = null;
-			}
+		removeFilterValue(filterValue) {
+			this.$refs[filterValue.name][0].removeFilterValue(filterValue);
 		},
-		toggleCategory() {
-			if (this.category.active) {
-				this.category = {
-					active: false,
-					paintings: 'painting',
-					graphics: 'graphic',
-					archivals: 'archival',
-				};
-			} else {
-				this.category = {
-					active: true,
-					paintings: '',
-					graphics: '',
-					archivals: '',
-				};
-			}
-			this.applyCategoryFilter();
-		},
-		toggleTime() {
-			if (this.time === null) {
-				this.time = {
-					from: '',
-					to: '',
-				};
-			} else {
-				this.time = null;
-			}
-		},
-		resetFilters() {
-			this.resetCategoryFilter();
-			this.resetYearFilter();
-			this.resetSearch();
-		},
-		applyCategoryFilter() {
-			this.addFilter({
-				name: 'categoryFilter',
-				type: 'category',
-				params: { validCategories: Object.values(this.category) },
-			});
-		},
-		applyYearFilter() {
-			if (this.time.from === '') {
-				[this.time.from] = this.getXAxisDomain();
-			}
-			if (this.time.to === '') {
-				[, this.time.to] = this.getXAxisDomain();
-			}
-			this.addFilter({
-				name: 'yearFilter',
-				type: 'year',
-				params: this.time,
-			});
-		},
-		applyIsBestOfFilter() {
-		    this.addFilter({
-				name: 'isBestOfFilter',
-				type: 'isBestOf',
-				params: this.isBestOf,
-			});
-		},
-		asyncSearch() {
-			setTimeout(() => {
-				this.applySearch();
-			}, 0);
-		},
-		applySearch() {
-			this.addFilter({
-				name: 'search',
-				type: 'search',
-				params: this.search.toLowerCase(),
-			});
-		},
-		resetCategoryFilter() {
-			this.removeFilter('categoryFilter');
-			this.category = {
-				paintings: 'painting',
-				graphics: 'graphic',
-				archivals: 'archival',
-			};
-		},
-		resetYearFilter() {
-			this.removeFilter('yearFilter');
-			this.time = null;
-		},
-		resetIsBestOfFilter() {
-			this.removeFilter('isBestOfFilter');
-			this.isBestOf = false;
-		},
-		resetSearch() {
-			this.removeFilter('search');
-			this.search = null;
-		},
-		applyCategoryButton(filterType) {
-			switch (filterType) {
-			case 'painting':
-				if (this.category.paintings === 'painting') {
-					this.category.paintings = '';
-					this.stylePainting.color = 'grey';
-				} else {
-					this.category.paintings = 'painting';
-					this.stylePainting.color = config.colors.paintings;
-				}
-				break;
-			case 'graphic':
-				if (this.category.graphics === 'graphic') {
-					this.category.graphics = '';
-					this.styleGraphic.color = 'grey';
-				} else {
-					this.category.graphics = 'graphic';
-					this.styleGraphic.color = config.colors.graphics;
-				}
-				break;
-			case 'archival':
-				if (this.category.archivals === 'archival') {
-					this.category.archivals = '';
-					this.styleArchivals.color = 'grey';
-				} else {
-					this.category.archivals = 'archival';
-					this.styleArchivals.color = config.colors.archivals;
-				}
-				break;
-			default: break;
-			}
-			this.applyCategoryFilter();
+		getFilterParameterDescriptions(filterValue) {
+			return this.$refs[filterValue.name][0].getFilterParameterDescriptions(filterValue);
 		},
 	},
 };
 </script>
-
-<style scoped>
-.filterIcon {
-	margin-left: 10px;
-}
-</style>

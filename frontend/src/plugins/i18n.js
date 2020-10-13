@@ -37,6 +37,12 @@ const messages = {
 		reset_zoom: 'Zoom zurücksetzen',
 		na: 'k.A.',
 		no_filter_elements: 'Es wurden keine Elemente für diese Filtereinstellungen gefunden.',
+		category_filter: 'Kategorie',
+		is_best_of_filter: 'Best Of',
+		text_search_filter: 'Volltextsuche',
+		time_filter: 'Zeitraum',
+		show_best_of_only: 'Nur BestOf anzeigen',
+		best_of_only: 'BestOf',
 	},
 	en: {
 		cranach_timeline: 'Cranach Timeline',
@@ -71,6 +77,12 @@ const messages = {
 		reset_zoom: 'Reset zoom',
 		na: 'N/A',
 		no_filter_elements: 'No items were found for these filter settings.',
+		category_filter: 'Category',
+		is_best_of_filter: 'Best Of',
+		text_search_filter: 'Text search',
+		time_filter: 'Time range',
+		show_best_of_only: 'Show Best Of only',
+		best_of_only: 'BestOf',
 	},
 };
 

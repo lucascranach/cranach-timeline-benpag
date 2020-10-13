@@ -144,7 +144,7 @@ export default {
 		...mapState({
 			data: (state) => state.histogram,
 			yearFilter: (state) => state.activeFilters.find((f) => f.name === 'yearFilter'),
-			yearRange: (state) => state.chartYearRange,
+			zoomTransform: (state) => state.chartZoomTransform,
 		}),
 		timelineWidth() {
 			return this.width - this.margin.left - this.margin.right;
@@ -179,7 +179,15 @@ export default {
 				this.onFilterRangeChanged(val?.params);
 			},
 		},
-		yearRange: 'onFilterRangeChanged',
+		zoomTransform: {
+			handler(val) {
+				const [from, to] = val.rescaleX(this.xAxis).domain();
+				this.onFilterRangeChanged({
+					from: Math.ceil(from),
+					to: Math.floor(to),
+				});
+			},
+		},
 	},
 	methods: {
 		...mapGetters([

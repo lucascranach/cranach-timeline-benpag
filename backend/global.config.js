@@ -3,6 +3,8 @@ require('dotenv').config();
 module.exports = {
 	dataBaseUrl: 'https://raw.githubusercontent.com/lucascranach/importer/master/docs',
 	placeholderImageUrl: 'https://via.placeholder.com/350',
+	detailPageHost: 'http://lucascranach.org/',
+	archivalDetailPagePath: 'archival-documents/',
 	jsonFiles: [
 		// { uri: '/20191122/cda-graphics-restoration-v2.json', title: 'cda-graphics-restoration-v2.json' },
 		// { uri: '/20191122/cda-graphics-v2.real.de.json', title: 'cda-graphics-v2.real.de.json' },

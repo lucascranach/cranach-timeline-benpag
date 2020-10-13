@@ -70,7 +70,6 @@ export default {
 			zoom: null,
 			tooltipDiv: null,
 			toolTipData: {},
-			lastTransform: null,
 			symbolSizeInPx: null,
 			maxSymbolSizeInPx: 36,
 
@@ -94,6 +93,7 @@ export default {
 	computed: {
 		...mapState({
 			items: (state) => state.items,
+			lastTransform: (state) => state.chartZoomTransform,
 		}),
 		svgWidth() {
 			return this.minWidth < this.width ? this.width : this.minWidth;
@@ -110,7 +110,7 @@ export default {
 	},
 	methods: {
 		...mapMutations([
-			'setChartYearRange',
+			'setChartZoomTransform',
 		]),
 		...mapGetters([
 			'getXAxisDomain',
@@ -190,8 +190,10 @@ export default {
 					myThis.toolTipData = {};
 					myThis.tooltipDiv.style('visibility', 'hidden');
 				})
-				.on('click', (d) => {
-					myThis.$emit('tooltipClick', d);
+				.on('click', () => {
+					if (myThis.toolTipData.type !== 'graphic') {
+						window.open(`${myThis.toolTipData.detailUrl}`, '_blank');
+					}
 				});
 		},
 		setupAxis() {
@@ -213,7 +215,6 @@ export default {
 				.range([0, this.displayWidth]);
 
 			this.xAxis = d3.axisBottom(this.x);
-			this.setChartYearRange({ from: start + 1, to: end - 1 });
 
 			this.gX = this.svg.append('g')
 				.classed('axis xaxis', true)
@@ -263,13 +264,7 @@ export default {
 			node.selectAll('path').attr('d', this.getItemSymbol(symbolSizeInPx));
 
 			// save transform to reset it when filters are applied
-			this.lastTransform = transform;
-
-			const [from, to] = this.xAxis.scale().domain();
-			if (from.getMinutes() > 0) {
-				from.setFullYear(from.getFullYear() + 1);
-			}
-			this.setChartYearRange({ from: from.getFullYear(), to: to.getFullYear() });
+			this.setChartZoomTransform(transform);
 		},
 		getItemSymbol(pxSize) {
 			const size = this.maxSymbolSizeInPx > pxSize ? pxSize ** 2 : this.maxSymbolSizeInPx ** 2;
@@ -301,11 +296,10 @@ export default {
 			d3.selectAll('#scatterPlot').remove();
 			d3.selectAll('.axis').remove();
 			this.updateChart();
-			if (this.lastTransform !== null) {
-				this.svg.call(this.zoom.transform, this.lastTransform);
-			}
+			this.svg.call(this.zoom.transform, this.lastTransform);
 		},
 		resetZoom() {
+			this.setChartZoomTransform(d3.zoomIdentity);
 			this.svg.call(this.zoom.transform, d3.zoomIdentity);
 		},
 	},

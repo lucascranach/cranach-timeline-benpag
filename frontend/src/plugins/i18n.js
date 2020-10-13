@@ -6,7 +6,6 @@ Vue.use(VueI18n);
 const messages = {
 	de: {
 		cranach_timeline: 'Cranach Timeline',
-		gallery: 'Galerie',
 		visualization: 'Visualisierung',
 		error: 'Fehler',
 		error_occured: 'Ein Fehler ist aufgetreten, bitte kontaktieren Sie Ihren Administrator!',
@@ -47,7 +46,6 @@ const messages = {
 	},
 	en: {
 		cranach_timeline: 'Cranach Timeline',
-		gallery: 'Gallery',
 		visualization: 'Visualization',
 		error: 'Error',
 		error_occured: 'An error occured, please contact your administrator!',

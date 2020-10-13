@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
+const config = require('../../global.config');
 
 function getArtists(involvedPersons, lang) {
 	if (lang === 'de') {
@@ -35,6 +36,7 @@ async function parsePaintings(paintingsJson, lang) {
 		async (painting) => ({
 			id: painting.objectId,
 			imageUrl: await validateImageUrl(painting.images),
+			detailUrl: config.detailPageHost + painting.inventoryNumber,
 			startDate: painting.dating.begin,
 			endDate: painting.dating.end,
 			title: getTitles(painting.titles),

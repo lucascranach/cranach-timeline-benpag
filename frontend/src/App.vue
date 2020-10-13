@@ -53,7 +53,6 @@ export default {
 	data() {
 		return {
 			showFilters: true,
-			currentFilter: undefined,
 			languages: [
 				{ flag: 'de', language: 'de', title: 'Deutsch' },
 				{ flag: 'gb', language: 'en', title: 'English' },

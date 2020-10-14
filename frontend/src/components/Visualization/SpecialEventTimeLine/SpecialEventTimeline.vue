@@ -1,7 +1,16 @@
 <template>
 	<div :style="`margin-left:${margin.left}px;`">
-		<EventToolTipItem :id="toolTipId" :item="toolTipData" :max-width="toolTipMaxWidth"/>
-        <svg :id="`${timeLineId}`" :width="lineWidth" :height="height"></svg>
+		<EventToolTipItem
+			:id="toolTipId"
+			:item="toolTipData"
+			:max-width="toolTipMaxWidth"
+			:max-height="toolTipMaxHeight"
+		/>
+        <svg
+			:id="`${timeLineId}`"
+			:width="lineWidth"
+			:height="height"
+		/>
 	</div>
 </template>
 
@@ -58,7 +67,10 @@ export default {
 			return this.width - this.margin.left - this.margin.right;
 		},
 		toolTipMaxWidth() {
-			return this.width * 0.25;
+			return this.width * 0.4;
+		},
+		toolTipMaxHeight() {
+			return this.height * 15;
 		},
 		timeLineId() {
 			return `specialEventTimeline-${this.componentId}`;

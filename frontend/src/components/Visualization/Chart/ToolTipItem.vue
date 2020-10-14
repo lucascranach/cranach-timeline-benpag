@@ -13,10 +13,10 @@
 				/>
 			</div>
 			<div class="text-left">
-				<v-card-title class="h6 text-break py-0">
+				<v-card-title class="h6 text-break pt-2 pb-0">
 					{{ title }}, {{ dating }}
 				</v-card-title>
-				<v-card-text class="pt-2 pb-0">
+				<v-card-text class="py-0">
 					{{ category }}<br />
 					{{ artist }}<br />
 					{{ location }}

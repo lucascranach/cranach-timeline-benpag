@@ -32,6 +32,7 @@ const filters = {
 		}
 	},
 	isBestOf: (item) => item.isBestOf === true,
+	location: (item, { selectedLocations }) => Array.isArray(item.location) && selectedLocations.includes(item.location[0]),
 };
 
 export default filters;

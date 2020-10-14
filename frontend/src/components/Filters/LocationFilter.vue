@@ -17,30 +17,37 @@
 		</template>
 		<v-card flat class="px-3 py-6">
 			<v-autocomplete
-			v-model="selectedLocation"
-			:items="getLocations"
-			/>
+			v-model="selectedLocations"
+			:items="this.getLocations()"
+			:label="$t('location_filter')"
+			multiple
+			chips
+			>
+			<template v-slot:selection="data">
+				<v-chip
+					v-bind="data.attrs"
+					:input-value="data.selected"
+					close
+					@click:close="removeAutocompleteChip(data.item)"
+				>
+					{{ data.item }}
+				</v-chip>
+			</template>
+			</v-autocomplete>
 		</v-card>
 	</v-menu>
 </template>
 
 <script>
 import { mapActions, mapState, mapGetters } from 'vuex';
-import config from '../../../global.config';
 
 export default {
 	name: 'LocationFilter',
 	filterName: 'locationFilter',
 	data() {
 		return {
-			selectedLocation: null,
-			colors: config.colors,
-			locations: [],
+			selectedLocations: [],
 		};
-},
-	mounted() {
-		console.log(this.getLocations());
-		this.locations = this.getLocations();
 	},
 	computed: {
 		...mapState({
@@ -48,16 +55,11 @@ export default {
 		}),
 	},
 	watch: {
-		selectedCategories() {
-			if (this.selectedCategories.length < 1) {
+		selectedLocations() {
+			if (this.selectedLocations.length === 0) {
 				this.removeFilter(this.$options.filterName);
 			} else {
-				this.applyCategoryFilter();
-			}
-		},
-		categoryFilter() {
-			if (this.categoryFilter === undefined) {
-				this.selectedCategories = [];
+				this.applyLocationFilter();
 			}
 		},
 	},
@@ -66,24 +68,27 @@ export default {
 			'addFilter',
 			'removeFilter',
 		]),
-		...mapGetters(
-			'locations', ['getLocations'],
-		),
-		applyPlaceFilter() {
+		...mapGetters([
+			'getLocations',
+		]),
+		applyLocationFilter() {
 			this.addFilter({
 				name: this.$options.filterName,
-				type: 'place',
-				params: { validCategories: this.selectedCategories },
+				type: 'location',
+				params: { selectedLocations: this.selectedLocations },
 			});
 		},
 		removeFilterValue(filterValue) {
-			this.selectedCategories.splice(this.selectedCategories.indexOf(filterValue.value), 1);
+			this.selectedLocations.splice(this.selectedLocations.indexOf(filterValue.value), 1);
 		},
 		getFilterParameterDescriptions(filterValue) {
-			return filterValue.params.validCategories.map((place) => ({
-				description: this.$t(place),
-				value: place,
+			return filterValue.params.selectedLocations.map((location) => ({
+				description: location,
+				value: location,
 			}));
+		},
+		removeAutocompleteChip(chipName) {
+			this.selectedLocations.splice(this.selectedLocations.indexOf(chipName), 1);
 		},
 	},
 };

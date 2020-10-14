@@ -156,14 +156,11 @@ export default new Vuex.Store({
 			];
 		},
 		getLocations(state) {
-			const locations = [];
-			state.allItems.forEach((i) => {
-				console.log(i.location);
-				if (locations.some((location) => location !== i.location)) {
-					locations.push(i.location);
-				}
-			});
-			return locations;
+			const sortedLocations = Array.from(new Set(state.allItems.map((i) => i.location).flat())).sort();
+			if (sortedLocations.includes('')) {
+				sortedLocations.splice(sortedLocations.indexOf(''), 1);
+			}
+			return sortedLocations;
 		},
 	},
 });

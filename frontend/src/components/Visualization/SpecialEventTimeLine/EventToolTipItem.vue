@@ -16,7 +16,7 @@
 			</div>
 			<div class="text-left">
 				<v-card-title class="h6 text-break pt-2 pb-0">
-					{{ item.startDate }}
+					{{ title }}
 				</v-card-title>
 				<v-card-text class="py-0">
 					{{ item.description }}
@@ -53,8 +53,7 @@ export default {
 	},
 	computed: {
 		title() {
-			const split = this.item.startDate.split('-');
-
+			const split = (this.item?.startDate || '').split('-').map((i) => parseInt(i, 10));
 			if (split.length === 1) {
 				return new Date(split[0], 0, 1).toLocaleDateString(undefined, {
 					year: 'numeric',

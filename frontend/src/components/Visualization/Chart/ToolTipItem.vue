@@ -4,7 +4,7 @@
 		:height="maxToolTipHeight"
 		:max-width="maxToolTipWidth"
 	>
-		<div class="d-flex justify-space-between">
+		<div class="d-flex justify-start">
 			<div class="thumbnail-container">
 				<img
 					:src="imageUrl"

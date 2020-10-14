@@ -134,7 +134,16 @@ export default {
 		},
 		showToolTip(item) {
 			this.toolTipData = item;
-			const xOffset = d3Event.x > this.toolTipMaxWidth / 2 ? -50 : -((d3Event.x - this.margin.left) / this.toolTipMaxWidth) * 100;
+
+			let xOffset = -50;
+			const toolTipHalfWidth = this.toolTipMaxWidth / 2;
+
+			if (d3Event.x - toolTipHalfWidth < 0) {
+				xOffset = ((d3Event.x - this.margin.left) / this.toolTipMaxWidth) * -100;
+			} else if (d3Event.x + toolTipHalfWidth > window.innerWidth) {
+				xOffset -= ((window.innerWidth - this.margin.right - d3Event.x) / this.toolTipMaxWidth) * 100;
+			}
+
 			this.toolTip
 				.style('left', `${d3Event.x}px`)
 				.style('top', `${d3Event.layerY}px`)

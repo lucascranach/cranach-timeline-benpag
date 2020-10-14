@@ -4,8 +4,9 @@
 		class="event-timeline-tooltip"
 		:height="maxHeight"
 		:max-width="maxWidth"
+		:min-width="maxWidth / 2"
 	>
-		<div class="d-flex justify-space-between">
+		<div class="d-flex justify-start">
 			<div class="thumbnail-container">
 				<img
 					:src="imageUrl"
@@ -94,7 +95,6 @@ export default {
 	width: fit-content;
 	position: absolute;
 	overflow: hidden;
-	text-align: center;
 	pointer-events: none;
 	visibility: hidden;
 }

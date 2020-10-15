@@ -30,6 +30,7 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
+import LocationFilter from './LocationFilter.vue';
 import CategoryFilter from './CategoryFilter.vue';
 import IsBestOfFilter from './IsBestOfFilter.vue';
 import TextSearchFilter from './TextSearchFilter.vue';
@@ -49,6 +50,7 @@ export default {
 		IsBestOfFilter,
 		TextSearchFilter,
 		TimeFilter,
+		LocationFilter,
 	},
 	data() {
 		return {
@@ -57,6 +59,7 @@ export default {
 				TextSearchFilter,
 				CategoryFilter,
 				TimeFilter,
+				LocationFilter,
 				IsBestOfFilter,
 			],
 		};

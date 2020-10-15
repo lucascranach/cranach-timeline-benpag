@@ -3,25 +3,23 @@
 		outlined
 		:height="maxToolTipHeight"
 		:max-width="maxToolTipWidth"
+		class="d-inline-flex justify-start"
 	>
-		<div class="d-flex justify-start">
-			<div class="thumbnail-container">
-				<img
-					:src="imageUrl"
-					:height="maxToolTipHeight"
-					alt=""
-				/>
-			</div>
-			<div class="text-left">
-				<v-card-title class="h6 text-break pt-2 pb-0">
-					{{ title }}, {{ dating }}
-				</v-card-title>
-				<v-card-text class="py-0">
-					{{ category }}<br />
-					{{ artist }}<br />
-					{{ location }}
-				</v-card-text>
-			</div>
+		<img
+			class="tooltip-thumbnail"
+			:src="imageUrl"
+			:height="maxToolTipHeight"
+			alt=""
+		/>
+		<div class="text-left">
+			<v-card-title :class="titleCssClasses">
+				{{ title }}, {{ dating }}
+			</v-card-title>
+			<v-card-text class="text-md-body-2 text-xl-body-1 py-0">
+				{{ category }}<br/>
+				{{ artist }}<br/>
+				{{ location }}
+			</v-card-text>
 		</div>
 	</v-card>
 </template>
@@ -100,16 +98,25 @@ export default {
 			}
 			return this.item.artists || this.$t('na');
 		},
+		titleCssClasses() {
+			const defaultClasses = 'text-break pt-2 pb-0';
+			const breakpointName = this.$vuetify.breakpoint.name;
+			if (breakpointName !== 'xl') {
+				return `${defaultClasses} text-subtitle-1 font-weight-bold`;
+			}
+
+			return `${defaultClasses} text-h6 `;
+		},
 	},
 };
 </script>
 
 <style type="text/css">
-.thumbnail-container {
-	max-width: 50%;
-}
-.thumbnail-container img {
+
+.tooltip-thumbnail {
 	object-fit: contain;
-	max-width: min-content;
+	height: auto;
+	max-height: 100%;
+	max-width: 40%;
 }
 </style>

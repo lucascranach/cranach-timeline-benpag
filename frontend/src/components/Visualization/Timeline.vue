@@ -132,7 +132,7 @@ export default {
 		arrowSize: 20,
 		strokeWidth: 2,
 		histogramColor: 'rgb(250, 250, 250)',
-		sliderColor: 'rgb(200, 20, 20)',
+		sliderColor: '#444444',
 		inactiveColor: 'rgba(180,180,180,0.5)',
 		pillHeight: 20,
 		filterRange: {

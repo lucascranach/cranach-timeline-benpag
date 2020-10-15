@@ -343,7 +343,6 @@ export default {
 	top: 0;
 	left: 0;
 	overflow: hidden;
-	text-align: center;
 	pointer-events: none;
 	z-index: 999999;
 }

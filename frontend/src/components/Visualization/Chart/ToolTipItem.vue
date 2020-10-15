@@ -12,10 +12,10 @@
 			alt=""
 		/>
 		<div class="text-left">
-			<v-card-title :class="titleCssClasses">
+			<v-card-title class="text-lg-subtitle-2 text-xl-h6 text-break pt-2 pb-0">
 				{{ title }}, {{ dating }}
 			</v-card-title>
-			<v-card-text class="text-md-body-2 text-xl-body-1 py-0">
+			<v-card-text class="text-lg-caption text-xl-body-1 py-0 test">
 				{{ category }}<br/>
 				{{ artist }}<br/>
 				{{ location }}
@@ -98,21 +98,11 @@ export default {
 			}
 			return this.item.artists || this.$t('na');
 		},
-		titleCssClasses() {
-			const defaultClasses = 'text-break pt-2 pb-0';
-			const breakpointName = this.$vuetify.breakpoint.name;
-			if (breakpointName !== 'xl') {
-				return `${defaultClasses} text-subtitle-1 font-weight-bold`;
-			}
-
-			return `${defaultClasses} text-h6 `;
-		},
 	},
 };
 </script>
 
 <style type="text/css">
-
 .tooltip-thumbnail {
 	object-fit: contain;
 	height: auto;

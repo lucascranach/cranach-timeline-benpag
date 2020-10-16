@@ -1,14 +1,34 @@
 <template>
-    <v-card
-		shaped class="d3-tooltip"
+	<v-card
+		outlined
+		class="event-timeline-tooltip"
+		:height="maxHeight"
 		:max-width="maxWidth"
+		:min-width="maxWidth / 2"
 	>
-		<v-card-title>{{item.startDate}}</v-card-title>
-		<v-card-text>{{item.description}}</v-card-text>
+		<div class="d-flex justify-start">
+			<div class="thumbnail-container">
+				<img
+					:src="imageUrl"
+					:height="maxHeight"
+					alt=""
+				/>
+			</div>
+			<div class="text-left">
+				<v-card-title class="h6 text-break pt-2 pb-0">
+					{{ title }}
+				</v-card-title>
+				<v-card-text class="py-0">
+					{{ item.description }}
+				</v-card-text>
+			</div>
+		</div>
 	</v-card>
 </template>
 
 <script>
+import config from '../../../../global.config';
+
 export default {
 	name: 'EventToolTipItem',
 	props: {
@@ -20,21 +40,61 @@ export default {
 			type: Number,
 			required: false,
 			default() {
-				return 500;
+				return window.innerHeight * 0.4;
 			},
+		},
+		maxHeight: {
+			type: Number,
+			required: false,
+			default() {
+				return window.innerHeight * 0.1;
+			},
+		},
+	},
+	computed: {
+		title() {
+			const split = (this.item?.startDate || '').split('-').map((i) => parseInt(i, 10));
+			if (split.length === 1) {
+				return new Date(split[0], 0, 1).toLocaleDateString(undefined, {
+					year: 'numeric',
+				});
+			}
+			if (split.length === 2) {
+				return new Date(split[0], split[1], 1).toLocaleDateString(undefined, {
+					year: 'numeric',
+					month: 'long',
+				});
+			}
+			if (split.length === 3) {
+				return new Date(this.item.startDate).toLocaleDateString(undefined, {
+					year: 'numeric',
+					month: 'long',
+					day: 'numeric',
+				});
+			}
+
+			return this.$t('invalid Date');
+		},
+		imageUrl() {
+			return this.item.imageUrl || config.placeholderImageUrl;
 		},
 	},
 };
 </script>
 
 <style scoped>
-.d3-tooltip {
+.thumbnail-container {
+	max-width: 50%;
+}
+.thumbnail-container img {
+	object-fit: contain;
+	max-width: min-content;
+}
+.event-timeline-tooltip {
 	width: fit-content;
 	position: absolute;
 	overflow: hidden;
-	text-align: center;
 	pointer-events: none;
-	z-index: 999999;
 	visibility: hidden;
 }
 </style>

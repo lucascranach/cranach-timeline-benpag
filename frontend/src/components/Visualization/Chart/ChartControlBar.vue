@@ -5,27 +5,30 @@
 			block outlined icon
 			:color="color"
 			:disabled="isMaxZoomReached"
+			:small="useSmallButtons"
 			@click="() => this.$emit('zoomIn')"
 		>
-			<v-icon>mdi-plus</v-icon>
+			<v-icon :small="useSmallButtons" >mdi-plus</v-icon>
 		</v-btn>
 		<v-btn
 			class="my-2 d-block"
 			block outlined icon
 			:color="color"
 			:disabled="isMinZoomReached"
+			:small="useSmallButtons"
 			@click="() => this.$emit('resetZoom')"
 		>
-			<v-icon>mdi-restore</v-icon>
+			<v-icon :small="useSmallButtons">mdi-restore</v-icon>
 		</v-btn>
 		<v-btn
 			class="mt-2 d-block"
 			block outlined icon
 			:color="color"
 			:disabled="isMinZoomReached"
+			:small="useSmallButtons"
 			@click="() => this.$emit('zoomOut')"
 		>
-			<v-icon>mdi-minus</v-icon>
+			<v-icon :small="useSmallButtons">mdi-minus</v-icon>
 		</v-btn>
 	</v-sheet>
 </template>
@@ -61,6 +64,9 @@ export default {
 		},
 		isMaxZoomReached() {
 			return this.lastTransform.k === this.maxZoomLevel;
+		},
+		useSmallButtons() {
+			return this.$vuetify.breakpoint.name !== 'xl';
 		},
 	},
 };

@@ -37,7 +37,7 @@ async function importData() {
 if (!fs.existsSync(path.join(`${__dirname}../../../data/`))) fs.mkdirSync(path.join(`${__dirname}../../../data/`));
 
 backendLogger.debug('Check if parsing is required...');
-if (checkFiles.filesValid()) {
+if (!process.argv.includes('--force') && checkFiles.filesValid()) {
 	backendLogger.debug('No parse required!');
 } else {
 	backendLogger.debug('Parse is required!');

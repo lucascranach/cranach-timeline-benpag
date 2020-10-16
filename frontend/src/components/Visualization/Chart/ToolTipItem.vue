@@ -18,7 +18,7 @@
 			<v-card-text class="text-lg-caption text-xl-body-1 py-0 test">
 				{{ category }}<br/>
 				{{ artist }}<br/>
-				{{ ownerComma }} {{ location }}
+				{{ owner }}{{ locationComma }}
 			</v-card-text>
 		</div>
 	</v-card>
@@ -87,25 +87,35 @@ export default {
 			return this.item.artists || this.$t('na');
 		},
 		location() {
-			if (this.item.type === 'archival') {
-				return this.item.repository || this.$t('na');
-			}
 			if (Array.isArray(this.item.location)) {
 				return this.item.location[0] || this.$t('na');
 			}
 			return this.item.location || this.$t('na');
 		},
+		locationComma() {
+			if (this.item.type === 'archival') {
+				return this.item.repository || this.$t('na');
+			}
+			if (Array.isArray(this.item.location)) {
+				const locationIsInOwner = this.item.location.some((location) => this.item.owner && this.item.owner.includes(location));
+				if (locationIsInOwner) {
+					return '';
+				}
+				return `, ${this.location}`;
+			}
+			if (this.item.owner && this.item.owner.includes(this.item.location)) {
+				return '';
+			}
+			return `, ${this.location}`;
+		},
 		owner() {
+			if (this.item.type === 'archival') {
+				return '';
+			}
 			if (Array.isArray(this.item.owner)) {
 				return this.item.owner[0].name || this.$t('na');
 			}
 			return this.item.owner || this.$t('na');
-		},
-		ownerComma() {
-			if (this.item.type === 'archival') {
-				return '';
-			}
-			return `${this.owner},`;
 		},
 	},
 };

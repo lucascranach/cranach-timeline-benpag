@@ -7,7 +7,6 @@ module.exports = {
 		archival: 'rgb(226,161,74)',
 	},
 	events: ['cranachElder', 'cranachYounger', 'luther', 'history'],
-	placeholderImageUrl: 'https://via.placeholder.com/350',
 	defaultDates: {
 		start: 1500,
 		end: 1600,

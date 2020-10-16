@@ -18,14 +18,13 @@
 			<v-card-text class="text-lg-caption text-xl-body-1 py-0 test">
 				{{ category }}<br/>
 				{{ artist }}<br/>
-				{{ location }}
+				{{ owner }}{{ locationComma }}
 			</v-card-text>
 		</div>
 	</v-card>
 </template>
 
 <script>
-import config from '../../../../global.config';
 
 export default {
 	name: 'ToolTipItem',
@@ -43,7 +42,7 @@ export default {
 			return window.innerWidth * 0.4;
 		},
 		imageUrl() {
-			return this.item.imageUrl || config.placeholderImageUrl;
+			return this.item.imageUrl || '/placeholder.png';
 		},
 		title() {
 			let title;
@@ -92,11 +91,27 @@ export default {
 			}
 			return this.item.location || this.$t('na');
 		},
-		owner() {
-			if (Array.isArray(this.item.artists)) {
-				return this.item.artists[0].name || this.$t('na');
+		locationComma() {
+			if (this.item.type === 'archival') {
+				return this.item.repository || this.$t('na');
 			}
-			return this.item.artists || this.$t('na');
+			if (Array.isArray(this.item.location)) {
+				const locationIsInOwner = this.item.location.some((location) => this.item.owner && this.item.owner.includes(location));
+				if (locationIsInOwner) {
+					return '';
+				}
+				return `, ${this.location}`;
+			}
+			if (this.item.owner && this.item.owner.includes(this.item.location)) {
+				return '';
+			}
+			return `, ${this.location}`;
+		},
+		owner() {
+			if (this.item.type === 'archival') {
+				return '';
+			}
+			return this.item.owner || this.$t('na');
 		},
 	},
 };

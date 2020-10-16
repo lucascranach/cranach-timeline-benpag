@@ -42,6 +42,7 @@ async function parsePaintings(paintingsJson, lang) {
 			title: getTitles(painting.titles),
 			location: getLocations(painting.locations),
 			artists: getArtists(painting.involvedPersons, lang),
+			owner: painting.owner,
 			type: 'painting',
 			isBestOf: painting.isBestOf,
 		}),

@@ -1,12 +1,30 @@
 <template>
 	<v-sheet class="chart-control-bar pa-3">
-		<v-btn block outlined icon class="mb-2" :color="color" :disabled="isMaxZoomReached">
+		<v-btn
+			class="mb-2"
+			block outlined icon
+			:color="color"
+			:disabled="isMaxZoomReached"
+			@click="() => this.$emit('zoomIn')"
+		>
 			<v-icon>mdi-plus</v-icon>
 		</v-btn>
-		<v-btn block outlined icon class="my-2 d-block" :color="color" :disabled="isMinZoomReached">
+		<v-btn
+			class="my-2 d-block"
+			block outlined icon
+			:color="color"
+			:disabled="isMinZoomReached"
+			@click="() => this.$emit('resetZoom')"
+		>
 			<v-icon>mdi-restore</v-icon>
 		</v-btn>
-		<v-btn block outlined icon class="mt-2 d-block" :color="color" :disabled="isMinZoomReached">
+		<v-btn
+			class="mt-2 d-block"
+			block outlined icon
+			:color="color"
+			:disabled="isMinZoomReached"
+			@click="() => this.$emit('zoomOut')"
+		>
 			<v-icon>mdi-minus</v-icon>
 		</v-btn>
 	</v-sheet>
@@ -22,7 +40,7 @@ export default {
 			type: String,
 			required: false,
 			default() {
-				return 'gray darken-4';
+				return 'rgba(0, 0, 0, 0.8)';
 			},
 		},
 		minZoomLevel: {
@@ -55,6 +73,6 @@ export default {
 }
 
 .chart-control-bar button{
-	background-color: rgba(100, 100, 100, 0.1);
+	background-color: rgba(255, 255, 255, 0.8);
 }
 </style>

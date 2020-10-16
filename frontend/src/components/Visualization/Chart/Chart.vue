@@ -1,6 +1,13 @@
 <template>
 	<div :id="chartDivId">
-		<ChartControlBar :min-zoom-level="zoomLevels[0]" :max-zoom-level="zoomLevels[1]" class="chart-controls" />
+		<ChartControlBar
+			class="chart-controls"
+			:min-zoom-level="zoomLevels[0]"
+			:max-zoom-level="zoomLevels[1]"
+			@zoomIn="onZoomIn"
+			@zoomOut="onZoomOut"
+			@resetZoom="onResetZoom"
+		/>
 		<ToolTipItem :id="tooltipDivId" class="chart-tooltip" :item="toolTipData" />
 	</div>
 </template>
@@ -297,8 +304,13 @@ export default {
 			this.updateChart();
 			this.svg.call(this.zoom.transform, this.lastTransform);
 		},
-		resetZoom() {
-			this.setChartZoomTransform(d3.zoomIdentity);
+		onZoomIn() {
+			this.svg.call(this.zoom.scaleBy, 1.2);
+		},
+		onZoomOut() {
+			this.svg.call(this.zoom.scaleBy, 0.8);
+		},
+		onResetZoom() {
 			this.svg.call(this.zoom.transform, d3.zoomIdentity);
 		},
 	},

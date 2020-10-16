@@ -2,7 +2,7 @@ require('dotenv').config();
 
 module.exports = {
 	dataBaseUrl: 'https://raw.githubusercontent.com/lucascranach/importer/master/docs',
-	placeholderImageUrl: 'https://via.placeholder.com/350',
+	placeholderImageUrl: 'https://secureavi.com/wp-content/uploads/2020/09/SecureAvi-NoImage.png',
 	detailPageHost: 'http://lucascranach.org/',
 	archivalDetailPagePath: 'archival-documents/',
 	jsonFiles: [

@@ -112,9 +112,6 @@ export default {
 			if (this.item.type === 'archival') {
 				return '';
 			}
-			if (Array.isArray(this.item.owner)) {
-				return this.item.owner[0].name || this.$t('na');
-			}
 			return this.item.owner || this.$t('na');
 		},
 	},

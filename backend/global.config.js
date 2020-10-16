@@ -14,8 +14,8 @@ module.exports = {
 		// { uri: '/20191122/cda-literaturereferences-v2.json', title: 'cda-literaturereferences-v2.json' },
 		{ uri: '/20200819/cda-paintings-v2.de.json', title: 'cda-paintings-v2.de.json' },
 		{ uri: '/20200819/cda-paintings-v2.en.json', title: 'cda-paintings-v2.en.json' },
-		{ uri: '/20200819/cda-archivals-v2.de.json', title: 'cda-archivals-v2.de.json' },
-		{ uri: '/20200819/cda-archivals-v2.en.json', title: 'cda-archivals-v2.en.json' },
+		{ uri: '/20201009/cda-archivals-v2.de.json', title: 'cda-archivals-v2.de.json' },
+		{ uri: '/20201009/cda-archivals-v2.en.json', title: 'cda-archivals-v2.en.json' },
 	],
 	parsedJsonPaths: {
 		paintings_de: '../../data/paintings_de.json',

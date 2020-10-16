@@ -18,7 +18,7 @@
 			<v-card-text class="text-lg-caption text-xl-body-1 py-0 test">
 				{{ category }}<br/>
 				{{ artist }}<br/>
-				{{ location }}
+				{{ ownerComma }} {{ location }}
 			</v-card-text>
 		</div>
 	</v-card>
@@ -87,16 +87,25 @@ export default {
 			return this.item.artists || this.$t('na');
 		},
 		location() {
+			if (this.item.type === 'archival') {
+				return this.item.repository || this.$t('na');
+			}
 			if (Array.isArray(this.item.location)) {
 				return this.item.location[0] || this.$t('na');
 			}
 			return this.item.location || this.$t('na');
 		},
 		owner() {
-			if (Array.isArray(this.item.artists)) {
-				return this.item.artists[0].name || this.$t('na');
+			if (Array.isArray(this.item.owner)) {
+				return this.item.owner[0].name || this.$t('na');
 			}
-			return this.item.artists || this.$t('na');
+			return this.item.owner || this.$t('na');
+		},
+		ownerComma() {
+			if (this.item.type === 'archival') {
+				return '';
+			}
+			return `${this.owner},`;
 		},
 	},
 };

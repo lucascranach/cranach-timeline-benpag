@@ -60,7 +60,7 @@ async function parsePaintings(paintingsJson, lang) {
 		path.join(`${__dirname}../../../data/paintings_${lang}.json`), JSON.stringify(
 			{
 				timestamp: new Date(),
-				paintings: data,
+				paintings: data.filter((w) => w.sortingDate > 1490 && w.sortingDate < 1590),
 			}, null, 2,
 		),
 	);

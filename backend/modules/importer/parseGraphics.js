@@ -1,6 +1,14 @@
 const fs = require('fs');
 const path = require('path');
 
+function getSortingDate(sortingDate, beginDate) {
+	if (sortingDate.includes('-')) {
+		const sortingDateDecimal = sortingDate.replace('-', '.');
+		return parseFloat(sortingDateDecimal.replace(/-/g, ''));
+	}
+	return beginDate;
+}
+
 function getTitles(titlesArray) {
 	return titlesArray.map((it) => it.title);
 }
@@ -25,6 +33,7 @@ function parseGraphics(graphicsJson, lang) {
 		imageUrl: '',
 		startDate: graphic.dating.begin,
 		endDate: graphic.dating.end,
+		sortingDate: getSortingDate(graphic.sortingNumber, graphic.dating.begin),
 		title: getTitles(graphic.titles),
 		location: getLocations(graphic.locations),
 		artists: getArtists(graphic.involvedPersons, lang),

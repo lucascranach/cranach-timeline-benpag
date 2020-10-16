@@ -5,7 +5,6 @@ const parserPaintings = require('./parsePaintings');
 const parserGraphics = require('./parseGraphics');
 const backendLogger = require('../logger/backendLogger');
 const parserArchivals = require('./parseArchivals');
-const geoConverter = require('./convertGeolocation');
 const checkFiles = require('./checkFiles');
 
 const config = require('../../global.config');
@@ -43,10 +42,6 @@ if (!process.argv.includes('--force') && checkFiles.filesValid()) {
 	backendLogger.debug('Parse is required!');
 	importData().then((result) => {
 		backendLogger.debug('Parsing completed');
-		backendLogger.debug('Starting geocoding');
-		geoConverter.convert().then(() => {
-			backendLogger.debug('Geocoding completed');
-			backendLogger.debug(result);
-		});
+		backendLogger.debug(result);
 	});
 }

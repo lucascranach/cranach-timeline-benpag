@@ -117,7 +117,7 @@ export default {
 };
 </script>
 
-<style type="text/css">
+<style>
 .tooltip-thumbnail {
 	object-fit: contain;
 	height: auto;

@@ -1,11 +1,14 @@
-<!--suppress CommaExpressionJS -->
 <template>
-	<div>
-		<v-btn @click="resetZoom" class="mb-4">
-			{{$t('reset_zoom')}}
-		</v-btn>
-		<div id="umf-d3-chart"></div>
-		<ToolTipItem :id="tooltipDivId" class="d3-tooltip" :item="toolTipData"/>
+	<div :id="chartDivId">
+		<ChartControlBar
+			class="chart-controls"
+			:min-zoom-level="zoomLevels[0]"
+			:max-zoom-level="zoomLevels[1]"
+			@zoomIn="onZoomIn"
+			@zoomOut="onZoomOut"
+			@resetZoom="onResetZoom"
+		/>
+		<ToolTipItem :id="tooltipDivId" class="chart-tooltip" :item="toolTipData" />
 	</div>
 </template>
 
@@ -14,18 +17,19 @@ import { mapState, mapMutations, mapGetters } from 'vuex';
 import { event as currentEvent } from 'd3-selection';
 import d3 from '../../../plugins/d3-importer';
 import ToolTipItem from './ToolTipItem.vue';
+import ChartControlBar from './ChartControlBar.vue';
 
 export default {
 	name: 'Chart',
-	components: { ToolTipItem },
+	components: { ChartControlBar, ToolTipItem },
 	props: {
 		chartDivId: {
 			type: String,
-			default: 'umf-d3-chart',
+			default: 'cranach-chart',
 		},
 		tooltipDivId: {
 			type: String,
-			default: 'd3-tooltip-div',
+			default: 'cranach-chart-tooltip',
 		},
 		height: {
 			type: Number,
@@ -72,7 +76,7 @@ export default {
 			toolTipData: {},
 			symbolSizeInPx: null,
 			maxSymbolSizeInPx: 36,
-
+			zoomLevels: [1, 10],
 		};
 	},
 	mounted() {
@@ -122,7 +126,9 @@ export default {
 		},
 		setupSvg() {
 			// Our svg size includes the margins
-			this.svg = d3.select(`#${this.chartDivId}`).append('svg')
+			this.svg = d3.select(`#${this.chartDivId}`)
+				.style('position', 'relative')
+				.append('svg')
 				.attr('width', this.svgWidth)
 				.attr('height', this.svgHeight)
 				.append('g');
@@ -240,7 +246,7 @@ export default {
 			const extend = [[0, 0], [this.displayWidth, this.displayHeight]];
 			this.zoom = d3.zoom()
 				.extent(extend)
-				.scaleExtent([1, 10])
+				.scaleExtent(this.zoomLevels)
 				.translateExtent(extend)
 				.on('zoom', this.zoomed);
 			this.svg.call(this.zoom);
@@ -298,8 +304,13 @@ export default {
 			this.updateChart();
 			this.svg.call(this.zoom.transform, this.lastTransform);
 		},
-		resetZoom() {
-			this.setChartZoomTransform(d3.zoomIdentity);
+		onZoomIn() {
+			this.svg.call(this.zoom.scaleBy, 1.2);
+		},
+		onZoomOut() {
+			this.svg.call(this.zoom.scaleBy, 0.8);
+		},
+		onResetZoom() {
 			this.svg.call(this.zoom.transform, d3.zoomIdentity);
 		},
 	},
@@ -338,12 +349,17 @@ export default {
 	fill: rgb(66, 116, 173)
 }
 
-.d3-tooltip {
+.chart-tooltip {
 	position: absolute;
 	top: 0;
 	left: 0;
 	overflow: hidden;
 	pointer-events: none;
 	z-index: 999999;
+}
+
+.chart-controls{
+	position: absolute;
+	right: 0;
 }
 </style>

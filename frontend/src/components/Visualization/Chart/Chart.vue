@@ -74,7 +74,6 @@ export default {
 			zoom: null,
 			tooltipDiv: null,
 			toolTipData: {},
-			symbolSizeInPx: null,
 			maxSymbolSizeInPx: 36,
 			zoomLevels: [1, 10],
 		};
@@ -143,13 +142,12 @@ export default {
 				.attr('height', this.displayHeight)
 				.style('fill', 'transparent')
 				.attr('transform', `translate(${this.margin.left}, ${this.margin.top})`);
+			// This clip path is used to crop/hide data items on zooming. This is the view box of all items.
 			this.svg.append('defs').append('svg:clipPath')
 				.attr('id', 'clip')
 				.append('svg:rect')
 				.attr('width', this.displayWidth)
-				.attr('height', this.displayHeight)
-				.attr('x', 0)
-				.attr('y', 0);
+				.attr('height', this.displayHeight);
 		},
 		updateChart() {
 			if (this.items.length < 1) {
@@ -172,13 +170,10 @@ export default {
 				.attr('transform', (d) => `translate(${this.getXCoordinateOfItem(d)},${this.getYCoordinateOfItem(d)})`);
 
 			const myThis = this;
-			this.symbolSizeInPx = Math.floor(this.displayHeight / this.y.domain()[1]);
 			node.append('path')
-				.attr('d', this.getItemSymbol(this.symbolSizeInPx))
+				.attr('d', this.getItemSymbol())
 				.attr('opacity', 1)
 				.attr('class', (d) => d.type)
-				.attr('stroke-width', 1)
-				.attr('stroke', 'rgb(255,255,255)')
 				.on('mouseover', (d) => {
 					d3.select(`.d3r-${d.id}`).classed('active', true);
 					myThis.toolTipData = d;
@@ -215,8 +210,8 @@ export default {
 			const [start, end] = this.getXAxisDomain();
 			this.x = d3.scaleTime()
 				.domain([
-					new Date(start, 1, 1),
-					new Date(end, 1, 1),
+					new Date(start, 0, 1),
+					new Date(end, 0, 1),
 				])
 				.range([0, this.displayWidth]);
 
@@ -229,10 +224,11 @@ export default {
 
 			/* Y Axis */
 			this.y = d3.scaleLinear()
-				.domain([0, yMinMax[1]]).nice()
+				.domain([0.5, yMinMax[1] + 1])
 				.range([this.displayHeight, 0]);
 
-			this.yAxis = d3.axisLeft(this.y).ticks(this.y.domain()[1] / 20);
+			this.yAxis = d3.axisLeft(this.y)
+				.tickFormat((t) => (Math.floor(t) - t !== 0 ? '' : t));
 
 			this.gY = this.svg.append('g')
 				.classed('axis yaxis', true)
@@ -265,16 +261,29 @@ export default {
 				);
 
 			// --- rescale symbol of items in chart
-			const diff = this.scatterPlot.node().getBoundingClientRect().height - this.displayHeight;
-			const symbolSizeInPx = Math.floor((this.displayHeight + diff) / this.y.domain()[1]);
-			node.selectAll('path').attr('d', this.getItemSymbol(symbolSizeInPx));
-
+			node.selectAll('path').attr('d', this.getItemSymbol());
 			// save transform to reset it when filters are applied
 			this.setChartZoomTransform(transform);
 		},
-		getItemSymbol(pxSize) {
-			const size = this.maxSymbolSizeInPx > pxSize ? pxSize ** 2 : this.maxSymbolSizeInPx ** 2;
-			return d3.symbol().type(d3.symbolSquare).size(size);
+		calculateItemSymbolSize() {
+			if (this.scatterPlot === null) {
+				return 6;
+			}
+			const symbolYPadding = 1;
+			const boundingRect = this.scatterPlot.node().getBoundingClientRect();
+			const heightDiff = Math.max(0, boundingRect.height - this.displayHeight);
+			const pxSizeByHeight = Math.floor((this.displayHeight + heightDiff) / this.y.domain()[1]) - symbolYPadding;
+
+			const symbolXPadding = 3;
+			const [from, to] = this.x.domain();
+			const widthDiff = Math.max(0, boundingRect.width - this.displayWidth);
+			const pxSizeByWidth = Math.floor((this.displayWidth + widthDiff) / (to.getFullYear() - from.getFullYear())) - symbolXPadding;
+
+			return Math.min(...[pxSizeByHeight, pxSizeByWidth, this.maxSymbolSizeInPx]);
+		},
+		getItemSymbol() {
+			const size = this.calculateItemSymbolSize();
+			return d3.symbol().type(d3.symbolSquare).size(size ** 2);
 		},
 		calculateToolTipX(mouseX, toolTipWidth, margin = 10) {
 			if (mouseX - (toolTipWidth / 2) - margin < 0) {
@@ -295,7 +304,7 @@ export default {
 			return this.x(new Date(startDate, 1, 1)) - 1;
 		},
 		getYCoordinateOfItem({ yPos }) {
-			return this.y(yPos) + (this.symbolSizeInPx / 2);
+			return this.y(yPos);
 		},
 		reset() {
 			d3.selectAll('.dot').remove();

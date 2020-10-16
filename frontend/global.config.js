@@ -7,7 +7,6 @@ module.exports = {
 		archival: 'rgb(226,161,74)',
 	},
 	events: ['cranachElder', 'cranachYounger', 'luther', 'history'],
-	placeholderImageUrl: 'https://secureavi.com/wp-content/uploads/2020/09/SecureAvi-NoImage.png',
 	defaultDates: {
 		start: 1500,
 		end: 1600,

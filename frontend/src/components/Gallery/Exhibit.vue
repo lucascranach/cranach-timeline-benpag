@@ -8,7 +8,7 @@
         >
             <div class="imageContainer">
                 <v-img
-                    :src="item.imageUrl && item.imageUrl !== '' ? item.imageUrl : config.placeholderImageUrl"
+                    :src="item.imageUrl && item.imageUrl !== '' ? item.imageUrl : '/placeholder.png'"
                     :class="{'imageAnimation' : runAnimation }"
                     position="center top"
                     style="background-color: white"

@@ -27,7 +27,6 @@
 </template>
 
 <script>
-import config from '../../../../global.config';
 
 export default {
 	name: 'EventToolTipItem',
@@ -76,7 +75,7 @@ export default {
 			return this.$t('invalid Date');
 		},
 		imageUrl() {
-			return this.item.imageUrl || config.placeholderImageUrl;
+			return this.item.imageUrl || '/placeholder.png';
 		},
 	},
 };

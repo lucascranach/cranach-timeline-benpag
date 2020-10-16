@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import config from '../../../../global.config';
 
 export default {
 	name: 'ToolTipItem',
@@ -43,7 +42,7 @@ export default {
 			return window.innerWidth * 0.4;
 		},
 		imageUrl() {
-			return this.item.imageUrl || config.placeholderImageUrl;
+			return this.item.imageUrl || '/placeholder.png';
 		},
 		title() {
 			let title;

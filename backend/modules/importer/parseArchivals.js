@@ -18,7 +18,7 @@ function parseArchivals(archivalsJson, lang) {
 		repository: archival.repository,
 		summary: archival.summaries[0],
 		type: 'archival',
-	})).filter((w) => w.startDate > 1490 && w.startDate < 1590);
+	}));
 	fs.writeFileSync(path.join(`${__dirname}../../../data/archivals_${lang}.json`), JSON.stringify(mainAttributes, null, 2));
 	return `Parsing archivals successful, parsed JSONs are stored at ${path.join(`${__dirname}../../../data/`)}`;
 }

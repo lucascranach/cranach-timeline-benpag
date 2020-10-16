@@ -101,10 +101,13 @@ export default new Vuex.Store({
 		async loadData({ commit }) {
 			commit('setLoadingState', true);
 			try {
-				const allItems = (await Promise.all(
+				const data = (await Promise.all(
 					config.resources.map(async (r) => (await axios.get(`${config.dataBaseUrl + r}?lang=${i18n.locale}`)).data[r]),
 				)).flat();
 
+				const allItems = data.filter(
+					(w) => w.startDate > 1490 && w.startDate < 1590,
+				);
 				Object.freeze(allItems);
 
 				commit('setItems', allItems);

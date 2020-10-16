@@ -38,7 +38,7 @@ function parseGraphics(graphicsJson, lang) {
 		location: getLocations(graphic.locations),
 		artists: getArtists(graphic.involvedPersons, lang),
 		type: 'graphic',
-	})).filter((w) => w.sortingDate > 1490 && w.sortingDate < 1590 && w.startDate > 1490 && w.startDate < 1590);
+	}));
 	mainAttributes.graphics.sort((a, b) => a.sortingDate - b.sortingDate);
 	fs.writeFileSync(path.join(`${__dirname}../../../data/graphics_${lang}.json`), JSON.stringify(mainAttributes, null, 2));
 	return `Parsing graphics successful, parsed JSONs are stored at ${path.join(`${__dirname}../../../data/`)}`;

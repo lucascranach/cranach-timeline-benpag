@@ -55,6 +55,7 @@ async function parsePaintings(paintingsJson, lang) {
 			isBestOf: painting.isBestOf,
 		}),
 	));
+	data.sort((a, b) => a.sortingDate - b.sortingDate);
 	fs.writeFileSync(
 		path.join(`${__dirname}../../../data/paintings_${lang}.json`), JSON.stringify(
 			{

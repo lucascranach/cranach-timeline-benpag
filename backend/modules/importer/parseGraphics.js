@@ -39,6 +39,7 @@ function parseGraphics(graphicsJson, lang) {
 		artists: getArtists(graphic.involvedPersons, lang),
 		type: 'graphic',
 	}));
+	mainAttributes.graphics.sort((a, b) => a.sortingDate - b.sortingDate);
 	fs.writeFileSync(path.join(`${__dirname}../../../data/graphics_${lang}.json`), JSON.stringify(mainAttributes, null, 2));
 	return `Parsing graphics successful, parsed JSONs are stored at ${path.join(`${__dirname}../../../data/`)}`;
 }

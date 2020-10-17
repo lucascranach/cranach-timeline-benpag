@@ -1,16 +1,15 @@
 <template>
-	<v-sheet class="chart-legend text-center">
+	<v-sheet class="chart-legend text-center text-decoration-none">
 		<v-btn
 			v-for="(category, i) in categories" :key="i"
-			class="chart-legend-btn text-capitalize"
+			class="text-none"
 			text
-			:small="useSmallerButtons"
+			small
 			@click="toggleCategory(category)"
 		>
 			<v-icon
 				:color="categoryColors[category]"
 				small
-				:x-small="useSmallerButtons"
 				:disabled="isDisabled(category)"
 			>
 				mdi-stop
@@ -81,9 +80,3 @@ export default {
 	},
 };
 </script>
-
-<style scoped>
-.chart-legend .chart-legend-btn {
-	height: 28px;
-}
-</style>

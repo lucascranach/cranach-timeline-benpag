@@ -38,6 +38,7 @@
           :event-list="events.history"
           color="darkCyan"
       />
+		<SpecialEventTimeLineLegend :event-names="eventNames" class="mt-2"/>
     </div>
     <Timeline
         :width="chartWidth"
@@ -54,12 +55,14 @@ import {
 import Timeline from './Timeline.vue';
 import Chart from './Chart/Chart.vue';
 import SpecialEventTimeline from './SpecialEventTimeLine/SpecialEventTimeline.vue';
+import SpecialEventTimeLineLegend from './SpecialEventTimeLine/SpecialEventTimeLineLegend.vue';
 
 export default {
 	name: 'Visualization',
 	components: {
 		Chart,
 		SpecialEventTimeline,
+		SpecialEventTimeLineLegend,
 		Timeline,
 	},
 	data() {
@@ -82,6 +85,9 @@ export default {
 		},
 		windowHeight() {
 			return window.innerHeight;
+		},
+		eventNames() {
+			return Object.keys(this.events);
 		},
 	},
 	created() {

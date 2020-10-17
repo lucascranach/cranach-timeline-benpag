@@ -11,7 +11,7 @@
 				block
 				v-bind="attrs"
 				v-on="on"
-				class="text-capitalize"
+				class="text-none"
 			>
 				{{ $t('text_search_filter') }}
 			</v-btn>

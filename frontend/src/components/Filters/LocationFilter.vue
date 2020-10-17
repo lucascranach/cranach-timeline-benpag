@@ -10,7 +10,7 @@
 				block
 				v-bind="attrs"
 				v-on="on"
-				class="text-capitalize"
+				class="text-none"
 			>
 				{{ $t('location_filter') }}
 			</v-btn>

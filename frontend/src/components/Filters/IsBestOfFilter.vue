@@ -2,7 +2,7 @@
 	<v-btn
 		outlined
 		block
-		class="text-capitalize"
+		class="text-none"
 		@click="toggleBestOf"
 	>
 		{{ $t('is_best_of_filter') }}

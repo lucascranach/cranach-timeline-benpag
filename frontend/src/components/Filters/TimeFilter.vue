@@ -80,7 +80,7 @@ export default {
 	},
 	computed: {
 		...mapState({
-			yearRange: (state) => state.chartYearRange,
+			timeFilter: (state) => state.activeFilters.find((f) => f.name === 'year'),
 		}),
 	},
 	watch: {
@@ -89,6 +89,15 @@ export default {
 				this.time = { ...val };
 				this.rangeSliderValue = Object.values(val).sort();
 			},
+		},
+		timeFilter() {
+			console.log('aosd');
+			if (!this.timeFilter) {
+				const [min, max] = this.getStaticXAxisDomain();
+				this.time.from = min;
+				this.time.to = max;
+				[...this.rangeSliderValue] = [this.time.from, this.time.to];
+			}
 		},
 	},
 	methods: {

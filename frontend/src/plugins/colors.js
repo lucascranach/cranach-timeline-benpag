@@ -24,8 +24,8 @@ export default {
 	getCategoryColors() {
 		return {
 			archival: colors.red,
-			painting: colors.blue,
-			graphic: colors.yellow,
+			painting: colors.yellow,
+			graphic: colors.blue,
 		};
 	},
 };

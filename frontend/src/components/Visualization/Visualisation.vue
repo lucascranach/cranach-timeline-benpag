@@ -86,7 +86,7 @@ export default {
 		},
 		colors() {
 			return colors;
-		}
+		},
 	},
 	created() {
 		this.loadData();

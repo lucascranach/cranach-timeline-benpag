@@ -47,7 +47,7 @@ async function parsePaintings(paintingsJson, lang) {
 			detailUrl: config.detailPageHost + painting.inventoryNumber,
 			startDate: painting.dating.begin,
 			endDate: painting.dating.end,
-			sortingDate: getSortingDate(painting.sortingNumber, painting.dating.end),
+			sortingDate: getSortingDate(painting.sortingNumber, painting.dating.begin),
 			title: getTitles(painting.titles),
 			location: getLocations(painting.locations),
 			artists: getArtists(painting.involvedPersons, lang),

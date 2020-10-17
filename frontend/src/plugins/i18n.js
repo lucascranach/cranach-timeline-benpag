@@ -43,6 +43,7 @@ const messages = {
 		time_filter: 'Zeitraum',
 		show_best_of_only: 'Nur BestOf anzeigen',
 		best_of_only: 'BestOf',
+		location_filter: 'Ort',
 	},
 	en: {
 		cranach_timeline: 'Cranach Timeline',
@@ -83,6 +84,7 @@ const messages = {
 		time_filter: 'Time range',
 		show_best_of_only: 'Show Best Of only',
 		best_of_only: 'BestOf',
+		location_filter: 'Location',
 	},
 };
 

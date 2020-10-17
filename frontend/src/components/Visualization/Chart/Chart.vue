@@ -1,11 +1,14 @@
-<!--suppress CommaExpressionJS -->
 <template>
-	<div>
-		<v-btn @click="resetZoom" class="mb-4">
-			{{$t('reset_zoom')}}
-		</v-btn>
-		<div id="umf-d3-chart"></div>
-		<ToolTipItem :id="tooltipDivId" class="d3-tooltip" :item="toolTipData"/>
+	<div :id="chartDivId">
+		<ChartControlBar
+			class="chart-controls"
+			:min-zoom-level="zoomLevels[0]"
+			:max-zoom-level="zoomLevels[1]"
+			@zoomIn="onZoomIn"
+			@zoomOut="onZoomOut"
+			@resetZoom="onResetZoom"
+		/>
+		<ToolTipItem :id="tooltipDivId" class="chart-tooltip" :item="toolTipData" />
 	</div>
 </template>
 
@@ -15,18 +18,19 @@ import { event as currentEvent } from 'd3-selection';
 import d3 from '../../../plugins/d3-importer';
 import ToolTipItem from './ToolTipItem.vue';
 import colors from '../../../plugins/colors';
+import ChartControlBar from './ChartControlBar.vue';
 
 export default {
 	name: 'Chart',
-	components: { ToolTipItem },
+	components: { ChartControlBar, ToolTipItem },
 	props: {
 		chartDivId: {
 			type: String,
-			default: 'umf-d3-chart',
+			default: 'cranach-chart',
 		},
 		tooltipDivId: {
 			type: String,
-			default: 'd3-tooltip-div',
+			default: 'cranach-chart-tooltip',
 		},
 		height: {
 			type: Number,
@@ -71,9 +75,8 @@ export default {
 			zoom: null,
 			tooltipDiv: null,
 			toolTipData: {},
-			symbolSizeInPx: null,
 			maxSymbolSizeInPx: 36,
-
+			zoomLevels: [1, 10],
 		};
 	},
 	mounted() {
@@ -123,7 +126,9 @@ export default {
 		},
 		setupSvg() {
 			// Our svg size includes the margins
-			this.svg = d3.select(`#${this.chartDivId}`).append('svg')
+			this.svg = d3.select(`#${this.chartDivId}`)
+				.style('position', 'relative')
+				.append('svg')
 				.attr('width', this.svgWidth)
 				.attr('height', this.svgHeight)
 				.append('g');
@@ -138,13 +143,12 @@ export default {
 				.attr('height', this.displayHeight)
 				.style('fill', 'transparent')
 				.attr('transform', `translate(${this.margin.left}, ${this.margin.top})`);
+			// This clip path is used to crop/hide data items on zooming. This is the view box of all items.
 			this.svg.append('defs').append('svg:clipPath')
 				.attr('id', 'clip')
 				.append('svg:rect')
 				.attr('width', this.displayWidth)
-				.attr('height', this.displayHeight)
-				.attr('x', 0)
-				.attr('y', 0);
+				.attr('height', this.displayHeight);
 		},
 		updateChart() {
 			if (this.items.length < 1) {
@@ -167,13 +171,10 @@ export default {
 				.attr('transform', (d) => `translate(${this.getXCoordinateOfItem(d)},${this.getYCoordinateOfItem(d)})`);
 
 			const myThis = this;
-			this.symbolSizeInPx = Math.floor(this.displayHeight / this.y.domain()[1]);
 			node.append('path')
-				.attr('d', this.getItemSymbol(this.symbolSizeInPx))
+				.attr('d', this.getItemSymbol())
 				.attr('opacity', 1)
 				.attr('fill', (d) => colors.getCategoryColors()[d.type])
-				.attr('stroke-width', 1)
-				.attr('stroke', 'rgb(255,255,255)')
 				.on('mouseover', (d) => {
 					d3.select(`.d3r-${d.id}`).classed('active', true);
 					myThis.toolTipData = d;
@@ -210,8 +211,8 @@ export default {
 			const [start, end] = this.getXAxisDomain();
 			this.x = d3.scaleTime()
 				.domain([
-					new Date(start, 1, 1),
-					new Date(end, 1, 1),
+					new Date(start, 0, 1),
+					new Date(end, 0, 1),
 				])
 				.range([0, this.displayWidth]);
 
@@ -224,10 +225,11 @@ export default {
 
 			/* Y Axis */
 			this.y = d3.scaleLinear()
-				.domain([0, yMinMax[1]]).nice()
+				.domain([0.5, yMinMax[1] + 1])
 				.range([this.displayHeight, 0]);
 
-			this.yAxis = d3.axisLeft(this.y).ticks(this.y.domain()[1] / 20);
+			this.yAxis = d3.axisLeft(this.y)
+				.tickFormat((t) => (Math.floor(t) - t !== 0 ? '' : t));
 
 			this.gY = this.svg.append('g')
 				.classed('axis yaxis', true)
@@ -241,7 +243,7 @@ export default {
 			const extend = [[0, 0], [this.displayWidth, this.displayHeight]];
 			this.zoom = d3.zoom()
 				.extent(extend)
-				.scaleExtent([1, 10])
+				.scaleExtent(this.zoomLevels)
 				.translateExtent(extend)
 				.on('zoom', this.zoomed);
 			this.svg.call(this.zoom);
@@ -260,16 +262,29 @@ export default {
 				);
 
 			// --- rescale symbol of items in chart
-			const diff = this.scatterPlot.node().getBoundingClientRect().height - this.displayHeight;
-			const symbolSizeInPx = Math.floor((this.displayHeight + diff) / this.y.domain()[1]);
-			node.selectAll('path').attr('d', this.getItemSymbol(symbolSizeInPx));
-
+			node.selectAll('path').attr('d', this.getItemSymbol());
 			// save transform to reset it when filters are applied
 			this.setChartZoomTransform(transform);
 		},
-		getItemSymbol(pxSize) {
-			const size = this.maxSymbolSizeInPx > pxSize ? pxSize ** 2 : this.maxSymbolSizeInPx ** 2;
-			return d3.symbol().type(d3.symbolSquare).size(size);
+		calculateItemSymbolSize() {
+			if (this.scatterPlot === null) {
+				return 6;
+			}
+			const symbolYPadding = 1;
+			const boundingRect = this.scatterPlot.node().getBoundingClientRect();
+			const heightDiff = Math.max(0, boundingRect.height - this.displayHeight);
+			const pxSizeByHeight = Math.floor((this.displayHeight + heightDiff) / this.y.domain()[1]) - symbolYPadding;
+
+			const symbolXPadding = 3;
+			const [from, to] = this.x.domain();
+			const widthDiff = Math.max(0, boundingRect.width - this.displayWidth);
+			const pxSizeByWidth = Math.floor((this.displayWidth + widthDiff) / (to.getFullYear() - from.getFullYear())) - symbolXPadding;
+
+			return Math.min(...[pxSizeByHeight, pxSizeByWidth, this.maxSymbolSizeInPx]);
+		},
+		getItemSymbol() {
+			const size = this.calculateItemSymbolSize();
+			return d3.symbol().type(d3.symbolSquare).size(size ** 2);
 		},
 		calculateToolTipX(mouseX, toolTipWidth, margin = 10) {
 			if (mouseX - (toolTipWidth / 2) - margin < 0) {
@@ -290,7 +305,7 @@ export default {
 			return this.x(new Date(startDate, 1, 1)) - 1;
 		},
 		getYCoordinateOfItem({ yPos }) {
-			return this.y(yPos) + (this.symbolSizeInPx / 2);
+			return this.y(yPos);
 		},
 		reset() {
 			d3.selectAll('.dot').remove();
@@ -299,8 +314,13 @@ export default {
 			this.updateChart();
 			this.svg.call(this.zoom.transform, this.lastTransform);
 		},
-		resetZoom() {
-			this.setChartZoomTransform(d3.zoomIdentity);
+		onZoomIn() {
+			this.svg.call(this.zoom.scaleBy, 1.2);
+		},
+		onZoomOut() {
+			this.svg.call(this.zoom.scaleBy, 0.8);
+		},
+		onResetZoom() {
 			this.svg.call(this.zoom.transform, d3.zoomIdentity);
 		},
 	},
@@ -327,13 +347,17 @@ export default {
 	display: none;
 }
 
-.d3-tooltip {
+.chart-tooltip {
 	position: absolute;
 	top: 0;
 	left: 0;
 	overflow: hidden;
-	text-align: center;
 	pointer-events: none;
 	z-index: 999999;
+}
+
+.chart-controls{
+	position: absolute;
+	right: 0;
 }
 </style>

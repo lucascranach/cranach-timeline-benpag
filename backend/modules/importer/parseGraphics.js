@@ -28,6 +28,7 @@ function parseGraphics(graphicsJson, lang) {
 		title: getTitles(graphic.titles),
 		location: getLocations(graphic.locations),
 		artists: getArtists(graphic.involvedPersons, lang),
+		owner: graphic.owner,
 		type: 'graphic',
 	}));
 	fs.writeFileSync(path.join(`${__dirname}../../../data/graphics_${lang}.json`), JSON.stringify(mainAttributes, null, 2));

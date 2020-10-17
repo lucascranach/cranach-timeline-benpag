@@ -155,5 +155,12 @@ export default new Vuex.Store({
 				Math.max(...startDates, config.defaultDates.end) + 1,
 			];
 		},
+		getLocations(state) {
+			const sortedLocations = Array.from(new Set(state.allItems.map((i) => i.location).flat())).sort();
+			if (sortedLocations.includes('')) {
+				sortedLocations.splice(sortedLocations.indexOf(''), 1);
+			}
+			return sortedLocations;
+		},
 	},
 });

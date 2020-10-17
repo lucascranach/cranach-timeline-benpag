@@ -33,7 +33,7 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import config from '../../../global.config';
+import colors from '../../plugins/colors';
 
 export default {
 	name: 'CategoryFilter',
@@ -45,7 +45,7 @@ export default {
 				{ name: 'graphics', value: 'graphic' },
 				{ name: 'archivals', value: 'archival' },
 			],
-			colors: config.colors,
+			colors: colors.getCategoryColors(),
 			selectedCategories: [],
 		};
 	},

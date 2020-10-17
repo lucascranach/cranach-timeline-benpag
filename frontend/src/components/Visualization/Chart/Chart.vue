@@ -17,6 +17,7 @@ import { mapState, mapMutations, mapGetters } from 'vuex';
 import { event as currentEvent } from 'd3-selection';
 import d3 from '../../../plugins/d3-importer';
 import ToolTipItem from './ToolTipItem.vue';
+import colors from '../../../plugins/colors';
 import ChartControlBar from './ChartControlBar.vue';
 
 export default {
@@ -173,7 +174,7 @@ export default {
 			node.append('path')
 				.attr('d', this.getItemSymbol())
 				.attr('opacity', 1)
-				.attr('class', (d) => d.type)
+				.attr('fill', (d) => colors.getCategoryColors()[d.type])
 				.on('mouseover', (d) => {
 					d3.select(`.d3r-${d.id}`).classed('active', true);
 					myThis.toolTipData = d;
@@ -344,18 +345,6 @@ export default {
 
 .x.axis path {
 	display: none;
-}
-
-.graphic {
-	fill: rgb(72, 138, 63)
-}
-
-.archival {
-	fill: rgb(226, 161, 74)
-}
-
-.painting {
-	fill: rgb(66, 116, 173)
 }
 
 .chart-tooltip {

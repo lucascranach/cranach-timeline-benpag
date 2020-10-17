@@ -105,6 +105,7 @@ import { mapActions, mapGetters, mapState } from 'vuex';
 import { scaleLinear } from 'd3-scale';
 import { select, event } from 'd3-selection';
 import { drag } from 'd3-drag';
+import colors from '../../plugins/colors';
 
 export default {
 	name: 'Timeline',
@@ -132,7 +133,7 @@ export default {
 		arrowSize: 20,
 		strokeWidth: 2,
 		histogramColor: 'rgb(250, 250, 250)',
-		sliderColor: 'rgb(200, 20, 20)',
+		sliderColor: colors.primary,
 		inactiveColor: 'rgba(180,180,180,0.5)',
 		pillHeight: 20,
 		filterRange: {

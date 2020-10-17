@@ -21,14 +21,14 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import config from '../../../../global.config';
+import colors from '../../../plugins/colors';
 
 export default {
 	name: 'ChartLegend',
 	filterName: 'categoryFilter',
 	data() {
 		return {
-			categoryColors: config.colors,
+			categoryColors: colors.getCategoryColors(),
 			selectedCategories: [],
 		};
 	},

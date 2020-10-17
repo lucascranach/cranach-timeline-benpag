@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import colors from '../../../plugins/colors';
+
 export default {
 	name: 'SpecialEventTimeLineLegend',
 	props: {
@@ -30,10 +32,10 @@ export default {
 	data() {
 		return {
 			eventColors: {
-				cranachElder: 'black',
-				cranachYounger: 'purple',
-				luther: 'grey',
-				history: 'darkCyan',
+				cranachElder: colors.turquoise,
+				cranachYounger: colors.rose,
+				luther: colors.brown,
+				history: colors.purple,
 			},
 		};
 	},

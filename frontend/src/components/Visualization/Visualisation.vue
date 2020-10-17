@@ -38,6 +38,7 @@
           :event-list="events.history"
           :color="colors.purple"
       />
+		<SpecialEventTimeLineLegend :event-names="eventNames" class="mt-2"/>
     </div>
     <Timeline
         :width="chartWidth"
@@ -54,6 +55,7 @@ import {
 import Timeline from './Timeline.vue';
 import Chart from './Chart/Chart.vue';
 import SpecialEventTimeline from './SpecialEventTimeLine/SpecialEventTimeline.vue';
+import SpecialEventTimeLineLegend from './SpecialEventTimeLine/SpecialEventTimeLineLegend.vue';
 import colors from '../../plugins/colors';
 
 export default {
@@ -61,6 +63,7 @@ export default {
 	components: {
 		Chart,
 		SpecialEventTimeline,
+		SpecialEventTimeLineLegend,
 		Timeline,
 	},
 	data() {
@@ -86,6 +89,9 @@ export default {
 		},
 		colors() {
 			return colors;
+		},
+		eventNames() {
+			return Object.keys(this.events);
 		},
 	},
 	created() {

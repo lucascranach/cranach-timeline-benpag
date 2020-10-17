@@ -44,6 +44,10 @@ const messages = {
 		show_best_of_only: 'Nur BestOf anzeigen',
 		best_of_only: 'BestOf',
 		location_filter: 'Ort',
+		cranach_elder: 'Cranach der Ältere',
+		cranach_younger: 'Cranach der Jüngere',
+		luther: 'Martin Luther',
+		history: 'Historische Ereignisse',
 	},
 	en: {
 		cranach_timeline: 'Cranach Timeline',
@@ -85,6 +89,10 @@ const messages = {
 		show_best_of_only: 'Show Best Of only',
 		best_of_only: 'BestOf',
 		location_filter: 'Location',
+		cranach_elder: 'Cranach the Elder',
+		cranach_younger: 'Cranach the Younger',
+		luther: 'Martin Luther',
+		history: 'Historical Events',
 	},
 };
 

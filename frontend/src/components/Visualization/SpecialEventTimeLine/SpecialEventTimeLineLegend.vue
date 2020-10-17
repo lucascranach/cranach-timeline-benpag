@@ -13,7 +13,7 @@
 			>
 				mdi-circle
 			</v-icon>
-			{{ $t(eventName)}}
+			{{ $t(getI18NKey(eventName))}}
 		</v-btn>
 	</v-sheet>
 </template>
@@ -40,6 +40,12 @@ export default {
 	computed: {
 		useSmallerButtons() {
 			return this.$vuetify.breakpoint.name !== 'xl';
+		},
+	},
+	methods: {
+		getI18NKey(str) {
+			const REGEX = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g;
+			return str.replace(REGEX, (match) => `_${match.toLowerCase()}`);
 		},
 	},
 };

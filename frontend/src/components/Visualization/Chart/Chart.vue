@@ -9,6 +9,7 @@
 			@resetZoom="onResetZoom"
 		/>
 		<ToolTipItem :id="tooltipDivId" class="chart-tooltip" :item="toolTipData" />
+		<ChartLegend />
 	</div>
 </template>
 
@@ -18,10 +19,11 @@ import { event as currentEvent } from 'd3-selection';
 import d3 from '../../../plugins/d3-importer';
 import ToolTipItem from './ToolTipItem.vue';
 import ChartControlBar from './ChartControlBar.vue';
+import ChartLegend from './ChartLegend.vue';
 
 export default {
 	name: 'Chart',
-	components: { ChartControlBar, ToolTipItem },
+	components: { ChartControlBar, ChartLegend, ToolTipItem },
 	props: {
 		chartDivId: {
 			type: String,

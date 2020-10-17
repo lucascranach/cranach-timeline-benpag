@@ -11,7 +11,7 @@
 			<v-icon :small="useSmallButtons" >mdi-plus</v-icon>
 		</v-btn>
 		<v-btn
-			class="my-2 d-block"
+			class="my-2"
 			block outlined icon
 			:color="color"
 			:disabled="isMinZoomReached"
@@ -21,7 +21,7 @@
 			<v-icon :small="useSmallButtons">mdi-restore</v-icon>
 		</v-btn>
 		<v-btn
-			class="mt-2 d-block"
+			class="mt-2"
 			block outlined icon
 			:color="color"
 			:disabled="isMinZoomReached"

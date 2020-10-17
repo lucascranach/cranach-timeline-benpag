@@ -97,6 +97,7 @@ export default {
 		...mapState({
 			items: (state) => state.items,
 			lastTransform: (state) => state.chartZoomTransform,
+			yearFilter: (state) => state.activeFilters.find((f) => f.name === 'yearFilter'),
 		}),
 		svgWidth() {
 			return this.minWidth < this.width ? this.width : this.minWidth;
@@ -110,6 +111,9 @@ export default {
 		displayHeight() {
 			return this.svgHeight - this.margin.top - this.margin.bottom;
 		},
+	},
+	watch: {
+		yearFilter: 'onResetZoom',
 	},
 	methods: {
 		...mapMutations([

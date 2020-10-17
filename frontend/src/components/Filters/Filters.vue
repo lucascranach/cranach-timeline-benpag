@@ -35,7 +35,7 @@ import CategoryFilter from './CategoryFilter.vue';
 import IsBestOfFilter from './IsBestOfFilter.vue';
 import TextSearchFilter from './TextSearchFilter.vue';
 import TimeFilter from './TimeFilter.vue';
-import config from '../../../global.config';
+import colors from '../../plugins/colors';
 
 export default {
 	name: 'Filters',
@@ -54,7 +54,7 @@ export default {
 	},
 	data() {
 		return {
-			colors: config.colors,
+			colors: colors.getCategoryColors(),
 			formElements: [
 				TextSearchFilter,
 				CategoryFilter,

@@ -15,28 +15,28 @@
           :height="windowHeight * 0.008"
 		  :margin="margins"
           :event-list="events.cranachElder"
-          color="black"
+          :color="colors.turquoise"
       />
       <SpecialEventTimeline
           :width="chartWidth"
           :height="windowHeight * 0.008"
 		  :margin="margins"
           :event-list="events.cranachYounger"
-          color="purple"
+          :color="colors.rose"
       />
       <SpecialEventTimeline
           :width="chartWidth"
           :height="windowHeight * 0.008"
 		  :margin="margins"
           :event-list="events.luther"
-          color="grey"
+          :color="colors.brown"
       />
       <SpecialEventTimeline
           :width="chartWidth"
           :height="windowHeight * 0.008"
 		  :margin="margins"
           :event-list="events.history"
-          color="darkCyan"
+          :color="colors.purple"
       />
 		<SpecialEventTimeLineLegend :event-names="eventNames" class="mt-2"/>
     </div>
@@ -56,6 +56,7 @@ import Timeline from './Timeline.vue';
 import Chart from './Chart/Chart.vue';
 import SpecialEventTimeline from './SpecialEventTimeLine/SpecialEventTimeline.vue';
 import SpecialEventTimeLineLegend from './SpecialEventTimeLine/SpecialEventTimeLineLegend.vue';
+import colors from '../../plugins/colors';
 
 export default {
 	name: 'Visualization',
@@ -85,6 +86,9 @@ export default {
 		},
 		windowHeight() {
 			return window.innerHeight;
+		},
+		colors() {
+			return colors;
 		},
 		eventNames() {
 			return Object.keys(this.events);

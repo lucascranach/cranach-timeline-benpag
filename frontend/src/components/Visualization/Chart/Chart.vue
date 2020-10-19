@@ -199,7 +199,7 @@ export default {
 		setupAxis() {
 			const yStack = {};
 			const yMinMax = d3.extent(this.items, (d) => {
-				const sortingYear = d.sortingDate ? Math.round(d.sortingDate) : d.startDate;
+				const sortingYear = d.sortingDate ? Math.floor(d.sortingDate) : d.startDate;
 				yStack[sortingYear] = (yStack[sortingYear] || 0) + 1;
 				// eslint-disable-next-line no-param-reassign
 				d.yPos = yStack[sortingYear];
@@ -287,7 +287,7 @@ export default {
 			return mouseY - toolTipHeight - margin;
 		},
 		getXCoordinateOfItem({ sortingDate, startDate }) {
-			const sortingYear = sortingDate ? Math.round(sortingDate) : startDate;
+			const sortingYear = sortingDate ? Math.floor(sortingDate) : startDate;
 			return this.x(new Date(sortingYear, 1, 1)) - 1;
 		},
 		getYCoordinateOfItem({ yPos }) {

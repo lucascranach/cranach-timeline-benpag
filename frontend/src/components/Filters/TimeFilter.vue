@@ -75,8 +75,7 @@ export default {
 		};
 	},
 	created() {
-		[this.time.from, this.time.to] = this.getStaticXAxisDomain();
-		this.rangeSliderValue = [...this.getStaticXAxisDomain()];
+		this.resetYearFilter();
 	},
 	computed: {
 		...mapState({
@@ -92,10 +91,7 @@ export default {
 		},
 		timeFilter() {
 			if (!this.timeFilter) {
-				const [min, max] = this.getStaticXAxisDomain();
-				this.time.from = min;
-				this.time.to = max;
-				this.rangeSliderValue = [this.time.from, this.time.to];
+				this.resetYearFilter();
 			}
 		},
 	},
@@ -131,7 +127,6 @@ export default {
 			return Number.isNaN(parseInt(inputValue, 10));
 		},
 		resetYearFilter() {
-			this.removeFilter(this.$options.filterName);
 			[this.time.from, this.time.to] = this.getStaticXAxisDomain();
 			this.rangeSliderValue = [...this.getStaticXAxisDomain()];
 		},

@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import config from '../../../global.config';
 
 export default {
@@ -79,11 +79,6 @@ export default {
 		[this.time.from, this.time.to] = this.getStaticXAxisDomain();
 		this.rangeSliderValue = [...this.getStaticXAxisDomain()];
 	},
-	computed: {
-		...mapState({
-			yearRange: (state) => state.chartYearRange,
-		}),
-	},
 	watch: {
 		yearRange: {
 			handler(val) {
@@ -101,7 +96,7 @@ export default {
 			'getStaticXAxisDomain',
 		]),
 		changeRangeSlider() {
-			[this.time.from, this.time.to] = [...this.rangeSliderValue];
+			[this.time.from, this.time.to] = this.rangeSliderValue;
 			this.applyYearFilter();
 		},
 		applyYearFilter() {
@@ -113,7 +108,7 @@ export default {
 				this.time.to = max;
 			}
 
-			[...this.rangeSliderValue] = [this.time.from, this.time.to];
+			this.rangeSliderValue = [this.time.from, this.time.to];
 
 			if (this.time.from === min && this.time.to === max) {
 				this.removeFilter(this.$options.filterName);

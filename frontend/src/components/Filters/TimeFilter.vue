@@ -80,7 +80,7 @@ export default {
 	},
 	computed: {
 		...mapState({
-			timeFilter: (state) => state.activeFilters.find((f) => f.name === 'year'),
+			timeFilter: (state) => state.activeFilters.find((f) => f.name === 'yearFilter'),
 		}),
 	},
 	watch: {
@@ -91,12 +91,11 @@ export default {
 			},
 		},
 		timeFilter() {
-			console.log('aosd');
 			if (!this.timeFilter) {
 				const [min, max] = this.getStaticXAxisDomain();
 				this.time.from = min;
 				this.time.to = max;
-				[...this.rangeSliderValue] = [this.time.from, this.time.to];
+				this.rangeSliderValue = [this.time.from, this.time.to];
 			}
 		},
 	},

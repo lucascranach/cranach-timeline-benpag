@@ -48,6 +48,7 @@
 						thumb-label="always"
 						:min="this.getStaticXAxisDomain()[0]" step="1"
 						:max="this.getStaticXAxisDomain()[1]"
+						@change="changeRangeSlider()"
 					/>
 				</v-col>
 			</v-row>
@@ -56,7 +57,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import config from '../../../global.config';
 
 export default {
@@ -103,6 +104,10 @@ export default {
 		...mapGetters([
 			'getStaticXAxisDomain',
 		]),
+		changeRangeSlider() {
+			[this.time.from, this.time.to] = this.rangeSliderValue;
+			this.applyYearFilter();
+		},
 		applyYearFilter() {
 			const [min, max] = this.getStaticXAxisDomain();
 			if (this.time.from < min || this.isInputNumeric(this.time.from)) {
@@ -111,6 +116,8 @@ export default {
 			if (this.time.to > max || this.isInputNumeric(this.time.to)) {
 				this.time.to = max;
 			}
+
+			this.rangeSliderValue = [this.time.from, this.time.to];
 
 			if (this.time.from === min && this.time.to === max) {
 				this.removeFilter(this.$options.filterName);

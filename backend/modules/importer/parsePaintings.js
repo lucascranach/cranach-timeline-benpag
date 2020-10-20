@@ -3,6 +3,14 @@ const path = require('path');
 const axios = require('axios');
 const config = require('../../global.config');
 
+function getSortingDate(sortingDate, beginDate) {
+	if (sortingDate.includes('-')) {
+		const sortingDateDecimal = sortingDate.replace('-', '.');
+		return parseFloat(sortingDateDecimal.replace(/-/g, ''));
+	}
+	return beginDate;
+}
+
 function getArtists(involvedPersons, lang) {
 	if (lang === 'de') {
 		return involvedPersons.filter((it) => it.role === 'Künstler');
@@ -39,6 +47,7 @@ async function parsePaintings(paintingsJson, lang) {
 			detailUrl: config.detailPageHost + painting.inventoryNumber,
 			startDate: painting.dating.begin,
 			endDate: painting.dating.end,
+			sortingDate: getSortingDate(painting.sortingNumber, painting.dating.begin),
 			title: getTitles(painting.titles),
 			location: getLocations(painting.locations),
 			artists: getArtists(painting.involvedPersons, lang),
@@ -47,6 +56,7 @@ async function parsePaintings(paintingsJson, lang) {
 			isBestOf: painting.isBestOf,
 		}),
 	));
+	data.sort((a, b) => a.sortingDate - b.sortingDate);
 	fs.writeFileSync(
 		path.join(`${__dirname}../../../data/paintings_${lang}.json`), JSON.stringify(
 			{

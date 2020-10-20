@@ -1,6 +1,14 @@
 const fs = require('fs');
 const path = require('path');
 
+function getSortingDate(sortingDate, beginDate) {
+	if (sortingDate.includes('-')) {
+		const sortingDateDecimal = sortingDate.replace('-', '.');
+		return parseFloat(sortingDateDecimal.replace(/-/g, ''));
+	}
+	return beginDate;
+}
+
 function getTitles(titlesArray) {
 	return titlesArray.map((it) => it.title);
 }
@@ -25,12 +33,14 @@ function parseGraphics(graphicsJson, lang) {
 		imageUrl: '',
 		startDate: graphic.dating.begin,
 		endDate: graphic.dating.end,
+		sortingDate: getSortingDate(graphic.sortingNumber, graphic.dating.begin),
 		title: getTitles(graphic.titles),
 		location: getLocations(graphic.locations),
 		artists: getArtists(graphic.involvedPersons, lang),
 		owner: graphic.owner,
 		type: 'graphic',
 	}));
+	mainAttributes.graphics.sort((a, b) => a.sortingDate - b.sortingDate);
 	fs.writeFileSync(path.join(`${__dirname}../../../data/graphics_${lang}.json`), JSON.stringify(mainAttributes, null, 2));
 	return `Parsing graphics successful, parsed JSONs are stored at ${path.join(`${__dirname}../../../data/`)}`;
 }

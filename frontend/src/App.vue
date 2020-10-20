@@ -1,6 +1,10 @@
 <template>
 	<v-app>
 		<v-app-bar app>
+			<v-switch
+				v-model="$vuetify.theme.dark"
+				label="Dark Theme"
+			></v-switch>
 			<v-badge
 				:value="activeFilters.length > 0"
 				:content="activeFilters.length"
@@ -78,11 +82,8 @@ export default {
 	},
 };
 </script>
-<style scoped>
-div > button {
-	padding: 15px;
-	border: 1px solid green;
-	font-size: 18px;
-	margin: 15px;
-	}
+<style>
+.v-badge__badge {
+	color: var(--v-lighten-base) !important;
+}
 </style>

@@ -1,5 +1,8 @@
 <template>
-	<v-sheet class="event-time-line-legend text-center">
+	<v-sheet
+		color="rgb(0, 0, 0, 0)"
+		class="event-time-line-legend text-center"
+	>
 		<v-btn
 			v-for="(eventName, i) in eventNames" :key="i"
 			class="text-none"

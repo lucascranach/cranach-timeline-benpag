@@ -1,5 +1,7 @@
 <template>
-	<v-sheet>
+	<v-sheet
+		color="rgb(0, 0, 0, 0)"
+	>
 		<v-row v-show="showFilters">
 			<v-col v-for="(component, i) in this.formElements" :key="i">
 				<component :ref="component.filterName" :is="component" />
@@ -10,7 +12,7 @@
 				v-for="(filterValue, i) in activeFilterValues" :key="i"
 				class="mx-2 mb-1"
 				outlined
-				color="grey darken-3"
+				color="primary"
 				close
 				@click:close="removeFilterValue(filterValue)"
 			>

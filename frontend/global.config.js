@@ -3,7 +3,7 @@ module.exports = {
 	resources: ['paintings', 'graphics', 'archivals'],
 	events: ['cranachElder', 'cranachYounger', 'luther', 'history'],
 	defaultDates: {
-		start: 1500,
-		end: 1600,
+		start: 1490,
+		end: 1590,
 	},
 };

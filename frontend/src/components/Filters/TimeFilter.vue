@@ -76,8 +76,12 @@ export default {
 		};
 	},
 	created() {
-		[this.time.from, this.time.to] = this.getStaticXAxisDomain();
-		this.rangeSliderValue = [...this.getStaticXAxisDomain()];
+		this.resetYearFilter();
+	},
+	computed: {
+		...mapState({
+			timeFilter: (state) => state.activeFilters.find((f) => f.name === 'yearFilter'),
+		}),
 	},
 	watch: {
 		yearRange: {
@@ -85,6 +89,11 @@ export default {
 				this.time = { ...val };
 				this.rangeSliderValue = Object.values(val).sort();
 			},
+		},
+		timeFilter() {
+			if (!this.timeFilter) {
+				this.resetYearFilter();
+			}
 		},
 	},
 	methods: {
@@ -125,7 +134,6 @@ export default {
 			return Number.isNaN(parseInt(inputValue, 10));
 		},
 		resetYearFilter() {
-			this.removeFilter(this.$options.filterName);
 			[this.time.from, this.time.to] = this.getStaticXAxisDomain();
 			this.rangeSliderValue = [...this.getStaticXAxisDomain()];
 		},

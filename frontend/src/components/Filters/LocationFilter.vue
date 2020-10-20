@@ -62,6 +62,11 @@ export default {
 				this.applyLocationFilter();
 			}
 		},
+		locationFilter() {
+			if (!this.locationFilter) {
+				this.selectedLocations = [];
+			}
+		},
 	},
 	methods: {
 		...mapActions([

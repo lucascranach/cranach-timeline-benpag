@@ -184,9 +184,10 @@ export default {
 				.on('mouseover', (d) => {
 					d3.select(`.d3r-${d.id}`).classed('active', true);
 					myThis.toolTipData = d;
-					const headerElement = document.getElementsByTagName('header')[0];
+					const headerElement = document.getElementsByTagName('header')[0].getBoundingClientRect();
+					const filterBar = document.getElementsByClassName('v-sheet')[1].getBoundingClientRect();
 					const mouseX = currentEvent.pageX;
-					const mouseY = currentEvent.pageY - headerElement.getBoundingClientRect().height;
+					const mouseY = currentEvent.pageY - headerElement.height - filterBar.height;
 					const rect = myThis.tooltipDiv.node().getBoundingClientRect();
 					myThis.tooltipDiv
 						.style('left', `${this.calculateToolTipX(mouseX, rect.width)}px`)

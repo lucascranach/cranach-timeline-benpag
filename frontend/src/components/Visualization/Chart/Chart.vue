@@ -8,7 +8,7 @@
 			@zoomOut="onZoomOut"
 			@resetZoom="onResetZoom"
 		/>
-		<ToolTipItem :id="tooltipDivId" class="chart-tooltip" :item="toolTipData" />
+		<ToolTipItem ref="tooltip" :id="tooltipDivId" class="chart-tooltip" :item="toolTipData" />
 		<ChartLegend />
 	</div>
 </template>
@@ -173,35 +173,34 @@ export default {
 				.data(this.items)
 				.enter()
 				.append('g')
-				.attr('class', 'dot')
+				.attr('class', (d) => `dot dot-${d.id}`)
 				.attr('transform', (d) => `translate(${this.getXCoordinateOfItem(d)},${this.getYCoordinateOfItem(d)})`);
 
-			const myThis = this;
 			node.append('path')
 				.attr('d', this.getItemSymbol())
 				.attr('opacity', 1)
 				.attr('fill', (d) => colors.getCategoryColors()[d.type])
 				.on('mouseover', (d) => {
-					d3.select(`.d3r-${d.id}`).classed('active', true);
-					myThis.toolTipData = d;
-					const headerElement = document.getElementsByTagName('header')[0].getBoundingClientRect();
-					const filterBar = document.getElementsByClassName('v-sheet')[1].getBoundingClientRect();
-					const mouseX = currentEvent.pageX;
-					const mouseY = currentEvent.pageY - headerElement.height - filterBar.height;
-					const rect = myThis.tooltipDiv.node().getBoundingClientRect();
-					myThis.tooltipDiv
-						.style('left', `${this.calculateToolTipX(mouseX, rect.width)}px`)
-						.style('top', `${this.calculateToolTipY(mouseY, rect.height)}px`)
+					d3.select(`.dot-${d.id} path`).attr('stroke', 'black');
+
+					this.toolTipData = d;
+					const xOffset = this.calculateToolTipXOffset(currentEvent.pageX, this.$refs.tooltip.maxToolTipWidth);
+					const yOffset = this.calculateToolTipY(currentEvent.pageY, this.$refs.tooltip.maxToolTipHeight);
+
+					this.tooltipDiv
+						.style('left', `${currentEvent.layerX}px`)
+						.style('top', `${currentEvent.layerY}px`)
+						.style('transform', `translate(${xOffset}%, ${yOffset}%)`)
 						.style('visibility', 'visible');
 				})
 				.on('mouseout', (d) => {
-					d3.select(`.d3r-${d.id}`).classed('active', false);
-					myThis.toolTipData = {};
-					myThis.tooltipDiv.style('visibility', 'hidden');
+					d3.select(`.dot-${d.id} path`).attr('stroke', 'transparent');
+					this.toolTipData = {};
+					this.tooltipDiv.style('visibility', 'hidden');
 				})
 				.on('click', () => {
-					if (myThis.toolTipData.type !== 'graphic') {
-						window.open(`${myThis.toolTipData.detailUrl}`, '_blank');
+					if (this.toolTipData.type !== 'graphic') {
+						window.open(`${this.toolTipData.detailUrl}`, '_blank');
 					}
 				});
 		},
@@ -294,20 +293,24 @@ export default {
 			const size = this.calculateItemSymbolSize();
 			return d3.symbol().type(d3.symbolSquare).size(size ** 2);
 		},
-		calculateToolTipX(mouseX, toolTipWidth, margin = 10) {
-			if (mouseX - (toolTipWidth / 2) - margin < 0) {
-				return margin;
+		calculateToolTipXOffset(mouseX, toolTipWidth) {
+			let xOffset = -50;
+			const toolTipHalfWidth = toolTipWidth / 2;
+
+			if (mouseX - toolTipHalfWidth < 0) {
+				xOffset = ((mouseX - this.margin.left) / toolTipWidth) * -100;
+			} else if (mouseX + toolTipHalfWidth > window.innerWidth) {
+				xOffset -= ((window.innerWidth - this.margin.right - mouseX) / toolTipWidth) * 100;
 			}
-			if (mouseX + (toolTipWidth / 2) + margin > window.innerWidth) {
-				return window.innerWidth - 5 * margin - toolTipWidth;
-			}
-			return mouseX - (toolTipWidth / 2);
+
+			return xOffset;
 		},
 		calculateToolTipY(mouseY, toolTipHeight, margin = 10) {
+			const percentageValueOfMargin = (margin / toolTipHeight) * 100;
 			if (mouseY - toolTipHeight - margin < 0) {
-				return mouseY + 10;
+				return percentageValueOfMargin;
 			}
-			return mouseY - toolTipHeight - margin;
+			return -100 - percentageValueOfMargin;
 		},
 		getXCoordinateOfItem({ sortingDate, startDate }) {
 			const sortingYear = sortingDate ? Math.floor(sortingDate) : startDate;

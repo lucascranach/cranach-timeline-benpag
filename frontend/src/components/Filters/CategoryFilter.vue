@@ -65,6 +65,8 @@ export default {
 		categoryFilter() {
 			if (this.categoryFilter === undefined) {
 				this.selectedCategories = [];
+			} else {
+				this.selectedCategories = this.categoryFilter.params.validCategories;
 			}
 		},
 	},

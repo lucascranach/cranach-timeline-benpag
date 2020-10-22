@@ -2,34 +2,32 @@
 
 ## `/backend`
 
-Im Backend Verzeichnis sind einerseits verschiedene Konfigurations- und Dockerdateien zu finden, außerdem die `app.js`, 
-in der das Backend aufgesetzt und gestartet wird.
+The backend directory contains multiple configuration and docker files as well as the 'app.js' where the backend is set 
+up and started.
 
 ### `/data`
 
-Im Data Ordner sind die Daten für die Event Timelines als JSON Dateien zu finden.
+The data folder contains the data for the Event Timelines as JSON files.
 
 ### `/modules`
 
-Das Modules Verzeichnis beinhaltet den Ordner `/importer`, in dem sich für jede Werkkategorie ein Parser befindet und 
-`/logger`, in dem das Logging für Backend und Frontend Fehler implementiert ist.
+The modules directory contains the folder `/importer`, which contains a parser for each category and `/logger`, 
+which implements logging for backend and frontend errors.
 
 ### `/routes`
 
-Im Routes Verzeichnis befinden sich die Routen für den Zugriff auf die verschiedenen Werkkategorien wie Archivalien, 
-Events, Drucke und Gemälde sowie der Log.
+The routes directory contains the routes for accessing the various categories, such as events, archives, graphics and 
+paintings as well as the log.
 
 ## `/frontend`
 
-Das Frontend ist ein Vue Projekt, das eine eigene [README](https://github.com/BenPag/cranach/tree/develop/frontend) zum 
-Starten besitzt.
+The frontend is a Vue project with its own [README](https://github.com/BenPag/cranach/tree/develop/frontend).
 
 ### `/src`
 
-Die Komponenten liegen im Verzeichnis `/components` und sind nach den festgelegten 
-[Konventionen](https://github.com/BenPag/cranach/blob/feature/%23215-collaboration/docs/contribution/conventions.md) 
-gruppiert.
+The components are located in the directory `/components` and are grouped according to the defined 
+[conventions](https://github.com/BenPag/cranach/blob/feature/%23215-collaboration/docs/contribution/conventions.md).
 
 ### `/public`
 
-Dateien im Public Verzeichnis werden auf dem Server mit einer entsprechenden URL abgebildet.
+Files in the public directory are mapped on the server with a corresponding URL.

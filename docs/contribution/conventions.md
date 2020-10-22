@@ -2,15 +2,15 @@
 
 ## Git Commit Messages
 
-- Git Commit Messages auf Englisch
-- kurz und einfach halten
-- Präsens nutzen
+- Git commit messages must be in english
+- Keep it short and simple
+- Use the present tense
 ```
 add feature     // ok
 
 added feature   // avoid
 ```
-- im Imperativ formulieren
+- Use the imperative formulation
 ```
 move cursor to...   // ok
 
@@ -18,45 +18,43 @@ moves cursor to...  // avoid
 ```
 
 ## Issues
+For declaring issues, use the given [Issue Template](https://github.com/BenPag/cranach/blob/master/docs/issue_template.md).
 
-Es existiert ein vorgefertigtes [Issue Template](https://github.com/BenPag/cranach/blob/master/docs/issue_template.md), an das sich gehalten werden sollte.
-
-## Dokumentation
+## Documentation
 
 ### ADR
 
-Alle Architektur- und Designentscheidungen müssen mittels ADR dokumentiert werden. 
-Jede Dokumentationsdatei verwendet das [ADR Template](https://github.com/BenPag/cranach/blob/master/docs/adr/template.md) als Vorlage und wird anschließend in den [ADR Index](https://github.com/BenPag/cranach/blob/master/docs/adr/index.md) integriert.
-Die ADR-Dokumentation wird in Markdown geschrieben. Es ist wichtig, jede Entscheidung zu dokumentieren, sodass die Evaluation und die untersuchten Optionen nachvollzogen werden können.
-
-Die Benennung der einzelnen Dateien sollte diesem Muster folgen: "0001-general-topic.md"
+All architecture and design decisions must be documented using ADR. 
+Every ADR document must use the given [ADR Template](https://github.com/BenPag/cranach/blob/master/docs/adr/template.md) and must be added to the [ADR Index](https://github.com/BenPag/cranach/blob/master/docs/adr/index.md).
+Markdown is used for the ADR-Documentation. It is important to document every decision to so that the evaluation and the options studied can be understood.
+The names of the individual files should follow the given pattern: "0001-general-topic.md"
 
 
 ## Coding
 
-### Aussagekräftiges Naming 
-Variablen und Funktionen müssen so aussagekräftig benannt werden, dass ihre Funktion aus dem Namen abgeleitet werden kann.
+###  Meaningful Naming 
+Variables and functions must be named in such a meaningful way that their function can be derived from the name.
 
-**Richtig**
+**Correct**
 ```javascript
 let isEmpty =  true;
 function getData(){};
 ```
-**Falsch**
+**Wrong**
 ```javascript
 let x =  true;
 function data(){};
 ```
 
-### Prototype Functions nutzen
-Soweit möglich sollen [Prototype Functions](https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Array/Prototypen) aus der Standard JavaScript Library genutzt werden.
+### Use prototype functions
+When possible, [Prototype Functions](https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Array/Prototypen) should be used.
 
-**Richtig**
+**Correct**
 ```javascript
 let array1 =  [1,2,3];
 let array2: array1.map(x => x * 2);
 ```
-**Falsch**
+**Wrong**
 ```javascript
 let array1 = [1,2,3];
 let array2: [];
@@ -66,17 +64,17 @@ for(let i = 0; i < array1.length; i++){
 }
 ```
 
-### Curly braces in derselben Zeile 
+### Curly braces in the same line
 
-Curly braces sollten immer in der selben Zeile wie das zugehörige Keyword stehen.
+Curly braces should always be in the same line as the corresponding keyword.
 
-**Richtig**
+**Correct**
 ```javascript
 if(x < 1){
 
 }
 ```
-**Falsch**
+**Wrong**
 ```javascript
 if(x < 1)
 {
@@ -85,24 +83,24 @@ if(x < 1)
 ```
 
 ### String Templates
-Um Variablen innerhalb eines Strings zu verwenden, sollten String Templates verwendet werden.
+To use variables within a string, string templates should be used.
 
-**Richtig**
+**Correct**
 ```javascript
 const number = 3;
 console.log(`Number: ${number}`);
 ```
-**Falsch**
+**Wrong**
 ```javascript
 const number = 3;
 console.log('Number: ' + number);
 ```
 
-### Kommata am Ende der Zeile
+### Commas at the end of the line
 
-Kommata, die zum Trennen von mehrerer Elemente verwendet werden, sollten immer am Ende der Zeile stehen. Dies gilt nicht für das letzte Element.
+Commas, which are used to separate multiple elements, should always be at the end of the line. This does not apply to the last element.
 
-**Richtig**
+**Correct**
 ```javascript
 const object = {
     element1: 1,
@@ -110,7 +108,7 @@ const object = {
     element3: 3,
 }
 ```
-**Falsch**
+**Wrong**
 ```javascript
 const object = {
     element1: 1
@@ -120,9 +118,9 @@ const object = {
 ```
 ### Magic Numbers / Strings
 
-Strings und Numbers sollten nicht im Code hinterlegt, sondern in eine Konfigurationsdatei ausgelagert werden.
+Strings and Numbers should not be placed in the code, but stored in a configuration file.
 
-**Richtig**
+**Correct**
 ```json
 {
     "hostUrl" : 'http://localhost:3000'
@@ -132,20 +130,20 @@ Strings und Numbers sollten nicht im Code hinterlegt, sondern in eine Konfigurat
 ```javascript
 await axios.get(`${hostUrl}/images`)
 ```
-**Falsch**
+**Wrong**
 ```javascript
 await axios.get('http://localhost:3000/images')
 ```
 
 ### CamelCase beim Naming
 
-Bei der Benenung von Variablen oder Funktionen wird der erste Buchstabe klein geschrieben und jeder weitere Anfangsbuchstabe groß. 
+When naming variables or functions, the first letter is written in lower case and every further initial letter in upper case. 
 
-**Richtig**
+**Correct**
 ```javascript
 const someObject = {}
 ```
-**Falsch**
+**Wrong**
 ```javascript
 const someobject = {}
 const SoMeObJeCt = {}
@@ -153,9 +151,9 @@ const SoMeObJeCt = {}
 
 ### Async / Await
 
-Wenn eine Promise erwartet wird, soll mit Async / Await anstatt Callbacks gearbeitet werden.
+If a promise is expected,  Async / Await should be used instead of callbacks.
 
-**Richtig**
+**Correct**
 ```javascript
 try {
 const res = await axios.get(`${hostUrl}/images`)
@@ -163,7 +161,7 @@ const res = await axios.get(`${hostUrl}/images`)
     // Error handling
 }
 ```
-**Falsch**
+**Wrong**
 ```javascript
 axios.get(`${hostUrl}/images`)
     .then((res) => {
@@ -174,16 +172,16 @@ axios.get(`${hostUrl}/images`)
     });
 ```
 
-### Englische Benennung
+### English naming
 
-Variablen und Funktionsnamen sollten immer auf Englisch verfasst sein. 
+Variables and function names should always be written in english. 
 
-**Richtig**
+**Correct**
 ```javascript
 const number = 3
 function getData(){}
 ```
-**Falsch**
+**Wrong**
 ```javascript
 const zahl = 3
 function kriegeDaten(){}

@@ -32,6 +32,8 @@ The names of the individual files should follow the given pattern: "0001-general
 
 ## Coding
 
+The guidelines are implemented via [ESLint](https://eslint.org/). The rules are mainly adapted from the [Airbnb](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb) ruleset and adjusted to fit the project's individual needs.
+
 ###  Meaningful Naming 
 Variables and functions must be named in such a meaningful way that their function can be derived from the name.
 

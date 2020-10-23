@@ -123,16 +123,16 @@ Strings and Numbers should not be placed in the code, but stored in a configurat
 **Correct**
 ```json
 {
-    "hostUrl" : 'http://localhost:3000'
+    "hostUrl" : 'http://localhost:3000';
 }
 ```
 
 ```javascript
-await axios.get(`${hostUrl}/images`)
+await axios.get(`${hostUrl}/images`);
 ```
 **Wrong**
 ```javascript
-await axios.get('http://localhost:3000/images')
+await axios.get('http://localhost:3000/images');
 ```
 
 ### CamelCase beim Naming
@@ -141,12 +141,12 @@ When naming variables or functions, the first letter is written in lower case an
 
 **Correct**
 ```javascript
-const someObject = {}
+const someObject = {};
 ```
 **Wrong**
 ```javascript
-const someobject = {}
-const SoMeObJeCt = {}
+const someobject = {};
+const SoMeObJeCt = {};
 ```
 
 ### Async / Await
@@ -156,7 +156,7 @@ If a promise is expected,  Async / Await should be used instead of callbacks.
 **Correct**
 ```javascript
 try {
-const res = await axios.get(`${hostUrl}/images`)
+const res = await axios.get(`${hostUrl}/images`);
 } catch(e) {
     // Error handling
 }
@@ -178,11 +178,11 @@ Variables and function names should always be written in english.
 
 **Correct**
 ```javascript
-const number = 3
+const number = 3;
 function getData(){}
 ```
 **Wrong**
 ```javascript
-const zahl = 3
+const zahl = 3;
 function kriegeDaten(){}
 ```

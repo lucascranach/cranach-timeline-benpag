@@ -52,7 +52,7 @@ When possible, [Prototype Functions](https://developer.mozilla.org/de/docs/Web/J
 **Correct**
 ```javascript
 let array1 =  [1,2,3];
-let array2: array1.map(x => x * 2);
+let array2 = array1.map(x => x * 2);
 ```
 **Wrong**
 ```javascript
@@ -123,7 +123,7 @@ Strings and Numbers should not be placed in the code, but stored in a configurat
 **Correct**
 ```json
 {
-    "hostUrl" : 'http://localhost:3000';
+    hostUrl : 'http://localhost:3000';
 }
 ```
 

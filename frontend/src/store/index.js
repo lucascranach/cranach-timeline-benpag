@@ -158,9 +158,12 @@ export default new Vuex.Store({
 		},
 		getStaticXAxisDomain(state) {
 			const startDates = state.allItems.map((i) => getItemDate(i));
+			if (startDates.length < 2) {
+				return [config.defaultDates.start, config.defaultDates.end];
+			}
 			return [
-				Math.min(...startDates, config.defaultDates.start) - 1,
-				Math.max(...startDates, config.defaultDates.end) + 1,
+				Math.min(...startDates) - 1,
+				Math.max(...startDates) + 1,
 			];
 		},
 		getLocations(state) {

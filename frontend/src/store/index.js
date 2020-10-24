@@ -9,6 +9,10 @@ import filters from './filters';
 
 Vue.use(Vuex);
 
+function getItemDate(item) {
+	return item.sortingDate ? Math.floor(item.sortingDate) : item.startDate;
+}
+
 export default new Vuex.Store({
 	strict: true,
 	devtools: true,
@@ -44,7 +48,8 @@ export default new Vuex.Store({
 			state.histogram = state.items.reduce((histogram, item) => {
 				// reason: https://github.com/eslint/eslint/issues/8581
 				/* eslint-disable no-param-reassign */
-				histogram[item.startDate] = (histogram[item.startDate] || 0) + 1;
+				const date = getItemDate(item);
+				histogram[date] = (histogram[date] || 0) + 1;
 				return histogram;
 			}, {});
 
@@ -105,9 +110,10 @@ export default new Vuex.Store({
 					config.resources.map(async (r) => (await axios.get(`${config.dataBaseUrl + r}?lang=${i18n.locale}`)).data[r]),
 				)).flat();
 
-				const allItems = data.filter(
-					(w) => w.startDate > 1490 && w.startDate < 1590,
-				);
+				const allItems = data.filter((w) => {
+					const date = getItemDate(w);
+					return date > 1490 && date < 1590;
+				});
 				Object.freeze(allItems);
 
 				commit('setItems', allItems);
@@ -144,14 +150,14 @@ export default new Vuex.Store({
 			return state.allItems.filter((i) => i.imageUrl !== '').slice(0, 10);
 		},
 		getXAxisDomain(state) {
-			const startDates = state.items.map((i) => i.startDate);
+			const startDates = state.items.map((i) => getItemDate(i));
 			return [
 				Math.min(...startDates) - 1,
 				Math.max(...startDates) + 1,
 			];
 		},
 		getStaticXAxisDomain(state) {
-			const startDates = state.allItems.map((i) => i.startDate);
+			const startDates = state.allItems.map((i) => getItemDate(i));
 			return [
 				Math.min(...startDates, config.defaultDates.start) - 1,
 				Math.max(...startDates, config.defaultDates.end) + 1,

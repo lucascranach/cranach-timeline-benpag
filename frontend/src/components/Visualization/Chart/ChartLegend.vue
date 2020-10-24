@@ -1,8 +1,12 @@
 <template>
-	<v-sheet class="chart-legend text-center text-decoration-none">
+	<v-sheet
+		class="chart-legend text-center text-decoration-none"
+		color="transparent"
+	>
 		<v-btn
 			v-for="(category, i) in categories" :key="i"
 			class="text-none"
+			color="primary"
 			text
 			small
 			@click="toggleCategory(category)"

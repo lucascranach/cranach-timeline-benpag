@@ -339,19 +339,19 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .axis.xaxis text {
-	fill: rgba(0, 0, 0, 0.5);
+	fill: var(--v-primary-lighten1);
 }
 
 .axis.yaxis text {
-	fill: rgba(0, 0, 0, 0.5);
+	fill: var(--v-primary-lighten1);
 }
 
 .axis path,
 .axis line {
 	fill: none;
-	stroke: rgba(0, 0, 0, 0.1);
+	stroke: var(--v-primary-lighten5);
 	shape-rendering: crispEdges;
 }
 

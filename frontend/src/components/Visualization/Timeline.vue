@@ -21,13 +21,13 @@
 				<g>
 					<defs>
 						<linearGradient id="toTransparency" y1="100%" y2="0%">
-							<stop offset="0" :stop-color="histogramColor" stop-opacity="0.4"></stop>
-							<stop offset="1" :stop-color="histogramColor" stop-opacity="0.8"></stop>
+							<stop offset="0" :stop-color="colors.lighten" stop-opacity="0.4"></stop>
+							<stop offset="1" :stop-color="colors.lighten" stop-opacity="0.8"></stop>
 						</linearGradient>
 					</defs>
 					<polyline
 						:points="getPolylinePoints()"
-						:stroke="histogramColor"
+						:stroke="colors.lighten"
 						fill="url(#toTransparency)"
 					/>
 				</g>
@@ -47,7 +47,7 @@
 			<line
 				x1="0" :y1="height"
 				:x2="timelineWidth" :y2="height"
-				:stroke="sliderColor" :stroke-width="strokeWidth * 2"
+				:stroke="colors.primary" :stroke-width="strokeWidth * 2"
 			/>
 			<rect
 				id="areaSlider" class="slider"
@@ -59,19 +59,20 @@
 					<line
 						x1="0" y1="0"
 						x2="0" :y2="timelineWidth"
-						:stroke="sliderColor" :stroke-width="strokeWidth"
+						:stroke="colors.primary" :stroke-width="strokeWidth"
 					/>
 					<rect
 						:x="-(pillWidth / 2)" y="1"
 						:ry="pillWidth / 4" rx="10"
-						:fill="histogramColor"
+						:fill="colors.lighten"
 						:width="pillWidth" height="20"
-						:stroke="sliderColor" :stroke-width="strokeWidth"
+						:stroke="colors.primary" :stroke-width="strokeWidth"
 					/>
 					<text
 						id="sliderLeftText"
 						x="0" :y="pillFontSize"
 						:font-size="pillFontSize"
+						:fill="colors.primary"
 						dominant-baseline="middle" text-anchor="middle"
 					/>
 				</g>
@@ -79,18 +80,19 @@
 					<line
 						:x1="timelineWidth" :y1="height"
 						:x2="timelineWidth" :y2="0"
-						:stroke="sliderColor" :stroke-width="strokeWidth"
+						:stroke="colors.primary" :stroke-width="strokeWidth"
 					/>
 					<rect
 						:x="timelineWidth - (pillWidth / 2)" y="1"
 						:ry="pillWidth / 4" rx="10"
-						:fill="histogramColor"
+						:fill="colors.lighten"
 						:width="pillWidth" height="20"
-						:stroke="sliderColor" :stroke-width="strokeWidth"
+						:stroke="colors.primary" :stroke-width="strokeWidth"
 					/>
 					<text
 						id="sliderRightText"
 						:x="timelineWidth" :y="pillFontSize"
+						:fill="colors.primary"
 						dominant-baseline="middle" text-anchor="middle"
 						:font-size="pillFontSize"
 					/>
@@ -105,7 +107,6 @@ import { mapActions, mapGetters, mapState } from 'vuex';
 import { scaleLinear } from 'd3-scale';
 import { select, event } from 'd3-selection';
 import { drag } from 'd3-drag';
-import colors from '../../plugins/colors';
 
 export default {
 	name: 'Timeline',
@@ -132,8 +133,6 @@ export default {
 		xAxis: null,
 		arrowSize: 20,
 		strokeWidth: 2,
-		histogramColor: 'rgb(250, 250, 250)',
-		sliderColor: colors.primary,
 		inactiveColor: 'rgba(180,180,180,0.5)',
 		pillHeight: 20,
 		filterRange: {
@@ -167,6 +166,9 @@ export default {
 		},
 		pillFontSize() {
 			return Math.floor(this.pillHeight * 0.6);
+		},
+		colors() {
+			return this.$vuetify.theme.isDark ? this.$vuetify.theme.themes.dark : this.$vuetify.theme.themes.light;
 		},
 	},
 	watch: {

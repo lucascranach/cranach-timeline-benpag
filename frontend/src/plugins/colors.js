@@ -17,6 +17,7 @@ const colors = {
 	lighten3: '#DDDDDD',
 	lighten4: '#B4B4B4',
 	dark: '#000321',
+	grey: '#121212',
 };
 
 export default {

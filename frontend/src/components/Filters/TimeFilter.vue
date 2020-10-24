@@ -151,3 +151,8 @@ export default {
 	},
 };
 </script>
+<style>
+.v-slider span {
+	color: var(--v-lighten-base);
+}
+</style>

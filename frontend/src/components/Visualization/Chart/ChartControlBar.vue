@@ -3,7 +3,7 @@
 		<v-btn
 			class="mb-2"
 			block outlined icon
-			:color="color"
+			:color="colors.primary"
 			:disabled="isMaxZoomReached"
 			:small="useSmallButtons"
 			@click="() => this.$emit('zoomIn')"
@@ -13,7 +13,7 @@
 		<v-btn
 			class="my-2"
 			block outlined icon
-			:color="color"
+			:color="colors.primary"
 			:disabled="isMinZoomReached"
 			:small="useSmallButtons"
 			@click="() => this.$emit('resetZoom')"
@@ -23,7 +23,7 @@
 		<v-btn
 			class="mt-2"
 			block outlined icon
-			:color="color"
+			:color="colors.primary"
 			:disabled="isMinZoomReached"
 			:small="useSmallButtons"
 			@click="() => this.$emit('zoomOut')"
@@ -39,13 +39,6 @@ import { mapState } from 'vuex';
 export default {
 	name: 'ChartControlBar',
 	props: {
-		color: {
-			type: String,
-			required: false,
-			default() {
-				return 'rgba(0, 0, 0, 0.8)';
-			},
-		},
 		minZoomLevel: {
 			type: Number,
 			required: true,
@@ -68,6 +61,9 @@ export default {
 		useSmallButtons() {
 			return this.$vuetify.breakpoint.name !== 'xl';
 		},
+		colors() {
+			return this.$vuetify.theme.isDark ? this.$vuetify.theme.themes.dark : this.$vuetify.theme.themes.light;
+		},
 	},
 };
 </script>
@@ -79,6 +75,6 @@ export default {
 }
 
 .chart-control-bar button{
-	background-color: rgba(255, 255, 255, 0.8);
+	fill: var(--v-lighten-lighten1);
 }
 </style>

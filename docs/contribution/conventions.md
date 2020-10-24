@@ -137,7 +137,7 @@ await axios.get(`${hostUrl}/images`);
 await axios.get('http://localhost:3000/images');
 ```
 
-### CamelCase beim Naming
+### Use camelcase for naming
 
 When naming variables or functions, the first letter is written in lower case and every further initial letter in upper case. 
 

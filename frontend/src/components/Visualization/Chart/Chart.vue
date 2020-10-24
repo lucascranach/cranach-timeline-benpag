@@ -184,11 +184,14 @@ export default {
 					d3.select(`.dot-${d.id} path`).attr('stroke', 'black');
 
 					this.toolTipData = d;
+					const left = window.innerWidth - currentEvent.pageX > this.$refs.tooltip.maxToolTipWidth
+						? currentEvent.pageX
+						: window.innerWidth - this.$refs.tooltip.maxToolTipWidth;
 					const xOffset = this.calculateToolTipXOffset(currentEvent.pageX, this.$refs.tooltip.maxToolTipWidth);
 					const yOffset = this.calculateToolTipY(currentEvent.pageY, this.$refs.tooltip.maxToolTipHeight);
 
 					this.tooltipDiv
-						.style('left', `${currentEvent.layerX}px`)
+						.style('left', `${left}px`)
 						.style('top', `${currentEvent.layerY}px`)
 						.style('transform', `translate(${xOffset}%, ${yOffset}%)`)
 						.style('visibility', 'visible');
@@ -300,7 +303,7 @@ export default {
 			if (mouseX - toolTipHalfWidth < 0) {
 				xOffset = ((mouseX - this.margin.left) / toolTipWidth) * -100;
 			} else if (mouseX + toolTipHalfWidth > window.innerWidth) {
-				xOffset -= ((window.innerWidth - this.margin.right - mouseX) / toolTipWidth) * 100;
+				xOffset = 0;
 			}
 
 			return xOffset;

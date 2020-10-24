@@ -151,29 +151,6 @@ const someobject = {};
 const SoMeObJeCt = {};
 ```
 
-### Async / Await
-
-If a promise is expected,  Async / Await should be used instead of callbacks.
-
-**Correct**
-```javascript
-try {
-const res = await axios.get(`${hostUrl}/images`);
-} catch(e) {
-    // Error handling
-}
-```
-**Wrong**
-```javascript
-axios.get(`${hostUrl}/images`)
-    .then((res) => {
-        // Response Handling
-    })
-    .error((e) => {
-        // Error Handling
-    });
-```
-
 ### English naming
 
 Variables and function names should always be written in english. 

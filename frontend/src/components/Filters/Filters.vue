@@ -1,6 +1,6 @@
 <template>
 	<v-sheet
-		color="rgb(0, 0, 0, 0)"
+		color="transparent"
 	>
 		<v-row v-show="showFilters">
 			<v-col v-for="(component, i) in this.formElements" :key="i">

@@ -1,6 +1,6 @@
 <template>
 	<v-sheet
-		color="rgb(0, 0, 0, 0)"
+		color="transparent"
 		class="event-time-line-legend text-center"
 	>
 		<v-btn

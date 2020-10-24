@@ -1,7 +1,7 @@
 <template>
 	<v-sheet
 		class="chart-legend text-center text-decoration-none"
-		color="rgb(0, 0, 0, 0)"
+		color="transparent"
 	>
 		<v-btn
 			v-for="(category, i) in categories" :key="i"

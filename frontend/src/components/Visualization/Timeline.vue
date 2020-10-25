@@ -26,7 +26,7 @@
 						</linearGradient>
 					</defs>
 					<polyline
-						:points="getPolylinePoints()"
+						:points="polylinePoints"
 						:stroke="colors.lighten"
 						fill="url(#toTransparency)"
 					/>
@@ -169,6 +169,9 @@ export default {
 		},
 		colors() {
 			return this.$vuetify.theme.isDark ? this.$vuetify.theme.themes.dark : this.$vuetify.theme.themes.light;
+		},
+		polylinePoints() {
+			return this.getPolylinePoints();
 		},
 	},
 	watch: {

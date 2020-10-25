@@ -1,5 +1,5 @@
 <template>
-	<div :style="`margin:${margin.top}px ${margin.right}px ${margin.bottom}px ${margin.left}px;height:${height}px`">
+	<div :style="`margin:0 ${margin.right}px 0 ${margin.left}px;height:${svgHeight}px`">
 		<EventToolTipItem
 			:id="toolTipId"
 			:item="toolTipData"
@@ -9,8 +9,7 @@
         <svg
 			:id="`${timeLineId}`"
 			:width="lineWidth"
-			:height="height"
-			style="vertical-align: top"
+			:height="svgHeight"
 		/>
 	</div>
 </template>
@@ -61,14 +60,17 @@ export default {
 		...mapState({
 			zoomTransform: (state) => state.chartZoomTransform,
 		}),
+		svgHeight() {
+			return this.height + this.margin.top + this.margin.bottom;
+		},
 		lineThickness() {
-			return this.height / 2;
+			return this.height / 4;
 		},
 		lineWidth() {
 			return this.width - this.margin.left - this.margin.right;
 		},
 		eventCircleRadius() {
-			return this.lineThickness * 0.9;
+			return this.height / 2;
 		},
 		toolTipMaxWidth() {
 			return this.width * 0.4;
@@ -90,6 +92,9 @@ export default {
 					new Date(`${to}-01-01`),
 				])
 				.range([0, this.lineWidth]);
+		},
+		colors() {
+			return this.$vuetify.theme.isDark ? this.$vuetify.theme.themes.dark : this.$vuetify.theme.themes.light;
 		},
 	},
 	watch: {
@@ -121,8 +126,8 @@ export default {
 			this.svg.append('line')
 				.attr('x1', this.getXCoordinate(this.eventList[0]))
 				.attr('x2', this.getXCoordinate(this.eventList[this.eventList.length - 1]))
-				.attr('y1', this.lineThickness)
-				.attr('y2', this.lineThickness)
+				.attr('y1', this.svgHeight / 2)
+				.attr('y2', this.svgHeight / 2)
 				.attr('stroke', this.color)
 				.attr('stroke-width', this.lineThickness);
 		},
@@ -131,12 +136,25 @@ export default {
 				.data(this.eventList)
 				.enter()
 				.append('circle')
+				.attr('class', (d) => `circle-${d.startDate}`)
 				.attr('cx', (d) => this.getXCoordinate(d))
-				.attr('cy', this.height / 2)
+				.attr('cy', this.svgHeight / 2)
 				.attr('r', this.eventCircleRadius)
 				.attr('fill', this.color)
-				.on('mouseover', this.showToolTip)
-				.on('mouseout', this.dismissToolTip);
+				.on('mouseover', (d) => {
+					this.svg.select(`.circle-${d.startDate}`)
+						.attr('stroke', this.colors.primary)
+						.attr('stroke-width', 1.5)
+						.attr('stroke-opacity', 0.6)
+						.attr('r', this.eventCircleRadius * 1.5);
+					this.showToolTip(d);
+				})
+				.on('mouseout', (d) => {
+					this.svg.select(`.circle-${d.startDate}`)
+						.attr('stroke', 'none')
+						.attr('r', this.eventCircleRadius);
+					this.dismissToolTip();
+				});
 		},
 		getXCoordinate({ startDate }) {
 			return this.xAxis(new Date(startDate)) - 1;
@@ -156,7 +174,7 @@ export default {
 			this.toolTip
 				.style('left', `${d3Event.x}px`)
 				.style('top', `${d3Event.layerY}px`)
-				.style('transform', `translate(${xOffset}%, -107%)`)
+				.style('transform', `translate(${xOffset}%, -120%)`)
 				.style('visibility', 'visible');
 		},
 		dismissToolTip() {

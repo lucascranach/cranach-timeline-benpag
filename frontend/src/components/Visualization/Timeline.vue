@@ -27,7 +27,7 @@
 					</defs>
 					<polyline
 						:points="polylinePoints"
-						:stroke="colors.lighten"
+						:stroke="colors.primary"
 						fill="url(#toTransparency)"
 					/>
 				</g>
@@ -35,13 +35,15 @@
 					id="areaInactiveLeft"
 					x="0" y="0"
 					:height="imageHeight"
-					:fill="inactiveColor"
+					:fill="colors.lighten4"
+					fill-opacity="0.5"
 				/>
 				<rect
 					id="areaInactiveRight"
 					:x="timelineWidth" y="0"
 					:height="imageHeight"
-					:fill="inactiveColor"
+					:fill="colors.lighten4"
+					fill-opacity="0.5"
 				/>
 			</g>
 			<line
@@ -133,7 +135,6 @@ export default {
 		xAxis: null,
 		arrowSize: 20,
 		strokeWidth: 2,
-		inactiveColor: 'rgba(180,180,180,0.5)',
 		pillHeight: 20,
 		filterRange: {
 			from: 0,

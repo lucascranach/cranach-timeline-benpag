@@ -35,10 +35,10 @@ export default {
 	data() {
 		return {
 			eventColors: {
-				cranachElder: colors.turquoise,
-				cranachYounger: colors.rose,
-				luther: colors.brown,
-				history: colors.purple,
+				cranachElder: colors.orange,
+				cranachYounger: colors.turquoise,
+				luther: colors.pink,
+				history: colors.yellow,
 			},
 		};
 	},

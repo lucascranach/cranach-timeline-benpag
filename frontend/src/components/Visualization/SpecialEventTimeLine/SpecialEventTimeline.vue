@@ -1,5 +1,5 @@
 <template>
-	<div :style="`margin-left:${margin.left}px;`">
+	<div :style="`margin:${margin.top}px ${margin.right}px ${margin.bottom}px ${margin.left}px;height:${height}px`">
 		<EventToolTipItem
 			:id="toolTipId"
 			:item="toolTipData"
@@ -10,6 +10,7 @@
 			:id="`${timeLineId}`"
 			:width="lineWidth"
 			:height="height"
+			style="vertical-align: top"
 		/>
 	</div>
 </template>
@@ -66,6 +67,9 @@ export default {
 		lineWidth() {
 			return this.width - this.margin.left - this.margin.right;
 		},
+		eventCircleRadius() {
+			return this.lineThickness * 0.9;
+		},
 		toolTipMaxWidth() {
 			return this.width * 0.4;
 		},
@@ -79,7 +83,7 @@ export default {
 			return `tooltip-${this.componentId}`;
 		},
 		xAxis() {
-			const [from, to] = this.getStaticXAxisDomain();
+			const [from, to] = this.getXAxisDomain();
 			return d3.scaleTime()
 				.domain([
 					new Date(`${from}-01-01`),
@@ -91,15 +95,20 @@ export default {
 	watch: {
 		zoomTransform: 'zoom',
 		eventList: 'drawSvg',
+		xAxis: 'drawSvg',
 	},
 	mounted() {
 		this.drawSvg();
 	},
 	methods: {
 		...mapGetters([
-			'getStaticXAxisDomain',
+			'getXAxisDomain',
 		]),
 		drawSvg() {
+			if (this.svg !== null) {
+				this.svg.selectAll('*').remove();
+			}
+
 			this.svg = d3.select(`#${this.timeLineId}`);
 			this.toolTip = d3.select(`#${this.toolTipId}`).style('visibility', 'hidden');
 			if (this.eventList.length < 2) {
@@ -124,7 +133,7 @@ export default {
 				.append('circle')
 				.attr('cx', (d) => this.getXCoordinate(d))
 				.attr('cy', this.height / 2)
-				.attr('r', this.lineThickness)
+				.attr('r', this.eventCircleRadius)
 				.attr('fill', this.color)
 				.on('mouseover', this.showToolTip)
 				.on('mouseout', this.dismissToolTip);

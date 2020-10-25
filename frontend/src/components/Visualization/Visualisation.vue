@@ -1,51 +1,51 @@
 <template>
-  <div>
-    <h1
-        v-show="!this.hasItems()">
-      {{$t('no_filter_elements')}}
-    </h1>
-    <div v-show="this.hasItems()">
-      <Chart
-          :width="chartWidth"
-          :height="windowHeight * 0.67"
-		  :margin="margins"
-      />
-      <SpecialEventTimeline
-          :width="chartWidth"
-          :height="windowHeight * 0.008"
-		  :margin="margins"
-          :event-list="events.cranachElder"
-          :color="colors.turquoise"
-      />
-      <SpecialEventTimeline
-          :width="chartWidth"
-          :height="windowHeight * 0.008"
-		  :margin="margins"
-          :event-list="events.cranachYounger"
-          :color="colors.rose"
-      />
-      <SpecialEventTimeline
-          :width="chartWidth"
-          :height="windowHeight * 0.008"
-		  :margin="margins"
-          :event-list="events.luther"
-          :color="colors.brown"
-      />
-      <SpecialEventTimeline
-          :width="chartWidth"
-          :height="windowHeight * 0.008"
-		  :margin="margins"
-          :event-list="events.history"
-          :color="colors.purple"
-      />
-		<SpecialEventTimeLineLegend :event-names="eventNames" class="mt-2"/>
-    </div>
-    <Timeline
-        :width="chartWidth"
-        :height="windowHeight * 0.1"
-		:margin="margins"
-    />
-  </div>
+	<div>
+		<h1
+			v-show="!this.hasItems()">
+			{{ $t('no_filter_elements') }}
+		</h1>
+		<div v-show="this.hasItems()">
+			<Chart
+				:width="chartWidth"
+				:height="chartHeight"
+				:margin="chartMargins"
+			/>
+			<SpecialEventTimeline
+				:width="chartWidth"
+				:height="eventTimeLineHeight"
+				:margin="eventTimeLineMargins"
+				:event-list="events.cranachElder"
+				:color="colors.turquoise"
+			/>
+			<SpecialEventTimeline
+				:width="chartWidth"
+				:height="eventTimeLineHeight"
+				:margin="eventTimeLineMargins"
+				:event-list="events.cranachYounger"
+				:color="colors.rose"
+			/>
+			<SpecialEventTimeline
+				:width="chartWidth"
+				:height="eventTimeLineHeight"
+				:margin="eventTimeLineMargins"
+				:event-list="events.luther"
+				:color="colors.brown"
+			/>
+			<SpecialEventTimeline
+				:width="chartWidth"
+				:height="eventTimeLineHeight"
+				:margin="eventTimeLineMargins"
+				:event-list="events.history"
+				:color="colors.purple"
+			/>
+			<SpecialEventTimeLineLegend :event-names="eventNames" />
+		</div>
+		<Timeline
+			:width="chartWidth"
+			:height="timelineHeight"
+			:margin="timeLineMargins"
+		/>
+	</div>
 </template>
 
 <script>
@@ -68,11 +68,11 @@ export default {
 	},
 	data() {
 		return {
-			margins: {
+			chartMargins: {
 				left: 30,
 				right: 30,
 				top: 10,
-				bottom: 20,
+				bottom: 25,
 			},
 		};
 	},
@@ -84,8 +84,30 @@ export default {
 		chartWidth() {
 			return window.innerWidth * 0.925;
 		},
-		windowHeight() {
-			return window.innerHeight;
+		chartHeight() {
+			return window.innerHeight * 0.65;
+		},
+		eventTimeLineHeight() {
+			return window.innerHeight * 0.01;
+		},
+		eventTimeLineMargins() {
+			return {
+				left: this.chartMargins.left,
+				right: this.chartMargins.right,
+				top: 0,
+				bottom: this.eventTimeLineHeight,
+			};
+		},
+		timelineHeight() {
+			return window.innerHeight * 0.1;
+		},
+		timeLineMargins() {
+			return {
+				left: this.chartMargins.left,
+				right: this.chartMargins.right,
+				top: 0,
+				bottom: 0,
+			};
 		},
 		colors() {
 			return colors;

@@ -174,7 +174,7 @@ export default {
 			this.toolTip
 				.style('left', `${d3Event.x}px`)
 				.style('top', `${d3Event.layerY}px`)
-				.style('transform', `translate(${xOffset}%, -120%)`)
+				.style('transform', `translate(${xOffset}%, -107%)`)
 				.style('visibility', 'visible');
 		},
 		dismissToolTip() {

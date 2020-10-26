@@ -30,10 +30,10 @@
 			</div>
 		</v-app-bar>
 		<v-main>
-			<v-container>
+			<v-container fluid class="px-6">
 				<FilterComponent :showFilters="showFilters"/>
 				<loading :active.sync="isLoading"/>
-                <Visualization />
+                <Visualization/>
 			</v-container>
 		</v-main>
 	</v-app>

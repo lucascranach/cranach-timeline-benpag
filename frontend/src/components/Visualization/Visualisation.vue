@@ -52,6 +52,7 @@
 import {
 	mapState, mapActions, mapGetters,
 } from 'vuex';
+import d3 from '@/plugins/d3-importer';
 import Timeline from './Timeline.vue';
 import Chart from './Chart/Chart.vue';
 import SpecialEventTimeline from './SpecialEventTimeLine/SpecialEventTimeline.vue';
@@ -74,22 +75,24 @@ export default {
 				top: 10,
 				bottom: 25,
 			},
+			chartWidth: window.innerWidth,
+			chartHeight: window.innerHeight * 0.65,
+			eventTimeLineHeight: window.innerHeight * 0.01,
+			timelineHeight: window.innerHeight * 0.1,
 		};
+	},
+	mounted() {
+		const container = d3.select('.container').node();
+		const styles = window.getComputedStyle(container, null);
+		const paddingLeft = parseInt(styles.getPropertyValue('padding-left'), 10);
+		const paddingRight = parseInt(styles.getPropertyValue('padding-right'), 10);
+		this.chartWidth = container.clientWidth - (paddingLeft + paddingRight);
 	},
 	computed: {
 		...mapState({
 			items: (state) => state.items,
 			events: (state) => state.events,
 		}),
-		chartWidth() {
-			return window.innerWidth * 0.925;
-		},
-		chartHeight() {
-			return window.innerHeight * 0.65;
-		},
-		eventTimeLineHeight() {
-			return window.innerHeight * 0.01;
-		},
 		eventTimeLineMargins() {
 			return {
 				left: this.chartMargins.left,
@@ -97,9 +100,6 @@ export default {
 				top: 0,
 				bottom: this.eventTimeLineHeight,
 			};
-		},
-		timelineHeight() {
-			return window.innerHeight * 0.1;
 		},
 		timeLineMargins() {
 			return {

@@ -167,7 +167,7 @@ export default new Vuex.Store({
 			];
 		},
 		getLocations(state) {
-			const sortedLocations = Array.from(new Set(state.allItems.map((i) => i.location).flat())).sort();
+			const sortedLocations = Array.from(new Set(state.items.map((i) => i.location).flat())).sort();
 			if (sortedLocations.includes('')) {
 				sortedLocations.splice(sortedLocations.indexOf(''), 1);
 			}

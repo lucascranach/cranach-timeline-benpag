@@ -1,0 +1,14 @@
+version: '3.4'
+services:
+  cranach_backend:
+    build: ../backend
+    container_name: cranach_backend
+    ports:
+      - "3000:3000"
+
+  cranach_frontend:
+    build: ../frontend
+    container_name: cranach_frontend
+    ports:
+      - "8080:8080"
+

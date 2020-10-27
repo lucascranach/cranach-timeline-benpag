@@ -9,3 +9,8 @@ npm install
 ```
 npm run start
 ```
+
+### Start docker deployment
+```
+npm run deploy
+```

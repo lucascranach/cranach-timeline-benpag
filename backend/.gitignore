@@ -1,5 +1,10 @@
 # Image data
-/data/
+/data/archivals_de.json
+/data/graphics_de.json
+/data/paintings_de.json
+/data/archivals_en.json
+/data/graphics_en.json
+/data/paintings_en.json
 
 # Logs
 logs
@@ -7,6 +12,7 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
 
 # Runtime data
 pids

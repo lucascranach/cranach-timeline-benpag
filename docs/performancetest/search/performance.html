@@ -1,0 +1,173 @@
+<html>
+    <head>
+        <script src="../getData.js"></script>
+        <script src="https://unpkg.com/lunr/lunr.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/elasticlunr/0.9.6/elasticlunr.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch.umd.js"></script>
+    </head>
+    <body>
+        <button onclick="start()">Start</button>
+        <div id="filter">Filter: </div>
+        <div id="lunr">Lunr: </div>
+        <div id="elasticlunr">Elasticlunr: </div>
+        <div id="algolia">Algolia: </div>
+        <div id="solr">Solr: </div>
+        <div id="elasticSearch">ElasticSearch: </div>
+        <div id="fuse">Fuse: </div>
+        <script>
+            let result = {
+                filter: [],
+                lunr: [],
+                elasticlunr: [],
+                algolia: [],
+                solr: [],
+                elasticSearch: [],
+                fuse: []
+            };
+
+            const client = algoliasearch('APP_ID', 'SECRET_KEY');
+            const index = client.initIndex('Cranach Test');
+
+            async function start() {
+                for(let i = 1; i <= 2095; i++) {
+                    const data = getData(i);
+                    result.filter.push(useFilter(data, i));
+                    result.lunr.push(useLunr(data, i));
+                    result.elasticlunr.push(useElasticlunr(data, i));
+                    result.algolia.push(await useAlgolia(data, i));
+                    result.solr.push(useSolr(data, i));
+                    result.elasticSearch.push(useElasticSearch(data, i));
+                    result.fuse.push(useFuse(data, i));
+                }
+                result.filter.sort((a,b) => a-b);
+                result.lunr.sort((a,b) => a-b);
+                result.elasticlunr.sort((a,b) => a-b);
+                result.algolia.sort((a,b) => a-b);
+                result.solr.sort((a,b) => a-b);
+                result.elasticSearch.sort((a,b) => a-b);
+                result.fuse.sort((a,b) => a-b);
+                showResults();
+                result = {
+                    filter: [],
+                    lunr: [],
+                    elasticlunr: [],
+                    algolia: [],
+                    solr: [],
+                    elasticSearch: [],
+                    fuse: []
+                };
+            }
+
+            function useFilter(data) {
+                let res = [];
+                const p1 = performance.now();
+                res = data.filter((d) => {
+                    d.startDate.toString().includes('1700') || d.endDate.toString().includes('1700') || d.title.includes('1700') || d.artists.includes('1700')
+                } );
+                const p2 = performance.now();
+                return p2 - p1;
+            }
+
+            function useLunr(data) {
+                let res = [];
+                var index = lunr(function () {
+                    this.ref('id')
+                    this.field('endDate')
+                    this.field('startDate')
+                    this.field('title')
+                    this.field('artists')
+
+                    data.forEach(function (doc) {
+                        this.add(doc)
+                    }, this)
+
+                });
+                const p1 = performance.now();
+                res = index.search('1700');
+                const p2 = performance.now();
+                return p2 - p1;
+            }
+
+            function useElasticlunr(data) {
+                let res = [];
+                const p1 = performance.now();
+                var index = elasticlunr(function () {
+                    this.setRef('id')
+                    this.addField('endDate')
+                    this.addField('startDate')
+                    this.addField('title')
+                    this.addField('artists')
+
+                    data.forEach(function (doc) {
+                        this.addDoc(doc)
+                    }, this)
+
+                });
+                res = index.search('1700');
+                const p2 = performance.now();
+                return p2 - p1;
+            }
+
+            async function useAlgolia(data, i) {
+                let res = [];
+                const p1 = performance.now();
+                await index.replaceAllObjects(data, {'autoGenerateObjectIDIfNotExist': true});
+                res = await index.search('1700');
+                const p2 = performance.now();
+                return p2 - p1;
+            }
+
+            function useSolr(data, i) {
+                let res = [];
+                const p1 = performance.now();
+                const xmlHttp = new XMLHttpRequest();
+                xmlHttp.open( "POST", 'http://localhost:8983/solr/cranach/update', false );
+                xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                xmlHttp.send(data);
+                xmlHttp = new XMLHttpRequest();
+                xmlHttp.open( "GET", 'http://localhost:8983/solr/cranach2/select?q=*%3A1700', false );
+                xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                res = xmlHttp.send();
+                const p2 = performance.now();
+                return p2 - p1;
+            }
+
+            function useElasticSearch(data, i) {
+                let res = [];
+                const p1 = performance.now();
+                const xmlHttp = new XMLHttpRequest();
+                xmlHttp.open( "POST", 'http://localhost:9300/cranach/', false );
+                xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                xmlHttp.send(data);
+                xmlHttp = new XMLHttpRequest();
+                xmlHttp.open( "GET", 'http://localhost:9300/cranach/_search', false );
+                xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                res = xmlHttp.send({"query": { "match_all": "1700" } });
+                const p2 = performance.now();
+                return p2 - p1;
+            }
+
+            function useFuse(data, i) {
+                let res = [];
+                const p1 = performance.now();
+                const fuse = new Fuse(data, {
+                    keys: ['startDate', 'endDate', 'title', 'artists']
+                })
+                res = fuse.search('1700');
+                const p2 = performance.now();
+                return p2 - p1;
+            }
+
+            function showResults() {
+                document.getElementById('filter').innerHTML = 'Filter: ' + result.filter.join(';');
+                document.getElementById('lunr').innerHTML = 'Lunr: ' + result.lunr.join(';');
+                document.getElementById('elasticlunr').innerHTML = 'Elasticlunr: ' + result.elasticlunr.join(';');
+                document.getElementById('algolia').innerHTML = 'Algolia: ' + result.algolia.join(';');
+                document.getElementById('solr').innerHTML = 'Solr: ' + result.solr.join(';');
+                document.getElementById('elasticSearch').innerHTML = 'ElasticSearch: ' + result.elasticSearch.join(';');
+                document.getElementById('fuse').innerHTML = 'Fuse: ' + result.fuse.join(';');
+            }
+        </script>
+    </body>
+</html>

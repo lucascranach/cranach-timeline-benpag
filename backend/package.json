@@ -1,24 +1,28 @@
 {
   "name": "backend",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node app.js",
-    "import": "node modules/importer/index.js"
+    "start": "echo Running ESLint... && npx eslint \"**/*.js\" && echo Done && node app.js",
+    "import": "echo Running ESLint... && npx eslint \"**/*.js\" && echo Done && node modules/importer/index.js",
+    "deploy": "cd ../.docker && docker-compose build && docker-compose down && docker-compose up -d"
   },
   "dependencies": {
     "axios": "^0.19.2",
     "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
     "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
     "express": "~4.16.1",
-    "morgan": "~1.9.1"
+    "moment-timezone": "^0.5.31",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react": "^7.20.5",
     "eslint-plugin-react-hooks": "^2.5.0"
   }
 }

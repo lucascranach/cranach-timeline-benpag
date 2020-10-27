@@ -8,7 +8,13 @@ This log lists the architectural decisions for Cranach.
 - [ADR-0001](0001-project-language.md) - English and German as project language
 - [ADR-0002](0002-frontend-technology.md) - Vue.js for frontend development
 - [ADR-0003](0003-backend-technology.md) - Node.js for backend development
-
+- [ADR-0004](0004-backend-logging.md) - Node.js for backend development
+- [ARD-0005](0005-filtering.md) - Use Array.filter as default filter method
+- [ARD-0006](0006-deployment.md) - Use docker and docker-compose for deployment
+- [ARD-0007](0007-searching.md) - Use Array.filter as default search method
+- [ARD-0008](0008-backend-parser-for-category-data.md) - No parser changes for inconsistent data structure
+- [ARD-0009](0009-frontend-loading-overlay.md) - Adding a loading overlay when longer loading time occur
+- [ADR-0010](0010-frontend-data-visualization.md) - D3.js as a JavaScript library for data visualization
 
 
 <!-- adrlogstop -->

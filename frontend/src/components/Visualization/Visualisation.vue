@@ -15,28 +15,28 @@
 				:height="eventTimeLineHeight"
 				:margin="eventTimeLineMargins"
 				:event-list="events.cranachElder"
-				:color="colors.turquoise"
+				:color="colors.orange"
 			/>
 			<SpecialEventTimeline
 				:width="chartWidth"
 				:height="eventTimeLineHeight"
 				:margin="eventTimeLineMargins"
 				:event-list="events.cranachYounger"
-				:color="colors.rose"
+				:color="colors.turquoise"
 			/>
 			<SpecialEventTimeline
 				:width="chartWidth"
 				:height="eventTimeLineHeight"
 				:margin="eventTimeLineMargins"
 				:event-list="events.luther"
-				:color="colors.brown"
+				:color="colors.pink"
 			/>
 			<SpecialEventTimeline
 				:width="chartWidth"
 				:height="eventTimeLineHeight"
 				:margin="eventTimeLineMargins"
 				:event-list="events.history"
-				:color="colors.purple"
+				:color="colors.yellow"
 			/>
 			<SpecialEventTimeLineLegend :event-names="eventNames" />
 		</div>
@@ -49,14 +49,11 @@
 </template>
 
 <script>
-import {
-	mapState, mapActions, mapGetters,
-} from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import Timeline from './Timeline.vue';
 import Chart from './Chart/Chart.vue';
 import SpecialEventTimeline from './SpecialEventTimeLine/SpecialEventTimeline.vue';
 import SpecialEventTimeLineLegend from './SpecialEventTimeLine/SpecialEventTimeLineLegend.vue';
-import colors from '../../plugins/colors';
 
 export default {
 	name: 'Visualization',
@@ -110,20 +107,16 @@ export default {
 			};
 		},
 		colors() {
-			return colors;
+			return this.$vuetify.theme.isDark ? this.$vuetify.theme.themes.dark : this.$vuetify.theme.themes.light;
 		},
 		eventNames() {
 			return Object.keys(this.events);
 		},
 	},
-	created() {
-		this.loadData();
-	},
 	methods: {
 		...mapGetters([
 			'hasItems',
 		]),
-		...mapActions(['loadData']),
 	},
 };
 </script>

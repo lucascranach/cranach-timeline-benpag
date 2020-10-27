@@ -1,15 +1,12 @@
 <template>
 	<v-app>
-		<v-app-bar app>
-			<v-switch
-				v-model="$vuetify.theme.dark"
-				label="Dark Theme"
-			></v-switch>
+		<v-app-bar app dense flat>
 			<v-badge
+				class="filter-badge"
 				:value="activeFilters.length > 0"
 				:content="activeFilters.length"
-				left
-				offset-y="20"
+				right
+				offset-y="40"
 				offset-x="20"
 				overlap
 			>
@@ -21,16 +18,34 @@
 				</v-btn>
 			</v-badge>
 			<v-spacer />
-			<h1>{{$t('cranach_timeline')}}</h1>
+			<img
+				:class="['timeline-logo', this.$vuetify.theme.isDark ? 'timeline-logo-invert' : '']"
+				src="/Cranach_Timeline.png" alt="Logo"
+			/>
 			<v-spacer />
-			<div>
-				<button v-for="entry in languages" :key="entry.title" @click="changeLocale(entry.language)">
-					<flag :iso="entry.flag" v-bind:squared=false /> {{entry.title}}
+			<v-switch
+				class="theme-switch"
+				v-model="$vuetify.theme.dark"
+				dense
+				flat
+				inset
+				hide-details
+				prepend-icon="mdi-brightness-5"
+				append-icon="mdi-brightness-3"
+			/>
+			<v-sheet class="pr-3" color="transparent">
+				<button
+					v-for="(entry, index) in languages" :key="entry.title"
+					class="language-btn"
+					@click="changeLocale(entry.language)"
+				>
+					{{ entry.title }}
+					<span v-if="index < languages.length - 1" class="language-btn-divider">|</span>
 				</button>
-			</div>
+			</v-sheet>
 		</v-app-bar>
 		<v-main>
-			<v-container fluid class="px-6">
+			<v-container fluid class="px-6 pt-1">
 				<FilterComponent :showFilters="showFilters"/>
 				<loading :active.sync="isLoading"/>
                 <Visualization/>
@@ -58,8 +73,8 @@ export default {
 		return {
 			showFilters: true,
 			languages: [
-				{ flag: 'de', language: 'de', title: 'Deutsch' },
-				{ flag: 'gb', language: 'en', title: 'English' },
+				{ flag: 'de', language: 'de', title: 'DE' },
+				{ flag: 'gb', language: 'en', title: 'EN' },
 			],
 		};
 	},
@@ -71,6 +86,9 @@ export default {
 			isLoading: (state) => state.isLoading,
 			activeFilters: (state) => state.activeFilters,
 		}),
+		colors() {
+			return this.$vuetify.theme.isDark ? this.$vuetify.theme.themes.dark : this.$vuetify.theme.themes.light;
+		},
 	},
 	methods: {
 		...mapActions([
@@ -85,8 +103,51 @@ export default {
 	},
 };
 </script>
+
 <style>
 .v-badge__badge {
 	color: var(--v-lighten-base) !important;
+}
+
+.timeline-logo-invert {
+	filter: invert(100%);
+}
+
+.timeline-logo {
+	position: relative;
+	width: auto;
+	height: 80%;
+}
+
+.filter-badge {
+	transform: scale(0.75);
+}
+
+.theme-switch {
+	transform: scale(0.75);
+}
+.theme-switch .v-input--selection-controls__input {
+	margin-right: 0;
+}
+
+.theme-switch .v-input__prepend-outer {
+	margin-right: 18px;
+}
+
+.theme-switch .v-input__append-outer {
+	margin-left: 0;
+}
+
+.language-btn:focus {
+	border: 0;
+	outline: 0;
+}
+
+.language-btn:hover {
+	text-decoration: underline;
+}
+
+.language-btn-divider {
+	padding: 0 5px;
 }
 </style>

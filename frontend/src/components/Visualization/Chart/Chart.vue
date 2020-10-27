@@ -1,16 +1,18 @@
 <template>
-	<div :id="chartDivId">
-		<ChartControlBar
-			class="chart-controls"
-			:min-zoom-level="zoomLevels[0]"
-			:max-zoom-level="zoomLevels[1]"
-			@zoomIn="onZoomIn"
-			@zoomOut="onZoomOut"
-			@resetZoom="onResetZoom"
-		/>
+	<v-sheet>
 		<ToolTipItem ref="tooltip" :id="tooltipDivId" class="chart-tooltip" :item="toolTipData" />
 		<ChartLegend />
-	</div>
+		<div :id="chartDivId">
+			<ChartControlBar
+				class="chart-controls"
+				:min-zoom-level="zoomLevels[0]"
+				:max-zoom-level="zoomLevels[1]"
+				@zoomIn="onZoomIn"
+				@zoomOut="onZoomOut"
+				@resetZoom="onResetZoom"
+			/>
+		</div>
+	</v-sheet>
 </template>
 
 <script>

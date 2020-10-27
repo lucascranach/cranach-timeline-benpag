@@ -1,5 +1,5 @@
 <template>
-	<div :id="chartDivId" :style="`height:${this.height}px`">
+	<div :id="chartDivId">
 		<ChartControlBar
 			class="chart-controls"
 			:min-zoom-level="zoomLevels[0]"

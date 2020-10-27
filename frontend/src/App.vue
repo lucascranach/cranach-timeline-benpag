@@ -1,6 +1,6 @@
 <template>
-	<v-app>
-		<v-app-bar app dense flat>
+	<v-app class="no-transition">
+		<v-app-bar app short flat>
 			<v-badge
 				class="filter-badge"
 				:value="activeFilters.length > 0"
@@ -79,6 +79,7 @@ export default {
 		};
 	},
 	created() {
+		document.title = 'Cranach Timeline';
 		this.loadData();
 	},
 	computed: {
@@ -149,5 +150,9 @@ export default {
 
 .language-btn-divider {
 	padding: 0 5px;
+}
+
+.no-transition * {
+	transition: none!important;
 }
 </style>

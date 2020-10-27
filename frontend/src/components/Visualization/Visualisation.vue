@@ -1,9 +1,11 @@
 <template>
 	<div>
-		<h1
-			v-show="!this.hasItems()">
+		<h2
+			v-show="!this.hasItems()"
+			class="text-center"
+		>
 			{{ $t('no_filter_elements') }}
-		</h1>
+		</h2>
 		<div v-show="this.hasItems()">
 			<Chart
 				:width="chartWidth"

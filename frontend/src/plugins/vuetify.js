@@ -52,6 +52,7 @@ export default new Vuetify({
 		options: {
 			customProperties: true,
 		},
+		dark: true,
 	},
 	icons: {
 		iconfont: 'md',

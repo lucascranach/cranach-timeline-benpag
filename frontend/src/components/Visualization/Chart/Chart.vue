@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div :id="chartDivId">
 		<ChartLegend />
 		<ToolTipItem ref="tooltip" :id="tooltipDivId" class="chart-tooltip" :item="toolTipData" />
 		<ChartControlBar
@@ -10,7 +10,6 @@
 			@zoomOut="onZoomOut"
 			@resetZoom="onResetZoom"
 		/>
-		<div :id="chartDivId" />
 	</div>
 </template>
 
@@ -85,7 +84,7 @@ export default {
 	mounted() {
 		this.$watch(
 			() => ((this.width, this.height, Date.now())), () => {
-				d3.select(`#${this.chartDivId}`).selectAll('*').remove();
+				d3.select(`#${this.chartDivId}`).selectAll('svg').remove();
 				this.setUpChart();
 			},
 		);
@@ -323,7 +322,7 @@ export default {
 			if (mouseY - toolTipHeight - margin < 0) {
 				return percentageValueOfMargin;
 			}
-			return -50 - percentageValueOfMargin;
+			return -100 - percentageValueOfMargin;
 		},
 		getXCoordinateOfItem({ sortingDate, startDate }) {
 			const sortingYear = sortingDate ? Math.floor(sortingDate) : startDate;
@@ -383,6 +382,7 @@ export default {
 
 .chart-controls{
 	position: absolute;
-	right: 24px;
+	right: 0;
+	z-index: 999999;
 }
 </style>

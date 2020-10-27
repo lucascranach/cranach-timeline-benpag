@@ -7,7 +7,7 @@
 				<component :ref="component.filterName" :is="component" />
 			</v-col>
 		</v-row>
-		<v-row justify="center" class="mb-1" v-show="activeFilterValues.length > 0">
+		<v-row justify="center" :class="['mb-1', this.showFilters ? '' : 'mt-2']" v-show="activeFilterValues.length > 0">
 			<v-chip
 				v-for="(filterValue, i) in activeFilterValues" :key="i"
 				class="mx-2 mb-1"

@@ -163,6 +163,9 @@ export default {
 			return Object.keys(this.data) || [];
 		},
 		pillWidth() {
+			if (this.margin.left > this.margin.right) {
+				return (this.margin.right * 2) - 2;
+			}
 			return (this.margin.left * 2) - 2;
 		},
 		pillFontSize() {

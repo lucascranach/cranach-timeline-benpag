@@ -18,14 +18,14 @@ moves cursor to...  // avoid
 ```
 
 ## Issues
-For declaring issues, use the given [Issue Template](https://github.com/BenPag/cranach/blob/master/docs/issue_template.md).
+For declaring issues, use the given [Issue Template](../issue_template.md).
 
 ## Documentation
 
 ### ADR
 
 All architecture and design decisions must be documented using ADR. 
-Every ADR document must use the given [ADR Template](https://github.com/BenPag/cranach/blob/master/docs/adr/template.md) and must be added to the [ADR Index](https://github.com/BenPag/cranach/blob/master/docs/adr/index.md).
+Every ADR document must use the given [ADR Template](../adr/template.md) and must be added to the [ADR Index](../adr/index.md).
 Markdown is used for the ADR-Documentation. It is important to document every decision to so that the evaluation and the options studied can be understood.
 The names of the individual files should follow the given pattern: "0001-general-topic.md"
 

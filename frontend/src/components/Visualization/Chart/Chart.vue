@@ -1,18 +1,17 @@
 <template>
-	<v-sheet>
-		<ToolTipItem ref="tooltip" :id="tooltipDivId" class="chart-tooltip" :item="toolTipData" />
+	<div>
 		<ChartLegend />
-		<div :id="chartDivId">
-			<ChartControlBar
-				class="chart-controls"
-				:min-zoom-level="zoomLevels[0]"
-				:max-zoom-level="zoomLevels[1]"
-				@zoomIn="onZoomIn"
-				@zoomOut="onZoomOut"
-				@resetZoom="onResetZoom"
-			/>
-		</div>
-	</v-sheet>
+		<ToolTipItem ref="tooltip" :id="tooltipDivId" class="chart-tooltip" :item="toolTipData" />
+		<ChartControlBar
+			class="chart-controls"
+			:min-zoom-level="zoomLevels[0]"
+			:max-zoom-level="zoomLevels[1]"
+			@zoomIn="onZoomIn"
+			@zoomOut="onZoomOut"
+			@resetZoom="onResetZoom"
+		/>
+		<div :id="chartDivId" />
+	</div>
 </template>
 
 <script>
@@ -87,7 +86,6 @@ export default {
 		this.$watch(
 			() => ((this.width, this.height, Date.now())), () => {
 				d3.select(`#${this.chartDivId}`).selectAll('*').remove();
-				d3.select(`#${this.tooltipDivId}`).remove();
 				this.setUpChart();
 			},
 		);
@@ -385,6 +383,6 @@ export default {
 
 .chart-controls{
 	position: absolute;
-	right: 0;
+	right: 24px;
 }
 </style>

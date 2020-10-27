@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<v-sheet color="transparent">
 		<h2
 			v-show="!this.hasItems()"
 			class="text-center"
@@ -47,7 +47,7 @@
 			:height="timelineHeight"
 			:margin="timeLineMargins"
 		/>
-	</div>
+	</v-sheet>
 </template>
 
 <script>

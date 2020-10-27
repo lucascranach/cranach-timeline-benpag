@@ -17,7 +17,6 @@
 					<v-icon large>mdi-filter</v-icon>
 				</v-btn>
 			</v-badge>
-			<v-spacer />
 			<img
 				:class="['timeline-logo', this.$vuetify.theme.isDark ? 'timeline-logo-invert' : '']"
 				src="/Cranach_Timeline.png" alt="Logo"
@@ -115,9 +114,11 @@ export default {
 }
 
 .timeline-logo {
-	position: relative;
+	position: absolute;
 	width: auto;
 	height: 80%;
+	left: 50%;
+	transform: translateX(-50%);
 }
 
 .filter-badge {

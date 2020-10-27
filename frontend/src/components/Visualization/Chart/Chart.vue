@@ -323,7 +323,7 @@ export default {
 			if (mouseY - toolTipHeight - margin < 0) {
 				return percentageValueOfMargin;
 			}
-			return -100 - percentageValueOfMargin;
+			return -50 - percentageValueOfMargin;
 		},
 		getXCoordinateOfItem({ sortingDate, startDate }) {
 			const sortingYear = sortingDate ? Math.floor(sortingDate) : startDate;

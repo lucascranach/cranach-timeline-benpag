@@ -21,12 +21,12 @@ paintings as well as the log.
 
 ## `/frontend`
 
-The frontend is a Vue project with its own [README](https://github.com/BenPag/cranach/tree/develop/frontend).
+The frontend is a Vue project with its own [README](../../frontend).
 
 ### `/src`
 
 The components are located in the directory `/components` and are grouped according to the defined 
-[conventions](https://github.com/BenPag/cranach/blob/feature/%23215-collaboration/docs/contribution/conventions.md).
+[conventions](/conventions.md).
 
 ### `/public`
 

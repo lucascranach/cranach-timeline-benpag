@@ -4,4 +4,4 @@
 - In case issues emerge on a release candidate, they are documented as a bug and developed just like a feature with
 high priority.
 
-![Git Workflow](https://github.com/BenPag/cranach/blob/develop/wiki/imgs/gitflow.png)
+![Git Workflow](../../wiki/imgs/gitflow.png)

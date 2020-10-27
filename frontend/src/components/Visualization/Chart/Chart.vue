@@ -114,6 +114,9 @@ export default {
 		displayHeight() {
 			return this.svgHeight - this.margin.top - this.margin.bottom;
 		},
+		colors() {
+			return this.$vuetify.theme.isDark ? this.$vuetify.theme.themes.dark : this.$vuetify.theme.themes.light;
+		},
 	},
 	watch: {
 		yearFilter: 'onResetZoom',
@@ -181,7 +184,11 @@ export default {
 				.attr('opacity', 1)
 				.attr('fill', (d) => colors.getCategoryColors()[d.type])
 				.on('mouseover', (d) => {
-					d3.select(`.dot-${d.id} path`).attr('stroke', 'black');
+					d3.select(`.dot-${d.id} path`)
+						.attr('stroke', this.colors.primary)
+						.attr('stroke-width', 0.5)
+						.attr('stroke-opacity', 0.6)
+						.attr('transform', 'scale(1.5)');
 
 					this.toolTipData = d;
 					const left = window.innerWidth - currentEvent.pageX > this.$refs.tooltip.maxToolTipWidth
@@ -197,7 +204,10 @@ export default {
 						.style('visibility', 'visible');
 				})
 				.on('mouseout', (d) => {
-					d3.select(`.dot-${d.id} path`).attr('stroke', 'transparent');
+					d3.select(`.dot-${d.id} path`)
+						.attr('stroke', 'none')
+						.attr('transform', 'scale(1)');
+
 					this.toolTipData = {};
 					this.tooltipDiv.style('visibility', 'hidden');
 				})

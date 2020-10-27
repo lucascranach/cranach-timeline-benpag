@@ -3,14 +3,15 @@ const colors = {
 	primary: '#444444',
 	secondary: '#222222',
 	yellow: '#FECB2F',
-	green: '#8fa380',
-	red: '#c24749',
+	green: '#498d23',
+	red: '#b14946',
 	brown: '#9d705d',
-	blue: '#6b7ea8',
+	blue: '#1b66ac',
 	pink: '#bc4370',
 	rose: '#f9aec2',
-	turquoise: '#3cb8b6',
-	purple: '#876fbd',
+	orange: '#db5901',
+	turquoise: '#329997',
+	purple: '#68529d',
 	lighten: '#FFFFFF',
 	lighten1: '#F2F2F2',
 	lighten2: '#F0F0F0',
@@ -24,9 +25,9 @@ export default {
 	...colors,
 	getCategoryColors() {
 		return {
-			archival: colors.red,
-			painting: colors.yellow,
-			graphic: colors.blue,
+			archival: colors.green,
+			painting: colors.blue,
+			graphic: colors.red,
 		};
 	},
 };

@@ -63,6 +63,9 @@ export default {
 			],
 		};
 	},
+	created() {
+		this.loadData();
+	},
 	computed: {
 		...mapState({
 			isLoading: (state) => state.isLoading,

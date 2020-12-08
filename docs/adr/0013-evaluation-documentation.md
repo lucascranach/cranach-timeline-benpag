@@ -1,4 +1,4 @@
-# Video recording and protocol as evaluation documentation
+# Video recording and written protocol as evaluation documentation
 
 * Status: accepted
 * Deciders: Anja Bertels, Dominik Deimel
@@ -6,59 +6,34 @@
 
 ## Context and Problem Statement
 
-[Describe the context and problem statement, e.g., in free form using two to three sentences. You may want to articulate the problem in form of a question.]
+The tests performed during the evaluation must be recorded and documented. An appropriate form must be defined.
 
 ## Considered Options
 
-* [option 1]
-* [option 2]
-* [option 3]
-* … <!-- numbers of options can vary -->
+* Video recording
+* Written protocol
+* Video recording and protocol 
 
 ## Decision Outcome
 
-Chosen option: "[option 1]", because [justification. e.g., only option, which meets k.o. criterion decision driver | which resolves force force | … | comes out best (see below)].
+Chosen option: "Video recording and written protocol", because it combines the advantages of both options while eliminating all given disadvantages.
 
-### Positive Consequences <!-- optional -->
+## Pros and Cons of the Options 
 
-* [e.g., improvement of quality attribute satisfaction, follow-up decisions required, …]
-* …
+### Video recording
 
-### Negative Consequences <!-- optional -->
+* Good, because you can look at the test again in full length
+* Good, because the chance to overlook details is minor
+* Bad, because watching the video again takes more time
 
-* [e.g., compromising quality attribute, follow-up decisions required, …]
-* …
+### Written protocol
 
-## Pros and Cons of the Options <!-- optional -->
+* Good, because it includes details in a clearer form
+* Good, because details can found easier
+* Good, because details can be easily compared
+* Bad, because it takes more time to log details while testing
 
-### [option 1]
+### Video recording and protocol 
 
-[example | description | pointer to more information | …] <!-- optional -->
-
-* Good, because [argument a]
-* Good, because [argument b]
-* Bad, because [argument c]
-* … <!-- numbers of pros and cons can vary -->
-
-### [option 2]
-
-[example | description | pointer to more information | …] <!-- optional -->
-
-* Good, because [argument a]
-* Good, because [argument b]
-* Bad, because [argument c]
-* … <!-- numbers of pros and cons can vary -->
-
-### [option 3]
-
-[example | description | pointer to more information | …] <!-- optional -->
-
-* Good, because [argument a]
-* Good, because [argument b]
-* Bad, because [argument c]
-* … <!-- numbers of pros and cons can vary -->
-
-## Links <!-- optional -->
-
-* [Link type] [Link to ADR] <!-- example: Refined by [ADR-0005](0005-example.md) -->
-* … <!-- numbers of links can vary -->
+* Good, because it combines the advantages of the first two options
+* Bad, because it takes more time two execute both options

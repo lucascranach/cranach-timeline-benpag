@@ -1,4 +1,4 @@
-# UI test with interview and tasks as evaluation method
+# UI test with interview and explorative tasks as evaluation method
 
 * Status: accepted
 * Deciders: Anja Bertels, Dominik Deimel
@@ -6,59 +6,40 @@
 
 ## Context and Problem Statement
 
-[Describe the context and problem statement, e.g., in free form using two to three sentences. You may want to articulate the problem in form of a question.]
+For the execution of UI tests a reasonable testing method must be defined.
 
 ## Considered Options
 
-* [option 1]
-* [option 2]
-* [option 3]
-* … <!-- numbers of options can vary -->
+* Interview
+* Tasks
+* Exploration
+* Eye Tracking
 
 ## Decision Outcome
 
-Chosen option: "[option 1]", because [justification. e.g., only option, which meets k.o. criterion decision driver | which resolves force force | … | comes out best (see below)].
+Chosen option: "Interview and explorative Tasks", because it is the combination of the given options. 
+The eye tracking option cannot be implemented due to the current Covid-19 pandemic.
 
-### Positive Consequences <!-- optional -->
+## Pros and Cons of the Options 
 
-* [e.g., improvement of quality attribute satisfaction, follow-up decisions required, …]
-* …
+### Interview
+* Good, because specific aspects can be addressed
+* Good, because it allows better communication with the participant
+* Bad, because it is a very static approach
 
-### Negative Consequences <!-- optional -->
+### Tasks
+* Good, because work can be done with targeted tasks
+* Good, because  specific requirements can be tested
+* Bad, because there is no free exploration
+* Bad, because it is not obvious which findings the user draws himself
 
-* [e.g., compromising quality attribute, follow-up decisions required, …]
-* …
+### Exploration
+* Good, because the natural interaction of the participant with the system can be observed
+* Bad, because some aspects can be neglected
 
-## Pros and Cons of the Options <!-- optional -->
+### Eye Tracking
 
-### [option 1]
-
-[example | description | pointer to more information | …] <!-- optional -->
-
-* Good, because [argument a]
-* Good, because [argument b]
-* Bad, because [argument c]
-* … <!-- numbers of pros and cons can vary -->
-
-### [option 2]
-
-[example | description | pointer to more information | …] <!-- optional -->
-
-* Good, because [argument a]
-* Good, because [argument b]
-* Bad, because [argument c]
-* … <!-- numbers of pros and cons can vary -->
-
-### [option 3]
-
-[example | description | pointer to more information | …] <!-- optional -->
-
-* Good, because [argument a]
-* Good, because [argument b]
-* Bad, because [argument c]
-* … <!-- numbers of pros and cons can vary -->
-
-## Links <!-- optional -->
-
-* [Link type] [Link to ADR] <!-- example: Refined by [ADR-0005](0005-example.md) -->
-* … <!-- numbers of links can vary -->
+* Good, because it provides specific measured values
+* Good, because the natural interaction of the participant with the system can be observed
+* Bad, because it requires personal contact
+* Bad, because it requires special technology

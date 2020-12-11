@@ -18,48 +18,42 @@ In order to carry out user tests, participants must first be selected to be ques
 
 ## Decision Outcome
 
-Chosen option: "[option 1]", because [justification. e.g., only option, which meets k.o. criterion decision driver | which resolves force force | … | comes out best (see below)].
+Chosen option: "One person from every of the four departments", because it covers all required cases and enables extensive evaluation
 
-### Positive Consequences <!-- optional -->
+## Pros and Cons of the Options
 
-* [e.g., improvement of quality attribute satisfaction, follow-up decisions required, …]
-* …
+### Participants that know the application
 
-### Negative Consequences <!-- optional -->
+* Good, because they are more responsive to innovations
+* Good, because no extensive introduction and training is necessary
+* Bad, because little feedback can be obtained on the overall impression
+* Bad, because it is not recognizable how a person finds their way around the interface
 
-* [e.g., compromising quality attribute, follow-up decisions required, …]
-* …
+### Participants that don't know the application
 
-## Pros and Cons of the Options <!-- optional -->
+* Good, because you see how a person who is foreign to the system finds his way around it
+* Good, because new approaches and ideas are found
+* Bad, because an introduction is necessary
+* Bad, because no development or comparison can be evaluated
 
-### [option 1]
+### Experts
 
-[example | description | pointer to more information | …] <!-- optional -->
+* Good because domain knowledge is available
+* Good because requirements can be assessed for these stakeholders
+* Good because an assessment of the domain logic can be made
+* Bad because no statement can be made about whether the system is good for beginners
+* Bad, because a focus is placed on certain aspects
+* Bad, because the system is not approached openly and compared with other systems
 
-* Good, because [argument a]
-* Good, because [argument b]
-* Bad, because [argument c]
-* … <!-- numbers of pros and cons can vary -->
+### Laypersons
 
-### [option 2]
+* Good, because open minded
+  * Verständlichkeit des Systems
+  * Schlussfolgerungen möglich
+* Bad, because kein fachliches Wissen
 
-[example | description | pointer to more information | …] <!-- optional -->
+### One person from every of the four departments
 
-* Good, because [argument a]
-* Good, because [argument b]
-* Bad, because [argument c]
-* … <!-- numbers of pros and cons can vary -->
-
-### [option 3]
-
-[example | description | pointer to more information | …] <!-- optional -->
-
-* Good, because [argument a]
-* Good, because [argument b]
-* Bad, because [argument c]
-* … <!-- numbers of pros and cons can vary -->
-
-## Links <!-- optional -->
-
-* [Link type] [Link to ADR] <!-- example: Refined by [ADR-0005](0005-example.md) -->
-* … <!-- numbers of links can vary -->
+* Good because advantages are combined
+* Good because disadvantages are eliminated
+* Bad, because the amount of work is high

@@ -6,59 +6,27 @@
 
 ## Context and Problem Statement
 
-[Describe the context and problem statement, e.g., in free form using two to three sentences. You may want to articulate the problem in form of a question.]
+In the context of UI tests, it must be determined whether these are completed after one run, or whether multiple iterations are to be performed.
 
 ## Considered Options
 
-* [option 1]
-* [option 2]
-* [option 3]
-* … <!-- numbers of options can vary -->
+* Iterative Testing
+* Non Iterative Testing
 
 ## Decision Outcome
 
-Chosen option: "[option 1]", because [justification. e.g., only option, which meets k.o. criterion decision driver | which resolves force force | … | comes out best (see below)].
+Chosen option: "iterative testing", because this model provides for more substantiated and well evaluated results.
 
-### Positive Consequences <!-- optional -->
+## Pros and Cons of the Options
 
-* [e.g., improvement of quality attribute satisfaction, follow-up decisions required, …]
-* …
+### Iterative Testing
 
-### Negative Consequences <!-- optional -->
+* Good, because feedback can be obtained again after the changes have been implemented
+* Good, because the test procedure can be improved and individualized
+* Bad, because a higher amount of work is required
+* Bad, because there can be contradictions among the tests
 
-* [e.g., compromising quality attribute, follow-up decisions required, …]
-* …
+### Non Iterative Testing
 
-## Pros and Cons of the Options <!-- optional -->
-
-### [option 1]
-
-[example | description | pointer to more information | …] <!-- optional -->
-
-* Good, because [argument a]
-* Good, because [argument b]
-* Bad, because [argument c]
-* … <!-- numbers of pros and cons can vary -->
-
-### [option 2]
-
-[example | description | pointer to more information | …] <!-- optional -->
-
-* Good, because [argument a]
-* Good, because [argument b]
-* Bad, because [argument c]
-* … <!-- numbers of pros and cons can vary -->
-
-### [option 3]
-
-[example | description | pointer to more information | …] <!-- optional -->
-
-* Good, because [argument a]
-* Good, because [argument b]
-* Bad, because [argument c]
-* … <!-- numbers of pros and cons can vary -->
-
-## Links <!-- optional -->
-
-* [Link type] [Link to ADR] <!-- example: Refined by [ADR-0005](0005-example.md) -->
-* … <!-- numbers of links can vary -->
+* Good, because the amount of work is less
+* Bad, because a more comprehensive test procedure is required

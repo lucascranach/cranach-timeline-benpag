@@ -1,4 +1,4 @@
-# One person from every of the four departments as evaluation subjects
+# One person from every of the four departments as evaluation participants
 
 * Status: accepted
 * Deciders: Anja Bertels, Dominik Deimel
@@ -6,14 +6,15 @@
 
 ## Context and Problem Statement
 
-[Describe the context and problem statement, e.g., in free form using two to three sentences. You may want to articulate the problem in form of a question.]
+In order to carry out user tests, participants must first be selected to be questioned about the system.
 
 ## Considered Options
 
-* [option 1]
-* [option 2]
-* [option 3]
-* … <!-- numbers of options can vary -->
+* Participants that know the application
+* Participants that don't know the application
+* Experts
+* Laypersons
+* One person from every of the four departments
 
 ## Decision Outcome
 

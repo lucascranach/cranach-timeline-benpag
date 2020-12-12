@@ -1,5 +1,10 @@
 pipeline {
-  agent any
+  agent {
+    node {
+      label 'NPM'
+    }
+
+  }
   stages {
     stage('build') {
       steps {

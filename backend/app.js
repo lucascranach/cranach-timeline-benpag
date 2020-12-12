@@ -18,6 +18,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use(function(err, req, resp, next) {
+	console.log(err);
+	console.log(req);
+	console.log(resp);
+});
 app.use('/paintings', paintingsRouter);
 app.use('/log', loggingRouter);
 app.use('/graphics', graphicsRouter);

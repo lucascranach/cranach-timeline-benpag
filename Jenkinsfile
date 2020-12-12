@@ -1,16 +1,13 @@
 pipeline {
-  agent {
-    node {
-      label 'NPM'
-    }
+    agent any
 
-  }
-  stages {
-    stage('build') {
-      steps {
-        sh 'cd frontend && npm install && npm run build'
-      }
+    stages {
+        stage('Build') {
+            steps {
+                nodejs(nodeJSInstallationName: 'DefaultNodeJs') {
+                    sh 'cd frontend && npm run install'
+                }
+            }
+        }
     }
-
-  }
 }

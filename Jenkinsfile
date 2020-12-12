@@ -1,13 +1,14 @@
 pipeline {
   agent any
   stages {
-    stage('npm install') {
+    stage('Build') {
       parallel {
         stage('Frontend') {
           steps {
             nodejs('DefaultNodeJs') {
               sh '''cd frontend && npm install
-echo \'frontend npm install finished\''''
+npm run build
+ls /dist'''
             }
 
           }
@@ -17,7 +18,7 @@ echo \'frontend npm install finished\''''
           steps {
             nodejs('DefaultNodeJs') {
               sh '''cd backend && npm install
-echo \'backend npm install finished\''''
+'''
             }
 
           }

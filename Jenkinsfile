@@ -8,7 +8,7 @@ pipeline {
             nodejs('DefaultNodeJs') {
               sh '''cd frontend && npm install
 npm run build
-ls /dist'''
+ls '''
             }
 
           }

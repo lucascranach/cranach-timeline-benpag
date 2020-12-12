@@ -51,3 +51,5 @@ app.use((err, req, res, next) => {
 
 	res.status(406).send('Not Acceptable');
 });
+
+module.exports = app;

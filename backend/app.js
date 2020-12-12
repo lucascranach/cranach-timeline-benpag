@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use(function(err, req, resp, next) {
+app.use((err, req, resp) => {
 	console.log(err);
 	console.log(req);
 	console.log(resp);

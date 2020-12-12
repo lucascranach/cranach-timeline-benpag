@@ -29,10 +29,6 @@ app.use('/graphics', graphicsRouter);
 app.use('/archivals', archivalsRouter);
 app.use('/events', eventsRouter);
 
-app.listen(config.port, () => {
-	console.log(`Server listen on port ${config.port}`);
-});
-
 app.use((req, res) => {
 	res.status(404);
 

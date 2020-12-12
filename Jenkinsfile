@@ -4,7 +4,7 @@ pipeline {
     stage('Build') {
       steps {
         nodejs('DefaultNodeJs') {
-          sh 'cd frontend && npm run install'
+          sh 'cd frontend && npm install'
         }
 
       }

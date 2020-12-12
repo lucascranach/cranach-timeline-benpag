@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 
-const config = require('./global.config');
 const indexRouter = require('./routes/index');
 const paintingsRouter = require('./routes/paintings');
 const loggingRouter = require('./routes/log');

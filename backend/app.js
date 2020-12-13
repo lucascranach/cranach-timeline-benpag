@@ -1,5 +1,5 @@
 const express = require('express');
-const path = require('path');
+const serverlessExpressMiddleware = require('aws-serverless-express/middleware');
 const cors = require('cors');
 
 const indexRouter = require('./routes/index');
@@ -14,14 +14,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(serverlessExpressMiddleware.eventContext());
 
 app.use('/', indexRouter);
-app.use((err, req, resp) => {
-	console.log(err);
-	console.log(req);
-	console.log(resp);
-});
 app.use('/paintings', paintingsRouter);
 app.use('/log', loggingRouter);
 app.use('/graphics', graphicsRouter);

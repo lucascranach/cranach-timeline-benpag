@@ -1,10 +1,12 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
+const serverlessExpressMiddleware = require('aws-serverless-express/middleware');
 const { eventTypes } = require('../global.config');
 
 const router = express.Router();
 
+router.use(serverlessExpressMiddleware.eventContext());
 router.get('/:event', (req, res) => {
 	const { lang } = req.query;
 	res.format({

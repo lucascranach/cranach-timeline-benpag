@@ -4,12 +4,9 @@
   "private": true,
   "scripts": {
     "start": "echo Running ESLint... && npx eslint \"**/*.js\" && echo Done && node app.js",
-    "import": "echo Running ESLint... && npx eslint \"**/*.js\" && echo Done && node modules/importer/index.js",
-    "deploy": "cd ../.docker && docker-compose build && docker-compose down && docker-compose up -d"
+    "import": "echo Running ESLint... && npx eslint \"**/*.js\" && echo Done && node modules/importer/index.js"
   },
   "dependencies": {
-    "@vendia/serverless-express": "^3.4.0",
-    "aws-serverless-express": "^3.4.0",
     "axios": "^0.19.2",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",

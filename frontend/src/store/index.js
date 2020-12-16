@@ -39,6 +39,7 @@ export default new Vuex.Store({
 			state.allItems = items;
 		},
 		setEvent(state, event) {
+			Object.freeze(event);
 			Object.assign(state.events, event);
 		},
 		setLoadingState(state, isLoading) {
@@ -107,7 +108,9 @@ export default new Vuex.Store({
 			commit('setLoadingState', true);
 			try {
 				const data = (await Promise.all(
-					config.resources.map(async (r) => (await axios.get(`${config.dataBaseUrl + r}?lang=${i18n.locale}`)).data[r]),
+					config.resources.map(
+						async (res) => (await axios.get(`${config.dataBaseUrl}/${res}_${i18n.locale}.json`)).data[res],
+					),
 				)).flat();
 
 				const allItems = data.filter((w) => {
@@ -120,19 +123,24 @@ export default new Vuex.Store({
 				commit('setAllItems', allItems);
 				commit('calculateHistogram', allItems);
 
-				await Promise.all(config.events.map((eventName) => axios.get(`${config.dataBaseUrl}events/${eventName}?lang=${i18n.locale}`)
-					.then((response) => {
-						const event = {};
-						event[eventName] = response.data;
-						Object.freeze(event);
-						commit('setEvent', event);
-					})));
+				const events = (await Promise.all(
+					config.events.map(
+						async (eventName) => {
+							const response = (await axios.get(`${config.dataBaseUrl}/${eventName}Events_${i18n.locale}.json`));
+							const event = {};
+							event[eventName] = response.data;
+							return event;
+						},
+					),
+				));
+				events.forEach((event) => commit('setEvent', event));
+
 				commit('setLoadingState', false);
 			} catch (err) {
-				await axios.post(`${config.dataBaseUrl}log/frontend`, err);
 				commit('setItems', null);
 				commit('setAllItems', null);
 				commit('setEvent', null);
+				console.error(err);
 			}
 		},
 	},

@@ -1,5 +1,5 @@
 module.exports = {
-	dataBaseUrl: process.env.BACKEND_URL || 'http://localhost:3000/',
+	dataBaseUrl: process.env.VUE_APP_BACKEND_URL,
 	resources: ['paintings', 'graphics', 'archivals'],
 	events: ['cranachElder', 'cranachYounger', 'luther', 'history'],
 	defaultDates: {

@@ -1,4 +1,4 @@
-# S3 for backend and frontend hosting
+# Use S3 for backend and frontend hosting
 
 * Status: accepted
 * Deciders: Benjamin Pagelsdorf, Alexander Strutz

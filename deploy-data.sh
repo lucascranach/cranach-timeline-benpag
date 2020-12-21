@@ -1,3 +1,5 @@
+#!/bin/bash
+
 buckets=`aws s3 ls`
 name='cranach-data'
 #element=`aws s3 ls s3://test`

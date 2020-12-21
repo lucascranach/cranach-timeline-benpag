@@ -1,4 +1,5 @@
-if [ aws s3 ls == *$BRANCH_NAME* ]
+buckets=aws s3 ls
+if [ $buckets == *$BRANCH_NAME* ]
 then
 echo "ja"
 

@@ -1,4 +1,4 @@
-branchname= printenv env.BRANCH_NAME
-printenv env.BRANCH_NAME
+branchname= $BRANCH_NAME
+echo $BRANCH_NAME
 echo $branchname
 aws s3 cp backend/data s3://cranach-data-$branchname --recursive --acl public-read

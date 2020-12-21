@@ -1,4 +1,1 @@
-branchname= $BRANCH_NAME
-echo $BRANCH_NAME
-echo $branchname
-aws s3 cp backend/data s3://cranach-data-$branchname --recursive --acl public-read
+aws s3 cp backend/data s3://cranach-data-$BRANCH_NAME --recursive --acl public-read

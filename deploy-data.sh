@@ -1,4 +1,7 @@
 buckets=`aws s3 ls`
+element=`aws ls s3://test`
+echo $buckets
+echo $element
 if [ $buckets == *$BRANCH_NAME* ]
 then
 echo "ja"

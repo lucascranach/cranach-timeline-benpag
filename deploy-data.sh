@@ -1,9 +1,8 @@
 buckets=`aws s3 ls`
-bucketname=cranach-data-${${BRANCH_NAME////-}//#/_}
-echo $bucketname
+bucketname=cranach-data-${BRANCH_NAME////-}
 
 if ! grep -q "$bucketname" <<< "$buckets"; then
- echo "Backend branch not there, new is one created"
+ echo "Data branch not there, new is one created"
  aws s3 mb s3://$bucketname
 fi
 

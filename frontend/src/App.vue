@@ -79,6 +79,7 @@ export default {
 	},
 	created() {
 		document.title = 'Cranach Timeline';
+		console.log(process.env.VUE_APP_BRANCH_NAME);
 		this.loadData();
 	},
 	computed: {

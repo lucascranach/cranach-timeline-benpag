@@ -34,13 +34,13 @@ pipeline {
       parallel {
         stage('Deploy Data') {
           steps {
-            sh 'sh deploy-data.sh'
+            sh 'bash deploy-data.sh'
           }
         }
 
         stage('Deploy Frontend') {
           steps {
-            sh 'sh deploy-frontend.sh'
+            sh 'bash deploy-frontend.sh'
           }
         }
 

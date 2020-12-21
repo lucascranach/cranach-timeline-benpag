@@ -1,4 +1,3 @@
-#!/bin/bash
 
 buckets=`aws s3 ls`
 name='cranach-data'

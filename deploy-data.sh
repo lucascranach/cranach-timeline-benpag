@@ -2,6 +2,7 @@ buckets=`aws s3 ls`
 name='cranach-data'
 #element=`aws s3 ls s3://test`
 echo $buckets
+echo $name
 #echo $element
 
 #case $BRANCH_NAME in

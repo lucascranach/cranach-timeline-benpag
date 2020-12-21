@@ -12,6 +12,7 @@ pipeline {
           stage('Build') {
             steps {
               nodejs('DefaultNodeJs') {
+                sh 'printenv'
                 sh 'cd frontend && npm install && npm run build'
               }
             }

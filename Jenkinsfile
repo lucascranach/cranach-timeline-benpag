@@ -33,14 +33,13 @@ pipeline {
         parallel {
           stage('Deploy Data') {
             steps {
-              sh 'aws s3 cp backend/data s3://cranach-data --recursive --acl public-read'
+              sh 'deploy-data.sh'
             }
           }
 
           stage('Deploy Frontend') {
             steps {
-              sh 'aws s3 website s3://cranach-frontend --index-document index.html'
-              sh 'aws s3 cp frontend/dist s3://cranach-frontend --recursive --acl public-read'
+              sh 'deploy-frontend.sh'
             }
           }
         }

@@ -1,0 +1,1 @@
+aws s3 cp backend/data s3://cranach-data --recursive --acl public-read

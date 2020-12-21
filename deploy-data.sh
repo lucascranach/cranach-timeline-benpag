@@ -1,4 +1,5 @@
-buckets=`aws s3 ls`
+#buckets=`aws s3 ls`
+buckets="cranach-data"
 #element=`aws s3 ls s3://test`
 echo $buckets
 #echo $element

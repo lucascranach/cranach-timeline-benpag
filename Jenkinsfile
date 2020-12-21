@@ -35,6 +35,7 @@ pipeline {
       parallel {
         stage('Deploy Data') {
           steps {
+            sh 'ls'
             sh 'sh deploy-data.sh'
           }
         }

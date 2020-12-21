@@ -3,6 +3,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
+        sh 'ls'
         checkout scm
         }
       }
@@ -12,7 +13,6 @@ pipeline {
           stage('Build') {
             steps {
               nodejs('DefaultNodeJs') {
-                sh 'printenv'
                 sh 'cd frontend && npm install && npm run build'
               }
             }

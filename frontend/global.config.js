@@ -1,12 +1,5 @@
-function getBackendURL() {
-	if (process.env.VUE_APP_BRANCH_NAME) {
-		return process.env.VUE_APP_BACKEND_URL_HOST + process.env.VUE_APP_BRANCH_NAME.replace('/', '-') + process.env.VUE_APP_BACKEND_URL_PATH;
-	}
-	return process.env.BASE_URL;
-}
-
 module.exports = {
-	dataBaseUrl: getBackendURL(),
+	dataBaseUrl: process.env.VUE_APP_BACKEND_URL,
 	resources: ['paintings', 'graphics', 'archivals'],
 	events: ['cranachElder', 'cranachYounger', 'luther', 'history'],
 	defaultDates: {

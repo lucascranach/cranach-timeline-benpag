@@ -3,7 +3,6 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        sh 'ls'
         checkout scm
       }
     }
@@ -35,7 +34,6 @@ pipeline {
       parallel {
         stage('Deploy Data') {
           steps {
-            sh 'ls'
             sh 'sh deploy-data.sh'
           }
         }

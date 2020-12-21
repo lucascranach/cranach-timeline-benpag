@@ -1,6 +1,6 @@
 function getBackendURL() {
-	if (process.env.BRANCH_NAME) {
-		return process.env.VUE_APP_BACKEND_URL_HOST + process.env.BRANCH_NAME.replace('/', '-') + process.env.VUE_APP_BACKEND_URL_PATH;
+	if (process.env.VUE_APP_BRANCH_NAME) {
+		return process.env.VUE_APP_BACKEND_URL_HOST + process.env.VUE_APP_BRANCH_NAME.replace('/', '-') + process.env.VUE_APP_BACKEND_URL_PATH;
 	}
 	return process.env.VUE_APP_BACKEND_URL;
 }

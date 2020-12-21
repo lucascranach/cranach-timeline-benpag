@@ -1,5 +1,5 @@
 buckets=`aws s3 ls`
-bucketname=cranach-frontend-${BRANCH_NAME////-}
+bucketname=frontend-${BRANCH_NAME////-}
 
 if ! grep -q "$bucketname" <<< "$buckets"; then
  echo "Frontend branch not there, new is one created"

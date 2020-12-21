@@ -1,6 +1,6 @@
 
 buckets=`aws s3 ls`
-name='cranach-dataaa'
+name='cranach-data'
 #element=`aws s3 ls s3://test`
 echo $buckets
 echo $name

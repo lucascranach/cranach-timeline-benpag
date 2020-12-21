@@ -1,3 +1,4 @@
+printenv
 branchname= env.BRANCH_NAME
 echo env.BRANCH_NAME
 echo $branchname

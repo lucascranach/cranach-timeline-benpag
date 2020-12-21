@@ -14,7 +14,6 @@ pipeline {
               nodejs('DefaultNodeJs') {
                 sh 'cd frontend && npm install && npm run build'
               }
-
             }
           }
 
@@ -26,7 +25,6 @@ pipeline {
 
             }
           }
-
         }
       }
 
@@ -44,9 +42,7 @@ pipeline {
               sh 'aws s3 cp frontend/dist s3://cranach-frontend --recursive --acl public-read'
             }
           }
-
         }
       }
-
     }
   }

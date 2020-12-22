@@ -21,7 +21,7 @@ pipeline {
         stage('Import') {
           steps {
             nodejs('DefaultNodeJs') {
-              sh 'cd backend && npm install && npm run import'
+              sh 'bash deployment/import-data.sh'
             }
 
           }

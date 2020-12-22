@@ -4,7 +4,6 @@ bucketname=frontend-${BRANCH_NAME////-}
 if ! grep -q "$bucketname" <<< "$buckets"; then
  echo "Frontend branch not there, new is one created"
  aws s3 mb s3://$bucketname
- aws s3api put-bucket-cors --bucket $bucketname --cors-configuration file://cors.json
 fi
 
 aws s3 website s3://$bucketname --index-document index.html

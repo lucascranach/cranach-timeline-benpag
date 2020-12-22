@@ -2,7 +2,7 @@ buckets=`aws s3 ls`
 bucketname=frontend-${BRANCH_NAME////-}
 
 if ! grep -q "$bucketname" <<< "$buckets"; then
- echo "Frontend branch not there, new is one created"
+ echo "Frontend bucket not there, new is one created"
  aws s3 mb s3://$bucketname
 fi
 

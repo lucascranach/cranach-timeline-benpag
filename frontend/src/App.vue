@@ -79,7 +79,6 @@ export default {
 	},
 	created() {
 		document.title = 'Cranach Timeline';
-		console.log(process.env);
 		this.loadData();
 	},
 	computed: {

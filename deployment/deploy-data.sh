@@ -6,4 +6,4 @@ if ! grep -q "$bucketname" <<< "$buckets"; then
  aws s3 mb s3://$bucketname
 fi
 
-aws s3 cp ../backend/data s3://$bucketname --recursive --acl public-read
+aws s3 cp backend/data s3://$bucketname --recursive --acl public-read

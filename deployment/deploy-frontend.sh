@@ -8,4 +8,4 @@ if ! grep -q "$bucketname" <<< "$buckets"; then
 fi
 
 aws s3 website s3://$bucketname --index-document index.html
-aws s3 cp ../frontend/dist s3://$bucketname --recursive --acl public-read
+aws s3 cp frontend/dist s3://$bucketname --recursive --acl public-read

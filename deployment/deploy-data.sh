@@ -7,4 +7,4 @@ if ! grep -q "$bucketname" <<< "$buckets"; then
  aws s3api put-bucket-cors --bucket $bucketname --cors-configuration '{"CORSRules": [{ "AllowedOrigins": ["*"], "AllowedMethods": ["GET"]}]}'
 fi
 
-aws s3 cp backend/data s3://$bucketname --recursive --acl public-read
+aws s3 cp backend/data s3://$bucketname --recursive --acl public-read --cache-control no-cache

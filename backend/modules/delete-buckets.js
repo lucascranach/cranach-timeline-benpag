@@ -60,7 +60,7 @@ async function startJobs() {
 }
 
 async function main() {
-	// await deleteBuckets();
+	await deleteBuckets();
 	await startJobs();
 }
 

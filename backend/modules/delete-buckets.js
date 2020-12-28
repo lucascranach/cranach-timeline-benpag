@@ -9,8 +9,8 @@ const S3 = new AWS.S3({
 
 const HTTPOptions = {
 	auth: {
-		username: 'cranach-admin',
-		password: '116aa8fd9cde1e48232c1e99051e4f504c',
+		username: process.env.USERNAME,
+		password: process.env.PASSWORD,
 	},
 };
 

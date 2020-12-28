@@ -11,7 +11,7 @@ const HTTPOptions = {
 	auth: {
 		username: 'cranach-admin',
 		password: '116aa8fd9cde1e48232c1e99051e4f504c',
-	  },
+	},
 };
 
 async function deleteBucket(Bucket) {
@@ -41,7 +41,7 @@ async function deleteBuckets() {
 }
 
 async function startJobs() {
-	const jobResponse = await axios.get('https://dev.pagelsdorf.de/job/cranach/api/json?TOKEN=', HTTPOptions);
+	const jobResponse = await axios.get('https://dev.pagelsdorf.de/job/cranach/api/json', HTTPOptions);
 	const jobPromises = [];
 	jobResponse.data.jobs.forEach((job) => {
 		jobPromises.push(axios.get(`${job.url}api/json`, HTTPOptions));
@@ -49,14 +49,12 @@ async function startJobs() {
 	const jobDetailResponse = await Promise.all(jobPromises);
 
 	const buildPromises = [];
-	const jobDetails = jobDetailResponse.map((jobDetail) => jobDetail.data.buildable);
-	jobResponse.data.jobs.forEach((job, i) => {
-		if (jobDetails[i]) {
-			buildPromises.push(axios.post(`${job.url}build`, HTTPOptions));
-		}
+	const buildableJobs = jobDetailResponse.map((response) => response.data).filter((job) => job.buildable);
+	buildableJobs.forEach((job) => {
+		buildPromises.push(axios.post(`${job.url}build`, {}, HTTPOptions));
 	});
-	// const buildResponse = await Promise.all(buildPromises);
-	// console.log(buildResponse.data);
+	const buildResponse = await Promise.all(buildPromises);
+	console.log(buildResponse.data);
 }
 
 async function main() {

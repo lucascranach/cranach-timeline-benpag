@@ -9,8 +9,8 @@ const S3 = new AWS.S3({
 
 const HTTPOptions = {
 	auth: {
-		username: process.env.USERNAME,
-		password: process.env.PASSWORD,
+		username: process.env.JENKINS_REMOTE_USERNAME,
+		password: process.env.JENKINS_REMOTE_PASSWORD,
 	},
 };
 

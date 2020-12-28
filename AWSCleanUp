@@ -11,7 +11,7 @@ pipeline {
     }
     stage('CleanUp') {
       steps {
-        nodejs(nodeJSInstallationName: 'DefaultNodeJs', configId: 'abdc70c6-1b44-4c3c-90d9-86e2fb1da02f') {
+        nodejs('DefaultNodeJs') {
           sh 'cd backend && npm install && npm run aws-clear'
         }
       }

@@ -41,7 +41,7 @@ async function deleteBuckets() {
 }
 
 async function startJobs() {
-	const jobResponse = await axios.get('https://dev.pagelsdorf.de/job/cranach/api/json', HTTPOptions);
+	const jobResponse = await axios.get(`${process.env.JENKINS_URL}job/cranach/api/json`, HTTPOptions);
 	const jobPromises = [];
 	jobResponse.data.jobs.forEach((job) => {
 		jobPromises.push(axios.get(`${job.url}api/json`, HTTPOptions));

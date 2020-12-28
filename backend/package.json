@@ -5,6 +5,7 @@
   "scripts": {
     "start": "echo Running ESLint... && npx eslint \"**/*.js\" && echo Done && node app.js",
     "import": "echo Running ESLint... && npx eslint \"**/*.js\" && echo Done && node modules/importer/index.js"
+    "aws-clear": "node modules/delete-buckets.js"
   },
   "dependencies": {
     "aws-sdk": "^2.816.0",

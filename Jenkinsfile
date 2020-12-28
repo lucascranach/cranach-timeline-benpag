@@ -14,7 +14,6 @@ pipeline {
             nodejs('DefaultNodeJs') {
               sh 'cd frontend && npm install && npm run build'
             }
-
           }
         }
 
@@ -23,10 +22,8 @@ pipeline {
             nodejs('DefaultNodeJs') {
               sh 'bash deployment/import-data.sh'
             }
-
           }
         }
-
       }
     }
 
@@ -43,9 +40,7 @@ pipeline {
             sh 'bash deployment/deploy-frontend.sh'
           }
         }
-
       }
     }
-
   }
 }

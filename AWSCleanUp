@@ -1,0 +1,20 @@
+pipeline {
+  agent any
+   triggers {
+      parameterizedCron('0 0 0 ? * SUN *')
+  }
+  stages {
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+    stage('CleanUp') {
+      steps {
+        nodejs('DefaultNodeJs', configId: 'abdc70c6-1b44-4c3c-90d9-86e2fb1da02f') {
+          sh 'npm install && npm run aws-clear'
+        }
+      }
+    }
+  }
+}

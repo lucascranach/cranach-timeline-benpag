@@ -10,22 +10,12 @@ pipeline {
       }
     }
 
-    stage('Testing') {
-      stage('Unit') {
-        steps {
-          nodejs('DefaultNodeJs') {
-            sh 'cd frontend && npm run test:unit'
-          }
+    stage('Unit Tests') {
+      steps {
+        nodejs('DefaultNodeJs') {
+          sh 'cd frontend && npm run test:unit'
         }
-      }
-
-      stage('Integration') {
-        steps {
-          nodejs('DefaultNodeJs') {
-            sh 'cd frontend && npm run test:unit'
-          }
-        }
-      }
+	  }
     }
 
     stage('Build') {

@@ -4,6 +4,27 @@ pipeline {
     stage('Checkout') {
       steps {
         checkout scm
+        nodejs('DefaultNodeJs') {
+          sh 'cd frontend && npm install'
+        }
+      }
+    }
+
+    stage('Testing') {
+      stage('Unit') {
+        steps {
+          nodejs('DefaultNodeJs') {
+            sh 'cd frontend && npm run test:unit'
+          }
+        }
+      }
+
+      stage('Integration') {
+        steps {
+          nodejs('DefaultNodeJs') {
+            sh 'cd frontend && npm run test:unit'
+          }
+        }
       }
     }
 
@@ -12,7 +33,7 @@ pipeline {
         stage('Build') {
           steps {
             nodejs('DefaultNodeJs') {
-              sh 'cd frontend && npm install && npm run build'
+              sh 'cd frontend && npm run build'
             }
           }
         }

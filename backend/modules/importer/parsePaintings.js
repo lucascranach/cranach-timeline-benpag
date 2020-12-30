@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-// const axios = require('axios');
 const config = require('../../global.config');
 
 function getSortingDate(sortingDate, beginDate) {
@@ -28,7 +27,7 @@ function getLocations(locationArray) {
 
 function getRepresentativeImage(inventoryNumber, images) {
 	if (!images) {
-		console.log('Bild fehlt', inventoryNumber);
+		console.log(`Missing image for ${inventoryNumber}`);
 		return '';
 	}
 	return images.representative.variants.shift().s.src;

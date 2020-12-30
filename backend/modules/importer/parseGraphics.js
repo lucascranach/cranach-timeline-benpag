@@ -26,7 +26,7 @@ function getArtists(involvedPersons, lang) {
 
 function getRepresentativeImage(inventoryNumber, images) {
 	if (!images) {
-		console.log('Bild fehlt', inventoryNumber);
+		console.log(`Missing image for ${inventoryNumber}`);
 		return '';
 	}
 	return images.representative.variants.shift().s.src;

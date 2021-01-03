@@ -24,13 +24,21 @@ function getArtists(involvedPersons, lang) {
 	return involvedPersons.filter((it) => it.role === 'Artist' || 'printer');
 }
 
+function getRepresentativeImage(inventoryNumber, images) {
+	if (!images) {
+		console.log(`Missing image for ${inventoryNumber}`);
+		return '';
+	}
+	return images.representative.variants.shift().s.src;
+}
+
 function parseGraphics(graphicsJson, lang) {
 	const mainAttributes = {
 		graphics: [],
 	};
 	mainAttributes.graphics = graphicsJson.items.map((graphic) => ({
 		id: graphic.objectId,
-		imageUrl: '',
+		imageUrl: getRepresentativeImage(graphic.inventoryNumber, graphic.images),
 		startDate: graphic.dating.begin,
 		endDate: graphic.dating.end,
 		sortingDate: getSortingDate(graphic.sortingNumber, graphic.dating.begin),

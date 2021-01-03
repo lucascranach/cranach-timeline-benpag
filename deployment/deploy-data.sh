@@ -1,5 +1,6 @@
 buckets=`aws s3 ls`
-bucketname=data-${BRANCH_NAME////-}
+branchname=${BRANCH_NAME////-}
+bucketname=data-${branchname,,}
 
 if ! grep -q "$bucketname" <<< "$buckets"; then
  echo "Data bucket not there, new is one created"

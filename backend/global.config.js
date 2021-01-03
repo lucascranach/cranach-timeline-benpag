@@ -42,5 +42,4 @@ module.exports = {
 		backendConsole: 'debug',
 		MinReqLevel: 'info',
 	},
-	geocodingUrl: `https://geocoder.ls.hereapi.com/6.2/geocode.json?maxresults=1&apiKey=${process.env.API_KEY}`,
 };

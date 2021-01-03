@@ -5,9 +5,10 @@
   "scripts": {
     "start": "echo Running ESLint... && npx eslint \"**/*.js\" && echo Done && node app.js",
     "import": "echo Running ESLint... && npx eslint \"**/*.js\" && echo Done && node modules/importer/index.js",
-    "deploy": "cd ../.docker && docker-compose build && docker-compose down && docker-compose up -d"
+    "aws-clear": "node modules/delete-buckets.js"
   },
   "dependencies": {
+    "aws-sdk": "^2.816.0",
     "axios": "^0.19.2",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",

@@ -3,7 +3,6 @@ const fs = require('fs');
 const path = require('path');
 const parserPaintings = require('./parsePaintings');
 const parserGraphics = require('./parseGraphics');
-const backendLogger = require('../logger/backendLogger');
 const parserArchivals = require('./parseArchivals');
 const checkFiles = require('./checkFiles');
 
@@ -27,7 +26,7 @@ async function importData() {
 				return parserArchivals.parseArchivalsEn(jsonData.data);
 			}
 			return file.title;
-		}).catch((error) => backendLogger.error(error)));
+		}).catch((error) => console.error(error)));
 	});
 
 	return Promise.all(promises).then((data) => data.join('\n'));
@@ -35,13 +34,13 @@ async function importData() {
 
 if (!fs.existsSync(path.join(`${__dirname}../../../data/`))) fs.mkdirSync(path.join(`${__dirname}../../../data/`));
 
-backendLogger.debug('Check if parsing is required...');
+console.debug('Check if parsing is required...');
 if (!process.argv.includes('--force') && checkFiles.filesValid()) {
-	backendLogger.debug('No parse required!');
+	console.debug('No parse required!');
 } else {
-	backendLogger.debug('Parse is required!');
+	console.debug('Parse is required!');
 	importData().then((result) => {
-		backendLogger.debug('Parsing completed');
-		backendLogger.debug(result);
+		console.debug('Parsing completed');
+		console.debug(result);
 	});
 }

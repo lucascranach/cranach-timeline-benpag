@@ -1,7 +1,5 @@
 # Continuous Integration
 
-## General
-
 [Jenkins](https://www.jenkins.io/) is used as tool for CI. It is self hosted in a Docker container at dev.pagelsdorf.de. In order to access the Jenkins Web UI an own account is needed. The pipeline itself runs without an account needed, but it's recommended in order to debug failed builds.
 
 ## Usage with GitHub

@@ -3,8 +3,6 @@ import state from '../../../src/store/state';
 import getters from '../../../src/store/getters';
 import testItemData from '../../testItemData.json';
 import config from '../../../global.config';
-// import testEventData from '../../testEventData.json';
-// import testFilters from '../../testFilters.json';
 
 describe('store getters', () => {
 	let testState;

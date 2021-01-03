@@ -9,7 +9,7 @@
 This project is represented in Jenkins as a [Multibranch Pipeline](https://plugins.jenkins.io/workflow-multibranch/). The [Git Plugin](https://plugins.jenkins.io/git/) is connected to this repository. Every new created git branch as well as every pull request gets an own branch in the pipeline. A new build is triggered on every new commit; for branches it's based on the code base of the branch, for pull requests it's based on a pre-merge based on the to branches to be merged. Beacuse of this it's possible to see build errors before actually merging two branches, just by watching the build of a pull request.
 
 ## Build Pipeline
-The build pipeline is defined in the [Jenkinsfile](../../Jenkinsfile). Although it is possible to change the pipeline directly via BlueOcean, the Jenkinsfile is the place to look out in case of pipeline errors. As shown below, the pipeline has four steps. The checkout gets the code base, follow by unit tests, the actual Vue.js build (+ ESLint), as well as the data import and the deployment in the end.
+The build pipeline is defined in the [Jenkinsfile](../../Jenkinsfile). Although it is possible to change the pipeline directly via BlueOcean, the Jenkinsfile is the place to look out in case of pipeline errors. As shown below, the pipeline has four steps. The checkout gets the code base, followed by unit tests, the actual Vue.js build (+ ESLint), as well as the data import and the deployment in the end.
 
 ![Build Pipeline](pipeline.png)
 

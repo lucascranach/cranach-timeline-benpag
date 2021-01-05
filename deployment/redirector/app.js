@@ -21,8 +21,12 @@ app.get('/', (req, res) => {
 });
 
 app.get('/data', async (req, res) => {
-    const stages = await getStages();
-    res.send(stages);
+    try {
+      const stages = await getStages();
+      res.send(stages);
+    } catch (ex){
+      console.log(ex);
+    }
 });
 
 async function getStages() {

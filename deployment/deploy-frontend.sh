@@ -1,6 +1,6 @@
 buckets=`aws s3 ls`
 branchname=${BRANCH_NAME////-}
-bucketname=frontend-${branchname,,}
+bucketname=cranach-${branchname,,}
 
 echo $buckets
 

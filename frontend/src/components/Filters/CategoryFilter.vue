@@ -1,5 +1,6 @@
 <template>
 	<v-menu
+		id="category-filter"
 		offset-y
 		tile
 		:close-on-content-click="false"

@@ -1,18 +1,21 @@
 import { expect } from 'chai';
-import state from '../../../../src/store/state';
-import testItemData from '../../../testItemData.json';
+import { mount } from '@vue/test-utils';
+import i18n from '@/plugins/i18n';
+import CategoryFilter from '../../../../src/components/Filters/CategoryFilter.vue';
+import store from '../../../../src/store/index';
 
 describe('CategoryFilter.vue', () => {
-	let testState;
+	let wrapper;
 
 	beforeEach(() => {
-		testState = JSON.parse(JSON.stringify(state));
-		testState.allItems = testItemData;
-		testState.items = testItemData;
+		wrapper = mount(CategoryFilter, {
+			i18n,
+			store,
+		});
 	});
 
-	it('should execute addFilter', () => {
-		// eslint-disable-next-line no-unused-expressions
-		expect(true).to.be.true;
+	it('category filter component should exists', () => {
+		// eslint-disable-next-line no-unused-expressions,no-undef
+		expect(wrapper.find('#category-filter').element).to.exist;
 	});
 });

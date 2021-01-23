@@ -1,6 +1,6 @@
 <template>
 	<div :id="chartDivId">
-		<ChartLegend />
+		<ChartLegend id="chart-legend" />
 		<ToolTipItem ref="tooltip" :id="tooltipDivId" class="chart-tooltip" :item="toolTipData" />
 		<ChartControlBar
 			class="chart-controls"
@@ -286,7 +286,7 @@ export default {
 			this.setChartZoomTransform(transform);
 		},
 		calculateItemSymbolSize() {
-			if (this.scatterPlot === null) {
+			if (this.scatterPlot === null || this.scatterPlot.node() === null) {
 				return 6;
 			}
 			const symbolYPadding = 1;

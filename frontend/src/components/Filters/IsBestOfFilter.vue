@@ -1,5 +1,6 @@
 <template>
 	<v-btn
+		id="best-of-filter"
 		outlined
 		block
 		class="text-none"

@@ -35,12 +35,4 @@ describe('LocationFilter.vue', () => {
 		await wrapper.find('#location-filter-button').trigger('click');
 		expect(wrapper.find('#location-filter-dropdown').element.style.display).to.not.equal('none');
 	});
-
-	it('enter text should enable location filter', async () => { // TODO
-		await wrapper.find('#location-filter-button').trigger('click');
-		await wrapper.find('input[type="text"]').trigger('click');
-		wrapper.find('input[type="text"]').setValue('Aachen');
-		await wrapper.find('v-simple-checkbox').trigger('click');
-		expect(wrapper.vm.$data.selectedLocations).to.not.be.empty;
-	});
 });

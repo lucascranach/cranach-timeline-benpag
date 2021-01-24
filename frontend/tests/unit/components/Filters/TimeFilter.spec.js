@@ -1,33 +1,20 @@
 /* eslint-disable no-unused-expressions */
 import { expect } from 'chai';
-import { mount, createLocalVue } from '@vue/test-utils';
-import i18n from '@/plugins/i18n';
-import Vue from 'vue';
-import TimeFilter from '../../../../src/components/Filters/TimeFilter.vue';
-import store from '../../../../src/store/index';
-import vuetify from '../../../../src/plugins/vuetify';
-import config from '../../../../global.config';
-
-global.requestAnimationFrame = () => {};
-const localVue = createLocalVue();
-Vue.use(vuetify);
+import { getWrapper, initializeTest } from '@/../tests/setup';
+import config from '@/../global.config';
+import TimeFilter from '@/components/Filters/TimeFilter.vue';
 
 describe('TimeFilter.vue', () => {
 	let wrapper;
 
-	beforeEach(() => {
-		wrapper = mount(TimeFilter, {
-			i18n,
-			store,
-			vuetify,
-			localVue,
-		});
+	before(() => {
+		initializeTest();
+		wrapper = getWrapper(TimeFilter);
 	});
 
 	it('time filter should exist', () => {
 		expect(wrapper.find('#time-filter').element).to.exist;
 	});
-
 	it('time filter should be visible', () => {
 		expect(wrapper.find('#time-filter').element.style.display).to.not.equal('none');
 	});

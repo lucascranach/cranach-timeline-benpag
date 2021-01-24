@@ -1,6 +1,6 @@
 import Vue from 'vue';
-import Vuetify from 'vuetify/lib/framework';
-import colors from '@/plugins/colors';
+import Vuetify from 'vuetify';
+import colors from './colors';
 
 Vue.use(Vuetify);
 

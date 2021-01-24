@@ -1,26 +1,14 @@
 /* eslint-disable no-unused-expressions */
 import { expect } from 'chai';
-import { mount, createLocalVue } from '@vue/test-utils';
-import i18n from '@/plugins/i18n';
-import Vue from 'vue';
+import { getWrapper, initializeTest } from '@/../tests/setup';
 import TextSearchFilter from '../../../../src/components/Filters/TextSearchFilter.vue';
-import store from '../../../../src/store/index';
-import vuetify from '../../../../src/plugins/vuetify';
-
-global.requestAnimationFrame = () => {};
-const localVue = createLocalVue();
-Vue.use(vuetify);
 
 describe('TextSearchFilter.vue', () => {
 	let wrapper;
 
-	beforeEach(() => {
-		wrapper = mount(TextSearchFilter, {
-			i18n,
-			store,
-			vuetify,
-			localVue,
-		});
+	before(() => {
+		initializeTest();
+		wrapper = getWrapper(TextSearchFilter);
 	});
 
 	it('search should exist', () => {

@@ -2,7 +2,6 @@
 import { expect } from 'chai';
 import { getWrapper, initializeTest } from '@/../tests/setup';
 import Chart from '@/components/Visualization/Chart/Chart.vue';
-import testItemData from '@/../tests/testItemData.json';
 
 describe('Chart.vue', () => {
 	const chartDivId = 'cranach-chart';

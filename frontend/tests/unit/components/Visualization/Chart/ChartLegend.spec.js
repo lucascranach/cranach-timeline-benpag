@@ -27,7 +27,7 @@ describe('ChartLegend.vue', () => {
 	});
 
 	it('each button should add one type of category', async () => {
-		const legendButtons = Array.of(wrapper.findAll('button'));
+		const legendButtons = wrapper.findAll('button').wrappers;
 		await Promise.all(legendButtons.map((btn) => btn.trigger('click')));
 		expect(wrapper.vm.$data.selectedCategories.length).to.equal(categoryTypeCount);
 	});

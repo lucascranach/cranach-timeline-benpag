@@ -1,5 +1,5 @@
 <template>
-	<div :style="`margin:0 ${margin.right}px 0 ${margin.left}px;height:${svgHeight}px`">
+	<div class="special-event-timeline" :style="`margin:0 ${margin.right}px 0 ${margin.left}px;height:${svgHeight}px`">
 		<EventToolTipItem
 			:id="toolTipId"
 			:item="toolTipData"

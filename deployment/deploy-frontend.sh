@@ -1,5 +1,6 @@
 buckets=`aws s3 ls`
-branchname=${${BRANCH_NAME////-}//[#\$\+\*\!\\\(\)\[\]\{\}\?\"\']/}
+branchname=${BRANCH_NAME////-}
+branchname=${branchname//[#\$\+\*\!\\\(\)\[\]\{\}\?\"\']/}
 bucketname=cranach-${branchname,,}
 
 echo $buckets

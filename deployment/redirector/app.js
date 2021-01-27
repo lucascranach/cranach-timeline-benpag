@@ -42,10 +42,16 @@ async function getStages() {
 
 async function isBuildable(url) {
     const response = await axios.get(url, HTTPOptions);
-    const stageUrl = `http://cranach-${response.data.displayName.replace('/', '-').toLowerCase()}.s3-website.eu-central-1.amazonaws.com`;
+    const stageUrl = `http://cranach-${getFormattedBranchName(response.data.displayName)}.s3-website.eu-central-1.amazonaws.com`;
     return {
         buildable: response.data.buildable,
         name: response.data.displayName,
         url: stageUrl
     };
 }
+
+function getFormattedBranchName(branchName) {
+    const re = /[#$+*!\\()\[\]{}?"']/i;
+    return branchName.replace('/', '-').replace(re, '').toLowerCase()
+}
+

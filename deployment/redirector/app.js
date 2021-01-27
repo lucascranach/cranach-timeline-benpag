@@ -51,7 +51,7 @@ async function isBuildable(url) {
 }
 
 function getFormattedBranchName(branchName) {
-    const re = /[#$+*!\\()\[\]{}?"']/i;
+    const re = /[#$+*!\\()[\]{}?"']/i;
     return branchName.replace('/', '-').replace(re, '').toLowerCase()
 }
 

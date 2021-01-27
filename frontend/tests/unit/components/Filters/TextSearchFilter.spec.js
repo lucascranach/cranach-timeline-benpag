@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 import { expect } from 'chai';
 import { getWrapper, initializeTest } from '@/../tests/setup';
-import TextSearchFilter from '../../../../src/components/Filters/TextSearchFilter.vue';
+import TextSearchFilter from '@/components/Filters/TextSearchFilter.vue';
 
 describe('TextSearchFilter.vue', () => {
 	let wrapper;

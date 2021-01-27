@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 import { expect } from 'chai';
 import { getWrapper, initializeTest } from '@/../tests/setup';
-import LocationFilter from '../../../../src/components/Filters/LocationFilter.vue';
+import LocationFilter from '@/components/Filters/LocationFilter.vue';
 
 describe('LocationFilter.vue', () => {
 	let wrapper;

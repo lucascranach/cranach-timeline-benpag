@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 import { expect } from 'chai';
 import { getWrapper, initializeTest } from '@/../tests/setup';
-import IsBestOfFilter from '../../../../src/components/Filters/IsBestOfFilter.vue';
+import IsBestOfFilter from '@/components/Filters/IsBestOfFilter.vue';
 
 describe('IsBestOfFilter.vue', () => {
 	let wrapper;

@@ -60,7 +60,7 @@
 
 <script>
 import { mapActions, mapGetters, mapState } from 'vuex';
-import config from '../../../global.config';
+import config from '@/../global.config';
 
 export default {
 	name: 'TimeFilter',

@@ -1,5 +1,5 @@
 buckets=`aws s3 ls`
-branchname=${BRANCH_NAME////-}
+branchname=${${BRANCH_NAME////-}//[#\$\+\*\!\\\(\)\[\]\{\}\?\"\']/}
 bucketname=cranach-data-${branchname,,}
 
 if ! grep -q "$bucketname" <<< "$buckets"; then

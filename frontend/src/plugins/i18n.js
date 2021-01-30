@@ -14,7 +14,7 @@ const messages = {
 		paintings: 'Gemälde',
 		painting: 'Gemälde',
 		graphics: 'Druckgrafiken',
-		graphic: 'Druckgrafik',
+		graphic: 'Druckgrafiken',
 		archivals: 'Archivalien',
 		archival: 'Archivalien',
 		fulltext: 'Volltext',

@@ -43,9 +43,9 @@ export default {
 	data() {
 		return {
 			categoryList: [
-				{ name: 'paintings', value: 'painting' },
-				{ name: 'graphics', value: 'graphic' },
-				{ name: 'archivals', value: 'archival' },
+				{ name: 'paintings', value: 'paintings' },
+				{ name: 'graphics', value: 'graphics' },
+				{ name: 'archivals', value: 'archivals' },
 			],
 			colors: colors.getCategoryColors(),
 			selectedCategories: [],

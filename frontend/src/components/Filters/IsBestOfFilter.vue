@@ -1,13 +1,35 @@
 <template>
-	<v-btn
-		id="best-of-filter"
-		outlined
-		block
-		class="text-none"
-		@click="toggleBestOf"
+	<v-menu
+		offset-y
+		tile
+		:close-on-content-click="false"
 	>
-		{{ $t('is_best_of_filter') }}
-	</v-btn>
+	<template v-slot:activator="{ on, attrs }">
+			<v-btn
+				id="best-of-filter"
+				outlined
+				block
+				v-bind="attrs"
+				v-on="on"
+				class="text-none"
+			>
+				{{ $t('miscellaneous') }}
+			</v-btn>
+		</template>
+		<v-card id="best-of-filter-dropdown" flat class="px-3 py-6">
+			<v-switch
+				:label="$t('is_best_of_filter')"
+				v-model="isBestOf"
+				:value="isBestOf"
+				class="my-1"
+				inset
+				dense
+				multiple
+				hide-details
+				@click="toggleBestOf"
+			/>
+		</v-card>
+	</v-menu>
 </template>
 
 <script>

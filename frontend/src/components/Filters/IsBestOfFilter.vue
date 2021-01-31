@@ -18,6 +18,7 @@
 		</template>
 		<v-card id="best-of-filter-dropdown" flat class="px-3 py-6">
 			<v-switch
+				id="best-of-filter-switch"
 				:label="$t('is_best_of_filter')"
 				:true-value="isBestOf"
 				:false-value="!isBestOf"

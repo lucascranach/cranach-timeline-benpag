@@ -19,8 +19,8 @@
 		<v-card id="best-of-filter-dropdown" flat class="px-3 py-6">
 			<v-switch
 				:label="$t('is_best_of_filter')"
-				v-model="isBestOf"
-				:value="isBestOf"
+				:true-value="isBestOf"
+				:false-value="!isBestOf"
 				class="my-1"
 				inset
 				dense

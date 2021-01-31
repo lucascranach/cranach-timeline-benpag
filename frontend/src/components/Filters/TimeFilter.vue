@@ -1,11 +1,13 @@
 <template>
 	<v-menu
+		id="time-filter"
 		offset-y
 		tile
 		:close-on-content-click="false"
 	>
 		<template v-slot:activator="{ on, attrs }">
 			<v-btn
+				id="time-filter-button"
 				outlined
 				block
 				v-bind="attrs"
@@ -15,7 +17,7 @@
 				{{ $t('time_filter') }}
 			</v-btn>
 		</template>
-		<v-card flat class="px-3 py-6">
+		<v-card flat class="px-3 py-6" id="time-filter-dropdown">
 			<v-row dense>
 				<v-col>
 					<v-text-field
@@ -58,7 +60,7 @@
 
 <script>
 import { mapActions, mapGetters, mapState } from 'vuex';
-import config from '../../../global.config';
+import config from '@/../global.config';
 
 export default {
 	name: 'TimeFilter',

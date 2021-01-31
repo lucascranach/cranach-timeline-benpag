@@ -16,7 +16,7 @@ The last pipeline step deploys every Jenkins branch to a designated stage, backe
 
 `http://frontend-{{branchname}}.s3-website.eu-central-1.amazonaws.com`
 
-Slashed are replaced by minus, so for example the branch "feature/continuous-integration" has the staging url `http://frontend-feature-continuous-integration.s3-website.eu-central-1.amazonaws.com`.
+Slashed are replaced by minus, every other character [restricted for S3 buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html) will be deleted. So for example the branch "feature/continuous-integration" has the staging url `http://frontend-feature-continuous-integration.s3-website.eu-central-1.amazonaws.com`.
 
 ## Stage Cleanup
 Buckets will not be deleted after a branch is deleted or a pull request is closed. In order to keep the buckets in our account (and the bucks in our bank-account) small, every week a Jenkins pipeline called "Cranach AWS CleanUp" is triggered via Crontab und deletes all buckets, so a new build creates the bucket new, older buckets won't be re-created. It has an own [Jenkinsfile](../../AWSCleanUp).

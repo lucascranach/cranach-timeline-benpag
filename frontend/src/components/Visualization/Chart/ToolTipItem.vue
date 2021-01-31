@@ -4,6 +4,7 @@
 		:height="maxToolTipHeight"
 		:max-width="maxToolTipWidth"
 		class="d-inline-flex justify-start"
+		id="tooltip-info-card"
 	>
 		<img
 			class="tooltip-thumbnail"

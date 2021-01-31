@@ -1,5 +1,6 @@
 <template>
 	<v-menu
+		id="text-search-filter"
 		v-model="isMenuOpen"
 		offset-y
 		tile
@@ -7,6 +8,7 @@
 	>
 		<template v-slot:activator="{ on, attrs }">
 			<v-btn
+				id="text-search-filter-button"
 				outlined
 				block
 				v-bind="attrs"
@@ -16,8 +18,9 @@
 				{{ $t('text_search_filter') }}
 			</v-btn>
 		</template>
-		<v-card flat class="px-3 py-6">
+		<v-card flat class="px-3 py-6" id="text-search-filter-dropdown">
 			<v-text-field
+				id="text-search-filter-input"
 				v-model="search"
 				:label="$t('text_search_filter')"
 				outlined

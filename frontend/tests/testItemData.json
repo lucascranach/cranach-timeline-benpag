@@ -3302,354 +3302,713 @@
     "type": "archival"
   },
   {
-    "id": "DE_StSWR_109_Bc97_326-331r",
+    "id": 467836,
     "imageUrl": "",
-    "detailUrl": "http://lucascranach.org/archival-documents/DE_StSWR_109_Bc97_326-331r",
-    "startDate": 1544,
-    "endDate": 1544,
-    "title": "DE_StSWR_109_Bc97_326-331r",
-    "location": "",
-    "artists": "",
-    "repository": "Städtische Sammlungen Wittenberg, Ratsarchiv",
-    "summary": "Der Bürgermeister Lucas Cranach ist am 18. Januar 1544 in Wittenberg zum Gerichtstag anwesend.",
-    "type": "archival"
+    "detailUrl": "http://lucascranach.org/DE_HKH_HK-119",
+    "startDate": 1500,
+    "endDate": 1599,
+    "sortingDate": 1500,
+    "title": [
+      "Martin Luther"
+    ],
+    "location": [
+      "Hamburg",
+      "Hamburg"
+    ],
+    "artists": [
+      {
+        "id": "",
+        "role": "Künstler",
+        "name": "",
+        "prefix": "",
+        "suffix": "Nachahmer Lucas Cranach der Ältere",
+        "nameType": "",
+        "alternativeName": "",
+        "remarks": "[Cat. Hamburg 2007, No. 119]",
+        "date": "",
+        "isUnknown": true
+      }
+    ],
+    "owner": "Hamburger Kunsthalle",
+    "type": "painting",
+    "isBestOf": false
   },
   {
-    "id": "DE_StSWR_109_Bc97_329-334r",
-    "imageUrl": "",
-    "detailUrl": "http://lucascranach.org/archival-documents/DE_StSWR_109_Bc97_329-334r",
-    "startDate": 1544,
-    "endDate": 1544,
-    "title": "DE_StSWR_109_Bc97_329-334r",
-    "location": "",
-    "artists": "",
-    "repository": "Städtische Sammlungen Wittenberg, Ratsarchiv",
-    "summary": "Bei der Übergabe der Regierungsgeschäfte an die Ratsmannschaft unter Hieronymus Krapp für das Jahr 1544 fehlt der amtierende Bürgermeister Lucas Cranach, der 1543 für die Amtsgeschäfte verantwortlich war.",
-    "type": "archival"
+    "id": 346083,
+    "imageUrl": "https://lucascranach.org/imageserver/AT_KHM_GG6905_FR001/01_Overall/AT_KHM_GG6905_FR001_2008-08_Overall-s.jpg",
+    "detailUrl": "http://lucascranach.org/AT_KHM_GG6905",
+    "startDate": 1501,
+    "endDate": 1501,
+    "sortingDate": 1501.001,
+    "title": [
+      "Kreuzigung Christi, sog. \"Schottenkreuzigung\""
+    ],
+    "location": [
+      "Wien"
+    ],
+    "artists": [
+      {
+        "id": "",
+        "role": "Künstler",
+        "name": "Lucas Cranach der Ältere",
+        "prefix": "",
+        "suffix": "",
+        "nameType": "Primärer Name",
+        "alternativeName": "Lucas Cranach der Ältere",
+        "remarks": "[Kunsthistorisches Museum, revised 2010]",
+        "date": "",
+        "isUnknown": false
+      }
+    ],
+    "owner": "Kunsthistorisches Museum, Wien",
+    "type": "painting",
+    "isBestOf": true
   },
   {
-    "id": "DE_StSWR_109_Bc97_377-384r",
-    "imageUrl": "",
-    "detailUrl": "http://lucascranach.org/archival-documents/DE_StSWR_109_Bc97_377-384r",
-    "startDate": 1546,
-    "endDate": 1546,
-    "title": "DE_StSWR_109_Bc97_377-384r",
-    "location": "",
-    "artists": "",
-    "repository": "Städtische Sammlungen Wittenberg, Ratsarchiv",
-    "summary": "Lucas Cranach der Jüngere ist als Schöffe auf dem Gerichtstag am 26. Februar 1546 in Wittenberg anwesend.",
-    "type": "archival"
+    "id": 426981,
+    "imageUrl": "https://lucascranach.org/imageserver/AT_KHM_GG6739_FR004/01_Overall/AT_KHM_GG6739_FR004_2017-01_Overall-s.jpg",
+    "detailUrl": "http://lucascranach.org/AT_KHM_GG6739",
+    "startDate": 1502,
+    "endDate": 1502,
+    "sortingDate": 1502.001,
+    "title": [
+      "Büssender Hl. Hieronymus",
+      "Der heilige Hieronymus in der Wüste"
+    ],
+    "location": [
+      "Wien"
+    ],
+    "artists": [
+      {
+        "id": "",
+        "role": "Künstler",
+        "name": "Lucas Cranach der Ältere",
+        "prefix": "",
+        "suffix": "",
+        "nameType": "Primärer Name",
+        "alternativeName": "Lucas Cranach der Ältere",
+        "remarks": "[Kunsthistorisches Museum, revised 2011][Sandner 1998 B, 150]",
+        "date": "",
+        "isUnknown": false
+      }
+    ],
+    "owner": "Kunsthistorisches Museum, Wien",
+    "type": "painting",
+    "isBestOf": true
   },
   {
-    "id": "DE_StSWR_109_Bc97_379-386r",
-    "imageUrl": "",
-    "detailUrl": "http://lucascranach.org/archival-documents/DE_StSWR_109_Bc97_379-386r",
-    "startDate": 1546,
-    "endDate": 1546,
-    "title": "DE_StSWR_109_Bc97_379-386r",
-    "location": "",
-    "artists": "",
-    "repository": "Städtische Sammlungen Wittenberg, Ratsarchiv",
-    "summary": "Lucas Cranach der Jüngere ist als Schöffe auf dem Gerichtstag am 7. Mai 1546 in Wittenberg anwesend.",
-    "type": "archival"
+    "id": 345908,
+    "imageUrl": "https://lucascranach.org/imageserver/CH_SORW_1925-1b_FR006/01_Overall/CH_SORW_1925-1b_FR006_2008-11_Overall-s.jpg",
+    "detailUrl": "http://lucascranach.org/CH_SORW_1925-1b",
+    "startDate": 1502,
+    "endDate": 1502,
+    "sortingDate": 1502.002,
+    "title": [
+      "Bildnis des Johannes Cuspinian",
+      "Ehediptychon des Dr. Johannes Cuspinian und der Anna Cuspinian-Putsch"
+    ],
+    "location": [
+      "Winterthur",
+      "Winterthur"
+    ],
+    "artists": [
+      {
+        "id": "",
+        "role": "Künstler",
+        "name": "Lucas Cranach der Ältere",
+        "prefix": "",
+        "suffix": "",
+        "nameType": "Primärer Name",
+        "alternativeName": "Lucas Cranach der Ältere",
+        "remarks": "[Heydenreich 1998 A, 182]",
+        "date": "",
+        "isUnknown": false
+      }
+    ],
+    "owner": "Sammlung Oskar Reinhart, Winterthur",
+    "type": "painting",
+    "isBestOf": true
   },
   {
-    "id": "DE_StSWR_109_Bc97_382-389r",
-    "imageUrl": "",
-    "detailUrl": "http://lucascranach.org/archival-documents/DE_StSWR_109_Bc97_382-389r",
-    "startDate": 1546,
-    "endDate": 1546,
-    "title": "DE_StSWR_109_Bc97_382-389r",
-    "location": "",
-    "artists": "",
-    "repository": "Städtische Sammlungen Wittenberg, Ratsarchiv",
-    "summary": "Lucas Cranach der Jüngere fehlt als Schöffe auf dem Gerichtstag am 4. Juni 1546 in Wittenberg.",
-    "type": "archival"
+    "id": 345949,
+    "imageUrl": "https://lucascranach.org/imageserver/CH_SORW_1925-1a_FR007/01_Overall/CH_SORW_1925-1a_FR007_1998-11_Overall-s.jpg",
+    "detailUrl": "http://lucascranach.org/CH_SORW_1925-1a",
+    "startDate": 1502,
+    "endDate": 1502,
+    "sortingDate": 1502.003,
+    "title": [
+      "Bildnis der Anna Cuspinian",
+      "Ehediptychon des Dr. Johannes Cuspinian und der\nAnna Cuspinian-Putsch"
+    ],
+    "location": [
+      "Winterthur",
+      "Winterthur"
+    ],
+    "artists": [
+      {
+        "id": "",
+        "role": "Künstler",
+        "name": "Lucas Cranach der Ältere",
+        "prefix": "",
+        "suffix": "",
+        "nameType": "Primärer Name",
+        "alternativeName": "Lucas Cranach der Ältere",
+        "remarks": "[Sandner 1998 B, 122][Heydenreich 1998 A, 182]",
+        "date": "",
+        "isUnknown": false
+      }
+    ],
+    "owner": "Sammlung Oskar Reinhart, Winterthur",
+    "type": "painting",
+    "isBestOf": true
   },
   {
-    "id": "DE_StSWR_109_Bc97_383-390r",
-    "imageUrl": "",
-    "detailUrl": "http://lucascranach.org/archival-documents/DE_StSWR_109_Bc97_383-390r",
-    "startDate": 1547,
-    "endDate": 1547,
-    "title": "DE_StSWR_109_Bc97_383-390r",
-    "location": "",
-    "artists": "",
-    "repository": "Städtische Sammlungen Wittenberg, Ratsarchiv",
-    "summary": "Lucas Cranach der Jüngere ist als Ratsmitglied und Schöffe bei der Übergabe der Regierungsgeschäfte am 28. Januar 1547 an den neuen Rat unter Bürgermeister Hieronymus Krapp anwesend.",
-    "type": "archival"
+    "id": 413895,
+    "imageUrl": "https://lucascranach.org/imageserver/DE_GNMN_Gm207_FR008/01_Overall/DE_GNMN_Gm207_FR008_2009-02_Overall-s.jpg",
+    "detailUrl": "http://lucascranach.org/DE_GNMN_Gm207",
+    "startDate": 1503,
+    "endDate": 1503,
+    "sortingDate": 1503.001,
+    "title": [
+      "Bildnis eines Juristen",
+      "Bildnis des Wiener Universitätsrektors Dr. Johann Stephan Reuß"
+    ],
+    "location": [
+      "Nürnberg"
+    ],
+    "artists": [
+      {
+        "id": "",
+        "role": "Künstler",
+        "name": "Lucas Cranach der Ältere",
+        "prefix": "",
+        "suffix": "",
+        "nameType": "Primärer Name",
+        "alternativeName": "Lucas Cranach der Ältere",
+        "remarks": "[Exhib. Cat. Düsseldorf 2017, 105, No. 3] \n[Sandner 1998 B, 118]\n[Heydenreich 1998 A, 182]\n[Löcher, Cat. Nuremberg 1997, 124]\n[Rieffel 1895, 425-428][1]\n\n[1][Löcher, Cat. Nuremberg 1997, 124]",
+        "date": "",
+        "isUnknown": false
+      },
+      {
+        "id": "",
+        "role": "Künstler",
+        "name": "Matthias Grünewald",
+        "prefix": "",
+        "suffix": "",
+        "nameType": "Primärer Name",
+        "alternativeName": "Matthias Grünewald",
+        "remarks": "[Michaelson 1902, 32][1]\n[Woermann 1900][1]\n[Friedländer 1894][1]\n[Janitschek 1890, 392][1]\n[Bayersdorf, Cat. Schleissheim 1885][1]\n\n[1][Löcher, Cat. Nuremberg 1997, 124]",
+        "date": "",
+        "isUnknown": false
+      },
+      {
+        "id": "",
+        "role": "Künstler",
+        "name": "Wolfgang Huber",
+        "prefix": "",
+        "suffix": "",
+        "nameType": "Primärer Name",
+        "alternativeName": "Wolfgang Huber",
+        "remarks": "\"[...] und Umkreis\"\n[Schmidt 1892][1]\n\n[1][Löcher, Cat. Nuremberg 1997, 124]",
+        "date": "",
+        "isUnknown": false
+      }
+    ],
+    "owner": "Stadt Nürnberg",
+    "type": "painting",
+    "isBestOf": false
+  },{
+  "id": 940760,
+  "imageUrl": "https://lucascranach.org/imageserver/G_AT_A_DG1929-130/01_Overall/G_AT_A_DG1929-130_Overall-s.jpg",
+  "startDate": 1509,
+  "endDate": 1509,
+  "sortingDate": 1509,
+  "title": [
+    "Christus vor Kaiphas (aus der Passion Christi, Folge von 14 Holzschnitten)",
+    "Christus vor Annas"
+  ],
+  "location": [
+    ""
+  ],
+  "artists": [
+    {
+      "id": "",
+      "role": "Inventor",
+      "name": "Lucas Cranach der Ältere",
+      "prefix": "",
+      "suffix": "",
+      "nameType": "Primärer Name",
+      "alternativeName": "Lucas Cranach der Ältere",
+      "remarks": "",
+      "date": "",
+      "isUnknown": false
+    }
+  ],
+  "owner": "",
+  "type": "graphic"
+},
+  {
+    "id": 946471,
+    "imageUrl": "https://lucascranach.org/imageserver/G_AT_A_DG1929-74/01_Overall/G_AT_A_DG1929-74_Overall-s.jpg",
+    "startDate": 1509,
+    "endDate": 1509,
+    "sortingDate": 1509,
+    "title": [
+      "Buße des heiligen Johannes Chrysostomos"
+    ],
+    "location": [
+      ""
+    ],
+    "artists": [
+      {
+        "id": "",
+        "role": "Inventor",
+        "name": "Lucas Cranach der Ältere",
+        "prefix": "",
+        "suffix": "",
+        "nameType": "Primärer Name",
+        "alternativeName": "Lucas Cranach der Ältere",
+        "remarks": "[http://sammlungenonline.albertina.at/?query=Inventarnummer=[DG1929/76]&showtype=record]",
+        "date": "",
+        "isUnknown": false
+      }
+    ],
+    "owner": "",
+    "type": "graphic"
   },
   {
-    "id": "DE_StSWR_109_Bc97_408-417r",
-    "imageUrl": "",
-    "detailUrl": "http://lucascranach.org/archival-documents/DE_StSWR_109_Bc97_408-417r",
-    "startDate": 1549,
-    "endDate": 1549,
-    "title": "DE_StSWR_109_Bc97_408-417r",
-    "location": "",
-    "artists": "",
-    "repository": "Städtische Sammlungen Wittenberg, Ratsarchiv",
-    "summary": "Lucas Cranach der Jüngere ist als Ratsmitglied und Schöffe am Gerichtstag des 24. Mai 1549 anwesend.",
-    "type": "archival"
+    "id": 948391,
+    "imageUrl": "https://lucascranach.org/imageserver/G_AT_A_DG1929-114/01_Overall/G_AT_A_DG1929-114_Overall-s.jpg",
+    "startDate": 1509,
+    "endDate": 1509,
+    "sortingDate": 1509,
+    "title": [
+      "Der heilige Petrus"
+    ],
+    "location": [
+      ""
+    ],
+    "artists": [
+      {
+        "id": "",
+        "role": "Inventor",
+        "name": "Lucas Cranach der Ältere",
+        "prefix": "",
+        "suffix": "",
+        "nameType": "Primärer Name",
+        "alternativeName": "Lucas Cranach der Ältere",
+        "remarks": "[cda 2019]",
+        "date": "",
+        "isUnknown": false
+      }
+    ],
+    "owner": "",
+    "type": "graphic"
   },
   {
-    "id": "DE_StSWR_109_Bc97_410-419r",
-    "imageUrl": "",
-    "detailUrl": "http://lucascranach.org/archival-documents/DE_StSWR_109_Bc97_410-419r",
-    "startDate": 1549,
-    "endDate": 1549,
-    "title": "DE_StSWR_109_Bc97_410-419r",
-    "location": "",
-    "artists": "",
-    "repository": "Städtische Sammlungen Wittenberg, Ratsarchiv",
-    "summary": "Lucas Cranach der Jüngere ist als Ratsmitglied und Schöffe am Gerichtstag des 5. Juli 1549 anwesend.",
-    "type": "archival"
+    "id": 948652,
+    "imageUrl": "https://lucascranach.org/imageserver/G_AT_A_DG1929-117/01_Overall/G_AT_A_DG1929-117_Overall-s.jpg",
+    "startDate": 1509,
+    "endDate": 1509,
+    "sortingDate": 1509,
+    "title": [
+      "Adam und Eva"
+    ],
+    "location": [
+      ""
+    ],
+    "artists": [
+      {
+        "id": "",
+        "role": "Inventor",
+        "name": "Lucas Cranach der Ältere",
+        "prefix": "",
+        "suffix": "",
+        "nameType": "Primärer Name",
+        "alternativeName": "Lucas Cranach der Ältere",
+        "remarks": "[cda 2019]",
+        "date": "",
+        "isUnknown": false
+      }
+    ],
+    "owner": "",
+    "type": "graphic"
   },
   {
-    "id": "DE_StSWR_109_Bc97_411-420r-v",
-    "imageUrl": "",
-    "detailUrl": "http://lucascranach.org/archival-documents/DE_StSWR_109_Bc97_411-420r-v",
-    "startDate": 1549,
-    "endDate": 1549,
-    "title": "DE_StSWR_109_Bc97_411-420r-v",
-    "location": "",
-    "artists": "",
-    "repository": "Städtische Sammlungen Wittenberg, Ratsarchiv",
-    "summary": "Lucas Cranach der Jüngere ist als Ratsmitglied und Schöffe am Gerichtstag des 20. September 1549 anwesend und regelt für sich und seinen Vater eine Hausübergabe an die Witwe des Bürgermeisters Philipp Reichenbach. Außerdem reicht er Klage gegen Jakob Helwick wegen 21,5 Talern Schulden ein.",
-    "type": "archival"
+    "id": 948787,
+    "imageUrl": "https://lucascranach.org/imageserver/G_AT_A_DG1929-123/01_Overall/G_AT_A_DG1929-123_Overall-s.jpg",
+    "startDate": 1509,
+    "endDate": 1509,
+    "sortingDate": 1509,
+    "title": [
+      "Die Buße des hl. Hieronymus"
+    ],
+    "location": [
+      ""
+    ],
+    "artists": [
+      {
+        "id": "",
+        "role": "Inventor",
+        "name": "Lucas Cranach der Ältere",
+        "prefix": "",
+        "suffix": "",
+        "nameType": "Primärer Name",
+        "alternativeName": "Lucas Cranach der Ältere",
+        "remarks": "[cda 2019]",
+        "date": "",
+        "isUnknown": false
+      }
+    ],
+    "owner": "",
+    "type": "graphic"
   },
   {
-    "id": "DE_StSWR_109_Bc97_412-421r-v",
-    "imageUrl": "",
-    "detailUrl": "http://lucascranach.org/archival-documents/DE_StSWR_109_Bc97_412-421r-v",
-    "startDate": 1549,
-    "endDate": 1549,
-    "title": "DE_StSWR_109_Bc97_412-421r-v",
-    "location": "",
-    "artists": "",
-    "repository": "Städtische Sammlungen Wittenberg, Ratsarchiv",
-    "summary": "Lucas Cranach der Jüngere ist als Ratsmitglied und Schöffe zum Gerichtstag des 1. November 1549 anwesend und reicht gegen den Schuldner Jacob Helwick die zweite Klage ein.",
-    "type": "archival"
+    "id": 949007,
+    "imageUrl": "https://lucascranach.org/imageserver/G_AT_A_DG1929-124/01_Overall/G_AT_A_DG1929-124_Overall-s.jpg",
+    "startDate": 1509,
+    "endDate": 1509,
+    "sortingDate": 1509,
+    "title": [
+      "Das dritte Turnier mit Lanzen"
+    ],
+    "location": [
+      ""
+    ],
+    "artists": [
+      {
+        "id": "",
+        "role": "Inventor",
+        "name": "Lucas Cranach der Ältere",
+        "prefix": "",
+        "suffix": "",
+        "nameType": "Primärer Name",
+        "alternativeName": "Lucas Cranach der Ältere",
+        "remarks": "[cda 2019]",
+        "date": "",
+        "isUnknown": false
+      }
+    ],
+    "owner": "",
+    "type": "graphic"
   },
   {
-    "id": "DE_StSWR_109_Bc97_417-426r-v",
-    "imageUrl": "",
-    "detailUrl": "http://lucascranach.org/archival-documents/DE_StSWR_109_Bc97_417-426r-v",
-    "startDate": 1549,
-    "endDate": 1549,
-    "title": "DE_StSWR_109_Bc97_417-426r-v",
-    "location": "",
-    "artists": "",
-    "repository": "Städtische Sammlungen Wittenberg, Ratsarchiv",
-    "summary": "Lucas Cranach der Jüngere war, obwohl Ratsherr, nicht als Schöffe im Gericht am 28. November 1549 eingesetzt, legt jedoch als Bürger die dritte Klage gegen Jakob Helwick ein. Am 31. Dezember beantragt er auf die Güter des Ambrosius Reuter Ansprüche in Höhe von 750 Gulden.",
-    "type": "archival"
+    "id": 949045,
+    "imageUrl": "https://lucascranach.org/imageserver/G_AT_A_DG1929-125/01_Overall/G_AT_A_DG1929-125_Overall-s.jpg",
+    "startDate": 1509,
+    "endDate": 1509,
+    "sortingDate": 1509,
+    "title": [
+      "Das vierte Turnier mit Schwertern"
+    ],
+    "location": [
+      ""
+    ],
+    "artists": [
+      {
+        "id": "",
+        "role": "Inventor",
+        "name": "Lucas Cranach der Ältere",
+        "prefix": "",
+        "suffix": "",
+        "nameType": "Primärer Name",
+        "alternativeName": "Lucas Cranach der Ältere",
+        "remarks": "[Staatliche Kunstsammlung, Dresden, revised 2018]",
+        "date": "",
+        "isUnknown": false
+      }
+    ],
+    "owner": "",
+    "type": "graphic"
   },
   {
-    "id": "DE_StSWR_109_Bc97_418-427r",
-    "imageUrl": "",
-    "detailUrl": "http://lucascranach.org/archival-documents/DE_StSWR_109_Bc97_418-427r",
-    "startDate": 1550,
-    "endDate": 1550,
-    "title": "DE_StSWR_109_Bc97_418-427r",
-    "location": "",
-    "artists": "",
-    "repository": "Städtische Sammlungen Wittenberg, Ratsarchiv",
-    "summary": "Lucas Cranach der Jüngere ist als Ratsherr und Schöffe zum Gerichtstag am 17. Januar 1550 anwesend.",
-    "type": "archival"
+    "id": 949118,
+    "imageUrl": "https://lucascranach.org/imageserver/G_AT_A_DG1929-126/01_Overall/G_AT_A_DG1929-126_Overall-s.jpg",
+    "startDate": 1509,
+    "endDate": 1509,
+    "sortingDate": 1509,
+    "title": [
+      "Das zweite Turnier mit Lanzen und Schwertern sowie Balkonteppich"
+    ],
+    "location": [
+      ""
+    ],
+    "artists": [
+      {
+        "id": "",
+        "role": "Inventor",
+        "name": "Lucas Cranach der Ältere",
+        "prefix": "",
+        "suffix": "",
+        "nameType": "Primärer Name",
+        "alternativeName": "Lucas Cranach der Ältere",
+        "remarks": "[cda 2019]",
+        "date": "",
+        "isUnknown": false
+      }
+    ],
+    "owner": "",
+    "type": "graphic"
   },
   {
-    "id": "DE_StSWR_109_Bc97_419-428v",
-    "imageUrl": "",
-    "detailUrl": "http://lucascranach.org/archival-documents/DE_StSWR_109_Bc97_419-428v",
-    "startDate": 1550,
-    "endDate": 1550,
-    "title": "DE_StSWR_109_Bc97_419-428v",
-    "location": "",
-    "artists": "",
-    "repository": "Städtische Sammlungen Wittenberg, Ratsarchiv",
-    "summary": "Lucas Cranach der Jüngere ist als Ratsmitglied und Schöffe am Gerichtstag des 7. Februar 1550 bei der Ratsübergabe anwesend.",
-    "type": "archival"
+    "id": 949223,
+    "imageUrl": "https://lucascranach.org/imageserver/G_AT_A_DG1929-132/01_Overall/G_AT_A_DG1929-132_Overall-s.jpg",
+    "startDate": 1509,
+    "endDate": 1509,
+    "sortingDate": 1509,
+    "title": [
+      "Christus vor Herodes (aus der Passion Christi, Folge von 14 Holzschnitten)"
+    ],
+    "location": [
+      ""
+    ],
+    "artists": [
+      {
+        "id": "",
+        "role": "Inventor",
+        "name": "Lucas Cranach der Ältere",
+        "prefix": "",
+        "suffix": "",
+        "nameType": "Primärer Name",
+        "alternativeName": "Lucas Cranach der Ältere",
+        "remarks": "",
+        "date": "",
+        "isUnknown": false
+      }
+    ],
+    "owner": "",
+    "type": "graphic"
   },
   {
-    "id": "DE_ThHStAW_EGA_Reg-L_fol_183-197_86r",
-    "imageUrl": "",
-    "detailUrl": "http://lucascranach.org/archival-documents/DE_ThHStAW_EGA_Reg-L_fol_183-197_86r",
-    "startDate": 1548,
-    "endDate": 1548,
-    "title": "DE_ThHStAW_EGA_Reg-L_fol_183-197_86r",
-    "location": "",
-    "artists": "",
-    "repository": "Thüringisches Hauptstaatsarchiv Weimar",
-    "summary": "Herzog Johann Friedrich d. Ä. von Sachsen, derzeit in Augsburg, weist seinen ältesten Sohn in Weimar an, sich um Gemälde Lucas Cranachs zu kümmern. Es handelt sich um eine Malerei auf Tuch, die für den Saal zu Lichtenberg (Lichtenburg bei Prettin) gedacht war und ein Tafelgemälde, welches die 10.000 Ritter zum Thema hatte. Beide Werke vermutete Herzog Johann Friedrich bei Cranach in Wittenberg. Der Sohn solle die Werke von Cranach zurückfordern und die Malerei auf Tuch in Weimar einlagern, die Tafel mit den 10.000 Rittern soll über Leipzig und Frankfurt zu ihm geschickt werden. Er beabsichtige, die Tafel zu verschenken.",
-    "type": "archival"
+    "id": 949238,
+    "imageUrl": "https://lucascranach.org/imageserver/G_AT_A_DG1929-133/01_Overall/G_AT_A_DG1929-133_Overall-s.jpg",
+    "startDate": 1509,
+    "endDate": 1509,
+    "sortingDate": 1509,
+    "title": [
+      "Die Geißelung (aus der Passion Christi, Folge von 14 Holzschnitten)"
+    ],
+    "location": [
+      ""
+    ],
+    "artists": [
+      {
+        "id": "",
+        "role": "Inventor",
+        "name": "Lucas Cranach der Ältere",
+        "prefix": "",
+        "suffix": "",
+        "nameType": "Primärer Name",
+        "alternativeName": "Lucas Cranach der Ältere",
+        "remarks": "[cda 2019]",
+        "date": "",
+        "isUnknown": false
+      }
+    ],
+    "owner": "",
+    "type": "graphic"
   },
   {
-    "id": "DE_ThHStAW_EGA_Reg-L_fol_287-296_26r",
-    "imageUrl": "",
-    "detailUrl": "http://lucascranach.org/archival-documents/DE_ThHStAW_EGA_Reg-L_fol_287-296_26r",
-    "startDate": 1549,
-    "endDate": 1549,
-    "title": "DE_ThHStAW_EGA_Reg-L_fol_287-296_26r",
-    "location": "",
-    "artists": "",
-    "repository": "Thüringisches Hauptstaatsarchiv Weimar",
-    "summary": "Bericht Herzog Johann Friedrichs d. M. an seinen Vater Herzog Johann Friedrich d. Ä. von Sachsen. Nach Mitteilungen über die Pflege und Erziehung des Hundes Swan, dem Gesundheitszustand der Mutter und dem Baufortschritt des Jagdschlosses Wolfersdorf, wird ein Bild auf Tuch, welches die Zerstörung der Stadt Mecheln zeigt, erwähnt. Möglicherweise hat Cranach dieses Bild gemalt. Abschließend werden Informationen zur bislang erfolglosen Suche nach zwei Kästen mit Kunstwerken gegeben.",
-    "type": "archival"
+    "id": 949241,
+    "imageUrl": "https://lucascranach.org/imageserver/G_AT_A_DG1929-134/01_Overall/G_AT_A_DG1929-134_Overall-s.jpg",
+    "startDate": 1509,
+    "endDate": 1509,
+    "sortingDate": 1509,
+    "title": [
+      "Die Dornenkrönung (aus der Passion Christi, Folge von 14 Holzschnitten)"
+    ],
+    "location": [
+      ""
+    ],
+    "artists": [
+      {
+        "id": "",
+        "role": "Inventor",
+        "name": "Lucas Cranach der Ältere",
+        "prefix": "",
+        "suffix": "",
+        "nameType": "Primärer Name",
+        "alternativeName": "Lucas Cranach der Ältere",
+        "remarks": "[cda 2019]",
+        "date": "",
+        "isUnknown": false
+      }
+    ],
+    "owner": "",
+    "type": "graphic"
   },
   {
-    "id": "DE_ThHStAW_EGA_Reg-L_fol_287-296_29r",
-    "imageUrl": "",
-    "detailUrl": "http://lucascranach.org/archival-documents/DE_ThHStAW_EGA_Reg-L_fol_287-296_29r",
-    "startDate": 1549,
-    "endDate": 1549,
-    "title": "DE_ThHStAW_EGA_Reg-L_fol_287-296_29r",
-    "location": "",
-    "artists": "",
-    "repository": "Thüringisches Hauptstaatsarchiv Weimar",
-    "summary": "Brief Herzog Johann Friedrichs d. Ä. von Sachsen aus der Gefangenschaft an seinen Sohn Johann Friedrich d. M. in Weimar. Er nimmt in diesem Brief Bezug auf das bereits im Schreiben vom 21. November 1550 genannte Gemälde über die Zerstörung der Stadt Mechelen. Er wird deutlich, dass Mechelen schwer zerstört wurde, weil ein Blitz den Pulverturm der Stadt oder ein anderes Pulverlager zur Explosion brachte. Neben diesem Gemälde, von dem der Herzog die Beurteilung durch Dr. Gregor Brück anfordert, wird noch ein Porträt, aber nicht der Dargestellte, erwähnt. Hauptsächlich erkundigt er sich aber über den Hund Schwan und den Gesundheitszustand seiner Ehefrau. Zuletzt wird noch an zwei Kästen mit Kunstwerken erinnert, die gesucht werden müssen.",
-    "type": "archival"
+    "id": 949243,
+    "imageUrl": "https://lucascranach.org/imageserver/G_AT_A_DG1929-135/01_Overall/G_AT_A_DG1929-135_Overall-s.jpg",
+    "startDate": 1509,
+    "endDate": 1509,
+    "sortingDate": 1509,
+    "title": [
+      "Ecce Homo (aus der Passion Christi, Folge von 14 Holzschnitten)"
+    ],
+    "location": [
+      ""
+    ],
+    "artists": [
+      {
+        "id": "",
+        "role": "Inventor",
+        "name": "Lucas Cranach der Ältere",
+        "prefix": "",
+        "suffix": "",
+        "nameType": "Primärer Name",
+        "alternativeName": "Lucas Cranach der Ältere",
+        "remarks": "[cda 2019]",
+        "date": "",
+        "isUnknown": false
+      }
+    ],
+    "owner": "",
+    "type": "graphic"
   },
   {
-    "id": "DE_ThHStAW_EGA_Reg-L_449-462_8_111",
-    "imageUrl": "",
-    "detailUrl": "http://lucascranach.org/archival-documents/DE_ThHStAW_EGA_Reg-L_449-462_8_111",
-    "startDate": 1550,
-    "endDate": 1550,
-    "title": "DE_ThHStAW_EGA_Reg-L_449-462_8_111",
-    "location": "",
-    "artists": "",
-    "repository": "Thüringisches Hauptstaatsarchiv Weimar",
-    "summary": "Schreiben Herzog Johann Friedrichs d. Ä. von Sachsen aus der Gefangenschaft an seinen ältesten Sohn Herzog Johann Friedrich d. M. in Weimar. Der Herzog hat eine Wagenladung mit Neckarwein und anderen Waren für seine Gemahlin nach Weimar geschickt. Im Begleitbrief instruiert er seinen Sohn zum Umgang mit dem mitgeschickten Tafelgemälde und den gemalten Tüchern. Das Tafelgemälde zeigt den Herzog mit dem Offizier, der mit seiner Garde für die Bewachung des Herzogs verantwortlich ist. Dieses Bild soll nach Schloss Wolfersdorf in das Privatgemach des Herzogs gebracht werden und die bemalten Tücher soll der Wolfersdorfer Baumeister Nikel Groman als Wandbespannung (Tapeten) im Speisezimmer anbringen. Zwei ältere Bilder von Lucas Cranach auf Tüchern werden gesondert erwähnt.",
-    "type": "archival"
+    "id": 949246,
+    "imageUrl": "https://lucascranach.org/imageserver/G_AT_A_DG1929-136/01_Overall/G_AT_A_DG1929-136_Overall-s.jpg",
+    "startDate": 1509,
+    "endDate": 1509,
+    "sortingDate": 1509,
+    "title": [
+      "Handwaschung des Pilatus (aus der Passion Christi, Folge von 14 Holzschnitten)"
+    ],
+    "location": [
+      ""
+    ],
+    "artists": [
+      {
+        "id": "",
+        "role": "Inventor",
+        "name": "Lucas Cranach der Ältere",
+        "prefix": "",
+        "suffix": "",
+        "nameType": "Primärer Name",
+        "alternativeName": "Lucas Cranach der Ältere",
+        "remarks": "[cda 2019]",
+        "date": "",
+        "isUnknown": false
+      }
+    ],
+    "owner": "",
+    "type": "graphic"
   },
   {
-    "id": "DE_ThHStAW_EGA_Reg-L_fol_768-786_23r",
-    "imageUrl": "",
-    "detailUrl": "http://lucascranach.org/archival-documents/DE_ThHStAW_EGA_Reg-L_fol_768-786_23r",
-    "startDate": 1550,
-    "endDate": 1550,
-    "title": "DE_ThHStAW_EGA_Reg-L_fol_768-786_23r",
-    "location": "",
-    "artists": "",
-    "repository": "Thüringisches Hauptstaatsarchiv Weimar",
-    "summary": "Bericht des herzoglichen Sekretärs Hans Rudolf an Herzog Johann Friedrich den Älteren in die Gefangenschaft. Neben wichtigen Informationen zu Vorhaben im Münzhandel und einer Mission nach Pommern und Mecklenburg werden auch Gemälde erwähnt. Es wird mitgeteilt, dass sich Porträts von Johann dem Beständigen und vermutlich Friedrichs des Weisen, beide im kurfürstlichen Ornat, im neuen Badezimmer befinden, welches vorher ein Frauengemach war. Ebenso befinden sich dort Porträts von Martin Luther und Philipp Melanchthon. Der Schreiber empfiehlt die Sicherstellung der Bilder mit anderen Dingen auf der Wartburg.",
-    "type": "archival"
+    "id": 949250,
+    "imageUrl": "https://lucascranach.org/imageserver/G_AT_A_DG1929-137/01_Overall/G_AT_A_DG1929-137_Overall-s.jpg",
+    "startDate": 1509,
+    "endDate": 1509,
+    "sortingDate": 1509,
+    "title": [
+      "Die Kreuztragung (aus der Passion Christi, Folge von 14 Holzschnitten)"
+    ],
+    "location": [
+      ""
+    ],
+    "artists": [
+      {
+        "id": "",
+        "role": "Inventor",
+        "name": "Lucas Cranach der Ältere",
+        "prefix": "",
+        "suffix": "",
+        "nameType": "Primärer Name",
+        "alternativeName": "Lucas Cranach der Ältere",
+        "remarks": "[cda 2019]",
+        "date": "",
+        "isUnknown": false
+      }
+    ],
+    "owner": "",
+    "type": "graphic"
   },
   {
-    "id": "DE_ThHStAW_EGA_Reg-L_fol_768-786_25",
-    "imageUrl": "",
-    "detailUrl": "http://lucascranach.org/archival-documents/DE_ThHStAW_EGA_Reg-L_fol_768-786_25",
-    "startDate": 1550,
-    "endDate": 1550,
-    "title": "DE_ThHStAW_EGA_Reg-L_fol_768-786_25",
-    "location": "",
-    "artists": "",
-    "repository": "Thüringisches Hauptstaatsarchiv Weimar",
-    "summary": "Schreiben mit Anweisungen Herzog Johann Friedrichs von Sachsen aus der Gefangenschaft an seinen Sekretär Hans Rudolf in Weimar verschiedene Malereien betreffend. Zunächst weist der Fürst seinen Sekretär an Sorge zu tragen, dass der Münzmeister der sächsische Kreismünzstätte Saalfeld der Reichsmünzordnung gemäß auch die vorgeschriebene Anzahl kleiner Nominale (Heller, Pfennige und Groschenstücke), die für das tägliche Leben der Bevölkerung unabdingbar nötig sind, schlagen muss. Bei den Bemerkungen zu den Bildern scheint es Missverständnisse zwischen dem gefangenen Herzog und seinem Sekretär gegeben zu haben.",
-    "type": "archival"
+    "id": 949257,
+    "imageUrl": "https://lucascranach.org/imageserver/G_AT_A_DG1929-138/01_Overall/G_AT_A_DG1929-138_Overall-s.jpg",
+    "startDate": 1509,
+    "endDate": 1509,
+    "sortingDate": 1509,
+    "title": [
+      "Die Kreuzigung (aus der Passion Christi, Folge von 14 Holzschnitten)"
+    ],
+    "location": [
+      ""
+    ],
+    "artists": [
+      {
+        "id": "",
+        "role": "Inventor",
+        "name": "Lucas Cranach der Ältere",
+        "prefix": "",
+        "suffix": "",
+        "nameType": "Primärer Name",
+        "alternativeName": "Lucas Cranach der Ältere",
+        "remarks": "[cda 2019]",
+        "date": "",
+        "isUnknown": false
+      }
+    ],
+    "owner": "",
+    "type": "graphic"
   },
   {
-    "id": "DE_ThHStAW_EGA_Reg-L_768-786_1_27r",
-    "imageUrl": "",
-    "detailUrl": "http://lucascranach.org/archival-documents/DE_ThHStAW_EGA_Reg-L_768-786_1_27r",
-    "startDate": 1550,
-    "endDate": 1550,
-    "title": "DE_ThHStAW_EGA_Reg-L_768-786_1_27r",
-    "location": "",
-    "artists": "",
-    "repository": "Thüringisches Hauptstaatsarchiv Weimar",
-    "summary": "Sekretär Hans Rudolf berichtet Herzog Johann Friedrich d. Ä. in die Gefangenschaft wie sein Schosser und Rentmeister sowie der Münzmeister von Saalfeld die vom Herzog vorgeschlagene Geldpolitik bewerten, indem er deren Berichte dazu in Kopie mitschickt. Es geht im Wesentlichen um Überlegungen, wie man den angekündigten neuen Reichsmünzfuß umgehen könne, um beim aktuellen sächsischen Münzfuß zu bleiben. Auf die Probleme dieses riskanten Vorhabens wird vorsichtig, aber deutlich genug dem Fürsten gegenüber hingewiesen. In einer Nebenbemerkung wird hier mitgeteilt, dass die Tochter des alten Dr. Brück, Ehefrau von Lucas Cranach d. J., an der Pest verstorben ist.",
-    "type": "archival"
+    "id": 949262,
+    "imageUrl": "https://lucascranach.org/imageserver/G_AT_A_DG1929-139/01_Overall/G_AT_A_DG1929-139_Overall-s.jpg",
+    "startDate": 1509,
+    "endDate": 1509,
+    "sortingDate": 1509,
+    "title": [
+      "Die Beweinung Christi (aus der Passion Christi, Folge von 14 Holzschnitten)"
+    ],
+    "location": [
+      ""
+    ],
+    "artists": [
+      {
+        "id": "",
+        "role": "Inventor",
+        "name": "Lucas Cranach der Ältere",
+        "prefix": "",
+        "suffix": "",
+        "nameType": "Primärer Name",
+        "alternativeName": "Lucas Cranach der Ältere",
+        "remarks": "[cda 2019]",
+        "date": "",
+        "isUnknown": false
+      }
+    ],
+    "owner": "",
+    "type": "graphic"
   },
   {
-    "id": "DE_ThHStAW_EGA_Reg-L_fol_768-786_32r",
-    "imageUrl": "",
-    "detailUrl": "http://lucascranach.org/archival-documents/DE_ThHStAW_EGA_Reg-L_fol_768-786_32r",
-    "startDate": 1550,
-    "endDate": 1550,
-    "title": "DE_ThHStAW_EGA_Reg-L_fol_768-786_32r",
-    "location": "",
-    "artists": "",
-    "repository": "Thüringisches Hauptstaatsarchiv Weimar",
-    "summary": "Bericht des herzoglichen Sekretärs Hans Rudolph an Herzog Johann Friedrich von Sachsen in die Gefangenschaft. Im Hauptteil geht es um die Vorgehensweise bei der Steuereintreibung, wenn die Steuerpflichtigen nur mit fremden Geld und nicht mit sächsischer Währung oder Reichsmünzen zahlen können, was im Grenzbereich zu Franken, Henneberg, Hessen und weiteren Nachbarn die Norm ist. Auf den letzten Seiten finden sich verschiedene Nachträge zum Bericht, u. a. die Suche nach dem Turnierbuch (\"Renbuch\") des Herzogs betreffend. Der Schreiber vermutet es bei Lucas Cranach. Außerdem geht es um den Stand der Bauarbeiten am Schloss Wolfersdorf.",
-    "type": "archival"
-  },
-  {
-    "id": "DE_ThHStAW_EGA_Reg-L_fol_768-786_40r",
-    "imageUrl": "",
-    "detailUrl": "http://lucascranach.org/archival-documents/DE_ThHStAW_EGA_Reg-L_fol_768-786_40r",
-    "startDate": 1550,
-    "endDate": 1550,
-    "title": "DE_ThHStAW_EGA_Reg-L_fol_768-786_40r",
-    "location": "",
-    "artists": "",
-    "repository": "Thüringisches Hauptstaatsarchiv Weimar",
-    "summary": "Brief mit verschiedenen Anweisungen Herzog Johann Friedrich d. Ä. aus der Gefangenschaft an seinen Sekretär Johann Rudolf in Weimar. Darin weist der Herzog an, dass bislang noch eingelagerte bemalte Tücher und Gemälde im Schloss zu Weimar aufgehängt werden. Was man in Weimar nicht unterbringen kann, solle auf den Schlössern Wolfersdorf und Weida die Wände verschönern. Außerdem wird die Anlage entsprechender Inventarien mit der Verzeichnung der Stücke verlangt, die an verschiedenen Orten zur Ausgestaltung genutzt werden. Er beklagt, dass auch in Wolfersdorf, obwohl Bauzeichnungen vorlagen, wieder mehr Geld verbraucht werde. Vermisst werden immer noch die Rennbücher (Turnierbücher).",
-    "type": "archival"
-  },
-  {
-    "id": "DE_ThHStAW_EGA_Reg-L_fol_786-800_3r",
-    "imageUrl": "",
-    "detailUrl": "http://lucascranach.org/archival-documents/DE_ThHStAW_EGA_Reg-L_fol_786-800_3r",
-    "startDate": 1551,
-    "endDate": 1551,
-    "title": "DE_ThHStAW_EGA_Reg-L_fol_786-800_3r",
-    "location": "",
-    "artists": "",
-    "repository": "Thüringisches Hauptstaatsarchiv Weimar",
-    "summary": "Schreiben von Herzog Johann Friedrich d. Ä. aus der Gefangenschaft an seinen Sekretär Johann Rudolf in Weimar. Der Herzog beabsichtigt auf Bitten seiner Gemahlin ein Gemälde über das biblische Thema der sieben Tugenden in Auftrag zu geben. Darauf sollen deutsche und lateinische Verse verarbeitet werden. Magister Johann Stigel soll die vom Herzog mitgeschickten Reime begutachten, diese ergänzen und verbessern, auch neue verfassen und dann alle zurücksenden. Johann Rudolf hat dies im Auftrag zu organisieren.",
-    "type": "archival"
-  },
-  {
-    "id": "DE_ThHStAW_EGA_Reg-L_fol_786-800_23r",
-    "imageUrl": "",
-    "detailUrl": "http://lucascranach.org/archival-documents/DE_ThHStAW_EGA_Reg-L_fol_786-800_23r",
-    "startDate": 1551,
-    "endDate": 1551,
-    "title": "DE_ThHStAW_EGA_Reg-L_fol_786-800_23r",
-    "location": "",
-    "artists": "",
-    "repository": "Thüringisches Hauptstaatsarchiv Weimar",
-    "summary": "Schreiben von Herzog Johann Friedrich d. Ä. aus der Gefangenschaft an seinen Sekretär Johann Rudolf in Weimar. Der Herzog teilt mit, dass er mit dem Kurier von Lucas Cranach bemalte Tücher nach Weimar geschickt hat und weist an, diese an den Baumeister in Wolfersdorf weiterzugeben. Dieser soll die Tücher (bemalte Stofftapete) im Privatgemach des Herzogs, einem Erkerzimmer auf Schloss Wolfersdorf, anbringen. Von Rudolf erwartet der Herzog einen Bericht, ob die Tuchmaße ausreichend sind. Nach diesen Angaben will der Herzog weitere derartige bemalte Tücher in Auftrag geben.",
-    "type": "archival"
-  },
-  {
-    "id": "DE_ThHStAW_EGA_Reg-L_fol_786-800_42",
-    "imageUrl": "",
-    "detailUrl": "http://lucascranach.org/archival-documents/DE_ThHStAW_EGA_Reg-L_fol_786-800_42",
-    "startDate": 1551,
-    "endDate": 1551,
-    "title": "DE_ThHStAW_EGA_Reg-L_fol_786-800_42",
-    "location": "",
-    "artists": "",
-    "repository": "Thüringisches Hauptstaatsarchiv Weimar",
-    "summary": "Bericht des Sekretärs Johann Rudolf in Weimar an Herzog Johann Friedrich d. Ä. in die Gefangenschaft, eine Antwort auf die herzoglichen Anweisungen vom 17. März 1551, die bemalten Tücher für Schloss Wolfersdorf betreffend.",
-    "type": "archival"
-  },
-  {
-    "id": "DE_ThHStAW_EGA_Reg-L_fol_807_N_124",
-    "imageUrl": "",
-    "detailUrl": "http://lucascranach.org/archival-documents/DE_ThHStAW_EGA_Reg-L_fol_807_N_124",
-    "startDate": 1550,
-    "endDate": 1550,
-    "title": "DE_ThHStAW_EGA_Reg-L_fol_807_N_124",
-    "location": "",
-    "artists": "",
-    "repository": "Thüringisches Hauptstaatsarchiv Weimar",
-    "summary": "Schreiben Herzog Johann Friedrichs d. Ä. aus der Gefangenschaft an seine Ehefrau Sybille von Cleve in Weimar. Mit diesem sehr persönlichen Brief kam eine Wagenladung an sie mit gutem Wein vom Neckar, Pommeranzen, Granatäpfeln und Quittensaft sowie einem auf Tuch gemalten Porträt des Herzogs nach Weimar.",
-    "type": "archival"
-  },
-  {
-    "id": "DE_ThHStAW_EGA_Reg-L_fol_807_N_3",
-    "imageUrl": "",
-    "detailUrl": "http://lucascranach.org/archival-documents/DE_ThHStAW_EGA_Reg-L_fol_807_N_3",
-    "startDate": 1551,
-    "endDate": 1551,
-    "title": "DE_ThHStAW_EGA_Reg-L_fol_807_N_3",
-    "location": "",
-    "artists": "",
-    "repository": "Thüringisches Hauptstaatsarchiv Weimar",
-    "summary": "Schreiben Herzog Johann Friedrichs d. Ä. aus der Gefangenschaft an seine Ehefrau Sybille von Cleve in Weimar. Dieser Brief ist bereits eine Reaktion auf den Dank Sybille von Cleves an ihren Mann auf den Brief und die Sendung vom 15. Dezember 1550. Neben den sehr persönlichen Zeilen schreibt der Herzog, dass er die Darstellung der \"Sieben Tugenden\" bei Lucas Cranach als Gemälde in Auftrag geben wird, weil seiner Frau ein in Quittensaft gedrucktes Bild mit diesem Thema gut gefallen hat.",
-    "type": "archival"
+    "id": 949271,
+    "imageUrl": "https://lucascranach.org/imageserver/G_AT_A_DG1929-140/01_Overall/G_AT_A_DG1929-140_Overall-s.jpg",
+    "startDate": 1509,
+    "endDate": 1509,
+    "sortingDate": 1509,
+    "title": [
+      "Die Grablegung (aus der Passion Christi, Folge von 14 Holzschnitten)"
+    ],
+    "location": [
+      ""
+    ],
+    "artists": [
+      {
+        "id": "",
+        "role": "Inventor",
+        "name": "Lucas Cranach der Ältere",
+        "prefix": "",
+        "suffix": "",
+        "nameType": "Primärer Name",
+        "alternativeName": "Lucas Cranach der Ältere",
+        "remarks": "[cda 2019]",
+        "date": "",
+        "isUnknown": false
+      }
+    ],
+    "owner": "",
+    "type": "graphic"
   }
 ]

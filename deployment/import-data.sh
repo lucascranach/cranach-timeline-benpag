@@ -1,4 +1,5 @@
 branchname=${BRANCH_NAME////-}
+branchname=${branchname//[#\$\+\*\!\\\(\)\[\]\{\}\?\"\']/}
 bucketname=cranach-data-${branchname,,}
 sevendaysago=`date --date="$1 day ago" +%s`
 buckets=`aws s3 ls`

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import { expect } from 'chai';
 import state from '../../../src/store/state';
 import getters from '../../../src/store/getters';
@@ -19,13 +20,11 @@ describe('store getters', () => {
 	});
 	it('should has items to be true', () => {
 		const result = getters.hasItems(testState);
-		// eslint-disable-next-line no-unused-expressions
 		expect(result).to.be.true;
 	});
 	it('should has items to be false because its empty', () => {
 		testState.items = [];
 		const result = getters.hasItems(testState);
-		// eslint-disable-next-line no-unused-expressions
 		expect(result).to.be.false;
 	});
 

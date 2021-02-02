@@ -6,12 +6,9 @@ Please check if your PR fulfills the following requirements:
 
 ### Frontend
 
-- [ ] Build (`npm run build`) was run locally and any changes were pushed
-- [ ] Lint (`npm run lint`) has passed locally and any fixes were made for failures
+- [ ] Jenkins deployment has passed
+- [ ] Changes are visible at a deployed stage
 
-### Backend
-
-- [ ] Lint (`lint`) has passed locally and any fixes were made for failures
 
 ## Pull request type
 

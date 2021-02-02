@@ -177,10 +177,9 @@ export default {
 				.append('g')
 				.attr('class', (d) => `dot dot-${d.id}`)
 				.attr('transform', (d) => `translate(${this.getXCoordinateOfItem(d)},${this.getYCoordinateOfItem(d)})`);
-
 			node.append('path')
 				.attr('d', this.getItemSymbol())
-				.attr('opacity', 1)
+				.attr('opacity', (d) => (d.imageUrl ? 1 : 0.5))
 				.attr('fill', (d) => colors.getCategoryColors()[d.type])
 				.on('mouseover', (d) => {
 					d3.select(`.dot-${d.id} path`)

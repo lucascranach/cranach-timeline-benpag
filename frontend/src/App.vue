@@ -29,7 +29,7 @@
 				flat
 				inset
 				hide-details
-				prepend-icon="mdi-brightness-5"
+				prepend-icon="mdi-white-balance-sunny"
 				append-icon="mdi-brightness-3"
 			/>
 			<v-sheet class="pr-3" color="transparent">

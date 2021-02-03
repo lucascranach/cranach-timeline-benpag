@@ -23,12 +23,14 @@ describe('IsBestOfFilter.vue', () => {
 
 	it('click on switch should enable best of filter', async () => {
 		await wrapper.find('#best-of-filter').trigger('click');
+		await wrapper.find('#best-of-filter-switch').trigger('click');
 		expect(wrapper.vm.$data.isBestOf).to.be.true;
 	});
 
 	it('two clicks on switch should disable best of filter', async () => {
 		await wrapper.find('#best-of-filter').trigger('click');
-		await wrapper.find('#best-of-filter').trigger('click');
+		await wrapper.find('#best-of-filter-switch').trigger('click');
+		await wrapper.find('#best-of-filter-switch').trigger('click');
 		expect(wrapper.vm.$data.isBestOf).to.be.false;
 	});
 });

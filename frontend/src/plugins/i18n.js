@@ -48,6 +48,7 @@ const messages = {
 		cranach_younger: 'Cranach der Jüngere',
 		luther: 'Martin Luther',
 		history: 'Historische Ereignisse',
+		miscellaneous: 'Sonstiges',
 	},
 	en: {
 		cranach_timeline: 'Cranach Timeline',
@@ -93,6 +94,7 @@ const messages = {
 		cranach_younger: 'Cranach the Younger',
 		luther: 'Martin Luther',
 		history: 'Historical Events',
+		miscellaneous: 'Miscellaneous',
 	},
 };
 

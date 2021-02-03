@@ -1,11 +1,13 @@
 <template>
 	<v-menu
+		id="category-filter"
 		offset-y
 		tile
 		:close-on-content-click="false"
 	>
 		<template v-slot:activator="{ on, attrs }">
 			<v-btn
+				id="category-filter-button"
 				outlined
 				block
 				v-bind="attrs"
@@ -15,7 +17,7 @@
 				{{ $t('category_filter') }}
 			</v-btn>
 		</template>
-		<v-card flat class="px-3 py-6">
+		<v-card flat class="px-3 py-6" id="category-filter-dropdown">
 			<v-switch
 				v-for="(category, i) in categoryList" :key="i"
 				v-model="selectedCategories"
@@ -41,9 +43,9 @@ export default {
 	data() {
 		return {
 			categoryList: [
-				{ name: 'paintings', value: 'painting' },
-				{ name: 'graphics', value: 'graphic' },
-				{ name: 'archivals', value: 'archival' },
+				{ name: 'paintings', value: 'paintings' },
+				{ name: 'graphics', value: 'graphics' },
+				{ name: 'archivals', value: 'archivals' },
 			],
 			colors: colors.getCategoryColors(),
 			selectedCategories: [],

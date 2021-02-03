@@ -1,0 +1,15 @@
+[
+  {
+    "name": "categoryFilter",
+    "type": "category",
+    "params": { "validCategories": ["painting", "archival"] }
+  }, {
+    "name": "isBestOfFilter",
+    "type": "isBestOf",
+    "params": true
+  }, {
+    "name": "textSearch",
+    "type": "search",
+    "params": "cranach"
+  }
+]

@@ -14,7 +14,7 @@
 					alt=""
 				/>
 			</div>
-			<div class="text-left">
+			<div class="text-left" id="event-timeline-tooltip-text-content">
 				<v-card-title class="h6 text-break pt-2 pb-0">
 					{{ title }}
 				</v-card-title>

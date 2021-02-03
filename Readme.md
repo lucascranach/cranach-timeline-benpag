@@ -6,15 +6,15 @@ of Cranach's life and work. Emphasis is placed on clarity and navigation. The ca
 paintings, graphics and archivals. The existing CDA is not to be replaced, but only extended by another level. The 
 timeline should support the targeted search as well as the exploration of Cranach's works.
 
-[INSERT SCREENSHOT]
-
 ## Table of Contents
 
 * [Setup](#setup)
 * [Code of Conduct](/docs/contribution/codeofconduct.md)
 * [Contributing](/docs/contribution/contributing.md)
 * [Conventions](/docs/contribution/conventions.md)
-* [Workflow](/docs/contribution/workflow.md)
+* [Git Workflow](/docs/contribution/workflow.md)
+* [Continuous Integration](/docs/contribution/continuousintegration.md)
+* [Testing](/docs/contribution/testing.md)
 * [Folder Structure](/docs/contribution/folderstructure.md)
 * [Architecture Documentation](/docs/adr)
 * [Sprint Documentation](https://github.com/BenPag/cranach/wiki/Sprint-1-KW-24-25)

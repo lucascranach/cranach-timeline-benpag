@@ -1,5 +1,5 @@
 <template>
-	<div :style="`margin:0 ${margin.right}px 0 ${margin.left}px;height:${svgHeight}px`">
+	<div class="special-event-timeline" :style="`margin:0 ${margin.right}px 0 ${margin.left}px;height:${svgHeight}px`">
 		<EventToolTipItem
 			:id="toolTipId"
 			:item="toolTipData"
@@ -163,6 +163,7 @@ export default {
 			this.toolTipData = item;
 
 			let xOffset = -50;
+			const yOffset = d3Event.y - 60;
 			const toolTipHalfWidth = this.toolTipMaxWidth / 2;
 
 			if (d3Event.x - toolTipHalfWidth < 0) {
@@ -173,7 +174,7 @@ export default {
 
 			this.toolTip
 				.style('left', `${d3Event.x}px`)
-				.style('top', `${d3Event.layerY}px`)
+				.style('top', `${yOffset}px`)
 				.style('transform', `translate(${xOffset}%, -107%)`)
 				.style('visibility', 'visible');
 		},

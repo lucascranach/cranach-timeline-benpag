@@ -2,6 +2,7 @@
 	<svg :height="height" :width="width">
 		<g :transform="`translate(${margin.left},0)`">
 			<g :transform="`translate(0, ${gap - strokeWidth})`">
+				<rect :height="imageHeight" :width="timelineWidth" :fill="colors.lighten4" />
 				<g v-for="(img, index) in this.getHistogramImages()" :key="index">
 					<defs>
 						<pattern

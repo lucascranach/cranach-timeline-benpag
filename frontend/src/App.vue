@@ -36,9 +36,9 @@
 				<button
 					v-for="(entry, index) in languages" :key="entry.title"
 					class="language-btn"
-					@click="changeLocale(entry.language)"
+					@click="changeLocale(entry.language, index)"
 				>
-					{{ entry.title }}
+					<span v-bind:class="{'language-btn-underline': languages[index].isActive}">{{ entry.title }}</span>
 					<span v-if="index < languages.length - 1" class="language-btn-divider">|</span>
 				</button>
 			</v-sheet>
@@ -72,8 +72,12 @@ export default {
 		return {
 			showFilters: true,
 			languages: [
-				{ flag: 'de', language: 'de', title: 'DE' },
-				{ flag: 'gb', language: 'en', title: 'EN' },
+				{
+					flag: 'de', language: 'de', title: 'DE', isActive: i18n.locale === 'de',
+				},
+				{
+					flag: 'gb', language: 'en', title: 'EN', isActive: i18n.locale === 'en',
+				},
 			],
 		};
 	},
@@ -95,8 +99,14 @@ export default {
 			'applyFilter',
 			'loadData',
 		]),
-		async changeLocale(locale) {
+		async changeLocale(locale, index) {
 			i18n.locale = locale;
+			this.languages.forEach((lang) => {
+				// Reason: We want to manipulate json entries here direct
+				// eslint-disable-next-line no-param-reassign
+				lang.isActive = false;
+			});
+			this.languages[index].isActive = true;
 			await this.loadData();
 			this.applyFilter();
 		},
@@ -151,6 +161,10 @@ export default {
 
 .language-btn-divider {
 	padding: 0 5px;
+}
+
+.language-btn-underline {
+    text-decoration: underline;
 }
 
 .no-transition * {

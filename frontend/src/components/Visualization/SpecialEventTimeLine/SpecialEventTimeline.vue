@@ -45,6 +45,10 @@ export default {
 			type: Array,
 			required: true,
 		},
+		eventCategory: {
+			type: String,
+			required: true,
+		},
 		color: {
 			type: String,
 			default: 'red',
@@ -160,6 +164,8 @@ export default {
 			return this.xAxis(new Date(startDate)) - 1;
 		},
 		showToolTip(item) {
+			// eslint-disable-next-line no-param-reassign
+			item.eventCategory = this.eventCategory;
 			this.toolTipData = item;
 
 			let xOffset = -50;

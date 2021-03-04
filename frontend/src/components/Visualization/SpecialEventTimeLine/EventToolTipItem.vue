@@ -80,7 +80,6 @@ export default {
 		...mapGetters([
 			'getActiveFilters',
 		]),
-		// eslint-disable-next-line no-unused-vars
 		checkHighlight(text) {
 			 if (this.getActiveFilters().some((it) => it.name === 'search') && text) {
 				const searchParam = this.getActiveFilters().find((it) => it.name === 'search').params;

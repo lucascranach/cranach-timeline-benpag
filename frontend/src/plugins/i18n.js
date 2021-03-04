@@ -49,6 +49,7 @@ const messages = {
 		luther: 'Martin Luther',
 		history: 'Historische Ereignisse',
 		miscellaneous: 'Sonstiges',
+		further_information: 'Der Suchbegriff wurde in den weiteren Informationen gefunden',
 	},
 	en: {
 		cranach_timeline: 'Cranach Timeline',
@@ -95,6 +96,8 @@ const messages = {
 		luther: 'Martin Luther',
 		history: 'Historical Events',
 		miscellaneous: 'Miscellaneous',
+		further_information: 'The search term was found in the further information',
+
 	},
 };
 

@@ -164,9 +164,12 @@ export default {
 			return this.xAxis(new Date(startDate)) - 1;
 		},
 		showToolTip(item) {
-			// eslint-disable-next-line no-param-reassign
-			item.eventCategory = this.eventCategory;
-			this.toolTipData = item;
+			const tooltipItem = {
+				...item,
+				eventCategory: this.eventCategory,
+			};
+
+			this.toolTipData = tooltipItem;
 
 			let xOffset = -50;
 			const yOffset = d3Event.y - 60;

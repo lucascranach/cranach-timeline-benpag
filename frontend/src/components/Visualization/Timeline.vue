@@ -64,6 +64,13 @@
 						x2="0" :y2="timelineWidth"
 						:stroke="colors.primary" :stroke-width="strokeWidth"
 					/>
+					<svg
+						:x="-pillWidth + 7"
+						:y="-1"
+						width="24px"
+						height="24px">
+						<path :fill="colors.primary" d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" />
+					</svg>
 					<rect
 						:x="-(pillWidth / 2)" y="1"
 						:ry="pillWidth / 4" rx="10"
@@ -78,6 +85,13 @@
 						:fill="colors.primary"
 						dominant-baseline="middle" text-anchor="middle"
 					/>
+					<svg
+						 :x="pillWidth / 2 - 1.5"
+						 :y="-1"
+						 width="24px"
+						 height="24px">
+						<path :fill="colors.primary" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+					</svg>
 				</g>
 				<g id="sliderRight" class="slider">
 					<line
@@ -85,6 +99,13 @@
 						:x2="timelineWidth" :y2="0"
 						:stroke="colors.primary" :stroke-width="strokeWidth"
 					/>
+					<svg
+						 :x="timelineWidth - pillWidth + 7"
+						 :y="-1"
+						 width="24px"
+						 height="24px">
+						<path :fill="colors.primary" d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" />
+					</svg>
 					<rect
 						:x="timelineWidth - (pillWidth / 2)" y="1"
 						:ry="pillWidth / 4" rx="10"
@@ -99,6 +120,13 @@
 						dominant-baseline="middle" text-anchor="middle"
 						:font-size="pillFontSize"
 					/>
+					<svg
+						 :x="timelineWidth + pillWidth / 2 - 1.5"
+						 :y="-1"
+						 width="24px"
+						 height="24px">
+						<path :fill="colors.primary" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+					</svg>
 				</g>
 			</g>
 		</g>

@@ -18,6 +18,9 @@
 				<v-card-title class="h6 text-break pt-2 pb-0">
 					{{ title }}
 				</v-card-title>
+				<v-card-text class="text-lg-caption text-xl-body-1 py-0 test">
+					{{ $t(item.eventCategory) }}<br/>
+				</v-card-text>
 				<v-card-text class="py-0">
 					{{ item.description }}
 				</v-card-text>

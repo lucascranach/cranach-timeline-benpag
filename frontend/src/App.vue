@@ -14,7 +14,7 @@
 					icon
 					@click="() => this.showFilters = !this.showFilters"
 				>
-					<v-icon large>mdi-filter</v-icon>
+					<v-icon large>{{this.showFilters ? 'mdi-filter-minus-outline' : 'mdi-filter-plus-outline' }}</v-icon>
 				</v-btn>
 			</v-badge>
 			<img

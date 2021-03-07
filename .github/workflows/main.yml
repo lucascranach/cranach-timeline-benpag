@@ -1,0 +1,27 @@
+name: Set Deployment URL
+
+on:
+  pull_request:
+    branches: [ master, develop ]
+    types: [opened, reopened]
+
+jobs:
+  set_deployment_url:
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Append Github PR description
+        # uses: chabroA/action-append-pr-description@66353b5d2be2240652a21849a137958e5d921faf
+        uses: chabroA/action-append-pr-description@1.0.0
+        with:
+          # The github auth token
+          auth: ${{ secrets.S3URL }}
+          # The github repo name
+          repo: cranach
+          # The github repo owner
+          owner: BenPag
+          # The pr number
+          pr: ${{ github.event.pull_request.number }}
+          # The output deployed url
+          url: http://cranach-pr-${{ github.event.pull_request.number }}.s3-website.eu-central-1.amazonaws.com/

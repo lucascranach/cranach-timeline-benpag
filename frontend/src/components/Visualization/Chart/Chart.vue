@@ -193,7 +193,7 @@ export default {
 						? currentEvent.pageX
 						: window.innerWidth - this.$refs.tooltip.maxToolTipWidth;
 					const xOffset = this.calculateToolTipXOffset(currentEvent.pageX, this.$refs.tooltip.maxToolTipWidth);
-					const yOffset = this.calculateToolTipY(currentEvent.pageY, this.$refs.tooltip.maxToolTipHeight);
+					const yOffset = this.calculateToolTipYOffset(currentEvent.pageY, this.$refs.tooltip.maxToolTipHeight);
 
 					this.tooltipDiv
 						.style('left', `${left}px`)
@@ -317,12 +317,12 @@ export default {
 
 			return xOffset;
 		},
-		calculateToolTipY(mouseY, toolTipHeight, margin = 10) {
+		calculateToolTipYOffset(mouseY, toolTipHeight, margin = 10) {
 			const percentageValueOfMargin = (margin / toolTipHeight) * 100;
 			if (mouseY - toolTipHeight - margin < 0) {
 				return percentageValueOfMargin;
 			}
-			return -100 - percentageValueOfMargin;
+			return -85 - percentageValueOfMargin;
 		},
 		getXCoordinateOfItem({ sortingDate, startDate }) {
 			const sortingYear = sortingDate ? Math.floor(sortingDate) : startDate;

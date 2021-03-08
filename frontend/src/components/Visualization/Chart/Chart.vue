@@ -261,10 +261,11 @@ export default {
 			const extend = [[0, 0], [this.displayWidth, this.displayHeight]];
 			this.zoom = d3.zoom()
 				.extent(extend)
-				.scaleExtent(this.zoomLevels)
 				.translateExtent(extend)
+				.scaleExtent(this.zoomLevels)
 				.on('zoom', this.zoomed);
-			this.svg.call(this.zoom);
+			this.svg.call(this.zoom)
+				.on('wheel.zoom', null);
 		},
 		zoomed() {
 			const { transform } = currentEvent;

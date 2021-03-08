@@ -45,6 +45,10 @@ export default {
 			type: Array,
 			required: true,
 		},
+		eventCategory: {
+			type: String,
+			required: true,
+		},
 		color: {
 			type: String,
 			default: 'red',
@@ -160,7 +164,12 @@ export default {
 			return this.xAxis(new Date(startDate)) - 1;
 		},
 		showToolTip(item) {
-			this.toolTipData = item;
+			const tooltipItem = {
+				...item,
+				eventCategory: this.eventCategory,
+			};
+
+			this.toolTipData = tooltipItem;
 
 			let xOffset = -50;
 			const yOffset = d3Event.y - 60;

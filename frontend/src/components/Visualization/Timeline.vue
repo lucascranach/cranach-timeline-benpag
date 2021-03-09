@@ -189,15 +189,6 @@ export default {
 				this.onFilterRangeChanged(val?.params);
 			},
 		},
-		zoomTransform: {
-			handler(val) {
-				const [from, to] = val.rescaleX(this.xAxis).domain();
-				this.onFilterRangeChanged({
-					from: Math.ceil(from),
-					to: Math.floor(to),
-				});
-			},
-		},
 	},
 	methods: {
 		...mapGetters([

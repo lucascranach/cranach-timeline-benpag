@@ -17,6 +17,7 @@
 				:height="eventTimeLineHeight"
 				:margin="eventTimeLineMargins"
 				:event-list="events.cranachElder"
+				:event-category="'cranach_elder'"
 				:color="colors.orange"
 			/>
 			<SpecialEventTimeline
@@ -24,6 +25,7 @@
 				:height="eventTimeLineHeight"
 				:margin="eventTimeLineMargins"
 				:event-list="events.cranachYounger"
+				:event-category="'cranach_younger'"
 				:color="colors.turquoise"
 			/>
 			<SpecialEventTimeline
@@ -31,6 +33,7 @@
 				:height="eventTimeLineHeight"
 				:margin="eventTimeLineMargins"
 				:event-list="events.luther"
+				:event-category="'luther'"
 				:color="colors.pink"
 			/>
 			<SpecialEventTimeline
@@ -38,6 +41,7 @@
 				:height="eventTimeLineHeight"
 				:margin="eventTimeLineMargins"
 				:event-list="events.history"
+				:event-category="'history'"
 				:color="colors.yellow"
 			/>
 			<SpecialEventTimeLineLegend :event-names="eventNames" />

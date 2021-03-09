@@ -86,10 +86,10 @@
 						dominant-baseline="middle" text-anchor="middle"
 					/>
 					<svg
-						:x="pillWidth / 2 - 1.5"
-						:y="-1"
-						width="24px"
-						height="24px">
+						 :x="pillWidth / 2 - 1.5"
+						 :y="-1"
+						 width="24px"
+						 height="24px">
 						<path :fill="colors.primary" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
 					</svg>
 				</g>
@@ -100,10 +100,10 @@
 						:stroke="colors.primary" :stroke-width="strokeWidth"
 					/>
 					<svg
-						:x="timelineWidth - pillWidth + 7"
-						:y="-1"
-						width="24px"
-						height="24px">
+						 :x="timelineWidth - pillWidth + 7"
+						 :y="-1"
+						 width="24px"
+						 height="24px">
 						<path :fill="colors.primary" d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" />
 					</svg>
 					<rect
@@ -121,10 +121,10 @@
 						:font-size="pillFontSize"
 					/>
 					<svg
-						:x="timelineWidth + pillWidth / 2 - 1.5"
-						:y="-1"
-						width="24px"
-						height="24px">
+						 :x="timelineWidth + pillWidth / 2 - 1.5"
+						 :y="-1"
+						 width="24px"
+						 height="24px">
 						<path :fill="colors.primary" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
 					</svg>
 				</g>

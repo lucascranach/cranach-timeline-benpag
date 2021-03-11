@@ -145,7 +145,6 @@ export default {
 		...mapState({
 			data: (state) => state.histogram,
 			yearFilter: (state) => state.activeFilters.find((f) => f.name === 'yearFilter'),
-			zoomTransform: (state) => state.chartZoomTransform,
 		}),
 		timelineWidth() {
 			return this.width - this.margin.left - this.margin.right;

@@ -41,4 +41,7 @@ export default {
 		}
 		return sortedLocations;
 	},
+	getActiveFilters(state) {
+		return state.activeFilters;
+	},
 };

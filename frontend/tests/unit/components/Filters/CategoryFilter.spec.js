@@ -36,6 +36,6 @@ describe('CategoryFilter.vue', () => {
 		await wrapper.find('#category-filter-button').trigger('click');
 		await wrapper.find('.v-input--selection-controls__input').trigger('click');
 		await wrapper.find('.v-input--selection-controls__input').trigger('click');
-		expect(wrapper.vm.$data.selectedCategories).to.be.empty;
+		expect(wrapper.vm.$data.selectedCategories).deep.to.be.equal(['painting', 'graphic', 'archival']);
 	});
 });

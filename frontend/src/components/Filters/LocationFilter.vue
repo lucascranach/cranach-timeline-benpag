@@ -24,6 +24,8 @@
 			:label="$t('location_filter')"
 			multiple
 			chips
+			ref="autocompleteText"
+			@change="removeAutocompleteTextInput()"
 			>
 			<template v-slot:selection="data">
 				<v-chip
@@ -96,6 +98,9 @@ export default {
 		},
 		removeAutocompleteChip(chipName) {
 			this.selectedLocations.splice(this.selectedLocations.indexOf(chipName), 1);
+		},
+		removeAutocompleteTextInput() {
+			this.$refs.autocompleteText.lazySearch = '';
 		},
 	},
 };

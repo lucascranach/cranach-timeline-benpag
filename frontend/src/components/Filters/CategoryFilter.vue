@@ -43,12 +43,12 @@ export default {
 	data() {
 		return {
 			categoryList: [
-				{ name: 'paintings', value: 'paintings' },
-				{ name: 'graphics', value: 'graphics' },
-				{ name: 'archivals', value: 'archivals' },
+				{ name: 'paintings', value: 'painting' },
+				{ name: 'graphics', value: 'graphic' },
+				{ name: 'archivals', value: 'archival' },
 			],
 			colors: colors.getCategoryColors(),
-			selectedCategories: [],
+			selectedCategories: ['painting', 'graphic', 'archival'],
 		};
 	},
 	computed: {
@@ -58,7 +58,7 @@ export default {
 	},
 	watch: {
 		selectedCategories() {
-			if (this.selectedCategories.length < 1) {
+			if (this.selectedCategories.length < 1 || this.selectedCategories.length === this.categoryList.length) {
 				this.removeFilter(this.$options.filterName);
 			} else {
 				this.applyCategoryFilter();
@@ -66,7 +66,7 @@ export default {
 		},
 		categoryFilter() {
 			if (this.categoryFilter === undefined) {
-				this.selectedCategories = [];
+				this.selectedCategories = this.categoryList.map((i) => i.value);
 			} else {
 				this.selectedCategories = this.categoryFilter.params.validCategories;
 			}

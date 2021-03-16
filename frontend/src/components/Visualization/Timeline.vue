@@ -174,7 +174,6 @@ export default {
 		...mapState({
 			data: (state) => state.histogram,
 			yearFilter: (state) => state.activeFilters.find((f) => f.name === 'yearFilter'),
-			zoomTransform: (state) => state.chartZoomTransform,
 		}),
 		timelineWidth() {
 			return this.width - this.margin.left - this.margin.right;
@@ -216,15 +215,6 @@ export default {
 		yearFilter: {
 			handler(val) {
 				this.onFilterRangeChanged(val?.params);
-			},
-		},
-		zoomTransform: {
-			handler(val) {
-				const [from, to] = val.rescaleX(this.xAxis).domain();
-				this.onFilterRangeChanged({
-					from: Math.ceil(from),
-					to: Math.floor(to),
-				});
 			},
 		},
 	},

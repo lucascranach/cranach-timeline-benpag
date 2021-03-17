@@ -79,11 +79,12 @@ export default {
 			toolTipData: {},
 			maxSymbolSizeInPx: 36,
 			zoomLevels: [1, 10],
+			chartLegendHeight: 30,
 		};
 	},
 	mounted() {
 		this.$watch(
-			() => ((this.width, this.height, Date.now())), () => {
+			() => ((this.width, this.height, this.chartLegendHeight, Date.now())), () => {
 				d3.select(`#${this.chartDivId}`).selectAll('svg').remove();
 				this.setUpChart();
 			},
@@ -105,7 +106,7 @@ export default {
 			return this.minWidth < this.width ? this.width : this.minWidth;
 		},
 		svgHeight() {
-			return this.minHeight < this.height ? this.height : this.minHeight;
+			return this.minHeight < this.height ? this.height - this.chartLegendHeight : this.minHeight;
 		},
 		displayWidth() {
 			return this.svgWidth - this.margin.left - this.margin.right;
@@ -136,6 +137,7 @@ export default {
 			// Our svg size includes the margins
 			this.svg = d3.select(`#${this.chartDivId}`)
 				.style('position', 'relative')
+				.style('height', `${this.height}px`)
 				.append('svg')
 				.attr('width', this.svgWidth)
 				.attr('height', this.svgHeight)

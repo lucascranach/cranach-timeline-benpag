@@ -2,12 +2,15 @@
 	<v-sheet
 		color="transparent"
 	>
-		<v-row v-show="showFilters">
+		<v-row>
 			<v-col v-for="(component, i) in this.formElements" :key="i">
 				<component :ref="component.filterName" :is="component" />
 			</v-col>
 		</v-row>
-		<v-row justify="center" :class="['mb-1', this.showFilters ? '' : 'mt-2']" v-show="activeFilterValues.length > 0">
+		<v-row
+			v-show="activeFilterValues.length > 0"
+			justify="center" class="mt-5"
+			style="position: absolute; left: 50%; transform: translateX(-50%); width: 95%">
 			<v-chip
 				v-for="(filterValue, i) in activeFilterValues" :key="i"
 				class="mx-2 mb-1"

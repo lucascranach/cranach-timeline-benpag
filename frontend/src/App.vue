@@ -1,6 +1,11 @@
 <template>
 	<v-app class="no-transition">
-		<v-app-bar app short flat>
+		<v-app-bar app short flat color="transparent" class="app-bar-border">
+			<img
+				:class="['timeline-logo', this.$vuetify.theme.isDark ? 'timeline-logo-invert' : '']"
+				src="Cranach_Timeline.png" alt="Logo"
+			/>
+			<v-spacer />
 			<v-badge
 				class="filter-badge"
 				:value="activeFilters.length > 0"
@@ -17,10 +22,7 @@
 					<v-icon large>{{this.showFilters ? 'mdi-filter-minus-outline' : 'mdi-filter-plus-outline' }}</v-icon>
 				</v-btn>
 			</v-badge>
-			<img
-				:class="['timeline-logo', this.$vuetify.theme.isDark ? 'timeline-logo-invert' : '']"
-				src="/Cranach_Timeline.png" alt="Logo"
-			/>
+			<Filters class="ml-3" :show-filters="this.showFilters"/>
 			<v-spacer />
 			<v-switch
 				class="theme-switch"
@@ -44,10 +46,9 @@
 			</v-sheet>
 		</v-app-bar>
 		<v-main>
-			<v-container fluid class="px-6 pt-1">
-				<FilterComponent :showFilters="showFilters"/>
+			<v-container fluid class="mt-7">
 				<loading :active.sync="isLoading"/>
-                <Visualization/>
+				<Visualization/>
 			</v-container>
 		</v-main>
 	</v-app>
@@ -58,13 +59,13 @@ import { mapState, mapActions } from 'vuex';
 import Loading from 'vue-loading-overlay';
 import i18n from '@/plugins/i18n';
 import Visualization from './components/Visualization/Visualisation.vue';
-import FilterComponent from './components/Filters/Filters.vue';
+import Filters from './components/Filters/Filters.vue';
 import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
 	name: 'App',
 	components: {
-		FilterComponent,
+		Filters,
 		Visualization,
 		Loading,
 	},
@@ -115,6 +116,9 @@ export default {
 </script>
 
 <style>
+.app-bar-border > div {
+	border-bottom: 1px solid #555;
+}
 .v-badge__badge {
 	color: var(--v-lighten-base) !important;
 }
@@ -124,11 +128,10 @@ export default {
 }
 
 .timeline-logo {
-	position: absolute;
+	position: relative;
 	width: auto;
 	height: 80%;
-	left: 50%;
-	transform: translateX(-50%);
+
 }
 
 .filter-badge {

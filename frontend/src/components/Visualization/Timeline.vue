@@ -67,6 +67,7 @@
 					<svg
 						:x="-pillWidth + 7"
 						:y="-1"
+						class="arrow-left"
 						width="24px"
 						height="24px">
 						<path :fill="colors.primary" d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" />
@@ -123,6 +124,7 @@
 					<svg
 						 :x="timelineWidth + pillWidth / 2 - 1.5"
 						 :y="-1"
+						 class="arrow-right"
 						 width="24px"
 						 height="24px">
 						<path :fill="colors.primary" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
@@ -225,6 +227,7 @@ export default {
 		]),
 		...mapActions([
 			'addFilter',
+			'removeFilter',
 		]),
 		getPath(index) {
 			const xPos = index * this.imageWidth;
@@ -285,6 +288,7 @@ export default {
 		setupSliderLeft() {
 			const sliderLeft = select('#sliderLeft');
 			const sliderLeftText = select('#sliderLeftText');
+			const sliderLeftArrowLeft = sliderLeft.select('.arrow-left');
 			const areaInactiveLeft = select('#areaInactiveLeft');
 			const areaSlider = select('#areaSlider');
 			const area = select('#area');
@@ -306,6 +310,9 @@ export default {
 					}
 					sliderLeftText.text(this.filterRange.from);
 
+					const cssDisplayValue = this.filterRange.from === min ? 'none' : 'initial';
+					sliderLeftArrowLeft.attr('display', cssDisplayValue);
+
 					const bounding = area.node().getBBox();
 					areaSlider.attr('width', bounding.width - this.pillWidth);
 					areaSlider.attr('height', bounding.height);
@@ -317,10 +324,12 @@ export default {
 
 			sliderLeft.call(sliderLeftDragHandler);
 			sliderLeftText.text(this.filterRange.from);
+			sliderLeft.select('.arrow-left').attr('display', 'none');
 		},
 		setupSliderRight() {
 			const sliderRight = select('#sliderRight');
 			const sliderRightText = select('#sliderRightText');
+			const sliderRightArrowRight = sliderRight.select('.arrow-right');
 			const areaInactiveRight = select('#areaInactiveRight');
 			const max = this.xAxis.domain()[1];
 			const maxPx = Math.floor(this.xAxis(max));
@@ -330,7 +339,7 @@ export default {
 			const sliderRightDragHandler = drag()
 				.on('drag', () => {
 					const current = Math.floor(this.xAxis.invert(event.x));
-					if (max < current) {
+					if (max < current || event.x >= this.timelineWidth) {
 						sliderRight.attr('transform', 'translate(0, 0)');
 						areaInactiveRight.attr('width', 0);
 						this.filterRange.to = max;
@@ -346,6 +355,9 @@ export default {
 					}
 					sliderRightText.text(this.filterRange.to);
 
+					const cssDisplayValue = this.filterRange.to === max ? 'none' : 'initial';
+					sliderRightArrowRight.attr('display', cssDisplayValue);
+
 					const bounding = area.node().getBBox();
 					areaSlider.attr('width', bounding.width - this.pillWidth);
 					areaSlider.attr('height', bounding.height);
@@ -356,6 +368,7 @@ export default {
 
 			sliderRight.call(sliderRightDragHandler);
 			sliderRightText.text(this.filterRange.to);
+			sliderRight.select('.arrow-right').attr('display', 'none');
 		},
 		setupAreaSlider() {
 			const sliderLeft = select('#sliderLeft');
@@ -419,12 +432,19 @@ export default {
 			});
 		},
 		applyYearFilter() {
-			const filter = {
-				name: 'yearFilter',
-				type: 'year',
-				params: this.filterRange,
-			};
-			this.addFilter(filter);
+			const [min, max] = this.xAxis.domain();
+			const { from, to } = this.filterRange;
+
+			if (from !== min || to !== max) {
+				const filter = {
+					name: 'yearFilter',
+					type: 'year',
+					params: this.filterRange,
+				};
+				this.addFilter(filter);
+			} else {
+				this.removeFilter('yearFilter');
+			}
 		},
 		onFilterRangeChanged(filterRange) {
 			if (filterRange !== undefined) {

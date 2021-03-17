@@ -1,5 +1,5 @@
 <template>
-	<v-sheet color="transparent">
+	<v-sheet color="transparent" class="mt-1">
 		<h2
 			v-show="!this.hasItems()"
 			class="text-center"
@@ -76,7 +76,7 @@ export default {
 				left: 30,
 				right: 30,
 				top: 10,
-				bottom: 25,
+				bottom: 20,
 			},
 			chartWidth: window.innerWidth,
 			chartHeight: window.innerHeight * 0.65,
@@ -101,7 +101,7 @@ export default {
 				left: this.chartMargins.left,
 				right: this.chartMargins.right,
 				top: 0,
-				bottom: this.eventTimeLineHeight,
+				bottom: this.eventTimeLineHeight / 1.5,
 			};
 		},
 		timeLineMargins() {

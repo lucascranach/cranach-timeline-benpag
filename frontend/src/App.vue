@@ -1,28 +1,12 @@
 <template>
 	<v-app class="no-transition">
-		<v-app-bar app short flat color="transparent" class="app-bar-border">
+		<v-app-bar app short flat color="transparent" class="app-bar-border" >
 			<img
 				:class="['timeline-logo', this.$vuetify.theme.isDark ? 'timeline-logo-invert' : '']"
 				src="Cranach_Timeline.png" alt="Logo"
 			/>
 			<v-spacer />
-			<v-badge
-				class="filter-badge"
-				:value="activeFilters.length > 0"
-				:content="activeFilters.length"
-				right
-				offset-y="40"
-				offset-x="20"
-				overlap
-			>
-				<v-btn
-					icon
-					@click="() => this.showFilters = !this.showFilters"
-				>
-					<v-icon large>{{this.showFilters ? 'mdi-filter-minus-outline' : 'mdi-filter-plus-outline' }}</v-icon>
-				</v-btn>
-			</v-badge>
-			<Filters class="ml-3" :show-filters="this.showFilters"/>
+			<Filters v-if="this.$vuetify.breakpoint.mdAndUp" style="min-width: 55%"/>
 			<v-spacer />
 			<v-switch
 				class="theme-switch"
@@ -46,8 +30,9 @@
 			</v-sheet>
 		</v-app-bar>
 		<v-main>
-			<v-container fluid class="mt-7">
+			<v-container fluid :class="[this.$vuetify.breakpoint.mdAndUp ? 'mt-7' : '']">
 				<loading :active.sync="isLoading"/>
+				<Filters v-if="this.$vuetify.breakpoint.smAndDown"/>
 				<Visualization/>
 			</v-container>
 		</v-main>

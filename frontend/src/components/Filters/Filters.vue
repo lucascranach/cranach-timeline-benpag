@@ -3,14 +3,27 @@
 		color="transparent"
 	>
 		<v-row>
+			<v-col cols="1" class="text-right" v-if="this.$vuetify.breakpoint.mdAndUp">
+				<v-badge
+					class="filter-badge"
+					:value="activeFilters.length > 0"
+					:content="activeFilters.length"
+					right
+					offset-y="40"
+					offset-x="15"
+					overlap
+				>
+					<v-icon large>mdi-filter-outline</v-icon>
+				</v-badge>
+			</v-col>
 			<v-col v-for="(component, i) in this.formElements" :key="i">
 				<component :ref="component.filterName" :is="component" />
 			</v-col>
 		</v-row>
 		<v-row
 			v-show="activeFilterValues.length > 0"
-			justify="center" class="mt-5"
-			style="position: absolute; left: 50%; transform: translateX(-50%); width: 95%">
+			justify="center"
+			:class="[this.$vuetify.breakpoint.mdAndUp ? 'md-and-up-filter-chips mt-5' : 'mb-0']">
 			<v-chip
 				v-for="(filterValue, i) in activeFilterValues" :key="i"
 				class="mx-2 mb-1"
@@ -44,12 +57,6 @@ import colors from '../../plugins/colors';
 
 export default {
 	name: 'Filters',
-	props: {
-		showFilters: {
-			type: Boolean,
-			default: true,
-		},
-	},
 	components: {
 		CategoryFilter,
 		IsBestOfFilter,
@@ -94,3 +101,12 @@ export default {
 	},
 };
 </script>
+
+<style>
+.md-and-up-filter-chips {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 95%
+}
+</style>

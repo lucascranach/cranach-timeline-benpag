@@ -136,7 +136,7 @@
 <script>
 import { mapActions, mapGetters, mapState } from 'vuex';
 import { scaleLinear } from 'd3-scale';
-import { select, event } from 'd3-selection';
+import { select } from 'd3-selection';
 import { drag } from 'd3-drag';
 
 export default {
@@ -291,7 +291,7 @@ export default {
 			const [min] = this.xAxis.domain();
 
 			const sliderLeftDragHandler = drag()
-				.on('drag', () => {
+				.on('drag', (event) => {
 					const current = Math.floor(this.xAxis.invert(event.x));
 					if (min > current) {
 						sliderLeft.attr('transform', 'translate(0, 0)');
@@ -328,7 +328,7 @@ export default {
 			const area = select('#area');
 
 			const sliderRightDragHandler = drag()
-				.on('drag', () => {
+				.on('drag', (event) => {
 					const current = Math.floor(this.xAxis.invert(event.x));
 					if (max < current) {
 						sliderRight.attr('transform', 'translate(0, 0)');
@@ -369,7 +369,7 @@ export default {
 			const areaSlider = select('#areaSlider');
 
 			const areaSliderDragHandler = drag()
-				.on('drag', () => {
+				.on('drag', (event) => {
 					const currentLeft = Math.floor(this.xAxis.invert(event.x));
 					const currentRight = Math.floor(this.xAxis.invert(event.x + areaSlider.node().getBBox().width));
 					if (min > currentLeft) {

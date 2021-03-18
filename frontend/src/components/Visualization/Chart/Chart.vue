@@ -83,7 +83,7 @@ export default {
 	},
 	mounted() {
 		this.$watch(
-			() => ((this.width, this.height, this.chartLegendHeight, Date.now())), () => {
+			() => ((this.width, this.height, Date.now())), () => {
 				d3.select(`#${this.chartDivId}`).selectAll('svg').remove();
 				this.setUpChart();
 			},

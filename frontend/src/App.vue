@@ -102,7 +102,7 @@ export default {
 
 <style>
 .app-bar-border > div {
-	border-bottom: 1px solid #555;
+	border-bottom: 1px solid var(--v-grey-base);
 }
 .v-badge__badge {
 	color: var(--v-lighten-base) !important;
@@ -116,7 +116,6 @@ export default {
 	position: relative;
 	width: auto;
 	height: 80%;
-
 }
 
 .filter-badge {

@@ -17,7 +17,6 @@
 <script>
 import { mapGetters, mapState } from 'vuex';
 import d3 from '@/plugins/d3-importer';
-import { event as d3Event } from 'd3-selection';
 import EventToolTipItem from './EventToolTipItem.vue';
 
 export default {
@@ -145,15 +144,15 @@ export default {
 				.attr('cy', this.svgHeight / 2)
 				.attr('r', this.eventCircleRadius)
 				.attr('fill', this.color)
-				.on('mouseover', (d) => {
+				.on('mouseover', (event, d) => {
 					this.svg.select(`.circle-${d.startDate}`)
 						.attr('stroke', this.colors.primary)
 						.attr('stroke-width', 1.5)
 						.attr('stroke-opacity', 0.6)
 						.attr('r', this.eventCircleRadius * 1.5);
-					this.showToolTip(d);
+					this.showToolTip(event, d);
 				})
-				.on('mouseout', (d) => {
+				.on('mouseout', (event, d) => {
 					this.svg.select(`.circle-${d.startDate}`)
 						.attr('stroke', 'none')
 						.attr('r', this.eventCircleRadius);
@@ -163,25 +162,23 @@ export default {
 		getXCoordinate({ startDate }) {
 			return this.xAxis(new Date(startDate)) - 1;
 		},
-		showToolTip(item) {
-			const tooltipItem = {
+		showToolTip(event, item) {
+			this.toolTipData = {
 				...item,
 				eventCategory: this.eventCategory,
 			};
 
-			this.toolTipData = tooltipItem;
-
 			let xOffset = -50;
-			const yOffset = d3Event.y - 60;
+			const yOffset = event.y - 60;
 			const toolTipHalfWidth = this.toolTipMaxWidth / 2;
-			if (d3Event.x - toolTipHalfWidth < 0) {
-				xOffset = ((d3Event.x - this.margin.left) / this.toolTipMaxWidth) * -100;
-			} else if (d3Event.x + toolTipHalfWidth > window.innerWidth) {
-				xOffset -= (100 * (this.margin.right + (d3Event.x + toolTipHalfWidth - window.innerWidth))) / this.toolTipMaxWidth;
+			if (event.x - toolTipHalfWidth < 0) {
+				xOffset = ((event.x - this.margin.left) / this.toolTipMaxWidth) * -100;
+			} else if (event.x + toolTipHalfWidth > window.innerWidth) {
+				xOffset -= (100 * (this.margin.right + (event.x + toolTipHalfWidth - window.innerWidth))) / this.toolTipMaxWidth;
 			}
 
 			this.toolTip
-				.style('left', `${d3Event.x}px`)
+				.style('left', `${event.x}px`)
 				.style('top', `${yOffset}px`)
 				.style('transform', `translate(${xOffset}%, -107%)`)
 				.style('visibility', 'visible');

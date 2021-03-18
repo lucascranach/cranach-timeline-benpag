@@ -15,7 +15,6 @@
 
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex';
-import { event as currentEvent } from 'd3-selection';
 import d3 from '../../../plugins/d3-importer';
 import ToolTipItem from './ToolTipItem.vue';
 import colors from '../../../plugins/colors';
@@ -181,7 +180,7 @@ export default {
 				.attr('d', this.getItemSymbol())
 				.attr('opacity', (d) => (d.imageUrl ? 1 : 0.5))
 				.attr('fill', (d) => colors.getCategoryColors()[d.type])
-				.on('mouseover', (d) => {
+				.on('mouseover', (event, d) => {
 					d3.select(`.dot-${d.id} path`)
 						.attr('stroke', this.colors.primary)
 						.attr('stroke-width', 0.5)
@@ -189,19 +188,19 @@ export default {
 						.attr('transform', 'scale(1.5)');
 
 					this.toolTipData = d;
-					const left = window.innerWidth - currentEvent.pageX > this.$refs.tooltip.maxToolTipWidth
-						? currentEvent.pageX
+					const left = window.innerWidth - event.pageX > this.$refs.tooltip.maxToolTipWidth
+						? event.pageX
 						: window.innerWidth - this.$refs.tooltip.maxToolTipWidth;
-					const xOffset = this.calculateToolTipXOffset(currentEvent.pageX, this.$refs.tooltip.maxToolTipWidth);
-					const yOffset = this.calculateToolTipYOffset(currentEvent.pageY, this.$refs.tooltip.maxToolTipHeight);
+					const xOffset = this.calculateToolTipXOffset(event.pageX, this.$refs.tooltip.maxToolTipWidth);
+					const yOffset = this.calculateToolTipYOffset(event.pageY, this.$refs.tooltip.maxToolTipHeight);
 
 					this.tooltipDiv
 						.style('left', `${left}px`)
-						.style('top', `${currentEvent.layerY}px`)
+						.style('top', `${event.layerY}px`)
 						.style('transform', `translate(${xOffset}%, ${yOffset}%)`)
 						.style('visibility', 'visible');
 				})
-				.on('mouseout', (d) => {
+				.on('mouseout', (event, d) => {
 					d3.select(`.dot-${d.id} path`)
 						.attr('stroke', 'none')
 						.attr('transform', 'scale(1)');
@@ -267,8 +266,8 @@ export default {
 			this.svg.call(this.zoom)
 				.on('wheel.zoom', null);
 		},
-		zoomed() {
-			const { transform } = currentEvent;
+		zoomed(event) {
+			const { transform } = event;
 			// --- scaling axes to transformed value
 			this.gX.call(this.xAxis.scale(transform.rescaleX(this.x)));
 			this.gY.call(this.yAxis.scale(transform.rescaleY(this.y)));

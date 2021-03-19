@@ -3,19 +3,6 @@
 		color="transparent"
 	>
 		<v-row>
-			<v-col cols="1" class="text-right" v-if="this.$vuetify.breakpoint.mdAndUp">
-				<v-badge
-					class="filter-badge"
-					:value="activeFilters.length > 0"
-					:content="activeFilters.length"
-					right
-					offset-y="40"
-					offset-x="15"
-					overlap
-				>
-					<v-icon large>mdi-filter-outline</v-icon>
-				</v-badge>
-			</v-col>
 			<v-col v-for="(component, i) in this.formElements" :key="i">
 				<component :ref="component.filterName" :is="component" />
 			</v-col>

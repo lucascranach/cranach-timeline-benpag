@@ -30,7 +30,7 @@
 			</v-sheet>
 		</v-app-bar>
 		<v-main>
-			<v-container fluid :class="[this.$vuetify.breakpoint.mdAndUp ? 'mt-7' : '']">
+			<v-container fluid :class="[this.$vuetify.breakpoint.mdAndUp && this.isFilterActive ? 'mt-7' : '']">
 				<loading :active.sync="isLoading"/>
 				<Filters v-if="this.$vuetify.breakpoint.smAndDown"/>
 				<Visualization/>
@@ -74,7 +74,7 @@ export default {
 	computed: {
 		...mapState({
 			isLoading: (state) => state.isLoading,
-			activeFilters: (state) => state.activeFilters,
+			isFilterActive: (state) => state.activeFilters.length > 0,
 		}),
 		colors() {
 			return this.$vuetify.theme.isDark ? this.$vuetify.theme.themes.dark : this.$vuetify.theme.themes.light;

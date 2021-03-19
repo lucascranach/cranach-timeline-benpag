@@ -44,7 +44,7 @@
 				:event-category="'history'"
 				:color="colors.yellow"
 			/>
-			<SpecialEventTimeLineLegend :event-names="eventNames" />
+			<SpecialEventTimeLineLegend class="mt-1" :event-names="eventNames" />
 		</div>
 		<Timeline
 			:width="chartWidth"
@@ -100,7 +100,7 @@ export default {
 				left: this.chartMargins.left,
 				right: this.chartMargins.right,
 				top: 0,
-				bottom: this.eventTimeLineHeight / 1.5,
+				bottom: this.eventTimeLineHeight,
 			};
 		},
 		timeLineMargins() {

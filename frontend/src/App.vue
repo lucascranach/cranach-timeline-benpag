@@ -1,5 +1,6 @@
 <template>
 	<v-app class="no-transition">
+		<meta name="keywords" content="Lucas Cranach, Cranach, Timeline, Zeitstrahl, Cranach Digital Timeline, cda"/>
 		<v-app-bar app short flat>
 			<v-badge
 				class="filter-badge"

@@ -78,6 +78,7 @@ export default {
 			toolTipData: {},
 			maxSymbolSizeInPx: 36,
 			zoomLevels: [1, 10],
+			chartLegendHeight: 30,
 		};
 	},
 	mounted() {
@@ -104,7 +105,7 @@ export default {
 			return this.minWidth < this.width ? this.width : this.minWidth;
 		},
 		svgHeight() {
-			return this.minHeight < this.height ? this.height : this.minHeight;
+			return this.minHeight < this.height ? this.height - this.chartLegendHeight : this.minHeight;
 		},
 		displayWidth() {
 			return this.svgWidth - this.margin.left - this.margin.right;
@@ -135,6 +136,7 @@ export default {
 			// Our svg size includes the margins
 			this.svg = d3.select(`#${this.chartDivId}`)
 				.style('position', 'relative')
+				.style('height', `${this.height}px`)
 				.append('svg')
 				.attr('width', this.svgWidth)
 				.attr('height', this.svgHeight)

@@ -1,26 +1,12 @@
 <template>
 	<v-app class="no-transition">
-		<v-app-bar app short flat>
-			<v-badge
-				class="filter-badge"
-				:value="activeFilters.length > 0"
-				:content="activeFilters.length"
-				right
-				offset-y="40"
-				offset-x="20"
-				overlap
-			>
-				<v-btn
-					icon
-					@click="() => this.showFilters = !this.showFilters"
-				>
-					<v-icon large>{{this.showFilters ? 'mdi-filter-minus-outline' : 'mdi-filter-plus-outline' }}</v-icon>
-				</v-btn>
-			</v-badge>
+		<v-app-bar app short flat color="transparent" class="app-bar-border" >
 			<img
 				:class="['timeline-logo', this.$vuetify.theme.isDark ? 'timeline-logo-invert' : '']"
-				src="/Cranach_Timeline.png" alt="Logo"
+				src="Cranach_Timeline.png" alt="Logo"
 			/>
+			<v-spacer />
+			<Filters v-if="this.$vuetify.breakpoint.mdAndUp" style="min-width: 55%"/>
 			<v-spacer />
 			<v-switch
 				class="theme-switch"
@@ -44,10 +30,10 @@
 			</v-sheet>
 		</v-app-bar>
 		<v-main>
-			<v-container fluid class="px-6 pt-1">
-				<FilterComponent :showFilters="showFilters"/>
+			<v-container fluid :class="[this.$vuetify.breakpoint.mdAndUp && this.isFilterActive ? 'mt-7' : '']">
 				<loading :active.sync="isLoading"/>
-                <Visualization/>
+				<Filters v-if="this.$vuetify.breakpoint.smAndDown"/>
+				<Visualization/>
 			</v-container>
 		</v-main>
 	</v-app>
@@ -58,13 +44,13 @@ import { mapState, mapActions } from 'vuex';
 import Loading from 'vue-loading-overlay';
 import i18n from '@/plugins/i18n';
 import Visualization from './components/Visualization/Visualisation.vue';
-import FilterComponent from './components/Filters/Filters.vue';
+import Filters from './components/Filters/Filters.vue';
 import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
 	name: 'App',
 	components: {
-		FilterComponent,
+		Filters,
 		Visualization,
 		Loading,
 	},
@@ -88,7 +74,7 @@ export default {
 	computed: {
 		...mapState({
 			isLoading: (state) => state.isLoading,
-			activeFilters: (state) => state.activeFilters,
+			isFilterActive: (state) => state.activeFilters.length > 0,
 		}),
 		colors() {
 			return this.$vuetify.theme.isDark ? this.$vuetify.theme.themes.dark : this.$vuetify.theme.themes.light;
@@ -115,6 +101,9 @@ export default {
 </script>
 
 <style>
+.app-bar-border > div {
+	border-bottom: 1px solid var(--v-grey-base);
+}
 .v-badge__badge {
 	color: var(--v-lighten-base) !important;
 }
@@ -124,11 +113,9 @@ export default {
 }
 
 .timeline-logo {
-	position: absolute;
+	position: relative;
 	width: auto;
 	height: 80%;
-	left: 50%;
-	transform: translateX(-50%);
 }
 
 .filter-badge {

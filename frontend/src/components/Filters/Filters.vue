@@ -2,12 +2,15 @@
 	<v-sheet
 		color="transparent"
 	>
-		<v-row v-show="showFilters" class="my-0">
+		<v-row>
 			<v-col v-for="(component, i) in this.formElements" :key="i">
 				<component :ref="component.filterName" :is="component" />
 			</v-col>
 		</v-row>
-		<v-row justify="center" :class="['mb-1', this.showFilters ? 'mt-0' : 'mt-2']" v-show="activeFilterValues.length > 0">
+		<v-row
+			v-show="activeFilterValues.length > 0"
+			justify="center"
+			:class="[this.$vuetify.breakpoint.mdAndUp ? 'md-and-up-filter-chips mt-5' : 'mb-0']">
 			<v-chip
 				v-for="(filterValue, i) in activeFilterValues" :key="i"
 				class="mx-2 mb-1"
@@ -41,12 +44,6 @@ import colors from '../../plugins/colors';
 
 export default {
 	name: 'Filters',
-	props: {
-		showFilters: {
-			type: Boolean,
-			default: true,
-		},
-	},
 	components: {
 		CategoryFilter,
 		IsBestOfFilter,
@@ -91,3 +88,12 @@ export default {
 	},
 };
 </script>
+
+<style>
+.md-and-up-filter-chips {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 95%
+}
+</style>

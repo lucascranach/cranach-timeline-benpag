@@ -182,7 +182,14 @@ export default {
 				.attr('d', this.getItemSymbol())
 				.attr('opacity', (d) => (d.imageUrl ? 1 : 0.5))
 				.attr('fill', (d) => colors.getCategoryColors()[d.type])
-				.on('mouseover', (event, d) => {
+				.on('touchstart mouseover', (event, d) => {
+					event.preventDefault();
+					const isTouchEvent = event.type === 'touchstart';
+
+					if (isTouchEvent) {
+						this.dismissToolTip();
+					}
+
 					d3.select(`.dot-${d.id} path`)
 						.attr('stroke', this.colors.primary)
 						.attr('stroke-width', 0.5)
@@ -190,6 +197,8 @@ export default {
 						.attr('transform', 'scale(1.5)');
 
 					this.toolTipData = d;
+					this.toolTipData.isTouchDevice = isTouchEvent;
+
 					const left = window.innerWidth - event.pageX > this.$refs.tooltip.maxToolTipWidth
 						? event.pageX
 						: window.innerWidth - this.$refs.tooltip.maxToolTipWidth;
@@ -200,16 +209,11 @@ export default {
 						.style('left', `${left}px`)
 						.style('top', `${event.layerY}px`)
 						.style('transform', `translate(${xOffset}%, ${yOffset}%)`)
-						.style('visibility', 'visible');
-				})
-				.on('mouseout', (event, d) => {
-					d3.select(`.dot-${d.id} path`)
-						.attr('stroke', 'none')
-						.attr('transform', 'scale(1)');
-
-					this.toolTipData = {};
-					this.tooltipDiv.style('visibility', 'hidden');
-				})
+						.style('visibility', 'visible')
+						.style('pointer-events', isTouchEvent ? '' : 'none');
+				}, { passive: false })
+				.on('touchend', (event) => event.preventDefault(), { passive: false })
+				.on('mouseout', this.dismissToolTip())
 				.on('click', () => {
 					if (this.toolTipData.type !== 'graphic') {
 						window.open(`${this.toolTipData.detailUrl}`, '_blank');
@@ -306,6 +310,14 @@ export default {
 			const size = this.calculateItemSymbolSize();
 			return d3.symbol().type(d3.symbolSquare).size(size ** 2);
 		},
+		dismissToolTip() {
+			d3.select(`.dot-${this.toolTipData.id} path`)
+				.attr('stroke', 'none')
+				.attr('transform', 'scale(1)');
+
+			this.toolTipData = {};
+			this.tooltipDiv.style('visibility', 'hidden');
+		},
 		calculateToolTipXOffset(mouseX, toolTipWidth) {
 			let xOffset = -50;
 			const toolTipHalfWidth = toolTipWidth / 2;
@@ -353,6 +365,9 @@ export default {
 </script>
 
 <style lang="scss">
+#cranach-chart svg {
+	touch-action: pan-y !important;
+}
 .axis.xaxis text {
 	fill: var(--v-primary-lighten1);
 }
@@ -377,7 +392,6 @@ export default {
 	top: 0;
 	left: 0;
 	overflow: hidden;
-	pointer-events: none;
 	z-index: 999999;
 }
 

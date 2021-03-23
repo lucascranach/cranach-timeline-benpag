@@ -18,7 +18,11 @@
 			<v-card-text
 				v-html="checkHighlight(category)+ '<br/>' + checkHighlight(artist) + '<br/>' + checkHighlight(owner + locationComma) "
 				class="text-lg-caption text-xl-body-1 py-0 test"/>
-			<v-card-text v-if="furtherInformation === true" style="color: darkorange">{{ $t('further_information') }}
+			<v-card-text v-if="furtherInformation === true" style="color: darkorange">
+				{{ $t('further_information') }}
+			</v-card-text>
+			<v-card-text v-show="item.isTouchDevice === true && item.detailUrl">
+				<v-btn small elevation="1" link target="_blank" :href="item.detailUrl"> Zur Detailseite</v-btn>
 			</v-card-text>
 		</div>
 	</v-card>

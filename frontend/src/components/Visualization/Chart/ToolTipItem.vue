@@ -41,10 +41,10 @@ export default {
 	},
 	computed: {
 		maxToolTipHeight() {
-			return window.innerHeight * 0.2;
+			return this.$vuetify.breakpoint.mdAndUp ? window.innerHeight * 0.2 : window.innerHeight * 0.45;
 		},
 		maxToolTipWidth() {
-			return window.innerWidth * 0.4;
+			return this.$vuetify.breakpoint.mdAndUp ? window.innerWidth * 0.4 : window.innerWidth * 0.6;
 		},
 		imageUrl() {
 			return this.item.imageUrl || '/placeholder.png';

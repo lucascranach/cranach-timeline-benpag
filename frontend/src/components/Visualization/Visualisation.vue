@@ -1,5 +1,5 @@
 <template>
-	<v-sheet color="transparent">
+	<v-sheet color="transparent" class="mt-1">
 		<h2
 			v-show="!this.hasItems()"
 			class="text-center"
@@ -44,7 +44,7 @@
 				:event-category="'history'"
 				:color="colors.yellow"
 			/>
-			<SpecialEventTimeLineLegend :event-names="eventNames" />
+			<SpecialEventTimeLineLegend class="mt-1" :event-names="eventNames" />
 		</div>
 		<Timeline
 			:width="chartWidth"
@@ -76,20 +76,19 @@ export default {
 				left: 30,
 				right: 30,
 				top: 10,
-				bottom: 25,
+				bottom: 20,
 			},
-			chartWidth: window.innerWidth,
-			chartHeight: window.innerHeight * 0.65,
-			eventTimeLineHeight: window.innerHeight * 0.01,
-			timelineHeight: window.innerHeight * 0.1,
+			chartWidth: 1900,
+			chartHeight: 700,
+			eventTimeLineHeight: 20,
+			timelineHeight: 100,
 		};
 	},
+	created() {
+		window.addEventListener('resize', this.calculateSizes);
+	},
 	mounted() {
-		const container = d3.select('.container').node();
-		const styles = window.getComputedStyle(container, null);
-		const paddingLeft = parseInt(styles.getPropertyValue('padding-left'), 10);
-		const paddingRight = parseInt(styles.getPropertyValue('padding-right'), 10);
-		this.chartWidth = container.clientWidth - (paddingLeft + paddingRight);
+		this.calculateSizes();
 	},
 	computed: {
 		...mapState({
@@ -123,6 +122,19 @@ export default {
 		...mapGetters([
 			'hasItems',
 		]),
+		calculateSizes() {
+			const container = d3.select('.container').node();
+			const styles = window.getComputedStyle(container, null);
+			const paddingLeft = parseInt(styles.getPropertyValue('padding-left'), 10);
+			const paddingRight = parseInt(styles.getPropertyValue('padding-right'), 10);
+			const innerHeight = window.innerHeight > 500 ? window.innerHeight : 500;
+			const chartHeightScaleFactor = this.$vuetify.breakpoint.smAndDown ? 0.85 : 0.65;
+
+			this.chartWidth = container.clientWidth - (paddingLeft + paddingRight);
+			this.eventTimeLineHeight = innerHeight * 0.01;
+			this.timelineHeight = innerHeight * 0.1;
+			this.chartHeight = innerHeight * chartHeightScaleFactor;
+		},
 	},
 };
 </script>

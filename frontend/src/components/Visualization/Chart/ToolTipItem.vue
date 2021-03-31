@@ -14,14 +14,14 @@
 		/>
 		<div class="text-left">
 			<v-card-title v-html="checkHighlight(title + ',' + dating)"
-						  class="text-lg-subtitle-2 text-xl-h6 text-break pt-2 pb-0"/>
+						  class="text-subtitle-2 text-lg-subtitle-1 text-xl-h6 text-break pt-2 pb-0"/>
 			<v-card-text
 				v-html="checkHighlight(category)+ '<br/>' + checkHighlight(artist) + '<br/>' + checkHighlight(owner + locationComma) "
-				class="text-lg-caption text-xl-body-1 py-0 test"/>
+				class="text-caption text-lg-body-2 text-xl-body-1 py-0 test"/>
 			<v-card-text v-if="furtherInformation === true" style="color: darkorange">
 				{{ $t('further_information') }}
 			</v-card-text>
-			<v-card-text v-show="item.isTouchDevice === true && item.detailUrl">
+			<v-card-text class="pt-2 pb-0" v-show="item.isTouchDevice === true && item.detailUrl">
 				<v-btn small elevation="1" link target="_blank" :href="item.detailUrl"> Zur Detailseite</v-btn>
 			</v-card-text>
 		</div>
@@ -44,7 +44,7 @@ export default {
 			return this.$vuetify.breakpoint.mdAndUp ? window.innerHeight * 0.2 : window.innerHeight * 0.45;
 		},
 		maxToolTipWidth() {
-			return this.$vuetify.breakpoint.mdAndUp ? window.innerWidth * 0.4 : window.innerWidth * 0.6;
+			return this.$vuetify.breakpoint.lgAndUp ? window.innerWidth * 0.4 : window.innerWidth * 0.6;
 		},
 		imageUrl() {
 			return this.item.imageUrl || '/placeholder.png';
@@ -59,6 +59,7 @@ export default {
 		},
 		title() {
 			let title;
+			const maxTitleLength = this.$vuetify.breakpoint.lgAndUp ? 60 : 40;
 
 			if (Array.isArray(this.item.title)) {
 				title = this.item.title[0] || this.$t('na');
@@ -66,12 +67,12 @@ export default {
 				title = this.item.title || this.$t('na');
 			}
 
-			if (title.length <= 60) {
+			if (title.length <= maxTitleLength) {
 				return title;
 			}
 
 			const cuttetTitle = title.split(' ').reduce((result, chunk) => {
-				if ((result + chunk).length <= 60) {
+				if ((result + chunk).length <= maxTitleLength) {
 					// eslint-disable-next-line no-param-reassign
 					result += `${chunk} `;
 				}

@@ -62,7 +62,7 @@ export default {
 			return this.lastTransform.k === this.maxZoomLevel;
 		},
 		useSmallButtons() {
-			return this.$vuetify.breakpoint.name !== 'xl';
+			return this.$vuetify.breakpoint.mdAndDown;
 		},
 		colors() {
 			return this.$vuetify.theme.isDark ? this.$vuetify.theme.themes.dark : this.$vuetify.theme.themes.light;

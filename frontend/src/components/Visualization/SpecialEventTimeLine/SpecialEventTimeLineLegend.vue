@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import colors from '../../../plugins/colors';
+import colors from '@/plugins/colors';
 
 export default {
 	name: 'SpecialEventTimeLineLegend',

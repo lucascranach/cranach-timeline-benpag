@@ -1,11 +1,13 @@
 <template>
 	<v-menu
+		id="category-filter"
 		offset-y
 		tile
 		:close-on-content-click="false"
 	>
 		<template v-slot:activator="{ on, attrs }">
 			<v-btn
+				id="category-filter-button"
 				outlined
 				block
 				v-bind="attrs"
@@ -15,7 +17,7 @@
 				{{ $t('category_filter') }}
 			</v-btn>
 		</template>
-		<v-card flat class="px-3 py-6">
+		<v-card flat class="px-3 py-6" id="category-filter-dropdown">
 			<v-switch
 				v-for="(category, i) in categoryList" :key="i"
 				v-model="selectedCategories"
@@ -46,7 +48,7 @@ export default {
 				{ name: 'archivals', value: 'archival' },
 			],
 			colors: colors.getCategoryColors(),
-			selectedCategories: [],
+			selectedCategories: ['painting', 'graphic', 'archival'],
 		};
 	},
 	computed: {
@@ -56,7 +58,7 @@ export default {
 	},
 	watch: {
 		selectedCategories() {
-			if (this.selectedCategories.length < 1) {
+			if (this.selectedCategories.length < 1 || this.selectedCategories.length === this.categoryList.length) {
 				this.removeFilter(this.$options.filterName);
 			} else {
 				this.applyCategoryFilter();
@@ -64,7 +66,7 @@ export default {
 		},
 		categoryFilter() {
 			if (this.categoryFilter === undefined) {
-				this.selectedCategories = [];
+				this.selectedCategories = this.categoryList.map((i) => i.value);
 			} else {
 				this.selectedCategories = this.categoryFilter.params.validCategories;
 			}

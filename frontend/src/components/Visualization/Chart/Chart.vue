@@ -1,6 +1,6 @@
 <template>
 	<div :id="chartDivId">
-		<ChartLegend />
+		<ChartLegend id="chart-legend" />
 		<ToolTipItem ref="tooltip" :id="tooltipDivId" class="chart-tooltip" :item="toolTipData" />
 		<ChartControlBar
 			class="chart-controls"
@@ -15,7 +15,6 @@
 
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex';
-import { event as currentEvent } from 'd3-selection';
 import d3 from '../../../plugins/d3-importer';
 import ToolTipItem from './ToolTipItem.vue';
 import colors from '../../../plugins/colors';
@@ -79,6 +78,7 @@ export default {
 			toolTipData: {},
 			maxSymbolSizeInPx: 36,
 			zoomLevels: [1, 10],
+			chartLegendHeight: 30,
 		};
 	},
 	mounted() {
@@ -105,7 +105,7 @@ export default {
 			return this.minWidth < this.width ? this.width : this.minWidth;
 		},
 		svgHeight() {
-			return this.minHeight < this.height ? this.height : this.minHeight;
+			return this.minHeight < this.height ? this.height - this.chartLegendHeight : this.minHeight;
 		},
 		displayWidth() {
 			return this.svgWidth - this.margin.left - this.margin.right;
@@ -136,10 +136,12 @@ export default {
 			// Our svg size includes the margins
 			this.svg = d3.select(`#${this.chartDivId}`)
 				.style('position', 'relative')
+				.style('height', `${this.height}px`)
 				.append('svg')
 				.attr('width', this.svgWidth)
 				.attr('height', this.svgHeight)
-				.append('g');
+				.append('g')
+				.on('touchstart', this.dismissToolTip, { passive: true });
 
 			// Define the div for the tooltip
 			this.tooltipDiv = d3.select(`#${this.tooltipDivId}`).style('visibility', 'hidden');
@@ -177,12 +179,19 @@ export default {
 				.append('g')
 				.attr('class', (d) => `dot dot-${d.id}`)
 				.attr('transform', (d) => `translate(${this.getXCoordinateOfItem(d)},${this.getYCoordinateOfItem(d)})`);
-
 			node.append('path')
 				.attr('d', this.getItemSymbol())
-				.attr('opacity', 1)
+				.attr('opacity', (d) => (d.imageUrl ? 1 : 0.5))
 				.attr('fill', (d) => colors.getCategoryColors()[d.type])
-				.on('mouseover', (d) => {
+				.on('touchstart mouseover', (event, d) => {
+					event.preventDefault();
+					const isTouchEvent = event.type === 'touchstart';
+
+					if (isTouchEvent) {
+						event.stopPropagation();
+						this.dismissToolTip();
+					}
+
 					d3.select(`.dot-${d.id} path`)
 						.attr('stroke', this.colors.primary)
 						.attr('stroke-width', 0.5)
@@ -190,31 +199,39 @@ export default {
 						.attr('transform', 'scale(1.5)');
 
 					this.toolTipData = d;
-					const left = window.innerWidth - currentEvent.pageX > this.$refs.tooltip.maxToolTipWidth
-						? currentEvent.pageX
+					this.toolTipData.isTouchDevice = isTouchEvent;
+
+					let pageX;
+					let pageY;
+					const boundingRect = d3.select(`#${this.chartDivId}`).node().getBoundingClientRect();
+					if (isTouchEvent) {
+						pageX = event.touches[0].pageX - boundingRect.x;
+						pageY = event.touches[0].pageY - event.touches[0].radiusY - boundingRect.y;
+					} else {
+						pageX = event.pageX - boundingRect.x;
+						pageY = event.pageY - boundingRect.y;
+					}
+
+					const left = window.innerWidth - pageX > this.$refs.tooltip.maxToolTipWidth
+						? pageX
 						: window.innerWidth - this.$refs.tooltip.maxToolTipWidth;
-					const xOffset = this.calculateToolTipXOffset(currentEvent.pageX, this.$refs.tooltip.maxToolTipWidth);
-					const yOffset = this.calculateToolTipY(currentEvent.pageY, this.$refs.tooltip.maxToolTipHeight);
+					const xOffset = this.calculateToolTipXOffset(pageX, this.$refs.tooltip.maxToolTipWidth);
+					const yOffset = this.calculateToolTipYOffset(pageY, this.$refs.tooltip.maxToolTipHeight);
 
 					this.tooltipDiv
 						.style('left', `${left}px`)
-						.style('top', `${currentEvent.layerY}px`)
-						.style('transform', `translate(${xOffset}%, ${yOffset}%)`)
-						.style('visibility', 'visible');
-				})
-				.on('mouseout', (d) => {
-					d3.select(`.dot-${d.id} path`)
-						.attr('stroke', 'none')
-						.attr('transform', 'scale(1)');
-
-					this.toolTipData = {};
-					this.tooltipDiv.style('visibility', 'hidden');
-				})
+						.style('top', `${pageY}px`)
+						.style('transform', `translate(${xOffset}%, ${yOffset}px)`)
+						.style('visibility', 'visible')
+						.style('pointer-events', isTouchEvent ? '' : 'none');
+				}, { passive: false })
+				.on('touchend', (event) => event.preventDefault(), { passive: false })
+				.on('mouseout', this.dismissToolTip, { passive: true })
 				.on('click', () => {
 					if (this.toolTipData.type !== 'graphic') {
 						window.open(`${this.toolTipData.detailUrl}`, '_blank');
 					}
-				});
+				}, { passive: true });
 		},
 		setupAxis() {
 			const yStack = {};
@@ -262,13 +279,15 @@ export default {
 			const extend = [[0, 0], [this.displayWidth, this.displayHeight]];
 			this.zoom = d3.zoom()
 				.extent(extend)
-				.scaleExtent(this.zoomLevels)
 				.translateExtent(extend)
+				.scaleExtent(this.zoomLevels)
 				.on('zoom', this.zoomed);
-			this.svg.call(this.zoom);
+			this.svg.call(this.zoom)
+				.on('wheel.zoom', null)
+				.on('dblclick.zoom', null);
 		},
-		zoomed() {
-			const { transform } = currentEvent;
+		zoomed(event) {
+			const { transform } = event;
 			// --- scaling axes to transformed value
 			this.gX.call(this.xAxis.scale(transform.rescaleX(this.x)));
 			this.gY.call(this.yAxis.scale(transform.rescaleY(this.y)));
@@ -286,7 +305,7 @@ export default {
 			this.setChartZoomTransform(transform);
 		},
 		calculateItemSymbolSize() {
-			if (this.scatterPlot === null) {
+			if (this.scatterPlot === null || this.scatterPlot.node() === null) {
 				return 6;
 			}
 			const symbolYPadding = 1;
@@ -305,6 +324,14 @@ export default {
 			const size = this.calculateItemSymbolSize();
 			return d3.symbol().type(d3.symbolSquare).size(size ** 2);
 		},
+		dismissToolTip() {
+			d3.select(`.dot-${this.toolTipData.id} path`)
+				.attr('stroke', 'none')
+				.attr('transform', 'scale(1)');
+
+			this.toolTipData = {};
+			this.tooltipDiv.style('visibility', 'hidden');
+		},
 		calculateToolTipXOffset(mouseX, toolTipWidth) {
 			let xOffset = -50;
 			const toolTipHalfWidth = toolTipWidth / 2;
@@ -317,12 +344,11 @@ export default {
 
 			return xOffset;
 		},
-		calculateToolTipY(mouseY, toolTipHeight, margin = 10) {
-			const percentageValueOfMargin = (margin / toolTipHeight) * 100;
+		calculateToolTipYOffset(mouseY, toolTipHeight, margin = 10) {
 			if (mouseY - toolTipHeight - margin < 0) {
-				return percentageValueOfMargin;
+				return margin;
 			}
-			return -100 - percentageValueOfMargin;
+			return -toolTipHeight - margin;
 		},
 		getXCoordinateOfItem({ sortingDate, startDate }) {
 			const sortingYear = sortingDate ? Math.floor(sortingDate) : startDate;
@@ -352,6 +378,9 @@ export default {
 </script>
 
 <style lang="scss">
+#cranach-chart svg {
+	touch-action: pan-y !important;
+}
 .axis.xaxis text {
 	fill: var(--v-primary-lighten1);
 }
@@ -376,7 +405,6 @@ export default {
 	top: 0;
 	left: 0;
 	overflow: hidden;
-	pointer-events: none;
 	z-index: 999999;
 }
 

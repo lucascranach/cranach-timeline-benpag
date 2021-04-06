@@ -1,6 +1,7 @@
 <template>
 	<v-sheet class="chart-control-bar pa-3">
 		<v-btn
+			id="chart-control-bar-zoom-in"
 			class="mb-2"
 			block outlined icon
 			:color="colors.primary"
@@ -11,6 +12,7 @@
 			<v-icon :small="useSmallButtons" >mdi-plus</v-icon>
 		</v-btn>
 		<v-btn
+			id="chart-control-bar-zoom-reset"
 			class="my-2"
 			block outlined icon
 			:color="colors.primary"
@@ -21,6 +23,7 @@
 			<v-icon :small="useSmallButtons">mdi-restore</v-icon>
 		</v-btn>
 		<v-btn
+			id="chart-control-bar-zoom-out"
 			class="mt-2"
 			block outlined icon
 			:color="colors.primary"
@@ -59,7 +62,7 @@ export default {
 			return this.lastTransform.k === this.maxZoomLevel;
 		},
 		useSmallButtons() {
-			return this.$vuetify.breakpoint.name !== 'xl';
+			return this.$vuetify.breakpoint.mdAndDown;
 		},
 		colors() {
 			return this.$vuetify.theme.isDark ? this.$vuetify.theme.themes.dark : this.$vuetify.theme.themes.light;

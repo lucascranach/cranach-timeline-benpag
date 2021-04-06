@@ -1,6 +1,6 @@
 import Vue from 'vue';
-import Vuetify from 'vuetify/lib/framework';
-import colors from '@/plugins/colors';
+import Vuetify from 'vuetify';
+import colors from './colors';
 
 Vue.use(Vuetify);
 
@@ -26,6 +26,7 @@ export default new Vuetify({
 				lighten2: colors.lighten2,
 				lighten3: colors.lighten3,
 				lighten4: colors.lighten4,
+				grey: colors.primary,
 				dark: colors.dark,
 			},
 			dark: {
@@ -47,6 +48,8 @@ export default new Vuetify({
 				lighten2: colors.lighten3,
 				lighten3: colors.lighten2,
 				lighten4: colors.lighten1,
+				grey: colors.primary,
+				dark: colors.dark,
 			},
 		},
 		options: {

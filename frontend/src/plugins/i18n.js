@@ -13,10 +13,10 @@ const messages = {
 		occured_in: 'aufgetreten in',
 		paintings: 'Gemälde',
 		painting: 'Gemälde',
-		graphics: 'Zeichnungen',
-		graphic: 'Zeichnung',
+		graphics: 'Druckgrafiken',
+		graphic: 'Druckgrafiken',
 		archivals: 'Archivalien',
-		archival: 'Archivalie',
+		archival: 'Archivalien',
 		fulltext: 'Volltext',
 		search: 'Suche',
 		category: 'Kategorie',
@@ -48,6 +48,8 @@ const messages = {
 		cranach_younger: 'Cranach der Jüngere',
 		luther: 'Martin Luther',
 		history: 'Historische Ereignisse',
+		miscellaneous: 'Sonstiges',
+		further_information: 'Der Suchbegriff wurde in den weiteren Informationen gefunden',
 	},
 	en: {
 		cranach_timeline: 'Cranach Timeline',
@@ -93,6 +95,9 @@ const messages = {
 		cranach_younger: 'Cranach the Younger',
 		luther: 'Martin Luther',
 		history: 'Historical Events',
+		miscellaneous: 'Miscellaneous',
+		further_information: 'The search term was found in the further information',
+
 	},
 };
 

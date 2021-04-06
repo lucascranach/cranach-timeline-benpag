@@ -1,11 +1,13 @@
 <template>
 	<v-menu
+		id="location-filter"
 		offset-y
 		tile
 		:close-on-content-click="false"
 	>
 		<template v-slot:activator="{ on, attrs }">
 			<v-btn
+				id="location-filter-button"
 				outlined
 				block
 				v-bind="attrs"
@@ -15,13 +17,15 @@
 				{{ $t('location_filter') }}
 			</v-btn>
 		</template>
-		<v-card flat class="px-3 py-6">
+		<v-card id="location-filter-dropdown" flat class="px-3 py-6">
 			<v-autocomplete
 			v-model="selectedLocations"
 			:items="this.getLocations()"
 			:label="$t('location_filter')"
 			multiple
 			chips
+			ref="autocompleteText"
+			@change="removeAutocompleteTextInput()"
 			>
 			<template v-slot:selection="data">
 				<v-chip
@@ -94,6 +98,9 @@ export default {
 		},
 		removeAutocompleteChip(chipName) {
 			this.selectedLocations.splice(this.selectedLocations.indexOf(chipName), 1);
+		},
+		removeAutocompleteTextInput() {
+			this.$refs.autocompleteText.lazySearch = '';
 		},
 	},
 };

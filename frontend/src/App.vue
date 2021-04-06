@@ -1,26 +1,12 @@
 <template>
 	<v-app class="no-transition">
-		<v-app-bar app short flat>
-			<v-badge
-				class="filter-badge"
-				:value="activeFilters.length > 0"
-				:content="activeFilters.length"
-				right
-				offset-y="40"
-				offset-x="20"
-				overlap
-			>
-				<v-btn
-					icon
-					@click="() => this.showFilters = !this.showFilters"
-				>
-					<v-icon large>mdi-filter</v-icon>
-				</v-btn>
-			</v-badge>
+		<v-app-bar app short flat color="transparent" class="app-bar-border" >
 			<img
 				:class="['timeline-logo', this.$vuetify.theme.isDark ? 'timeline-logo-invert' : '']"
-				src="/Cranach_Timeline.png" alt="Logo"
+				src="Cranach_Timeline.png" alt="Logo"
 			/>
+			<v-spacer />
+			<Filters v-if="this.$vuetify.breakpoint.mdAndUp" style="min-width: 55%"/>
 			<v-spacer />
 			<v-switch
 				class="theme-switch"
@@ -29,25 +15,25 @@
 				flat
 				inset
 				hide-details
-				prepend-icon="mdi-brightness-5"
+				prepend-icon="mdi-white-balance-sunny"
 				append-icon="mdi-brightness-3"
 			/>
 			<v-sheet class="pr-3" color="transparent">
 				<button
 					v-for="(entry, index) in languages" :key="entry.title"
 					class="language-btn"
-					@click="changeLocale(entry.language)"
+					@click="changeLocale(entry.language, index)"
 				>
-					{{ entry.title }}
+					<span v-bind:class="{'language-btn-underline': languages[index].isActive}">{{ entry.title }}</span>
 					<span v-if="index < languages.length - 1" class="language-btn-divider">|</span>
 				</button>
 			</v-sheet>
 		</v-app-bar>
 		<v-main>
-			<v-container fluid class="px-6 pt-1">
-				<FilterComponent :showFilters="showFilters"/>
+			<v-container fluid :class="[this.$vuetify.breakpoint.mdAndUp && this.isFilterActive ? 'mt-7' : '']">
 				<loading :active.sync="isLoading"/>
-                <Visualization/>
+				<Filters v-if="this.$vuetify.breakpoint.smAndDown"/>
+				<Visualization/>
 			</v-container>
 		</v-main>
 	</v-app>
@@ -58,13 +44,13 @@ import { mapState, mapActions } from 'vuex';
 import Loading from 'vue-loading-overlay';
 import i18n from '@/plugins/i18n';
 import Visualization from './components/Visualization/Visualisation.vue';
-import FilterComponent from './components/Filters/Filters.vue';
+import Filters from './components/Filters/Filters.vue';
 import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
 	name: 'App',
 	components: {
-		FilterComponent,
+		Filters,
 		Visualization,
 		Loading,
 	},
@@ -72,8 +58,12 @@ export default {
 		return {
 			showFilters: true,
 			languages: [
-				{ flag: 'de', language: 'de', title: 'DE' },
-				{ flag: 'gb', language: 'en', title: 'EN' },
+				{
+					flag: 'de', language: 'de', title: 'DE', isActive: i18n.locale === 'de',
+				},
+				{
+					flag: 'gb', language: 'en', title: 'EN', isActive: i18n.locale === 'en',
+				},
 			],
 		};
 	},
@@ -84,7 +74,7 @@ export default {
 	computed: {
 		...mapState({
 			isLoading: (state) => state.isLoading,
-			activeFilters: (state) => state.activeFilters,
+			isFilterActive: (state) => state.activeFilters.length > 0,
 		}),
 		colors() {
 			return this.$vuetify.theme.isDark ? this.$vuetify.theme.themes.dark : this.$vuetify.theme.themes.light;
@@ -95,8 +85,14 @@ export default {
 			'applyFilter',
 			'loadData',
 		]),
-		async changeLocale(locale) {
+		async changeLocale(locale, index) {
 			i18n.locale = locale;
+			this.languages.forEach((lang) => {
+				// Reason: We want to manipulate json entries here direct
+				// eslint-disable-next-line no-param-reassign
+				lang.isActive = false;
+			});
+			this.languages[index].isActive = true;
 			await this.loadData();
 			this.applyFilter();
 		},
@@ -105,6 +101,9 @@ export default {
 </script>
 
 <style>
+.app-bar-border > div {
+	border-bottom: 1px solid var(--v-grey-base);
+}
 .v-badge__badge {
 	color: var(--v-lighten-base) !important;
 }
@@ -114,11 +113,9 @@ export default {
 }
 
 .timeline-logo {
-	position: absolute;
+	position: relative;
 	width: auto;
 	height: 80%;
-	left: 50%;
-	transform: translateX(-50%);
 }
 
 .filter-badge {
@@ -151,6 +148,10 @@ export default {
 
 .language-btn-divider {
 	padding: 0 5px;
+}
+
+.language-btn-underline {
+    text-decoration: underline;
 }
 
 .no-transition * {
